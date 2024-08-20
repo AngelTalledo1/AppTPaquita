@@ -60,12 +60,24 @@
 	  <None Remove="Resources\Fonts\example-js.html" />
 	  <None Remove="Resources\Fonts\Lato-Bold.ttf" />
 	  <None Remove="Resources\Fonts\Lato-Regular.ttf" />
+	  <None Remove="Resources\Images\admin.png" />
 	  <None Remove="Resources\Images\agg.png" />
+	  <None Remove="Resources\Images\barril.png" />
 	  <None Remove="Resources\Images\camion.png" />
+	  <None Remove="Resources\Images\cargando.png" />
+	  <None Remove="Resources\Images\cliente2.png" />
 	  <None Remove="Resources\Images\contra.png" />
 	  <None Remove="Resources\Images\entrega.png" />
+	  <None Remove="Resources\Images\informe.png" />
+	  <None Remove="Resources\Images\intclientes.png" />
 	  <None Remove="Resources\Images\logo.png" />
+	  <None Remove="Resources\Images\paquita.png" />
+	  <None Remove="Resources\Images\paquitatext.png" />
+	  <None Remove="Resources\Images\pedido2.png" />
+	  <None Remove="Resources\Images\petro11.png" />
 	  <None Remove="Resources\Images\ruta.png" />
+	  <None Remove="Resources\Images\rutamen.png" />
+	  <None Remove="Resources\Images\transporte.png" />
 	  <None Remove="Resources\Images\usu.png" />
 	  <None Remove="Resources\raw\highway_and_vehicles.mov" />
 	  <None Remove="Resources\raw\video.mp4" />
@@ -89,6 +101,15 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\Evidencias.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\MenuPrincipal.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VEclientes.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VEpedidos.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

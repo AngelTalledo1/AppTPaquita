@@ -1,78 +1,72 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
              x:Class="AppTransporte.Interfaces.Login"
-             
              Title="Login">
     <Grid RowDefinitions=".4*, .6*">
-        <Image Aspect="AspectFill" Source="logo.png"/>
-        <Grid BackgroundColor="#515a5a" Opacity=".85"/>
+        <Image Aspect="AspectFill"
+               Source="logo.png" />
+        <Grid BackgroundColor="#515a5a"
+              Opacity=".85" />
         <Grid>
-            <Image 
-                   HeightRequest="400"
+            <Image HeightRequest="400"
                    WidthRequest="400"
-                   Source="ruta.png"/>
-         
+                   Source="ruta.png" />
         </Grid>
         <Grid Grid.Row="1">
             <RoundRectangle Margin="-5,-30,-5,-2"
                             CornerRadius="30,30,0,0"
-                            Fill="#f4f6f7"/>
-            <VerticalStackLayout Margin="30,0,30,0" Spacing="4">
+                            Fill="#f4f6f7" />
+            <VerticalStackLayout Margin="30,0,30,0"
+                                 Spacing="4">
                 <Label FontAttributes="Bold"
                        FontFamily="bold"
                        FontSize="25"
                        HorizontalOptions="Center"
                        Text="¡Bienvenido!"
-                       TextColor="black"/>
+                       TextColor="black" />
                 <Label FontFamily="midium"
                        HorizontalOptions="Center"
                        Text="Ingresa para continuar"
-                    
-                       TextColor="black"/>
-                
-                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
-                    
+                       TextColor="black" />
+                <Grid Margin="0,30,0,0"
+                      ColumnDefinitions=".2*,.8*">
                     <Image  Source="usu.png"
+                            HeightRequest="40"
+                            WidthRequest="40"></Image>
+                    <Entry Grid.Column="1"
+                           Placeholder="Usuario"
+                           PlaceholderColor="#515a5a"
+                           FontAttributes="Italic"
+                           VerticalOptions="Center" />
+                </Grid>
+                <Grid Margin="0,30,0,0"
+                      ColumnDefinitions=".2*,.8*">
+                    <Image WidthRequest="40"
                            HeightRequest="40"
-                           WidthRequest="40">
-                    </Image>
-                    <Entry 
-                               Grid.Column="1"
-                               Placeholder="Usuario"
-                               PlaceholderColor="#515a5a"
-                               FontAttributes="Italic"
-                                
-                               VerticalOptions="Center"/>
+                           Source="contra.png"
+                           HorizontalOptions="Center"></Image>
+                    <Entry PlaceholderColor="#515a5a"
+                           Grid.Column="1"
+                           Placeholder="Contraseña"
+                           IsPassword="True"
+                           FontAttributes="Italic"
+                           VerticalOptions="Center" />
                 </Grid>
-                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
-                    
-                    <Image 
-                        WidthRequest="40" HeightRequest="40"
-                       Source="contra.png" HorizontalOptions="Center">
-                        
-                    </Image>
-                    <Entry 
-                    PlaceholderColor="#515a5a"
-                    Grid.Column="1"
-                    Placeholder="Contraseña"
-                    IsPassword="True"   
-                    FontAttributes="Italic"
-                
-                     VerticalOptions="Center"/>
-                </Grid>
-                <Button
-                    Margin="0,20,0,0"
-                    BackgroundColor="#cb4335"
-                    HeightRequest="60"
-                    Text="Ingresar"
-                    TextColor="#FBF6FD"/>
-                <Label Margin="0,20,0,-10"
+                <Button Margin="0,20,0,0"
+                        BackgroundColor="#cb4335"
+                        HeightRequest="60"
+                        Clicked="Ingresar_Clicked"
+                        Text="Ingresar"
+                        TextColor="#FBF6FD" />
+                <Label Margin="0,20,0,30"
                        HorizontalOptions="Center"
                        Text="Olvidaste tu contraseña?"
-                       TextColor="red"
-                       TextDecorations="Underline"/>
-               
+                       TextColor="Blue"
+                       TextDecorations="Underline" />
+                <Image Source="paquitatext.png"
+                       WidthRequest="150"/>
             </VerticalStackLayout>
         </Grid>
     </Grid>

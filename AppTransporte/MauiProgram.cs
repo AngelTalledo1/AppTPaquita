@@ -17,7 +17,7 @@ namespace AppTransporte
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Lato-Bold.ttf", "bold");
                     fonts.AddFont("Lato-Regular.ttf", "midium");
-                    fonts.AddFont("example-js.html", "correo");
+                    fonts.AddFont("example-js.html", "correo"); 
                 });
 
 #if DEBUG

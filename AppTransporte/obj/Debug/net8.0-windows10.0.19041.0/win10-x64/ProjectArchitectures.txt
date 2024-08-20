@@ -1,1 +1,1 @@
-C:\Users\angel\source\repos\AppTransporte\AppTransporte\AppTransporte.csproj;x64
+C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\AppTransporte.csproj;x64

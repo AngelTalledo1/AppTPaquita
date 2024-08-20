@@ -12,47 +12,59 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AppTransporte
-build_property.ProjectDir = C:\Users\angel\source\repos\AppTransporte\AppTransporte\
+build_property.ProjectDir = C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[C:/Users/angel/source/repos/AppTransporte/AppTransporte/App.xaml]
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
-[C:/Users/angel/source/repos/AppTransporte/AppTransporte/AppShell.xaml]
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/AppShell.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.AppShell.xaml
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
-[C:/Users/angel/source/repos/AppTransporte/AppTransporte/Interfaces/Evidencias.xaml]
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/Evidencias.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.Evidencias.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\Evidencias.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\Evidencias.xaml
 
-[C:/Users/angel/source/repos/AppTransporte/AppTransporte/Interfaces/Login.xaml]
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/Login.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.Login.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\Login.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\Login.xaml
 
-[C:/Users/angel/source/repos/AppTransporte/AppTransporte/MainPage.xaml]
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/MenuPrincipal.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.MainPage.xaml
-build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
-build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.MenuPrincipal.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\MenuPrincipal.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\MenuPrincipal.xaml
 
-[C:/Users/angel/source/repos/AppTransporte/AppTransporte/Resources/Styles/Colors.xaml]
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEclientes.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEclientes.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEclientes.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEclientes.xaml
+
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEpedidos.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEpedidos.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEpedidos.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEpedidos.xaml
+
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Resources.Styles.Colors.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
 
-[C:/Users/angel/source/repos/AppTransporte/AppTransporte/Resources/Styles/Styles.xaml]
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml

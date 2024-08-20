@@ -6,4 +6,9 @@ public partial class Login : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private void Ingresar_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new MenuPrincipal());
+    }
 }
