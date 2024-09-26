@@ -20,6 +20,7 @@
                             Fill="#f4f6f7" />
             <VerticalStackLayout Margin="30,0,30,0"
                                  Spacing="4">
+          
                 <Label FontAttributes="Bold"
                        FontFamily="bold"
                        FontSize="25"
@@ -30,18 +31,44 @@
                        HorizontalOptions="Center"
                        Text="Ingresa para continuar"
                        TextColor="black" />
-                <Grid Margin="0,30,0,0"
+                <Label Text="Seleccione el tipo de usuario:"
+         FontSize="Small"
+         Margin="20,20,0,0"/>
+                <Grid Margin="0,10,0,0"
+                    ColumnDefinitions=".2*,.8*">
+                    <Image  Source="tuser.png"
+                                HeightRequest="40"
+                                WidthRequest="40"></Image>
+                    <Picker x:Name="tipoUsuarios"
+                             Title="Escoge una opción"
+                TitleColor="Gray"
+                Margin="0,0,0,0" Grid.Column="1"
+                   FontAttributes="Italic"      >
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Transportista</x:String>
+                                <x:String>Cliente</x:String>
+                                <x:String>Administrador</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </Grid>
+                <Grid Margin="0,10,0,0"
                       ColumnDefinitions=".2*,.8*">
                     <Image  Source="usu.png"
                             HeightRequest="40"
                             WidthRequest="40"></Image>
                     <Entry Grid.Column="1"
                            Placeholder="Usuario"
+                           MaxLength="8"
+                           x:Name="usuarioEntry"
+                           Keyboard="Numeric"
+                           TextChanged="OnNumeroEntryTextChanged"
                            PlaceholderColor="#515a5a"
                            FontAttributes="Italic"
                            VerticalOptions="Center" />
                 </Grid>
-                <Grid Margin="0,30,0,0"
+                <Grid Margin="0,10,0,0"
                       ColumnDefinitions=".2*,.8*">
                     <Image WidthRequest="40"
                            HeightRequest="40"
@@ -49,6 +76,7 @@
                            HorizontalOptions="Center"></Image>
                     <Entry PlaceholderColor="#515a5a"
                            Grid.Column="1"
+                           x:Name="contraseñaEntry"
                            Placeholder="Contraseña"
                            IsPassword="True"
                            FontAttributes="Italic"
@@ -60,11 +88,16 @@
                         Clicked="Ingresar_Clicked"
                         Text="Ingresar"
                         TextColor="#FBF6FD" />
-                <Label Margin="0,20,0,30"
+                <Label x:Name="MensajeError"
+                       TextColor="Red"
+                       IsVisible="False" />
+                <Button Margin="0,20,0,0"
                        HorizontalOptions="Center"
+                        BackgroundColor="Transparent"
                        Text="Olvidaste tu contraseña?"
                        TextColor="Blue"
-                       TextDecorations="Underline" />
+                        Clicked="Olvide_contra"
+                BorderWidth="0"/>
                 <Image Source="paquitatext.png"
                        WidthRequest="150"/>
             </VerticalStackLayout>

@@ -11617,7 +11617,8 @@ public final class R {
     public static final int tooltip_frame_dark=0x7f0700f5;
     public static final int tooltip_frame_light=0x7f0700f6;
     public static final int transporte=0x7f0700f7;
-    public static final int usu=0x7f0700f8;
+    public static final int tuser=0x7f0700f8;
+    public static final int usu=0x7f0700f9;
   }
   public static final class id {
     public static final int ALT=0x7f080000;
