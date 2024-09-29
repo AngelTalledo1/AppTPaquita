@@ -17,4 +17,9 @@ public partial class MenuPrincipal : ContentPage
     {
         Navigation.PushAsync(new VEclientes());
     }
+
+    private void Btn_atrasMenuPrincipal(object sender, EventArgs e)
+    {
+        Navigation.PopAsync();
+    }
 }

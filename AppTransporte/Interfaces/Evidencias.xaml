@@ -5,7 +5,7 @@
              Title="Evidencias">
 
     <Grid RowDefinitions=".6*,.4*">
-        <Grid BackgroundColor="red" Opacity=".8">
+        <Grid BackgroundColor="#cb4335" Opacity=".8">
             
         </Grid>
     </Grid>

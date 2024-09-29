@@ -24,6 +24,9 @@
     <MauiXaml Update="Interfaces\MenuPrincipal.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Interfaces\VEagregarCliente.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Interfaces\VEclientes.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
