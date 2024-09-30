@@ -44,7 +44,6 @@
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
@@ -57,16 +56,27 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Comfortaa-Bold.ttf" />
+	  <None Remove="Resources\Fonts\Comfortaa-Medium.ttf" />
+	  <None Remove="Resources\Fonts\Comfortaa-Regular.ttf" />
+	  <None Remove="Resources\Fonts\Comfortaa-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\Comfortaa-VariableFont_wght.ttf" />
 	  <None Remove="Resources\Fonts\example-js.html" />
 	  <None Remove="Resources\Fonts\Lato-Bold.ttf" />
 	  <None Remove="Resources\Fonts\Lato-Regular.ttf" />
 	  <None Remove="Resources\Images\admin.png" />
 	  <None Remove="Resources\Images\agg.png" />
+	  <None Remove="Resources\Images\atras.png" />
 	  <None Remove="Resources\Images\barril.png" />
 	  <None Remove="Resources\Images\camion.png" />
 	  <None Remove="Resources\Images\cargando.png" />
 	  <None Remove="Resources\Images\cliente2.png" />
 	  <None Remove="Resources\Images\contra.png" />
+	  <None Remove="Resources\Images\detalles.png" />
+	  <None Remove="Resources\Images\direccion.png" />
+	  <None Remove="Resources\Images\edit.png" />
+	  <None Remove="Resources\Images\eliminar.png" />
+	  <None Remove="Resources\Images\email.png" />
 	  <None Remove="Resources\Images\entrega.png" />
 	  <None Remove="Resources\Images\informe.png" />
 	  <None Remove="Resources\Images\intclientes.png" />
@@ -77,13 +87,18 @@
 	  <None Remove="Resources\Images\petro11.png" />
 	  <None Remove="Resources\Images\ruta.png" />
 	  <None Remove="Resources\Images\rutamen.png" />
+	  <None Remove="Resources\Images\telefono.png" />
+	  <None Remove="Resources\Images\tipodoc.png" />
 	  <None Remove="Resources\Images\transporte.png" />
 	  <None Remove="Resources\Images\usu.png" />
+	  <None Remove="Resources\Images\usuario.png" />
 	  <None Remove="Resources\raw\highway_and_vehicles.mov" />
 	  <None Remove="Resources\raw\video.mp4" />
+	  <None Remove="Resources\Splash\paquita.png" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -104,6 +119,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\MenuPrincipal.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VEagregarCliente.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEclientes.xaml">

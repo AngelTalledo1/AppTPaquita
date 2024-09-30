@@ -18,7 +18,7 @@ namespace AppTransporte.viewModel
 
         private List<Clientes> _clientes;
 
-        public List<Clientes> clientes
+        public List<Clientes>   clientes
         {
             get
             {
@@ -36,10 +36,10 @@ namespace AppTransporte.viewModel
         {
             clientes = new List<Clientes>
             {
-                new Clientes { nombre = "Juan Perez", telefono = 959698988 },
-                new Clientes { nombre = "luana sanchez", telefono = 959698988 },
-                new Clientes { nombre = "angel Perez", telefono = 959698988 },
-                new Clientes { nombre = "alexander Perez", telefono = 959698988 }
+                new Clientes { nombre = "S.A ECOSAC", telefono = 959698988, DNI= 73376698 },
+                new Clientes { nombre = "Luana Sanchez Pizarro", telefono = 959698988, DNI= 7345655 },
+                new Clientes { nombre = "Angel Jair Garcia Perez", telefono = 959698988, DNI= 73372342 },
+                new Clientes { nombre = "Alexander Talledo Perez", telefono = 959698988 , DNI= 733766324}
             };
         }
     }

@@ -10,5 +10,6 @@ namespace AppTransporte.model
     {
         public string nombre { get; set; }
         public int telefono { get; set; }
+        public int DNI { get; set; }
     }
 }

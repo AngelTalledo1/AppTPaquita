@@ -4,18 +4,23 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using AppTransporte.model;
+using Java.Time;
 
 namespace AppTransporte.viewModel
 {
     public class VMPedidos : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public ICommand VerDetallesCommand { get; set; }
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        
+        
         private List<Pedidos> _pedido;
 
         public List<Pedidos> Pedido
@@ -110,7 +115,22 @@ namespace AppTransporte.viewModel
             };
 
             PedidosFiltrados = Pedido;
+            VerDetallesCommand = new Command<Pedidos>(async (pedido) => await VerDetallesPedido(pedido));
         }
+
+        private async Task VerDetallesPedido(Pedidos pedido)
+        {
+            if (pedido != null)
+            {
+                // Muestra una ventana emergente con información del pedido seleccionado
+                await Application.Current.MainPage.DisplayAlert("Pedido Seleccionado",
+                                    $"Número de Pedido: {pedido.Numero}\n" +
+                                    $"Peso: {pedido.cantidad}\n" +
+                                    $"Estado: {pedido.estado}",
+                                    "OK");
+            }
+        }
+
 
         private void FiltrarPedidos()
         {

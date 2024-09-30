@@ -3,50 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:VME="clr-namespace:AppTransporte.viewModel"
              NavigationPage.HasNavigationBar="False"
-             x:Class="AppTransporte.Interfaces.VEpedidos"
-             Title="VEpedidos">
+             x:Class="AppTransporte.Interfaces.VEpedidos">
     <ContentPage.BindingContext>
         <VME:VMPedidos />
     </ContentPage.BindingContext>
-    <Grid RowDefinitions=".1*,.9*"
-          BackgroundColor="Red">
-        <Grid BackgroundColor="Red"
-              Opacity="0.8" />
-        <Grid ColumnDefinitions=".6*,.4*">
+    <Grid RowDefinitions=".07*,.9*"
+          BackgroundColor="#cb4335">
+        <Grid ColumnDefinitions=".1*,.9*">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atrasPedidos"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   HeightRequest="20"
+                   WidthRequest="20"
+                   Margin="20,20,0,0" />
             <Label Text="Pedidos"
-                   FontSize="40"
-                   FontAttributes="Bold"
-                   TextColor="White"
-                   HorizontalOptions="Start"
-                   VerticalOptions="Center"
-                   Margin="30,0,0,0" />
-            <Grid Grid.Column="1">
-                <Image Source="petro11.png"
-                       HorizontalOptions="End"
-                       WidthRequest="250"
-                       HeightRequest="200" />
-            </Grid>
+                       FontSize="20"
+                       FontFamily="Comf-Bold"
+                       Grid.Column="1"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       Margin="30,20,0,0" />
+
         </Grid>
         <Grid Grid.Row="1"
-              RowDefinitions=".1*,.9">
-            <RoundRectangle CornerRadius="30,30,0,0"
+              RowDefinitions=".1*">
+            <RoundRectangle CornerRadius="0,0,0,0"
                             Fill="#FBF6FD" />
-            <HorizontalStackLayout  Margin="15"
+            <HorizontalStackLayout  Margin="15,10,15,15"
                                     Spacing="20"
                                     VerticalOptions="Start"
                                     HorizontalOptions="Center">
-                <Frame  HeightRequest="50"
+                <Frame  HeightRequest="40"
                         WidthRequest="100"
                         Padding="0"
                         BackgroundColor="#b7bdbd">
                     <Picker Title="Estado"
                             TitleColor="Black"
                             HorizontalTextAlignment="Center"
-                            FontAttributes="Bold"
+                            FontFamily="Comf-SemBold"
                             ItemsSource="{Binding Estados}"
                             SelectedItem="{Binding EstadoSeleccionado}" />
                 </Frame>
-                <Frame  HeightRequest="50"
+                <Frame  HeightRequest="40"
                         WidthRequest="100"
                         Padding="0"
                         BackgroundColor="#b7bdbd">
@@ -54,45 +55,58 @@
                            PlaceholderColor="#515a5a"
                            HorizontalTextAlignment="Center"
                            TextColor="Black"
-                           FontAttributes="Bold"
+                           FontFamily="Comf-SemBold"
                            Text="{Binding Numero}" />
                 </Frame>
             </HorizontalStackLayout>
-            <ScrollView Margin="10,70,0,20">
+            <ScrollView Margin="10,55,0,20">
                 <VerticalStackLayout>
                     <CollectionView x:Name="PedidosCollectionView"
                                     ItemsSource="{Binding PedidosFiltrados  }"
-                                    SelectionMode="None">
+                                    SelectionMode="Single"
+                                    SelectionChanged="PedidosCollectionView_SelectionChanged">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Frame BackgroundColor="#515a5a"
-                                       Opacity="0.85"
+                                       Opacity="0.8"
                                        Margin="0,10,0,0"
+                                       Padding="0"
                                        WidthRequest="400"
                                        HeightRequest="80"
                                        HasShadow="False"
-                                       CornerRadius="20">
-                                    <Grid ColumnDefinitions=".15*,.3*,.3*,.25*">
+                                       CornerRadius="10"
+                                       BorderColor="Transparent">
+                                    <Grid ColumnDefinitions=".15*,.35*,.35*,.15 *">
                                         <Image  Source="{Binding imagen}"
-                                                HorizontalOptions="Start" />
+                                                HorizontalOptions="Center"
+                                                WidthRequest="50" />
                                         <Grid Grid.Column="1"
                                               RowDefinitions=".5*,.5*">
                                             <Label Text="{Binding Numero}"
                                                    TextColor="White"
-                                                   FontAttributes="Bold"
+                                                   FontFamily="Comf-Bold"
                                                    HorizontalOptions="Start"
-                                                   VerticalOptions="StartAndExpand" />
+                                                   VerticalOptions="End" />
                                             <Label Grid.Row="1"
                                                    Text="{Binding cantidad}"
                                                    TextColor="white"
-                                                   HorizontalOptions="Start" />
+                                                   FontFamily="Comf-SemBold"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Start" />
                                         </Grid>
-                                        <Grid Grid.Column="3">
+                                        <Grid Grid.Column="2">
                                             <Label Text="{Binding estado}"
-                                                   TextColor="Red"
-                                                   FontAttributes="Bold,Italic"
+                                                   TextColor="Black"
+                                                   FontFamily="Comf-Bold"
                                                    HorizontalOptions="Center"
                                                    VerticalOptions="Center" />
+                                        </Grid>
+                                        <Grid Grid.Column="3">
+                                            <Button BackgroundColor="Transparent"
+                                                    Command="{Binding Source={x:Reference PedidosCollectionView}, Path=BindingContext.VerDetallesCommand}"
+                                                    CommandParameter="{Binding .}" />
+                                            <Image Source="detalles.png"
+                                                   WidthRequest="20" />
                                         </Grid>
                                     </Grid>
                                 </Frame>

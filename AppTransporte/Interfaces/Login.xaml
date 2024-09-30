@@ -20,13 +20,12 @@
                             Fill="#f4f6f7" />
             <VerticalStackLayout Margin="30,0,30,0"
                                  Spacing="4">
-                <Label FontAttributes="Bold"
-                       FontFamily="bold"
+                <Label FontFamily="Comfortaa-Bold.ttf"
                        FontSize="25"
                        HorizontalOptions="Center"
                        Text="¡Bienvenido!"
                        TextColor="black" />
-                <Label FontFamily="midium"
+                <Label FontFamily="Comfortaa-Medium.ttf"
                        HorizontalOptions="Center"
                        Text="Ingresa para continuar"
                        TextColor="black" />
@@ -37,8 +36,9 @@
                             WidthRequest="40"></Image>
                     <Entry Grid.Column="1"
                            Placeholder="Usuario"
+                           x:Name="usuarioEntry"
                            PlaceholderColor="#515a5a"
-                           FontAttributes="Italic"
+                           FontFamily="Comfortaa-Regular.ttf"
                            VerticalOptions="Center" />
                 </Grid>
                 <Grid Margin="0,30,0,0"
@@ -49,9 +49,10 @@
                            HorizontalOptions="Center"></Image>
                     <Entry PlaceholderColor="#515a5a"
                            Grid.Column="1"
+                           x:Name="contraseñaEntry"
                            Placeholder="Contraseña"
                            IsPassword="True"
-                           FontAttributes="Italic"
+                           FontFamily="Comfortaa-VariableFont_wght.ttf"
                            VerticalOptions="Center" />
                 </Grid>
                 <Button Margin="0,20,0,0"
@@ -59,11 +60,17 @@
                         HeightRequest="60"
                         Clicked="Ingresar_Clicked"
                         Text="Ingresar"
+                        FontFamily="Comfortaa-Bold.ttf"
                         TextColor="#FBF6FD" />
+                <Label x:Name="MensajeError"
+                       TextColor="Red"
+                       IsVisible="False"
+                       FontFamily="Comfortaa-SemiBold.ttf"/>
                 <Label Margin="0,20,0,30"
                        HorizontalOptions="Center"
                        Text="Olvidaste tu contraseña?"
                        TextColor="Blue"
+                       FontFamily="Comfortaa-VariableFont_wght.ttf"
                        TextDecorations="Underline" />
                 <Image Source="paquitatext.png"
                        WidthRequest="150"/>
