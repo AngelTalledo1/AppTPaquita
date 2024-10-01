@@ -36,11 +36,23 @@ build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.L
 build_metadata.AdditionalFiles.TargetPath = Interfaces\Login.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\Login.xaml
 
+[C:/Users/gudal/OneDrive/Documentos/PaquitaApp/AppTPaquita/AppTransporte/Interfaces/MenuCliente.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.MenuCliente.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\MenuCliente.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\MenuCliente.xaml
+
 [C:/Users/gudal/OneDrive/Documentos/PaquitaApp/AppTPaquita/AppTransporte/Interfaces/MenuPrincipal.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.MenuPrincipal.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\MenuPrincipal.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\MenuPrincipal.xaml
+
+[C:/Users/gudal/OneDrive/Documentos/PaquitaApp/AppTPaquita/AppTransporte/Interfaces/MenuTransportista.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.MenuTransportista.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\MenuTransportista.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\MenuTransportista.xaml
 
 [C:/Users/gudal/OneDrive/Documentos/PaquitaApp/AppTPaquita/AppTransporte/Interfaces/VEclientes.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

@@ -17,8 +17,25 @@ public partial class Login : ContentPage
 
         if (await conexion.VerificarCredenciales(usuario, contraseña))
         {
-            // Redirigir a la siguiente página
-            await Navigation.PushAsync(new MenuPrincipal());
+           
+        switch (tipoUsuarios.SelectedIndex)
+            {
+                case -1:
+                    await DisplayAlert("Tipo de usuario", "Seleccione el tipo de usuario", "OK");
+                    break;
+                case 0:
+                    await Navigation.PushAsync(new MenuTransportista());
+                    break;
+                case 1:
+                    await Navigation.PushAsync(new MenuCliente());
+                    break;
+                case 2:
+                    await Navigation.PushAsync(new MenuPrincipal());
+                    break;
+                default:
+                    break;
+            }
+
         }
         else
         {
@@ -28,21 +45,21 @@ public partial class Login : ContentPage
         }
     }
 
-    private async void Olvide_contra(object sender, EventArgs e)
+        private async void Olvide_contra(object sender, EventArgs e)
     {
         await DisplayAlert("Información", "Contacte con el administrador", "OK");
     }
-    private void OnNumeroEntryTextChanged(object sender, TextChangedEventArgs e)
-    {
-        if (!string.IsNullOrWhiteSpace(e.NewTextValue))
-        {
-            bool isValid = Regex.IsMatch(e.NewTextValue, @"^\d+$");
-            if (!isValid)
-            {
-                // Si el texto no es válido (contiene algo que no sea un número),
-                // revertimos al texto anterior
-                ((Entry)sender).Text = e.OldTextValue;
-            }
-        }
-    }
+    //private void OnNumeroEntryTextChanged(object sender, TextChangedEventArgs e)
+    //{
+    //    if (!string.IsNullOrWhiteSpace(e.NewTextValue))
+    //    {
+    //        bool isValid = Regex.IsMatch(e.NewTextValue, @"^\d+$");
+    //        if (!isValid)
+    //        {
+    //            // Si el texto no es válido (contiene algo que no sea un número),
+    //            // revertimos al texto anterior
+    //            ((Entry)sender).Text = e.OldTextValue;
+    //        }
+    //    }
+    //}
 }
