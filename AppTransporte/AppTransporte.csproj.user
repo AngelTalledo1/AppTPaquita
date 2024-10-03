@@ -18,10 +18,13 @@
     <MauiXaml Update="Interfaces\Login.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="Interfaces\Evidencias.xaml">
+    <MauiXaml Update="Interfaces\MenuCliente.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Interfaces\MenuPrincipal.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Interfaces\MenuTransportista.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Interfaces\VEagregarCliente.xaml">
