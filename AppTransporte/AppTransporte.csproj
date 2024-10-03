@@ -90,6 +90,7 @@
 	  <None Remove="Resources\Images\telefono.png" />
 	  <None Remove="Resources\Images\tipodoc.png" />
 	  <None Remove="Resources\Images\transporte.png" />
+	  <None Remove="Resources\Images\tuser.png" />
 	  <None Remove="Resources\Images\usu.png" />
 	  <None Remove="Resources\Images\usuario.png" />
 	  <None Remove="Resources\raw\highway_and_vehicles.mov" />
@@ -106,19 +107,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Interfaces\Evidencias.xaml.cs">
-	    <DependentUpon>Evidencias.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="Interfaces\Login.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\Evidencias.xaml">
+	  <MauiXaml Update="Interfaces\MenuCliente.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\MenuPrincipal.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\MenuTransportista.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEagregarCliente.xaml">
