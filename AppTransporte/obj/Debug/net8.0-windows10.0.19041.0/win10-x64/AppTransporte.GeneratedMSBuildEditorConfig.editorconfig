@@ -54,6 +54,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.V
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEagregarCliente.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEagregarCliente.xaml
 
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEagregarTransportista.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEagregarTransportista.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEagregarTransportista.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEagregarTransportista.xaml
+
 [C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEclientes.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEclientes.xaml
@@ -65,6 +71,12 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEpedidos.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEpedidos.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEpedidos.xaml
+
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEtransportistas.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEtransportistas.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEtransportistas.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEtransportistas.xaml
 
 [C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

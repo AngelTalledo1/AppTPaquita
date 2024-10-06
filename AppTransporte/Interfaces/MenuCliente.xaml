@@ -60,7 +60,7 @@
                                FontFamily="Comf-Variable"
                                FontSize="15"
                                ZIndex="1" />
-                        <Button ImageSource="cliente2.png"
+                        <Button ImageSource="solicitar.png"
                                 Grid.RowSpan="2"
                                 Clicked="NuevoPedido_Clicked"
                                 BackgroundColor="#b7bdbd" />

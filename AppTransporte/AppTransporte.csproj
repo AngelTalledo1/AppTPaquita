@@ -87,6 +87,7 @@
 	  <None Remove="Resources\Images\petro11.png" />
 	  <None Remove="Resources\Images\ruta.png" />
 	  <None Remove="Resources\Images\rutamen.png" />
+	  <None Remove="Resources\Images\solicitar.png" />
 	  <None Remove="Resources\Images\telefono.png" />
 	  <None Remove="Resources\Images\tipodoc.png" />
 	  <None Remove="Resources\Images\transporte.png" />
@@ -122,10 +123,16 @@
 	  <MauiXaml Update="Interfaces\VEagregarCliente.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VEagregarTransportista.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEclientes.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEpedidos.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VEtransportistas.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

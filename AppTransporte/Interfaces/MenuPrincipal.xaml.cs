@@ -22,4 +22,9 @@ public partial class MenuPrincipal : ContentPage
     {
         Navigation.PopAsync();
     }
+
+    private void transportista_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new VEtransportistas());
+    }
 }
