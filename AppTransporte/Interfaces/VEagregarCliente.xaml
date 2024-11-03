@@ -13,7 +13,7 @@
                    HorizontalOptions="Center"
                    HeightRequest="20"
                    WidthRequest="20" />
-            <Label Text="Agregar Cliente"
+            <Label Text="Agregar nuevo cliente"
                    Grid.Column="1"
                    TextColor="White"
                    FontFamily="Comf-Bold"
@@ -68,7 +68,7 @@
                         <Grid Grid.Column="1">
                             <Picker x:Name="TipoDocumentoPicker"
                                     Title="Tipo de documento"
-                                    FontFamily="Comf-Medium"
+                                    FontFamily="Comf-Bold"
                                     TextColor="Black">
                                 <Picker.Items>
                                     <x:String>DNI</x:String>

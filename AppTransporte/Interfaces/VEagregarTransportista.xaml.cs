@@ -6,4 +6,8 @@ public partial class VEagregarTransportista : ContentPage
 	{
 		InitializeComponent();
 	}
+    private void Btn_atrasTrab(object sender, EventArgs e)
+    {
+        Navigation.PopAsync();
+    }
 }

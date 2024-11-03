@@ -4,7 +4,7 @@ public partial class VEtransportistas : ContentPage
 {
 	public VEtransportistas()
 	{
-		InitializeComponent();
+        InitializeComponent();
 	}
 
     private void btn_agregarTransportista(object sender, EventArgs e)
