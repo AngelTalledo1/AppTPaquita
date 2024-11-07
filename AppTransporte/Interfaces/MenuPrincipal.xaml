@@ -8,8 +8,8 @@
           BackgroundColor="#cb4335">
         <Grid ColumnDefinitions=".1*,.9*">
             <Button BackgroundColor="Transparent"
-                    Clicked="Btn_atrasMenuPrincipal" />
-            <Image Source="atras.png"
+                    Clicked="Btn_cerrarSesion" />
+            <Image Source="salir.png"
                    HorizontalOptions="Center"
                    HeightRequest="20"
                    WidthRequest="20"
@@ -44,7 +44,7 @@
                                FontFamily="Comf-Variable"
                                FontSize="15"
                                ZIndex="1"/>
-                        <Button ImageSource="pedido2.png"
+                        <Button ImageSource="pedidos.png"
                                 Grid.RowSpan="2"
                                 Clicked="pedidos_Clicked"
                                 BackgroundColor="#b7bdbd" />

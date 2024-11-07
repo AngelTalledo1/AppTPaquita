@@ -81,13 +81,17 @@
 	  <None Remove="Resources\Images\informe.png" />
 	  <None Remove="Resources\Images\intclientes.png" />
 	  <None Remove="Resources\Images\logo.png" />
+	  <None Remove="Resources\Images\misdirecciones.png" />
+	  <None Remove="Resources\Images\nuevopedido.png" />
 	  <None Remove="Resources\Images\paquita.png" />
 	  <None Remove="Resources\Images\paquitatext.png" />
 	  <None Remove="Resources\Images\pedido2.png" />
+	  <None Remove="Resources\Images\pedidos.png" />
 	  <None Remove="Resources\Images\petro11.png" />
 	  <None Remove="Resources\Images\rol.png" />
 	  <None Remove="Resources\Images\ruta.png" />
 	  <None Remove="Resources\Images\rutamen.png" />
+	  <None Remove="Resources\Images\salir.png" />
 	  <None Remove="Resources\Images\solicitar.png" />
 	  <None Remove="Resources\Images\telefono.png" />
 	  <None Remove="Resources\Images\tipodoc.png" />
@@ -137,5 +141,7 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionAppTransporteHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

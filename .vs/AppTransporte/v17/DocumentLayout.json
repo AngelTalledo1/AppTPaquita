@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\apptpaquita\\apptpaquita\\apptransporte\\interfaces\\veagregarcliente.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veagregarcliente.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\apptpaquita\\apptpaquita\\apptransporte\\interfaces\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\apptpaquita\\apptpaquita\\apptransporte\\interfaces\\veagregarcliente.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veagregarcliente.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\apptpaquita\\apptpaquita\\apptransporte\\interfaces\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\apptpaquita\\apptpaquita\\apptransporte\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 221,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,28 +34,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "VEagregarCliente.xaml",
-              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarCliente.xaml",
-              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEagregarCliente.xaml",
-              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarCliente.xaml",
-              "RelativeToolTip": "AppTransporte\\Interfaces\\VEagregarCliente.xaml",
-              "ViewState": "AQIAACEAAAAAAAAAAAAAAFIAAAAxAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-03T22:09:36.041Z",
+              "DocumentIndex": 1,
+              "Title": "Login.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\Login.xaml.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\Login.xaml.cs",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\Login.xaml.cs",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\Login.xaml.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAowAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T23:54:22.574Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "VEagregarCliente.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarCliente.xaml.cs",
-              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEagregarCliente.xaml.cs",
-              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarCliente.xaml.cs",
-              "RelativeToolTip": "AppTransporte\\Interfaces\\VEagregarCliente.xaml.cs",
+              "DocumentIndex": 0,
+              "Title": "Login.xaml",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\Login.xaml",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\Login.xaml",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\Login.xaml",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\Login.xaml",
+              "ViewState": "AQIAADwAAAAAAAAAAAAAAD4AAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-11-07T23:54:20.584Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\App.xaml.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\App.xaml.cs",
+              "RelativeToolTip": "AppTransporte\\App.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-03T22:09:33.717Z",
+              "WhenOpened": "2024-11-07T23:51:21.359Z",
               "EditorCaption": ""
             }
           ]

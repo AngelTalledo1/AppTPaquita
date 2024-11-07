@@ -44,7 +44,7 @@
                                FontFamily="Comf-Variable"
                                FontSize="15"
                                ZIndex="1" />
-                        <Button ImageSource="pedido2.png"
+                        <Button ImageSource="pedidos.png"
                                 Grid.RowSpan="2"
                                 Clicked="pedidosTransportista_Clicked"
                                 BackgroundColor="#b7bdbd" />

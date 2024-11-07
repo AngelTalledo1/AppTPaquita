@@ -15,13 +15,17 @@ obj\Debug\net8.0-android\resizetizer\r\drawable\entrega.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\informe.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\intclientes.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\logo.png
+obj\Debug\net8.0-android\resizetizer\r\drawable\misdirecciones.png
+obj\Debug\net8.0-android\resizetizer\r\drawable\nuevopedido.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\paquita.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\paquitatext.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\pedido2.png
+obj\Debug\net8.0-android\resizetizer\r\drawable\pedidos.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\petro11.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\rol.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\ruta.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\rutamen.png
+obj\Debug\net8.0-android\resizetizer\r\drawable\salir.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\solicitar.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\telefono.png
 obj\Debug\net8.0-android\resizetizer\r\drawable\tipodoc.png

@@ -9,10 +9,10 @@ namespace AppTransporte
 {
     public class Conexion
     {
-        private string connectionString = "Data Source=SQL5111.site4now.net;Initial Catalog=db_aaecc9_paquitaappdb;User Id=db_aaecc9_paquitaappdb_admin;Password=paquita123";
+        private string connectionString = "Data Source=SQL5113.site4now.net;Initial Catalog=db_aaecc9_paquitaapp;User Id=db_aaecc9_paquitaapp_admin;Password=paquita123";
 
 
-        /*public async Task<bool> VerificarCredenciales(string categoria, string usuario, string contraseña)
+        public async Task<bool> VerificarCredenciales(string categoria, string usuario, string contraseña)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace AppTransporte
                 Console.WriteLine($"Error al verificar las credenciales: {ex.Message}");
                 return false;
             }
-        }*/
+        }
 
 
         public async Task ConectarBaseDeDatos()
@@ -58,50 +58,6 @@ namespace AppTransporte
             }
         }
 
-
-        public async Task<bool> VerificarCredenciales(string categoria, string usuario, string contraseña)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    await connection.OpenAsync();
-
-                    // Definir la consulta SQL
-                    string query = @"
-                SELECT CASE 
-                    WHEN EXISTS (
-                        SELECT 1
-                        FROM Usuario
-                        WHERE Categoria = @Categoria
-                          AND Username = @Usuario
-                          AND contraseña = @Contraseña
-                          AND estado = 1  -- Verifica que el usuario esté activo
-                    ) THEN 1
-                    ELSE 0
-                END";
-
-                    // Crear el comando con la consulta y los parámetros
-                    SqlCommand cmd = new SqlCommand(query, connection);
-
-                    // Parámetros de la consulta
-                    cmd.Parameters.AddWithValue("@Categoria", categoria);
-                    cmd.Parameters.AddWithValue("@Usuario", usuario);
-                    cmd.Parameters.AddWithValue("@Contraseña", contraseña);
-
-                    // Ejecutar la consulta y obtener el resultado
-                    int count = (int)await cmd.ExecuteScalarAsync();
-
-                    // Si el resultado es 1, las credenciales son correctas
-                    return count == 1;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al verificar las credenciales: {ex.Message}");
-                return false;
-            }
-        }
 
 
 

@@ -2203,3 +2203,7 @@ C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\
 C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\resizetizer\r\drawable\tuser.png
 C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\resizetizer\r\drawable\solicitar.png
 C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\resizetizer\r\drawable\rol.png
+C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\resizetizer\r\drawable\salir.png
+C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\resizetizer\r\drawable\misdirecciones.png
+C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\resizetizer\r\drawable\nuevopedido.png
+C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\resizetizer\r\drawable\pedidos.png
