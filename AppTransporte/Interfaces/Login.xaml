@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="AppTransporte.Interfaces.Login"
+             Title="Login">
+    <Grid RowDefinitions=".4*, .6*">
+        <Image Aspect="AspectFill"
+               Source="logo.png" />
+        <Grid BackgroundColor="#515a5a"
+              Opacity=".85" />
+        <Grid>
+            <Image HeightRequest="400"
+                   WidthRequest="400"
+                   Source="ruta.png" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <RoundRectangle Margin="-5,-30,-5,-2"
+                            CornerRadius="30,30,0,0"
+                            Fill="#f4f6f7" />
+            <VerticalStackLayout Margin="30,0,30,0"
+                                 Spacing="2">
+                <Label FontFamily="Comfortaa-Bold.ttf"
+                       FontSize="24"
+                       HorizontalOptions="Center"
+                       Text="¡Bienvenido!"
+                       TextColor="black" />
+                <Label FontFamily="Comfortaa-Medium.ttf"
+                       HorizontalOptions="Center"
+                       Text="Ingresa para continuar"
+                       TextColor="black" />
+                <Label Text="Seleccione el tipo de usuario:"
+                       FontFamily="Comf-SemBold"
+                       Margin="20,20,0,0" />
+                <Grid Margin="0,10,0,0"
+                      ColumnDefinitions=".2*,.8*">
+                    <Image  Source="tuser.png"
+                            HeightRequest="40"
+                            WidthRequest="40" />
+                    <Picker x:Name="tipoUsuarios"
+                            Title="Escoge una opción"
+                            TitleColor="Gray"
+                            Margin="0,0,0,0"
+                            Grid.Column="1"
+                            FontFamily="Comf-Reg">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Transportista</x:String>
+                                <x:String>Cliente</x:String>
+                                <x:String>Administrador</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </Grid>
+                <Grid Margin="0,10,0,0"
+                      ColumnDefinitions=".2*,.8*">
+                    <Image  Source="usu.png"
+                            HeightRequest="40"
+                            WidthRequest="40" />
+                    <Entry Grid.Column="1"
+                           Placeholder="Usuario"
+                           MaxLength="8"
+                           x:Name="usuarioEntry"
+                           PlaceholderColor="#515a5a"
+                           FontFamily="Comfortaa-Regular.ttf"
+                           VerticalOptions="Center" />
+                </Grid>
+                <Grid Margin="0,10,0,0"
+                      ColumnDefinitions=".2*,.8*">
+                    <Image WidthRequest="40"
+                           HeightRequest="40"
+                           Source="contra.png"
+                           HorizontalOptions="Center" />
+                    <Entry PlaceholderColor="#515a5a"
+                           Grid.Column="1"
+                           x:Name="contraseñaEntry"
+                           Placeholder="Contraseña"
+                           IsPassword="True"
+                           FontFamily="Comfortaa-VariableFont_wght.ttf"
+                           VerticalOptions="Center" />
+                </Grid>
+                <Button Margin="0,20,0,0"
+                        BackgroundColor="#cb4335"
+                        HeightRequest="60"
+                        Clicked="Ingresar_Clicked"
+                        Text="Ingresar"
+                        FontFamily="Comfortaa-Bold.ttf"
+                        TextColor="#FBF6FD" />
+                <Label x:Name="MensajeError"
+                       TextColor="#cb4335"
+                       IsVisible="False"
+                       FontFamily="Comfortaa-SemiBold.ttf"/>
+                <Button Margin="0,10,0,0"
+                        HorizontalOptions="Center"
+                        FontFamily="Comf-Medium"
+                        BackgroundColor="Transparent"
+                        Text="Olvidaste tu contraseña?"
+                        TextColor="Blue"
+                        Clicked="Olvide_contra"
+                        BorderWidth="0" />
+                <Image Source="paquitatext.png"
+                       WidthRequest="150"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

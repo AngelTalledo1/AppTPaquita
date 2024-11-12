@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VEagregarTransportista"
+             Title="VEagregarTransportista"
+             NavigationPage.HasNavigationBar="False">
+    <Grid RowDefinitions=".05*,.8*">
+        <Grid BackgroundColor="#cb4335"
+              ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atrasTrab" />
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Agregar nuevo trabajador"
+                   Grid.Column="1"
+                   TextColor="White"
+                   FontFamily="Comf-Bold"
+                   Padding="30,12,0,0" />
+        </Grid>
+        <Grid Grid.Row="1 ">
+            <VerticalStackLayout>
+                <Frame WidthRequest="500"
+                       HeightRequest="50"
+                       Padding="0,10,0,0"
+                       BackgroundColor="AliceBlue"
+                       BorderColor="Transparent">
+                    <Label Text="Informacion General"
+                           HorizontalOptions="Center"
+                           FontFamily="Comf-Bold"
+                           FontSize="Medium" />
+                </Frame>
+                <VerticalStackLayout Spacing="30"
+                                     Margin="0,20,20,0">
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="usuario.png"
+                               HorizontalOptions="Center"></Image>
+                        <Entry PlaceholderColor="#515a5a"
+                               BackgroundColor="Transparent"
+                               Grid.Column="1"
+                               x:Name="NombreTrabEntry"
+                               Placeholder="Nombre"
+                               FontFamily="Comf-Medium"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <!-- Apellido -->
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="usuario.png"
+                               HorizontalOptions="Center"></Image>
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               x:Name="ApellidoTrabEntry"
+                               Placeholder="Apellido"
+                               FontFamily="Comf-Medium"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <!-- Tipo de Documento -->
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="tipodoc.png"
+                               HorizontalOptions="Center"></Image>
+                        <Grid Grid.Column="1">
+                            <Picker x:Name="TipoDocumentoTrabEntry"
+                                    Title="Tipo de documento"
+                                    FontFamily="Comf-Bold"
+                                    TextColor="Black">
+                                <Picker.Items>
+                                    <x:String>DNI</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                    </Grid>
+                    <!-- Número de Documento -->
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="tipodoc.png"
+                               HorizontalOptions="Center"></Image>
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               x:Name="NumeroDocEntry"
+                               Placeholder="Numero Documento"
+                               Keyboard="Numeric"
+                               FontFamily="Comf-Medium"
+                               VerticalOptions="Center"
+                               MaxLength="8" />
+                    </Grid>
+                    <!-- Tipo de trabajador -->
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="rol.png"
+                               HorizontalOptions="Center"></Image>
+                        <Grid Grid.Column="1">
+                            <Picker x:Name="categoriaTrabEntry"
+                                    Title="Categoria"
+                                    FontFamily="Comf-Bold"
+                                    TextColor="Black">
+                                <Picker.Items>
+                                    <x:String>Transp.</x:String>
+                                    <x:String>Admin.</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                    </Grid>
+                    <!-- Teléfono -->
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="telefono.png"
+                               HorizontalOptions="Center"></Image>
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               x:Name="TelefonoTrabEntry"
+                               Placeholder="Telefono"
+                               FontFamily="Comf-Medium"
+                               Keyboard="Numeric"
+                               MaxLength="9"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <!-- Dirección -->
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="direccion.png"
+                               HorizontalOptions="Center"></Image>
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               x:Name="DireccionTrabEntry"
+                               Placeholder="Direccion"
+                               FontFamily="Comf-Medium"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <!-- Email -->
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="email.png"
+                               HorizontalOptions="Center"></Image>
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               x:Name="EmailTrabEntry"
+                               Placeholder="E-mail"
+                               FontFamily="Comf-Medium"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <!-- Botón de Guardar -->
+                    <Button Text="Guardar Cliente"
+                            HeightRequest="50"
+                            WidthRequest="300"
+                            FontFamily="Comf-Bold"
+                            BackgroundColor="#007AFF"
+                            TextColor="White"
+                            CornerRadius="40"
+                            HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>
