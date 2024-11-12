@@ -8,5 +8,7 @@ namespace AppTransporte.model
 {
     class Usuario
     {
+        public int id { get; set; }
+        public int idTipoUsuario { get; set; }
     }
 }
