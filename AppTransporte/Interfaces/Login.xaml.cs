@@ -10,34 +10,40 @@ public partial class Login : ContentPage
 
     private async void Ingresar_Clicked(object sender, EventArgs e)
     {
+        // Validar que se ha seleccionado un tipo de usuario
+        if (tipoUsuarios.SelectedIndex == -1)
+        {
+            await DisplayAlert("Tipo de usuario", "Seleccione el tipo de usuario", "OK");
+            return;
+        }
+
+        // Obtener el valor seleccionado del Picker como categoría
+        string categoria = tipoUsuarios.SelectedItem.ToString();
         string usuario = usuarioEntry.Text;
         string contraseña = contraseñaEntry.Text;
 
-        if (await conexion.VerificarCredenciales(usuario, contraseña))
+        // Llamar al método VerificarCredenciales con los tres parámetros: categoria, usuario, y contraseña
+        if (await conexion.VerificarCredenciales(categoria, usuario, contraseña))
         {
-
+            // Navegar según el tipo de usuario
             switch (tipoUsuarios.SelectedIndex)
             {
-                case -1:
-                    await DisplayAlert("Tipo de usuario", "Seleccione el tipo de usuario", "OK");
-                    break;
-                case 0:
+                case 0: // Transportista
                     await Navigation.PushAsync(new MenuTransportista());
                     break;
-                case 1:
+                case 1: // Cliente
                     await Navigation.PushAsync(new MenuCliente());
                     break;
-                case 2:
+                case 2: // Admin u otro tipo de usuario
                     await Navigation.PushAsync(new MenuPrincipal());
                     break;
                 default:
                     break;
             }
-
         }
         else
         {
-            // Mostrar mensaje de error
+            // Mostrar mensaje de error si las credenciales son incorrectas
             MensajeError.Text = "Usuario o contraseña incorrectos.";
             MensajeError.IsVisible = true;
         }

@@ -53,14 +53,15 @@
                 <Grid Grid.Row="2"
                       Margin="10">
                     <Grid RowDefinitions=".1*,.9*">
-                        <Label Text="Transportistas"
+                        <Label Text="Trabajador"
                                HorizontalOptions="Center"
                                FontFamily="Comf-Variable"
                                FontSize="15"
                                ZIndex="1" />
                         <Button ImageSource="transporte.png"
                                 Grid.RowSpan="2"
-                                BackgroundColor="#b7bdbd" />
+                                BackgroundColor="#b7bdbd"
+                                Clicked="transportista_Clicked"/>
                     </Grid>
                 </Grid>
                 <Grid Grid.Column="1"

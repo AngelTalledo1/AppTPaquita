@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace AppTransporte.model
 {
-    class Trabajador
+    public class Trabajador
     {
+
+        public string nombre { get; set; }
+        public int telefono { get; set; }
+        public int DNI { get; set; }
+        public string categoria {  get; set; }
     }
 }

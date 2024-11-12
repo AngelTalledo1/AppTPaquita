@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using AppTransporte.model;
-using Java.Time;
 
 namespace AppTransporte.viewModel
 {
