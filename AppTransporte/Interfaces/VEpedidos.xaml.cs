@@ -16,30 +16,16 @@ public partial class VEpedidos : ContentPage
         Navigation.PopAsync();
     }
 
-    private async void PedidosCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void OnPedidoSelected(object sender, EventArgs e)
     {
-        var pedido = e.CurrentSelection.FirstOrDefault() as Pedidos;
+        var button = (Button)sender;
+        var pedido = button.CommandParameter as Pedidos; // Asegúrate de que "Pedidos" es el tipo de tu modelo de datos
 
         if (pedido != null)
         {
-            // Cambiar el color del Frame cuando se selecciona
-            var frame = (sender as CollectionView)?.SelectedItem as Frame;
-            if (frame != null)
-            {
-                frame.BackgroundColor = Colors.LightBlue; // Cambia a un color seleccionado
-            }
-
-            // Muestra una ventana emergente con información del pedido seleccionado
-            await Application.Current.MainPage.DisplayAlert("Pedido Seleccionado",
-                                $"Número de Pedido: {pedido.Numero}\n" +
-                                $"Peso: {pedido.cantidad}\n" +
-                                $"Estado: {pedido.estado}",
-                                "OK");
+            // Navegar a la página de VEProcesoPedido, pasando los datos del pedido seleccionado
+            await Navigation.PushAsync(new VEProcesoPedido(pedido.Numero, pedido.cantidad, pedido.estado));
         }
-
-    // Deseleccionar el ítem después de mostrar la ventana emergente (opcional)
-    ((CollectionView)sender).SelectedItem = null;
     }
-
 
 }

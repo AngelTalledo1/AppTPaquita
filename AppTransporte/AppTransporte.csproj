@@ -66,25 +66,35 @@
 	  <None Remove="Resources\Fonts\Lato-Regular.ttf" />
 	  <None Remove="Resources\Images\admin.png" />
 	  <None Remove="Resources\Images\agg.png" />
+	  <None Remove="Resources\Images\asignado.png" />
 	  <None Remove="Resources\Images\atras.png" />
 	  <None Remove="Resources\Images\barril.png" />
+	  <None Remove="Resources\Images\boton.png" />
 	  <None Remove="Resources\Images\camion.png" />
+	  <None Remove="Resources\Images\cancelado.png" />
 	  <None Remove="Resources\Images\cargando.png" />
 	  <None Remove="Resources\Images\cliente2.png" />
 	  <None Remove="Resources\Images\contra.png" />
 	  <None Remove="Resources\Images\detalles.png" />
 	  <None Remove="Resources\Images\direccion.png" />
+	  <None Remove="Resources\Images\direcciones.png" />
 	  <None Remove="Resources\Images\edit.png" />
 	  <None Remove="Resources\Images\eliminar.png" />
 	  <None Remove="Resources\Images\email.png" />
+	  <None Remove="Resources\Images\encurso.png" />
 	  <None Remove="Resources\Images\entrega.png" />
+	  <None Remove="Resources\Images\entregado.png" />
 	  <None Remove="Resources\Images\informe.png" />
 	  <None Remove="Resources\Images\intclientes.png" />
 	  <None Remove="Resources\Images\logo.png" />
+	  <None Remove="Resources\Images\mispedidos.png" />
+	  <None Remove="Resources\Images\nuevopedido.png" />
 	  <None Remove="Resources\Images\paquita.png" />
 	  <None Remove="Resources\Images\paquitatext.png" />
 	  <None Remove="Resources\Images\pedido2.png" />
+	  <None Remove="Resources\Images\pendiente.png" />
 	  <None Remove="Resources\Images\petro11.png" />
+	  <None Remove="Resources\Images\redondo.png" />
 	  <None Remove="Resources\Images\rol.png" />
 	  <None Remove="Resources\Images\ruta.png" />
 	  <None Remove="Resources\Images\rutamen.png" />
@@ -101,10 +111,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.71" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.71" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
 	</ItemGroup>
 
@@ -121,6 +132,9 @@
 	  <MauiXaml Update="Interfaces\MenuTransportista.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VCnuevoPedido.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEagregarCliente.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -131,6 +145,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEpedidos.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VEProcesoPedido.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEtransportistas.xaml">

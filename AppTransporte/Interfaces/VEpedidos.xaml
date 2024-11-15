@@ -63,8 +63,7 @@
                 <VerticalStackLayout>
                     <CollectionView x:Name="PedidosCollectionView"
                                     ItemsSource="{Binding PedidosFiltrados  }"
-                                    SelectionMode="None"
-                                    SelectionChanged="PedidosCollectionView_SelectionChanged">
+                                    SelectionMode="None">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Frame BackgroundColor="#2e4053"
@@ -103,7 +102,7 @@
                                         </Grid>
                                         <Grid Grid.Column="3">
                                             <Button BackgroundColor="Transparent"
-                                                    Command="{Binding Source={x:Reference PedidosCollectionView}, Path=BindingContext.VerDetallesCommand}"
+                                                    Clicked="OnPedidoSelected"
                                                     CommandParameter="{Binding .}" />
                                             <Image Source="detalles.png"
                                                    WidthRequest="20" />

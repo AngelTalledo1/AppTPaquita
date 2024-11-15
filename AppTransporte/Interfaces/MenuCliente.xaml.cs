@@ -15,11 +15,11 @@ public partial class MenuCliente : ContentPage
     
         private void NuevoPedido_Clicked(object sender, EventArgs e)
     {
-        //Navigation.PushAsync(new VCnuevoPedidos());
+        Navigation.PushAsync(new VCnuevoPedido());
     }
     private void pedidosCliente_Clicked(object sender, EventArgs e)
     {
-        //Navigation.PushAsync(new VCpedidos());
+        Navigation.PushAsync(new VEpedidos());
     }
 
 }

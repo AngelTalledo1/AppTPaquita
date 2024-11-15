@@ -43,11 +43,26 @@
                         <Label Text="Mis Pedidos"
                                HorizontalOptions="Center"
                                FontFamily="Comf-Variable"
-                               FontSize="15"
+                               FontSize="14"
                                ZIndex="1" />
-                        <Button ImageSource="pedido2.png"
+                        <Button ImageSource="mispedidos.png"
                                 Grid.RowSpan="2"
                                 Clicked="pedidosCliente_Clicked"
+                                BackgroundColor="#b7bdbd" />
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="2"
+                      Grid.Row="1"
+                      Margin="10">
+                    <Grid RowDefinitions=".1*,.9*">
+                        <Label Text="Mis direcciones"
+                               HorizontalOptions="Center"
+                               FontFamily="Comf-Variable"
+                               FontSize="14"
+                               ZIndex="1" />
+                        <Button ImageSource="direcciones.png"
+                                Grid.RowSpan="2"
+                                Clicked="NuevoPedido_Clicked"
                                 BackgroundColor="#b7bdbd" />
                     </Grid>
                 </Grid>
@@ -58,9 +73,9 @@
                         <Label Text="Nuevo Pedido"
                                HorizontalOptions="Center"
                                FontFamily="Comf-Variable"
-                               FontSize="15"
+                               FontSize="14"
                                ZIndex="1" />
-                        <Button ImageSource="solicitar.png"
+                        <Button ImageSource="nuevopedido.png"
                                 Grid.RowSpan="2"
                                 Clicked="NuevoPedido_Clicked"
                                 BackgroundColor="#b7bdbd" />

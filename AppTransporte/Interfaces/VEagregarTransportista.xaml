@@ -106,6 +106,7 @@
                                 <Picker.Items>
                                     <x:String>Transp.</x:String>
                                     <x:String>Admin.</x:String>
+                                    <x:String>Ayud.</x:String>
                                 </Picker.Items>
                             </Picker>
                         </Grid>

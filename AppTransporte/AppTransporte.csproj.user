@@ -27,6 +27,9 @@
     <MauiXaml Update="Interfaces\MenuTransportista.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Interfaces\VCnuevoPedido.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Interfaces\VEagregarCliente.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
@@ -37,6 +40,9 @@
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Interfaces\VEpedidos.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Interfaces\VEProcesoPedido.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Interfaces\VEtransportistas.xaml">

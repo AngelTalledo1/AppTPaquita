@@ -42,9 +42,9 @@
                         <Label Text="Pedidos Asignados"
                                HorizontalOptions="Center"
                                FontFamily="Comf-Variable"
-                               FontSize="15"
+                               FontSize="14"
                                ZIndex="1" />
-                        <Button ImageSource="pedido2.png"
+                        <Button ImageSource="mispedidos.png"
                                 Grid.RowSpan="2"
                                 Clicked="pedidosTransportista_Clicked"
                                 BackgroundColor="#b7bdbd" />
@@ -67,7 +67,7 @@
                         <Label Text="Reporte"
                                HorizontalOptions="Center"
                                FontFamily="Comf-Variable"
-                               FontSize="15"
+                               FontSize="14"
                                ZIndex="1" />
                         <Button ImageSource="informe.png"
                                 Grid.RowSpan="2"

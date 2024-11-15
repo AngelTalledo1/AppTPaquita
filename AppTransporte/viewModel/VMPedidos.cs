@@ -114,21 +114,10 @@ namespace AppTransporte.viewModel
             };
 
             PedidosFiltrados = Pedido;
-            VerDetallesCommand = new Command<Pedidos>(async (pedido) => await VerDetallesPedido(pedido));
+            
         }
 
-        private async Task VerDetallesPedido(Pedidos pedido)
-        {
-            if (pedido != null)
-            {
-                // Muestra una ventana emergente con información del pedido seleccionado
-                await Application.Current.MainPage.DisplayAlert("Pedido Seleccionado",
-                                    $"Número de Pedido: {pedido.Numero}\n" +
-                                    $"Peso: {pedido.cantidad}\n" +
-                                    $"Estado: {pedido.estado}",
-                                    "OK");
-            }
-        }
+        
 
 
         private void FiltrarPedidos()
