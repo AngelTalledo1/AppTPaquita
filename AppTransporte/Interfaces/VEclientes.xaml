@@ -6,7 +6,7 @@
              x:Class="AppTransporte.Interfaces.VEclientes"
              Title="VEclientes">
     <ContentPage.BindingContext>
-        <VME:VMCliente />
+        <!--<VME:VMCliente />-->
     </ContentPage.BindingContext>
     <Grid RowDefinitions=".07*,.9*"
           BackgroundColor="#cb4335">

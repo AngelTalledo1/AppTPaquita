@@ -41,7 +41,7 @@ public partial class Login : ContentPage
             var usuarioResponse = JsonSerializer.Deserialize<Usuario>(data);
             if (usuarioResponse != null)
             {
-                var tipo_usuario = await cliente.SendAsync(new HttpRequestMessage(HttpMethod.Get,"http://emmanuel8a-001-site1.ktempurl.com/tipo_usuario/" + usuarioResponse.idTipoUsuario));
+                var tipo_usuario = await cliente.SendAsync(new HttpRequestMessage(HttpMethod.Get,"http://emmanuel8a-001-site1.ktempurl.com/tipo_usuario/" + usuarioResponse.IdTipoUsuario));
                 var data_user =  tipo_usuario.Content.ReadAsStringAsync();
                 var tipoUsuario = JsonSerializer.Deserialize<TipoUsuario>(await data_user);
                 abrirInterfaz(tipoUsuario.descripcion);

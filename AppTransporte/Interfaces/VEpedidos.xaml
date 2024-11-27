@@ -102,7 +102,7 @@
                                         </Grid>
                                         <Grid Grid.Column="3">
                                             <Button BackgroundColor="Transparent"
-                                                    Clicked="OnPedidoSelected"
+                                                    
                                                     CommandParameter="{Binding .}" />
                                             <Image Source="detalles.png"
                                                    WidthRequest="20" />

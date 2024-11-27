@@ -49,54 +49,54 @@ namespace AppTransporte.viewModel
         public List<string> Categoria { get; set; }
 
         private string _categoriaSeleccionada;
-        public string CategoriaSeleccionada
-        {
-            get
-            {
-                return _categoriaSeleccionada;
-            }
-            set
-            {
-                if (_categoriaSeleccionada != value)
-                {
-                    _categoriaSeleccionada = value;
-                    FiltrarTransportista();
-                    OnPropertyChanged(nameof(CategoriaSeleccionada));
-                }
-            }
-        }
+        //public string CategoriaSeleccionada
+        //{
+        //    get
+        //    {
+        //        return _categoriaSeleccionada;
+        //    }
+        //    set
+        //    {
+        //        if (_categoriaSeleccionada != value)
+        //        {
+        //            _categoriaSeleccionada = value;
+        //            FiltrarTransportista();
+        //            OnPropertyChanged(nameof(CategoriaSeleccionada));
+        //        }
+        //    }
+        //}
 
-        public VMTransportista()
-        {
-            transportista = new List<Trabajador>
-            {
-                new Trabajador { nombre = "S.A ECOSAC", telefono = 959698988, DNI= 73376698, categoria="Transp."},
-                new Trabajador { nombre = "Luan pizarro", telefono = 959698988, DNI= 7345655, categoria="Transp." },
-                new Trabajador { nombre = "AngelGarcia Perez", telefono = 959698988, DNI= 73372342, categoria="Admin." },
-                new Trabajador { nombre = "Alexander Talledo ", telefono = 959698988 , DNI= 733766324, categoria="Transp."}
-            };
+        //public VMTransportista()
+        //{
+        //    transportista = new List<Trabajador>
+        //    {
+        //        new Trabajador { nombre = "S.A ECOSAC", telefono = 959698988, DNI= 73376698, categoria="Transp."},
+        //        new Trabajador { nombre = "Luan pizarro", telefono = 959698988, DNI= 7345655, categoria="Transp." },
+        //        new Trabajador { nombre = "AngelGarcia Perez", telefono = 959698988, DNI= 73372342, categoria="Admin." },
+        //        new Trabajador { nombre = "Alexander Talledo ", telefono = 959698988 , DNI= 733766324, categoria="Transp."}
+        //    };
 
-            Categoria = new List<string>
-            {
-                "Admin.",
-                "Transp.",
-            };
+        //    Categoria = new List<string>
+        //    {
+        //        "Admin.",
+        //        "Transp.",
+        //    };
 
-            TransportistaFiltrados =  transportista;
+        //    TransportistaFiltrados =  transportista;
 
 
-        }
+        //}
 
-        private void FiltrarTransportista()
-        {
-            var transportistaFiltrados = _transportistas.AsEnumerable();
-            if (!string.IsNullOrEmpty(CategoriaSeleccionada) && CategoriaSeleccionada != "Todos")
-            {
-                transportistaFiltrados = transportistaFiltrados.Where(t => t.categoria == CategoriaSeleccionada);
-            }
+        //private void FiltrarTransportista()
+        //{
+        //    var transportistaFiltrados = _transportistas.AsEnumerable();
+        //    if (!string.IsNullOrEmpty(CategoriaSeleccionada) && CategoriaSeleccionada != "Todos")
+        //    {
+        //        transportistaFiltrados = transportistaFiltrados.Where(t => t.categoria == CategoriaSeleccionada);
+        //    }
 
-            // Actualizar la lista filtrada
-            TransportistaFiltrados = transportistaFiltrados.ToList();
-        }
+        //    // Actualizar la lista filtrada
+        //    TransportistaFiltrados = transportistaFiltrados.ToList();
+        //}
     }
 }

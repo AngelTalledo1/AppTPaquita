@@ -138,6 +138,7 @@
                             HeightRequest="50"
                             WidthRequest="300"
                             FontFamily="Comf-Bold"
+                            Clicked="OnGuardarClienteClicked"
                             BackgroundColor="#007AFF"
                             TextColor="White"
                             CornerRadius="40"
