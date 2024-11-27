@@ -90,6 +90,18 @@ build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.V
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEtransportistas.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEtransportistas.xaml
 
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEviajesPedido.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEviajesPedido.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEviajesPedido.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEviajesPedido.xaml
+
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VTmisViajes.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VTmisViajes.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VTmisViajes.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VTmisViajes.xaml
+
 [C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Resources.Styles.Colors.xaml

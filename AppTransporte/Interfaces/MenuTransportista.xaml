@@ -38,15 +38,15 @@
                        Margin="30,0,0,0" />
                 <Grid Grid.Row="1"
                       Margin="10">
-                    <Grid RowDefinitions=".12*,.9*">
-                        <Label Text="Pedidos Asignados"
+                    <Grid RowDefinitions=".1*,.9*">
+                        <Label Text="Mis viajes"
                                HorizontalOptions="Center"
                                FontFamily="Comf-Variable"
                                FontSize="14"
                                ZIndex="1" />
-                        <Button ImageSource="mispedidos.png"
+                        <Button ImageSource="entrega.png"
                                 Grid.RowSpan="2"
-                                Clicked="pedidosTransportista_Clicked"
+                                Clicked="btn_misViajes"
                                 BackgroundColor="#b7bdbd" />
                     </Grid>
                 </Grid>

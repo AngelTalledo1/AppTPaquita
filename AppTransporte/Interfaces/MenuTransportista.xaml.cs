@@ -18,9 +18,9 @@ public partial class MenuTransportista : ContentPage
 
     }
 
-    private async void pedidosTransportista_Clicked(object sender, EventArgs e)
+    private async void btn_misViajes(object sender, EventArgs e)
     {
-        //await Navigation.PushAsync(new VTpedidos());
+        await Navigation.PushAsync(new VTmisViajes());
     }
 
 }

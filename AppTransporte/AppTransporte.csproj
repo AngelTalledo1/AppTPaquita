@@ -64,15 +64,14 @@
 	  <None Remove="Resources\Fonts\example-js.html" />
 	  <None Remove="Resources\Fonts\Lato-Bold.ttf" />
 	  <None Remove="Resources\Fonts\Lato-Regular.ttf" />
-	  <None Remove="Resources\Images\admin.png" />
 	  <None Remove="Resources\Images\agg.png" />
 	  <None Remove="Resources\Images\asignado.png" />
 	  <None Remove="Resources\Images\atras.png" />
 	  <None Remove="Resources\Images\barril.png" />
 	  <None Remove="Resources\Images\boton.png" />
-	  <None Remove="Resources\Images\camion.png" />
 	  <None Remove="Resources\Images\cancelado.png" />
 	  <None Remove="Resources\Images\cargando.png" />
+	  <None Remove="Resources\Images\cisterna.png" />
 	  <None Remove="Resources\Images\cliente2.png" />
 	  <None Remove="Resources\Images\contra.png" />
 	  <None Remove="Resources\Images\detalles.png" />
@@ -112,6 +111,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+		<PackageReference Include="Dapper" Version="2.1.35" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.71" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.71" />
@@ -151,6 +152,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEtransportistas.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VEviajesPedido.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VTmisViajes.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

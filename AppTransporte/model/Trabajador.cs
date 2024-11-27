@@ -8,10 +8,19 @@ namespace AppTransporte.model
 {
     public class Trabajador
     {
+        public int IdTrabajador { get; set; }
+        public int IdPersona { get; set; }
+        public int IdCategoria { get; set; }
+        public string Licencia { get; set; }
+        public bool Estado { get; set; }
 
-        public string nombre { get; set; }
-        public int telefono { get; set; }
-        public int DNI { get; set; }
-        public string categoria {  get; set; }
+        public Persona Persona { get; set; } // Relación con Persona
+        public Categoria Categoria { get; set; } // Relación con Categoria
+
+
+
+
+
     }
+
 }

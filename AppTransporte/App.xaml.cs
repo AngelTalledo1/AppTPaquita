@@ -7,7 +7,7 @@ namespace AppTransporte
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new Login());
+            MainPage = new NavigationPage(new VEclientes());
         }
     }
 }

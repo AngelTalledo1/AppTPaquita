@@ -25,7 +25,6 @@ public partial class Login : ContentPage
         string categoria = tipoUsuarios.SelectedItem.ToString();
         string usuario = usuarioEntry.Text;
         string contraseña = contraseñaEntry.Text;
-        var url = "http://emmanuel8a-001-site1.ktempurl.com/auth/login";
         var handler = new HttpClientHandler()
         {
             ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true

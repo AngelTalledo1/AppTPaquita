@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AppTransporte.model
 {
-    class TipoUsuario
+    public class TipoUsuario
     {
-        public int Id { get; set; }
-        public string descripcion { get; set; }
+        public int IdTipoUsuario { get; set; }
+        public string Descripcion { get; set; }
     }
 }

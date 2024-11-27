@@ -6,7 +6,7 @@
              x:Class="AppTransporte.Interfaces.VEclientes"
              Title="VEclientes">
     <ContentPage.BindingContext>
-        <VME:VMClientes />
+        <VME:VMCliente />
     </ContentPage.BindingContext>
     <Grid RowDefinitions=".07*,.9*"
           BackgroundColor="#cb4335">
@@ -40,8 +40,11 @@
                            Margin="10,30,0,10" />
                 <ScrollView Margin="10,83,0,20">
                     <VerticalStackLayout>
+                        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                           IsVisible="{Binding IsBusy}" 
+                                           HorizontalOptions="Center"/>
                         <CollectionView x:Name="clienteCollectionView"
-                                        ItemsSource="{Binding clientes}">
+                                        ItemsSource="{Binding Clientes}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Frame BackgroundColor="#2e4053"
@@ -57,7 +60,7 @@
                                                    VerticalOptions="Center"
                                                    WidthRequest="40"/>
                                             <Grid Grid.Column="1" RowDefinitions=".5*,.5*" Padding="-8">
-                                                <Label Text="{Binding nombre}"
+                                                <Label Text="{Binding Persona.NombreCompleto}"
                                                    FontSize="15"
                                                    FontFamily="Comf-SemBold"
                                                    HorizontalOptions="Center"
@@ -65,13 +68,13 @@
                                                    TextColor="White"/>
                                                 <Grid Grid.Row="1"
                                                       ColumnDefinitions=".07*,.38*,.1*,.38*,.07*">
-                                                    <Label Text="{Binding DNI}"
+                                                    <Label Text="{Binding Persona.NumDoc}"
                                                        FontSize="12"
                                                        FontFamily="Comf-SemBold"
                                                        HorizontalOptions="End"
                                                        Grid.Column="1"
                                                        TextColor="White" />
-                                                <Label Text="{Binding telefono}"
+                                                <Label Text="{Binding Persona.Telefono}"
                                                        FontSize="12"
                                                        FontFamily="Comf-Medium"
                                                        HorizontalOptions="StartAndExpand"

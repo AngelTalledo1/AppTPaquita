@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\AppTransporte"
+    "\\AppTransporte",
+    "\\AppTransporte\\Interfaces"
   ],
   "SelectedNode": "\\AppTransporte.sln",
   "PreviewInSolutionExplorer": false
