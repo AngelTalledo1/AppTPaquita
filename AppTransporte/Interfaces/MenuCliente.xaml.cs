@@ -15,7 +15,7 @@ public partial class MenuCliente : ContentPage
     
         private void NuevoPedido_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VCnuevoPedido());
+        Navigation.PushAsync(new VCMisSolicitudes());
     }
     private void pedidosCliente_Clicked(object sender, EventArgs e)
     {

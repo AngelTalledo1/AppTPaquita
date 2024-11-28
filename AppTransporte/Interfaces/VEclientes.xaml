@@ -5,19 +5,19 @@
              xmlns:VME="clr-namespace:AppTransporte.viewModel"
              x:Class="AppTransporte.Interfaces.VEclientes"
              Title="VEclientes">
-    <ContentPage.BindingContext>
-        <!--<VME:VMCliente />-->
-    </ContentPage.BindingContext>
-    <Grid RowDefinitions=".07*,.9*"
-          BackgroundColor="#cb4335">
-        <Grid ColumnDefinitions=".1*,.9*">
+    <Grid RowDefinitions=".1*,.9*"
+          >
+        <Grid ColumnDefinitions=".1*,.9*"
+              BackgroundColor="#cb4335"
+              Padding="20,0,0,0">
             <Button BackgroundColor="Transparent"
                     Clicked="Btn_atrasCliente" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
+                   VerticalOptions="End"
                    HeightRequest="20"
                    WidthRequest="20"
-                   Margin="20,20,0,0" />
+                   Margin="20" />
             <Label Text="Clientes"
                    FontSize="20"
                    FontFamily="Comf-Bold"
@@ -25,7 +25,7 @@
                    VerticalOptions="Center"
                    TextColor="White" 
                    Grid.Column="1"
-                   Margin="30,20,0,0"/>
+                   Padding="20,20,0,0"/>
         </Grid>
         <Grid Grid.Row="1">
             <RoundRectangle CornerRadius="0,0,0,0"

@@ -123,6 +123,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Interfaces\VCNuevaSolicitud.xaml.cs">
+	    <DependentUpon>VCNuevaSolicitud.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Interfaces\VEagregarTransportista.xaml.cs">
 	    <DependentUpon>VEagregarTransportista.xaml</DependentUpon>
 	  </Compile>
@@ -141,7 +144,13 @@
 	  <MauiXaml Update="Interfaces\MenuTransportista.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VCMisSolicitudes.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VCnuevoPedido.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VCNuevaSolicitud.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEagregarCliente.xaml">

@@ -49,6 +49,18 @@ build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.M
 build_metadata.AdditionalFiles.TargetPath = Interfaces\MenuTransportista.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\MenuTransportista.xaml
 
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VCMisSolicitudes.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VCMisSolicitudes.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VCMisSolicitudes.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VCMisSolicitudes.xaml
+
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VCNuevaSolicitud.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VCNuevaSolicitud.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VCNuevaSolicitud.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VCNuevaSolicitud.xaml
+
 [C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VCnuevoPedido.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VCnuevoPedido.xaml
