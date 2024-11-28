@@ -20,7 +20,7 @@ namespace AppTransporte.model
         public string? Comentario { get; set; }
 
         // Relaciones con otras entidades
-        public Viaje Viaje { get; set; } // Relación con la clase Viaje
-        public EstadoViaje EstadoViaje { get; set; } // Relación con la clase EstadoViaje
+        public Viaje Viaje { get; set; } = new Viaje();// Relación con la clase Viaje
+        public EstadoViaje EstadoViaje { get; set; } = new EstadoViaje(); // Relación con la clase EstadoViaje
     }
 }

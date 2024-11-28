@@ -9,8 +9,8 @@ namespace AppTransporte.model
     public class Cisterna
     {
         public int IdCisterna { get; set; }
-        public string Placa { get; set; }
-        public string AñoFabricacion { get; set; }
+        public string Placa { get; set; } = string.Empty;
+        public string AñoFabricacion { get; set; } = string.Empty ;
         public DateTime EmisionCubicacion { get; set; }
         public DateTime VencimientoCubicacion { get; set; }
         public DateTime? EmisionPoliza { get; set; }

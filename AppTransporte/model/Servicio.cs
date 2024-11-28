@@ -9,7 +9,7 @@ namespace AppTransporte.model
     public class Servicio
     {
         public int IdServicio { get; set; }
-        public string Descripcion { get; set; }
+        public string Descripcion { get; set; } = string.Empty;
         public bool Estado { get; set; }
     }
 }

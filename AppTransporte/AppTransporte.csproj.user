@@ -30,9 +30,6 @@
     <MauiXaml Update="Interfaces\VCMisSolicitudes.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="Interfaces\VCnuevoPedido.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
     <MauiXaml Update="Interfaces\VCNuevaSolicitud.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
@@ -40,6 +37,9 @@
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Interfaces\VEagregarTransportista.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Interfaces\VEAgregarVehiculo.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Interfaces\VEclientes.xaml">
@@ -51,7 +51,13 @@
     <MauiXaml Update="Interfaces\VEProcesoPedido.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Interfaces\VESolicitudes.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Interfaces\VEtransportistas.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Interfaces\VEVehiculos.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Interfaces\VEviajesPedido.xaml">

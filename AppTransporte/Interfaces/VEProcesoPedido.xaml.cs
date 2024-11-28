@@ -6,11 +6,11 @@ public partial class VEProcesoPedido : ContentPage
 {
 
     
-    public VEProcesoPedido(string numero, double peso, string estado)
+    public VEProcesoPedido()//string numero, double peso, string estado)
     {
         InitializeComponent();
-        var Barra = new VMEstado
-        {
+        //var Barra = new VMEstado
+        /*{
             Titulo = $"Pedido {numero}",
             EstadoPedido = estado
         };
@@ -20,7 +20,7 @@ public partial class VEProcesoPedido : ContentPage
         Barra.OnOrderCompleted += async () =>
         {
             await DisplayAlert("Éxito", "Pedido completado con éxito", "OK");
-        };
+        };*/
     }
 
     private void Btn_atrasEstado(object sender, EventArgs e)

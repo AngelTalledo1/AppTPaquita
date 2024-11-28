@@ -36,7 +36,9 @@
                        VerticalOptions="Center"
                        Grid.ColumnSpan="3"
                        Margin="30,0,0,0" />
-                <Grid Grid.Row="1"
+                <Grid 
+                      Grid.Column="1"
+                      Grid.Row="1"
                       Margin="10">
                     <Grid RowDefinitions=".1*,.9*">
                         <Label Text="Pedidos"
@@ -44,7 +46,7 @@
                                FontFamily="Comf-Variable"
                                FontSize="15"
                                ZIndex="1"/>
-                        <Button ImageSource="pedido2.png"
+                        <Button ImageSource="cargando.png"
                                 Grid.RowSpan="2"
                                 Clicked="pedidos_Clicked"
                                 BackgroundColor="#b7bdbd" />
@@ -64,7 +66,7 @@
                                 Clicked="transportista_Clicked"/>
                     </Grid>
                 </Grid>
-                <Grid Grid.Column="1"
+                <Grid Grid.Column="2"
                       Grid.Row="1"
                       Margin="10">
                     <Grid RowDefinitions=".1*,.9*">
@@ -93,16 +95,15 @@
                                 BackgroundColor="#b7bdbd" />
                     </Grid>
                 </Grid>
-                <Grid Grid.Column="2"
-                      Grid.Row="1"
+                <Grid Grid.Row="1"
                       Margin="10">
                     <Grid RowDefinitions=".1*,.9*">
-                        <Label Text="P. de Carga"
+                        <Label Text="Solicitudes"
                                HorizontalOptions="Center"
                                FontFamily="Comf-Variable"
                                FontSize="15"
                                ZIndex="1"/>
-                        <Button ImageSource="cargando.png"
+                        <Button ImageSource="pedido2.png"
                                 Grid.RowSpan="2"
                                 BackgroundColor="#b7bdbd" />
                     </Grid>
@@ -111,12 +112,12 @@
                       Grid.Column="2"
                       Margin="10">
                     <Grid RowDefinitions=".1*,.9*">
-                        <Label Text="Reportes"
+                        <Label Text="Vehiculos"
                                HorizontalOptions="Center"
                                FontFamily="Comf-Variable"
                                FontSize="15"
                                ZIndex="1"/>
-                        <Button ImageSource="informe.png"
+                        <Button ImageSource="cisterna.png"
                                 Grid.RowSpan="2"
                                 BackgroundColor="#b7bdbd" />
                     </Grid>

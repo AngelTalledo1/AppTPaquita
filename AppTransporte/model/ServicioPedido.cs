@@ -12,7 +12,7 @@ namespace AppTransporte.model
         public int IdServicio { get; set; }
         public int IdPedido { get; set; }
 
-        public Servicio Servicio { get; set; } // Relación con Servicio
-        public Pedido Pedido { get; set; } // Relación con Pedido
+        public Servicio Servicio { get; set; } = new Servicio(); // Relación con Servicio
+        public Pedido Pedido { get; set; } = new Pedido(); // Relación con Pedido
     }
 }

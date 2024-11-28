@@ -11,16 +11,14 @@ public partial class MenuTransportista : ContentPage
     {
         Navigation.PopAsync();
     }
-    private async void ReporteTransportista_Clicked(object sender, EventArgs e)
-    {
-
-        // await Navigation.PushAsync(new NewPage1());
-
-    }
 
     private async void btn_misViajes(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new VTmisViajes());
     }
 
+    private async void Vehiculos_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new VEVehiculos());
+    }
 }

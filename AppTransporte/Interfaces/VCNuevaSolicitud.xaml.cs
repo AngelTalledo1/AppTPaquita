@@ -18,7 +18,7 @@ public partial class VCNuevaSolicitud : ContentPage
         };
 
         // Enviar el mensaje al "MenuPrincipal"
-        MessagingCenter.Send(this, "Nueva Solicitud", solicitud);
+       // MessagingCenter.Send(this, "Nueva Solicitud", solicitud);
 
         // Opcional: Muestra un mensaje de confirmación al usuario
         DisplayAlert("Solicitud Enviada", "La solicitud se ha enviado al administrador.", "OK");

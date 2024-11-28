@@ -45,7 +45,7 @@ namespace AppTransporte.viewModel
             IsBusy = false;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
         {

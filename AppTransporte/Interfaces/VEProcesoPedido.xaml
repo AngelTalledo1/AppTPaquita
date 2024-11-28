@@ -15,7 +15,7 @@
                    HeightRequest="20"
                    WidthRequest="20"
                    Margin="20,20,0,0" />
-            <Label Text="{Binding Titulo}"
+            <Label Text="TITULO"
                    FontSize="20"
                    FontFamily="Comf-Bold"
                    Grid.Column="1"
@@ -51,19 +51,19 @@
                                        VerticalOptions="Start"
                                        FontSize="Caption"
                                        Grid.Row="1" />
-                                <Image Grid.Column="1"
-                                       Source="{Binding ImagenEstado}"
+                                <!--<Image Grid.Column="1"
+                                       Source=""
                                        HeightRequest="30"
                                        VerticalOptions="Center"
-                                       HorizontalOptions="Center" />
-                                <Label Text="{Binding EstadoPedido}"
+                                       HorizontalOptions="Center" />-->
+                                <!--<Label Text="{Binding EstadoPedido}"
                                        Grid.Column="1"
                                        TextColor="White"
                                        Grid.RowSpan="2"
                                        FontFamily="Comf-Bold"
                                        FontSize="Subtitle"
                                        HorizontalOptions="Center"
-                                       VerticalOptions="End" />
+                                       VerticalOptions="End" />-->
                                 <Label Text="Dest"
                                        TextColor="White"
                                        FontSize="Large"
@@ -171,12 +171,12 @@
                                                                     Grid.ColumnSpan="3"
                                                                     Grid.RowSpan="2"
                                                                     Clicked="ExpandirLinea_Clicked" />
-                                                            <Image Source="{Binding Step1Icon}"
+                                                            <!--<Image Source="{Binding Step1Icon}"
                                                                    HeightRequest="20"
                                                                    Grid.Row="1"
                                                                    VerticalOptions="Center"
                                                                    Margin="15"
-                                                                   HorizontalOptions="Center" />
+                                                                   HorizontalOptions="Center" />-->
                                                             <Grid Grid.Column="1"
                                                                   Grid.Row="1"
                                                                   RowDefinitions="1*,1*"
@@ -196,18 +196,18 @@
                                                     </toolkit:Expander.Header>
                                                     <Grid RowDefinitions="1*,1*,1*,1*,1*"
                                                           ColumnDefinitions=".5*,1*,.5*">
-                                                        <Image Source="{Binding Step2Icon}"
+                                                        <!--<Image Source="{Binding Step2Icon}"
                                                                HeightRequest="20"
                                                                VerticalOptions="Center"
                                                                Grid.Row="1"
-                                                               Margin="15" />
+                                                               Margin="15" />-->
                                                         <Grid Grid.Column="1"
                                                               Grid.Row="1"
                                                               RowDefinitions="1*,1*"
                                                               Margin="0,20">
                                                             <Label Text="Preparando Pedido"
                                                                    FontFamily="Comf-Bold"
-                                                                   TextColor="{Binding Step2Color}"
+                                                                   
                                                                    HorizontalOptions="Start" />
                                                             <Label Text="04 junio 2020 11:43 hrs."
                                                                    TextColor="#7A93AC"
@@ -216,18 +216,17 @@
                                                                    FontSize="Small"
                                                                    Grid.Row="1" />
                                                         </Grid>
-                                                        <Image Source="{Binding Step3Icon}"
+                                                        <!--<Image Source="{Binding Step3Icon}"
                                                                HeightRequest="20"
                                                                VerticalOptions="Center"
                                                                Grid.Row="2"
-                                                               Margin="15" />
+                                                               Margin="15" />-->
                                                         <Grid Grid.Column="1"
                                                               Grid.Row="2"
                                                               RowDefinitions="1*,1*"
                                                               Margin="0,20">
                                                             <Label Text="En Tránsito a Destino"
                                                                    FontFamily="Comf-Bold"
-                                                                   TextColor="{Binding Step3Color}"
                                                                    HorizontalOptions="Start" />
                                                             <Label Text="08 junio 2020 12:31 hrs."
                                                                    TextColor="#7A93AC"
@@ -236,18 +235,18 @@
                                                                    FontSize="Small"
                                                                    Grid.Row="1" />
                                                         </Grid>
-                                                        <Image Source="{Binding Step4Icon}"
+                                                        <!--<Image Source="{Binding Step4Icon}"
                                                                HeightRequest="20"
                                                                VerticalOptions="Center"
                                                                Grid.Row="3"
-                                                               Margin="15" />
+                                                               Margin="15" />-->
                                                         <Grid Grid.Column="1"
                                                               Grid.Row="3"
                                                               RowDefinitions="1*,1*"
                                                               Margin="0,20">
                                                             <Label Text="En Destino"
                                                                    FontFamily="Comf-Bold"
-                                                                   TextColor="{Binding Step4Color}"
+                                                                   
                                                                    HorizontalOptions="Start" />
                                                             <Label Text="10 junio 2020 10:05 hrs."
                                                                    TextColor="#7A93AC"
@@ -256,18 +255,17 @@
                                                                    FontSize="Small"
                                                                    Grid.Row="1" />
                                                         </Grid>
-                                                        <Image Source="{Binding Step5Icon}"
+                                                        <!--<Image Source="{Binding Step5Icon}"
                                                                HeightRequest="20"
                                                                VerticalOptions="Center"
                                                                Grid.Row="4"
-                                                               Margin="15" />
+                                                               Margin="15" />-->
                                                         <Grid Grid.Column="1"
                                                               Grid.Row="4"
                                                               RowDefinitions="1*,1*"
                                                               Margin="0,20">
                                                             <Label Text="Pedido Finalizado"
                                                                    FontFamily="Comf-Bold"
-                                                                   TextColor="{Binding Step5Color}"
                                                                    HorizontalOptions="Start" />
                                                             <Label Text="10 junio 2020 10:05 hrs."
                                                                    TextColor="#7A93AC"
@@ -289,7 +287,6 @@
                             BackgroundColor="#cb4335"
                             FontFamily="Comf-Bold"
                             TextColor="White"
-                            Command="{Binding UpdateOrderCommand}"
                             Margin="30,15,30,15" />
                     <Button Text="Agregar Evidencias"
                             BackgroundColor="#669bbc"

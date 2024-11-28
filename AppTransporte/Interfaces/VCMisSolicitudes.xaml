@@ -32,6 +32,7 @@
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1" RowDefinitions="1*,.1*">
+            <VerticalStackLayout>
             <ScrollView Margin="20">
                 <VerticalStackLayout>
                     <ActivityIndicator IsRunning="{Binding IsBusy}"
@@ -97,6 +98,7 @@
                     WidthRequest="300" HeightRequest="50"
                     Grid.Row="1"
                     Clicked="btn_NewSolicitud" />
+            </VerticalStackLayout>
         </Grid>
     </Grid>
 </ContentPage>

@@ -9,9 +9,9 @@ using AppTransporte.model;
 
 namespace AppTransporte.viewModel
 {
-    public class VMTransportista : INotifyPropertyChanged
+    public class VMTransportista //: INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+       /* public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -97,6 +97,6 @@ namespace AppTransporte.viewModel
 
         //    // Actualizar la lista filtrada
         //    TransportistaFiltrados = transportistaFiltrados.ToList();
-        //}
+        //}*/
     }
 }

@@ -12,7 +12,7 @@ namespace AppTransporte.model
         public int IdViaje { get; set; }
         public int IdTrabajador { get; set; }
 
-        public Viaje Viaje { get; set; } // Relación con Viaje
-        public Trabajador Trabajador { get; set; } // Relación con Trabajador
+        public Viaje Viaje { get; set; } = new Viaje(); // Relación con Viaje
+        public Trabajador Trabajador { get; set; } = new Trabajador(); // Relación con Trabajador
     }
 }

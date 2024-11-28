@@ -9,10 +9,10 @@ namespace AppTransporte.model
     public class Origen
     {
         public int IdOrigen { get; set; }
-        public string Descripcion { get; set; }
-        public string Sector { get; set; }
-        public string Referencias { get; set; }
-        public string CoordenadasMaps { get; set; }
+        public string Descripcion { get; set; } = string.Empty;
+        public string Sector { get; set; } = string.Empty;
+        public string Referencias { get; set; } = string.Empty;
+        public string CoordenadasMaps { get; set; } = string.Empty;
         public bool Estado { get; set; }
     }
 }

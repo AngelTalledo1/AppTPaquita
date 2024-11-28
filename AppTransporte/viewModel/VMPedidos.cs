@@ -12,7 +12,7 @@ namespace AppTransporte.viewModel
     public class VMPedidos : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        public ICommand VerDetallesCommand { get; set; }
+        //public ICommand VerDetallesCommand { get; set; }
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -52,7 +52,7 @@ namespace AppTransporte.viewModel
         //    }
         //}
 
-        private string _estadoSeleccionado;
+        //private string _estadoSeleccionado;
         //public string EstadoSeleccionado
         //{
         //    get
@@ -70,7 +70,7 @@ namespace AppTransporte.viewModel
         //    }
         //}
 
-        private string _Numero;
+       // private string _Numero;
         //public string Numero
         //{
         //    get

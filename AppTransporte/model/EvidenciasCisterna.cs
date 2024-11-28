@@ -10,12 +10,12 @@ namespace AppTransporte.model
     {
         public int IdEvidenciaCisterna { get; set; }
         public int IdCisterna { get; set; }
-        public byte[] Imagen { get; set; }
-        public byte[] Poliza { get; set; }
-        public byte[] CITV { get; set; }
-        public byte[] Cubicacion { get; set; }
-        public byte[] TarjetaPropiedad { get; set; }
+        public byte[]? Imagen { get; set; }
+        public byte[]? Poliza { get; set; }
+        public byte[]? CITV { get; set; }
+        public byte[]? Cubicacion { get; set; }
+        public byte[]?  TarjetaPropiedad { get; set; }
 
-        public Cisterna Cisterna { get; set; } // Relación con Cisterna
+        public Cisterna Cisterna { get; set; } = new Cisterna();// Relación con Cisterna
     }
 }

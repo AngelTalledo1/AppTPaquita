@@ -44,8 +44,7 @@
                             <Picker x:Name="categoriaPicker"
                                     Title="Seleccione tipo de trabajador"
                                     FontFamily="Comf-Bold"
-                                    TextColor="Black"
-                                    SelectedIndexChanged="categoriaPicker_SelectedIndexChanged">
+                                    TextColor="Black">
                                 <Picker.Items>
                                     <x:String>Administrador</x:String>
                                     <x:String>Ayudante</x:String> 

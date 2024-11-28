@@ -8,16 +8,18 @@
     <ContentPage.BindingContext>
         <VME:VMTransportista />
     </ContentPage.BindingContext>
-    <Grid RowDefinitions=".07*,.9*"
-          BackgroundColor="#cb4335">
-        <Grid ColumnDefinitions=".1*,.9*">
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
             <Button BackgroundColor="Transparent"
                     Clicked="Btn_atrasTransportista" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
+                   VerticalOptions="End"
                    HeightRequest="20"
                    WidthRequest="20"
-                   Margin="20,20,0,0" />
+                   Margin="20" />
             <Label Text="Trabajador"
                    FontSize="20"
                    FontFamily="Comf-Bold"
@@ -25,41 +27,45 @@
                    VerticalOptions="Center"
                    TextColor="White"
                    Grid.Column="1"
-                   Margin="30,20,0,0" />
+                   Margin="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1">
             <RoundRectangle CornerRadius="0,0,0,0"
                             Fill="#FBF6FD" />
             <Grid RowDefinitions=".8*,.2*">
+                <VerticalStackLayout  Margin="20"
+                                      Spacing="5">
                 <Grid ColumnDefinitions=".6*,.4*">
-                    <Label Text="Buscar por Nombre"
-                       FontFamily="Comf-SemBold"
-                       Margin="20,10,0,0" />
-                    <SearchBar x:Name="TransportistaSearchBar"
-                               Placeholder="Nombre del Trabajador"
-                               FontFamily="Comf-Reg"
-                               Margin="10,30,0,10" />
-                    <Frame  HeightRequest="40"
-                            WidthRequest="100"
-                            Margin="10,20,0,0"
-                            Grid.Column="1"
-                            VerticalOptions="Start"
-                            Padding="0"
-                            BackgroundColor="#b7bdbd">
-                        <Picker Title="Categoria"
-                                TitleColor="Black"
-                                HorizontalTextAlignment="Center"
-                                FontSize="11"
-                                FontFamily="Comf-SemBold"
-                                ItemsSource="{Binding Categoria}"
-                                SelectedItem="{Binding CategoriaSeleccionada}" />
-                    </Frame>
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Buscar por Nombre"
+                               FontFamily="Comf-SemBold" />
+                        <SearchBar x:Name="TransportistaSearchBar"
+                                   Placeholder="Nombre del Trabajador"
+                                   FontFamily="Comf-Reg" />
+                        </VerticalStackLayout>
+                        <Frame  HeightRequest="40"
+                                WidthRequest="100"
+                                Margin="10,20,0,0"
+                                Grid.Column="1"
+                                VerticalOptions="Start"
+                                Padding="0"
+                                BackgroundColor="#b7bdbd">
+                            <Picker Title="Categoria"
+                                    TitleColor="Black"
+                                    HorizontalTextAlignment="Center"
+                                    FontSize="11"
+                                    FontFamily="Comf-SemBold"
+                                    ItemsSource="{Binding Categoria}"
+                                    SelectedItem="{Binding CategoriaSeleccionada}" />
+                        </Frame>
                     
-                   
                 </Grid>
-                <ScrollView Margin="10,83,0,20">
+                <ScrollView >
                     <VerticalStackLayout>
-                        <CollectionView x:Name="TransportistaCollectionView"
+                            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                               IsVisible="{Binding IsBusy}"
+                                               HorizontalOptions="Center" />
+                            <CollectionView x:Name="TransportistaCollectionView"
                                         ItemsSource="{Binding TransportistaFiltrados}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
@@ -105,7 +111,7 @@
                                                            HorizontalOptions="Start"
                                                            TextColor="White" />
                                                     
-                                                    <Label Text="{Binding telefono}"
+                                                    <Label Text="{Binding telefono}"    
                                                            FontSize="12"
                                                            FontFamily="Comf-Reg"
                                                            HorizontalOptions="Start"
@@ -136,18 +142,19 @@
                     </VerticalStackLayout>
                 </ScrollView>
                 <Grid Grid.Row="1">
-                    <HorizontalStackLayout Spacing="30"
-                                           HorizontalOptions="End"
-                                           Margin="0,0,30,0">
-                        <Button Text="Agregar"
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           VerticalOptions="Center">
+                        <Button Text="Nuevo Trabajador"
                                 TextColor="White"
                                 FontFamily="Comf-Bold"
+                                Margin="20"
                                 HeightRequest="50"
-                                WidthRequest="100"
+                                WidthRequest="200"
                                 BackgroundColor="#cb4335"
                                 Clicked="btn_agregarTransportista" />
                     </HorizontalStackLayout>
                 </Grid>
+                </VerticalStackLayout>
             </Grid>
         </Grid>
     </Grid>

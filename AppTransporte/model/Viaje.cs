@@ -14,8 +14,8 @@ namespace AppTransporte.model
         public int? IdCisterna { get; set; }
         public int? Cantidad { get; set; }
 
-        public Pedido Pedido { get; set; } // Relación con Pedido
-        public Tracto Tracto { get; set; } // Relación con Tracto
-        public Cisterna Cisterna { get; set; } // Relación con Cisterna
+        public Pedido Pedido { get; set; } = new Pedido();// Relación con Pedido
+        public Tracto Tracto { get; set; } = new Tracto(); // Relación con Tracto
+        public Cisterna Cisterna { get; set; } = new Cisterna();// Relación con Cisterna
     }
 }

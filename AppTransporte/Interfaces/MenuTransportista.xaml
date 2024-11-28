@@ -3,25 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTransporte.Interfaces.MenuTransportista"
              Padding="0"
-             BackgroundColor="White"
              NavigationPage.HasNavigationBar="False">
-    <Grid RowDefinitions=".07*,.95*"
-          BackgroundColor="#cb4335">
-        <Grid ColumnDefinitions=".1*,.9*">
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              BackgroundColor="#cb4335"
+              Padding="20,0,0,0">
             <Button BackgroundColor="Transparent"
                     Clicked="Btn_atrasMenuTransportista" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
+                   VerticalOptions="End"
                    HeightRequest="20"
                    WidthRequest="20"
-                   Margin="20,20,0,0" />
+                   Margin="20" />
             <Label Text="Menu Transportista"
                    FontSize="20"
                    Grid.Column="1"
                    FontFamily="Comf-Bold"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
-                   Margin="30,20,0,0"
+                   Margin="20,20,0,0"
                    TextColor="White" />
         </Grid>
         <Grid Grid.Row="1">
@@ -71,7 +72,7 @@
                                ZIndex="1" />
                         <Button ImageSource="informe.png"
                                 Grid.RowSpan="2"
-                                Clicked="ReporteTransportista_Clicked"
+                                Clicked="Vehiculos_Clicked"
                                 BackgroundColor="#b7bdbd" />
                     </Grid>
                 </Grid>
