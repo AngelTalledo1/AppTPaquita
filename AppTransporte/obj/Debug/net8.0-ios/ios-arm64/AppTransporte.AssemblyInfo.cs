@@ -14,7 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AppTransporte")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+a999853ac32e9d3bfad4848d6ffd7e5da52765ad")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+961cf8159267e1c170df2fdf342fe5e4ce2f18b7")]
+>>>>>>> a00c96fb33babdfe050124e9b9b8668d9f3258ce
 [assembly: System.Reflection.AssemblyProductAttribute("AppTransporte")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AppTransporte")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

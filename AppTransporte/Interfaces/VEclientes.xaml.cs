@@ -1,10 +1,13 @@
+using AppTransporte.viewModel;
+
 namespace AppTransporte.Interfaces;
 
 public partial class VEclientes : ContentPage
 {
 	public VEclientes()
 	{
-		InitializeComponent();
+        BindingContext = new ClienteViewModel();
+        InitializeComponent();
 	}
 
     private void btn_agregarCliente(object sender, EventArgs e)
