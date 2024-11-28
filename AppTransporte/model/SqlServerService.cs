@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,7 +86,74 @@ namespace AppTransporte.model
                 }
             }
         }
+        public async Task<(int? IdUsuario, int? IdTipoUsuario)> VerificarCredencialesAsync(string username, string contraseña)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
 
-        
+                    using (var command = new SqlCommand("pa_verificarCredenciales", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Agregar parámetros
+                        command.Parameters.AddWithValue("@username", username);
+                        command.Parameters.AddWithValue("@contraseña", contraseña);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                int idUsuario = reader.GetInt32(0); // Primera columna: id_usuario
+                                int idTipoUsuario = reader.GetInt32(1); // Segunda columna: id_tipo_usuario
+                                return (idUsuario, idTipoUsuario);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al verificar credenciales: {ex.Message}");
+            }
+
+            // Devuelve null si no se encontraron coincidencias
+            return (null, null);
+        }
+        public async Task<string> obtenerTipoUser(int idTipoUsuario)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("obtenerTipoUser", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Agregar parámetros
+                        command.Parameters.AddWithValue("@id", idTipoUsuario);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return reader.GetString(0); // Primera columna: descripcion
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener tipo de usuario: {ex.Message}");
+            }
+
+            // Devuelve null si no se encontraron coincidencias
+            return null;
+        }
     }
 }

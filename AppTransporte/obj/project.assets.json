@@ -788,7 +788,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -953,15 +953,6 @@
           "lib/net6.0-android30.0/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -3773,7 +3764,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -3923,15 +3914,6 @@
           "lib/net6.0-android30.0/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -6711,7 +6693,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -6861,15 +6843,6 @@
           "lib/net6.0-android30.0/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -9649,7 +9622,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -9799,15 +9772,6 @@
           "lib/net6.0-android30.0/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -12587,7 +12551,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -12737,15 +12701,6 @@
           "lib/net6.0-android30.0/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -15525,7 +15480,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -15672,15 +15627,6 @@
           "lib/net6.0-android30.0/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -18460,7 +18406,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -18607,15 +18553,6 @@
           "lib/net6.0-android30.0/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -21397,7 +21334,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -21544,15 +21481,6 @@
           "lib/net6.0-android30.0/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -23575,7 +23503,7 @@
         }
       }
     },
-    "net8.0-ios17.2": {
+    "net8.0-ios18.0": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -23628,12 +23556,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -23645,12 +23573,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -24339,7 +24267,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -24526,15 +24454,6 @@
           "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -24987,7 +24906,7 @@
         }
       }
     },
-    "net8.0-ios17.2/android-arm": {
+    "net8.0-ios18.0/android-arm": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -25040,12 +24959,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -25057,12 +24976,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -25721,7 +25640,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -26012,15 +25931,6 @@
           "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -26466,7 +26376,7 @@
         }
       }
     },
-    "net8.0-ios17.2/android-arm64": {
+    "net8.0-ios18.0/android-arm64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -26519,12 +26429,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -26536,12 +26446,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -27200,7 +27110,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -27491,15 +27401,6 @@
           "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -27945,7 +27846,7 @@
         }
       }
     },
-    "net8.0-ios17.2/android-x64": {
+    "net8.0-ios18.0/android-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -27998,12 +27899,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -28015,12 +27916,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -28679,7 +28580,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -28970,15 +28871,6 @@
           "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -29424,7 +29316,7 @@
         }
       }
     },
-    "net8.0-ios17.2/android-x86": {
+    "net8.0-ios18.0/android-x86": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -29477,12 +29369,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -29494,12 +29386,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -30158,7 +30050,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -30449,15 +30341,6 @@
           "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -30903,7 +30786,7 @@
         }
       }
     },
-    "net8.0-ios17.2/ios-arm64": {
+    "net8.0-ios18.0/ios-arm64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -30956,12 +30839,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -30973,12 +30856,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -31637,1491 +31520,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
-        "type": "package",
-        "build": {
-          "build/Microsoft.NET.ILLink.Tasks.props": {}
-        }
-      },
-      "Microsoft.NETCore.Platforms/1.1.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard1.0/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.0/_._": {}
-        }
-      },
-      "Microsoft.NETCore.Targets/1.1.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard1.0/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.0/_._": {}
-        }
-      },
-      "Microsoft.SqlServer.Server/1.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Microsoft.SqlServer.Server.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.SqlServer.Server.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "runtime.any.System.Globalization/4.3.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Globalization.dll": {}
-        }
-      },
-      "runtime.any.System.IO/4.3.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.5/System.IO.dll": {}
-        }
-      },
-      "runtime.any.System.Reflection/4.3.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.5/System.Reflection.dll": {}
-        }
-      },
-      "runtime.any.System.Reflection.Primitives/4.3.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Reflection.Primitives.dll": {}
-        }
-      },
-      "runtime.any.System.Resources.ResourceManager/4.3.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Resources.ResourceManager.dll": {}
-        }
-      },
-      "runtime.any.System.Runtime/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Private.Uri": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.5/System.Runtime.dll": {}
-        }
-      },
-      "runtime.any.System.Runtime.Handles/4.3.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Runtime.Handles.dll": {}
-        }
-      },
-      "runtime.any.System.Runtime.InteropServices/4.3.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.6/System.Runtime.InteropServices.dll": {}
-        }
-      },
-      "runtime.any.System.Text.Encoding/4.3.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Text.Encoding.dll": {}
-        }
-      },
-      "runtime.any.System.Threading.Tasks/4.3.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Threading.Tasks.dll": {}
-        }
-      },
-      "runtime.native.System/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0"
-        },
-        "compile": {
-          "lib/netstandard1.0/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.0/_._": {}
-        }
-      },
-      "runtime.unix.System.Diagnostics.Debug/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "runtime.native.System": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "runtimes/unix/lib/netstandard1.3/System.Diagnostics.Debug.dll": {}
-        }
-      },
-      "runtime.unix.System.Private.Uri/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "runtime.native.System": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard/_._": {}
-        },
-        "runtime": {
-          "runtimes/unix/lib/netstandard1.0/System.Private.Uri.dll": {}
-        }
-      },
-      "SkiaSharp/2.88.7": {
-        "type": "package",
-        "dependencies": {
-          "SkiaSharp.NativeAssets.iOS": "2.88.7"
-        },
-        "compile": {
-          "lib/net6.0-ios13.6/SkiaSharp.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0-ios13.6/SkiaSharp.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "SkiaSharp.Extended/2.0.0": {
-        "type": "package",
-        "dependencies": {
-          "SkiaSharp": "2.88.7"
-        },
-        "compile": {
-          "lib/netstandard2.0/SkiaSharp.Extended.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/SkiaSharp.Extended.dll": {}
-        }
-      },
-      "SkiaSharp.Extended.UI.Maui/2.0.0": {
-        "type": "package",
-        "dependencies": {
-          "SkiaSharp": "2.88.7",
-          "SkiaSharp.Extended": "2.0.0",
-          "SkiaSharp.Skottie": "2.88.7",
-          "SkiaSharp.Views.Maui.Controls": "2.88.7"
-        },
-        "compile": {
-          "lib/net7.0-ios16.1/SkiaSharp.Extended.UI.dll": {}
-        },
-        "runtime": {
-          "lib/net7.0-ios16.1/SkiaSharp.Extended.UI.dll": {}
-        }
-      },
-      "SkiaSharp.NativeAssets.iOS/2.88.7": {
-        "type": "package",
-        "compile": {
-          "lib/net6.0-ios13.6/_._": {}
-        },
-        "runtime": {
-          "lib/net6.0-ios13.6/_._": {}
-        },
-        "native": {
-          "runtimes/ios/native/libSkiaSharp.framework/Info.plist": {},
-          "runtimes/ios/native/libSkiaSharp.framework/_CodeSignature/CodeResources": {},
-          "runtimes/ios/native/libSkiaSharp.framework/libSkiaSharp": {}
-        },
-        "build": {
-          "buildTransitive/net6.0-ios13.6/SkiaSharp.NativeAssets.iOS.targets": {}
-        }
-      },
-      "SkiaSharp.Skottie/2.88.7": {
-        "type": "package",
-        "dependencies": {
-          "SkiaSharp": "2.88.7"
-        },
-        "compile": {
-          "lib/net6.0-ios13.6/SkiaSharp.SceneGraph.dll": {
-            "related": ".pdb;.xml"
-          },
-          "lib/net6.0-ios13.6/SkiaSharp.Skottie.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0-ios13.6/SkiaSharp.SceneGraph.dll": {
-            "related": ".pdb;.xml"
-          },
-          "lib/net6.0-ios13.6/SkiaSharp.Skottie.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "SkiaSharp.Views/2.88.7": {
-        "type": "package",
-        "dependencies": {
-          "SkiaSharp": "2.88.7"
-        },
-        "compile": {
-          "lib/net6.0-ios13.6/SkiaSharp.Views.iOS.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0-ios13.6/SkiaSharp.Views.iOS.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "SkiaSharp.Views.Maui.Controls/2.88.7": {
-        "type": "package",
-        "dependencies": {
-          "SkiaSharp.Views.Maui.Core": "2.88.7"
-        },
-        "compile": {
-          "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Controls.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Controls.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "SkiaSharp.Views.Maui.Core/2.88.7": {
-        "type": "package",
-        "dependencies": {
-          "SkiaSharp": "2.88.7",
-          "SkiaSharp.Views": "2.88.7"
-        },
-        "compile": {
-          "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
-      "System.ClientModel/1.0.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Memory.Data": "1.0.2",
-          "System.Text.Json": "4.7.2"
-        },
-        "compile": {
-          "lib/net6.0/System.ClientModel.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/System.ClientModel.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Configuration.ConfigurationManager/8.0.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Diagnostics.EventLog": "8.0.0",
-          "System.Security.Cryptography.ProtectedData": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/_._": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.Configuration.ConfigurationManager.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
-      },
-      "System.Diagnostics.Debug/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0",
-          "runtime.unix.System.Diagnostics.Debug": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.3/_._": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Diagnostics.DiagnosticSource/9.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
-            "related": ".xml"
-          }
-        },
-        "contentFiles": {
-          "contentFiles/any/any/_._": {
-            "buildAction": "None",
-            "codeLanguage": "any",
-            "copyToOutput": false
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/_._": {}
-        }
-      },
-      "System.Diagnostics.EventLog/8.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/_._": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.Diagnostics.EventLog.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
-      },
-      "System.Globalization/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0",
-          "runtime.any.System.Globalization": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.3/_._": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.IdentityModel.Tokens.Jwt/6.35.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.JsonWebTokens": "6.35.0",
-          "Microsoft.IdentityModel.Tokens": "6.35.0"
-        },
-        "compile": {
-          "lib/net6.0/System.IdentityModel.Tokens.Jwt.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/System.IdentityModel.Tokens.Jwt.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.IO/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0",
-          "System.Text.Encoding": "4.3.0",
-          "System.Threading.Tasks": "4.3.0",
-          "runtime.any.System.IO": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.5/_._": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Memory/4.5.4": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.1/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/_._": {}
-        }
-      },
-      "System.Memory.Data/1.0.2": {
-        "type": "package",
-        "dependencies": {
-          "System.Text.Encodings.Web": "4.7.2",
-          "System.Text.Json": "4.6.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/System.Memory.Data.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Memory.Data.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Numerics.Vectors/4.5.0": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.0/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.0/_._": {}
-        }
-      },
-      "System.Private.Uri/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "runtime.unix.System.Private.Uri": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard/_._": {}
-        }
-      },
-      "System.Reflection/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.IO": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "runtime.any.System.Reflection": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.5/_._": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Reflection.Primitives/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0",
-          "runtime.any.System.Reflection.Primitives": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.0/_._": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Resources.ResourceManager/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Globalization": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "runtime.any.System.Resources.ResourceManager": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.0/_._": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Runtime/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "runtime.any.System.Runtime": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.5/System.Runtime.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Runtime.Caching/8.0.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Configuration.ConfigurationManager": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/_._": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.Runtime.Caching.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
-      },
-      "System.Runtime.Handles/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0",
-          "runtime.any.System.Runtime.Handles": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.3/_._": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Runtime.InteropServices/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "System.Runtime.Handles": "4.3.0",
-          "runtime.any.System.Runtime.InteropServices": "4.3.0"
-        },
-        "compile": {
-          "ref/netcoreapp1.1/_._": {}
-        }
-      },
-      "System.Runtime.InteropServices.NFloat.Internal/6.0.1": {
-        "type": "package",
-        "compile": {
-          "ref/net6.0/System.Runtime.InteropServices.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Security.Cryptography.Cng/4.5.0": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.1/System.Security.Cryptography.Cng.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/System.Security.Cryptography.Cng.dll": {}
-        }
-      },
-      "System.Security.Cryptography.Primitives/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.Globalization": "4.3.0",
-          "System.IO": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "System.Threading": "4.3.0",
-          "System.Threading.Tasks": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.3/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Security.Cryptography.Primitives.dll": {}
-        }
-      },
-      "System.Security.Cryptography.ProtectedData/8.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
-      },
-      "System.Security.SecureString/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "System.Runtime.Handles": "4.3.0",
-          "System.Runtime.InteropServices": "4.3.0",
-          "System.Security.Cryptography.Primitives": "4.3.0",
-          "System.Text.Encoding": "4.3.0",
-          "System.Threading": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.3/System.Security.SecureString.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "runtimes/unix/lib/netstandard1.3/System.Security.SecureString.dll": {}
-        }
-      },
-      "System.Text.Encoding/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0",
-          "runtime.any.System.Text.Encoding": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.3/System.Text.Encoding.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Text.Encodings.Web/4.7.2": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.1/System.Text.Encodings.Web.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.1/System.Text.Encodings.Web.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Text.Json/4.7.2": {
-        "type": "package",
-        "compile": {
-          "lib/netcoreapp3.0/System.Text.Json.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/System.Text.Json.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Threading/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.3.0",
-          "System.Threading.Tasks": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.3/_._": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Threading.dll": {}
-        }
-      },
-      "System.Threading.Tasks/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0",
-          "runtime.any.System.Threading.Tasks": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.3/_._": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Threading.Tasks.Extensions/4.5.4": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.1/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/_._": {}
-        }
-      }
-    },
-    "net8.0-ios17.2/maccatalyst-x64": {
-      "Azure.Core/1.38.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Bcl.AsyncInterfaces": "1.1.1",
-          "System.ClientModel": "1.0.0",
-          "System.Diagnostics.DiagnosticSource": "6.0.1",
-          "System.Memory.Data": "1.0.2",
-          "System.Numerics.Vectors": "4.5.0",
-          "System.Text.Encodings.Web": "4.7.2",
-          "System.Text.Json": "4.7.2",
-          "System.Threading.Tasks.Extensions": "4.5.4"
-        },
-        "compile": {
-          "lib/net6.0/Azure.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Azure.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Azure.Identity/1.11.4": {
-        "type": "package",
-        "dependencies": {
-          "Azure.Core": "1.38.0",
-          "Microsoft.Identity.Client": "4.61.3",
-          "Microsoft.Identity.Client.Extensions.Msal": "4.61.3",
-          "System.Memory": "4.5.4",
-          "System.Security.Cryptography.ProtectedData": "4.7.0",
-          "System.Text.Json": "4.7.2",
-          "System.Threading.Tasks.Extensions": "4.5.4"
-        },
-        "compile": {
-          "lib/netstandard2.0/Azure.Identity.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Azure.Identity.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui/9.1.1": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "9.1.1",
-          "Microsoft.Maui.Controls": "8.0.71"
-        },
-        "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/9.1.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "8.0.71",
-          "Microsoft.Maui.Essentials": "8.0.71"
-        },
-        "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Mvvm/8.3.2": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/CommunityToolkit.Mvvm.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/CommunityToolkit.Mvvm.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "buildTransitive/CommunityToolkit.Mvvm.targets": {}
-        }
-      },
-      "Dapper/2.1.35": {
-        "type": "package",
-        "compile": {
-          "lib/net7.0/Dapper.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net7.0/Dapper.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.CSharp/4.5.0": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.0/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.0/_._": {}
-        }
-      },
-      "Microsoft.Data.SqlClient/5.2.2": {
-        "type": "package",
-        "dependencies": {
-          "Azure.Identity": "1.11.4",
-          "Microsoft.Data.SqlClient.SNI.runtime": "5.2.0",
-          "Microsoft.Identity.Client": "4.61.3",
-          "Microsoft.IdentityModel.JsonWebTokens": "6.35.0",
-          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.35.0",
-          "Microsoft.SqlServer.Server": "1.0.0",
-          "System.Configuration.ConfigurationManager": "8.0.0",
-          "System.Runtime.Caching": "8.0.0"
-        },
-        "compile": {
-          "ref/net8.0/Microsoft.Data.SqlClient.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "runtimes/unix/lib/net8.0/Microsoft.Data.SqlClient.dll": {}
-        },
-        "resource": {
-          "lib/net8.0/de/Microsoft.Data.SqlClient.resources.dll": {
-            "locale": "de"
-          },
-          "lib/net8.0/es/Microsoft.Data.SqlClient.resources.dll": {
-            "locale": "es"
-          },
-          "lib/net8.0/fr/Microsoft.Data.SqlClient.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/net8.0/it/Microsoft.Data.SqlClient.resources.dll": {
-            "locale": "it"
-          },
-          "lib/net8.0/ja/Microsoft.Data.SqlClient.resources.dll": {
-            "locale": "ja"
-          },
-          "lib/net8.0/ko/Microsoft.Data.SqlClient.resources.dll": {
-            "locale": "ko"
-          },
-          "lib/net8.0/pt-BR/Microsoft.Data.SqlClient.resources.dll": {
-            "locale": "pt-BR"
-          },
-          "lib/net8.0/ru/Microsoft.Data.SqlClient.resources.dll": {
-            "locale": "ru"
-          },
-          "lib/net8.0/zh-Hans/Microsoft.Data.SqlClient.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "lib/net8.0/zh-Hant/Microsoft.Data.SqlClient.resources.dll": {
-            "locale": "zh-Hant"
-          }
-        }
-      },
-      "Microsoft.Data.SqlClient.SNI.runtime/5.2.0": {
-        "type": "package"
-      },
-      "Microsoft.Extensions.Configuration/8.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
-          "Microsoft.Extensions.Primitives": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/Microsoft.Extensions.Configuration.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.Configuration.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
-      },
-      "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Primitives": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
-      },
-      "Microsoft.Extensions.DependencyInjection/9.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0"
-        },
-        "compile": {
-          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/_._": {}
-        }
-      },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/_._": {}
-        }
-      },
-      "Microsoft.Extensions.Logging/9.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection": "9.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "9.0.0",
-          "Microsoft.Extensions.Options": "9.0.0"
-        },
-        "compile": {
-          "lib/net8.0/Microsoft.Extensions.Logging.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.Logging.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/_._": {}
-        }
-      },
-      "Microsoft.Extensions.Logging.Abstractions/9.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0",
-          "System.Diagnostics.DiagnosticSource": "9.0.0"
-        },
-        "compile": {
-          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/Microsoft.Extensions.Logging.Abstractions.targets": {}
-        }
-      },
-      "Microsoft.Extensions.Logging.Debug/9.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0",
-          "Microsoft.Extensions.Logging": "9.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "9.0.0"
-        },
-        "compile": {
-          "lib/net8.0/Microsoft.Extensions.Logging.Debug.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.Logging.Debug.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/_._": {}
-        }
-      },
-      "Microsoft.Extensions.Options/9.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0",
-          "Microsoft.Extensions.Primitives": "9.0.0"
-        },
-        "compile": {
-          "lib/net8.0/Microsoft.Extensions.Options.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.Options.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/Microsoft.Extensions.Options.targets": {}
-        }
-      },
-      "Microsoft.Extensions.Primitives/9.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Microsoft.Extensions.Primitives.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.Primitives.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/_._": {}
-        }
-      },
-      "Microsoft.Identity.Client/4.61.3": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "6.35.0",
-          "System.Runtime.InteropServices.NFloat.Internal": "6.0.1",
-          "System.Security.SecureString": "4.3.0"
-        },
-        "compile": {
-          "lib/net6.0-ios15.4/Microsoft.Identity.Client.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0-ios15.4/Microsoft.Identity.Client.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.Identity.Client.Extensions.Msal/4.61.3": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Identity.Client": "4.61.3",
-          "System.Security.Cryptography.ProtectedData": "4.5.0"
-        },
-        "compile": {
-          "lib/net6.0/Microsoft.Identity.Client.Extensions.Msal.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.Identity.Client.Extensions.Msal.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.IdentityModel.Abstractions/6.35.0": {
-        "type": "package",
-        "compile": {
-          "lib/net6.0/Microsoft.IdentityModel.Abstractions.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.IdentityModel.Abstractions.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.IdentityModel.JsonWebTokens/6.35.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.Tokens": "6.35.0",
-          "System.Text.Encoding": "4.3.0",
-          "System.Text.Encodings.Web": "4.7.2",
-          "System.Text.Json": "4.7.2"
-        },
-        "compile": {
-          "lib/net6.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.IdentityModel.Logging/6.35.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "6.35.0"
-        },
-        "compile": {
-          "lib/net6.0/Microsoft.IdentityModel.Logging.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.IdentityModel.Logging.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.IdentityModel.Protocols/6.35.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.Logging": "6.35.0",
-          "Microsoft.IdentityModel.Tokens": "6.35.0"
-        },
-        "compile": {
-          "lib/net6.0/Microsoft.IdentityModel.Protocols.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.IdentityModel.Protocols.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.IdentityModel.Protocols.OpenIdConnect/6.35.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.Protocols": "6.35.0",
-          "System.IdentityModel.Tokens.Jwt": "6.35.0"
-        },
-        "compile": {
-          "lib/net6.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.IdentityModel.Tokens/6.35.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
-          "Microsoft.IdentityModel.Logging": "6.35.0",
-          "System.Security.Cryptography.Cng": "4.5.0"
-        },
-        "compile": {
-          "lib/net6.0/Microsoft.IdentityModel.Tokens.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.IdentityModel.Tokens.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.Maui.Controls/8.0.71": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Controls.Build.Tasks": "8.0.71",
-          "Microsoft.Maui.Controls.Core": "8.0.71",
-          "Microsoft.Maui.Controls.Xaml": "8.0.71",
-          "Microsoft.Maui.Resizetizer": "8.0.71"
-        }
-      },
-      "Microsoft.Maui.Controls.Build.Tasks/8.0.71": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Controls.Core": "8.0.71",
-          "Microsoft.Maui.Controls.Xaml": "8.0.71"
-        },
-        "build": {
-          "buildTransitive/net6.0-ios10.0/Microsoft.Maui.Controls.Build.Tasks.props": {},
-          "buildTransitive/net6.0-ios10.0/Microsoft.Maui.Controls.Build.Tasks.targets": {}
-        }
-      },
-      "Microsoft.Maui.Controls.Compatibility/8.0.71": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Configuration": "8.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
-          "Microsoft.Maui.Controls.Core": "8.0.71",
-          "Microsoft.Maui.Controls.Xaml": "8.0.71"
-        },
-        "compile": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.Compatibility.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.Compatibility.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "Microsoft.Maui.Controls.Core/8.0.71": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Configuration": "8.0.0",
-          "Microsoft.Extensions.DependencyInjection": "8.0.0",
-          "Microsoft.Extensions.Logging": "8.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
-          "Microsoft.Maui.Core": "8.0.71"
-        },
-        "compile": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "resource": {
-          "lib/net8.0-ios17.2/ar/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "ar"
-          },
-          "lib/net8.0-ios17.2/ca/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "ca"
-          },
-          "lib/net8.0-ios17.2/cs/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "cs"
-          },
-          "lib/net8.0-ios17.2/da/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "da"
-          },
-          "lib/net8.0-ios17.2/de/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "de"
-          },
-          "lib/net8.0-ios17.2/el/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "el"
-          },
-          "lib/net8.0-ios17.2/es/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "es"
-          },
-          "lib/net8.0-ios17.2/fi/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "fi"
-          },
-          "lib/net8.0-ios17.2/fr/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/net8.0-ios17.2/he/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "he"
-          },
-          "lib/net8.0-ios17.2/hi/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "hi"
-          },
-          "lib/net8.0-ios17.2/hr/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "hr"
-          },
-          "lib/net8.0-ios17.2/hu/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "hu"
-          },
-          "lib/net8.0-ios17.2/id/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "id"
-          },
-          "lib/net8.0-ios17.2/it/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "it"
-          },
-          "lib/net8.0-ios17.2/ja/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "ja"
-          },
-          "lib/net8.0-ios17.2/ko/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "ko"
-          },
-          "lib/net8.0-ios17.2/ms/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "ms"
-          },
-          "lib/net8.0-ios17.2/nb/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "nb"
-          },
-          "lib/net8.0-ios17.2/nl/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "nl"
-          },
-          "lib/net8.0-ios17.2/pl/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "pl"
-          },
-          "lib/net8.0-ios17.2/pt-BR/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "pt-BR"
-          },
-          "lib/net8.0-ios17.2/pt/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "pt"
-          },
-          "lib/net8.0-ios17.2/ro/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "ro"
-          },
-          "lib/net8.0-ios17.2/ru/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "ru"
-          },
-          "lib/net8.0-ios17.2/sk/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "sk"
-          },
-          "lib/net8.0-ios17.2/sv/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "sv"
-          },
-          "lib/net8.0-ios17.2/th/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "th"
-          },
-          "lib/net8.0-ios17.2/tr/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "tr"
-          },
-          "lib/net8.0-ios17.2/uk/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "uk"
-          },
-          "lib/net8.0-ios17.2/vi/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "vi"
-          },
-          "lib/net8.0-ios17.2/zh-HK/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "zh-HK"
-          },
-          "lib/net8.0-ios17.2/zh-Hans/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "lib/net8.0-ios17.2/zh-Hant/Microsoft.Maui.Controls.resources.dll": {
-            "locale": "zh-Hant"
-          }
-        }
-      },
-      "Microsoft.Maui.Controls.Xaml/8.0.71": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Configuration": "8.0.0",
-          "Microsoft.Maui.Controls.Core": "8.0.71",
-          "Microsoft.Maui.Core": "8.0.71"
-        },
-        "compile": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.Xaml.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.Xaml.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "Microsoft.Maui.Core/8.0.71": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Configuration": "8.0.0",
-          "Microsoft.Extensions.DependencyInjection": "8.0.0",
-          "Microsoft.Extensions.Logging": "8.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
-          "Microsoft.Maui.Essentials": "8.0.71",
-          "Microsoft.Maui.Graphics": "8.0.71"
-        },
-        "compile": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "buildTransitive/Microsoft.Maui.Core.props": {},
-          "buildTransitive/Microsoft.Maui.Core.targets": {}
-        }
-      },
-      "Microsoft.Maui.Essentials/8.0.71": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Graphics": "8.0.71"
-        },
-        "compile": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.Essentials.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.Essentials.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "Microsoft.Maui.Graphics/8.0.71": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.Graphics.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0-ios17.2/Microsoft.Maui.Graphics.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "Microsoft.Maui.Resizetizer/8.0.71": {
-        "type": "package",
-        "build": {
-          "buildTransitive/Microsoft.Maui.Resizetizer.props": {},
-          "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
-        }
-      },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -33419,13 +31818,1479 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
+      "System.ClientModel/1.0.0": {
         "type": "package",
+        "dependencies": {
+          "System.Memory.Data": "1.0.2",
+          "System.Text.Json": "4.7.2"
+        },
         "compile": {
-          "lib/net40/SQL.dll": {}
+          "lib/net6.0/System.ClientModel.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net40/SQL.dll": {}
+          "lib/net6.0/System.ClientModel.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Configuration.ConfigurationManager/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Diagnostics.EventLog": "8.0.0",
+          "System.Security.Cryptography.ProtectedData": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/_._": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Configuration.ConfigurationManager.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Diagnostics.Debug/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0",
+          "runtime.unix.System.Diagnostics.Debug": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.3/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Diagnostics.DiagnosticSource/9.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
+            "related": ".xml"
+          }
+        },
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Diagnostics.EventLog/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/_._": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Diagnostics.EventLog.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Globalization/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0",
+          "runtime.any.System.Globalization": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.3/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.IdentityModel.Tokens.Jwt/6.35.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.JsonWebTokens": "6.35.0",
+          "Microsoft.IdentityModel.Tokens": "6.35.0"
+        },
+        "compile": {
+          "lib/net6.0/System.IdentityModel.Tokens.Jwt.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/System.IdentityModel.Tokens.Jwt.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.IO/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0",
+          "System.Text.Encoding": "4.3.0",
+          "System.Threading.Tasks": "4.3.0",
+          "runtime.any.System.IO": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.5/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Memory.Data/1.0.2": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Encodings.Web": "4.7.2",
+          "System.Text.Json": "4.6.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/System.Memory.Data.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Memory.Data.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Numerics.Vectors/4.5.0": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "runtime.unix.System.Private.Uri": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
+        }
+      },
+      "System.Reflection/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.IO": "4.3.0",
+          "System.Reflection.Primitives": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "runtime.any.System.Reflection": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.5/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Reflection.Primitives/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0",
+          "runtime.any.System.Reflection.Primitives": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.0/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Resources.ResourceManager/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Globalization": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "runtime.any.System.Resources.ResourceManager": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.0/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Runtime/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "runtime.any.System.Runtime": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.5/System.Runtime.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Runtime.Caching/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/_._": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Runtime.Caching.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Runtime.Handles/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0",
+          "runtime.any.System.Runtime.Handles": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.3/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Runtime.InteropServices/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Primitives": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Handles": "4.3.0",
+          "runtime.any.System.Runtime.InteropServices": "4.3.0"
+        },
+        "compile": {
+          "ref/netcoreapp1.1/_._": {}
+        }
+      },
+      "System.Runtime.InteropServices.NFloat.Internal/6.0.1": {
+        "type": "package",
+        "compile": {
+          "ref/net6.0/System.Runtime.InteropServices.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Security.Cryptography.Cng/4.5.0": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/System.Security.Cryptography.Cng.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/System.Security.Cryptography.Cng.dll": {}
+        }
+      },
+      "System.Security.Cryptography.Primitives/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.3/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Security.Cryptography.Primitives.dll": {}
+        }
+      },
+      "System.Security.Cryptography.ProtectedData/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Security.SecureString/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Handles": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Security.Cryptography.Primitives": "4.3.0",
+          "System.Text.Encoding": "4.3.0",
+          "System.Threading": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.3/System.Security.SecureString.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/unix/lib/netstandard1.3/System.Security.SecureString.dll": {}
+        }
+      },
+      "System.Text.Encoding/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0",
+          "runtime.any.System.Text.Encoding": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.3/System.Text.Encoding.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Text.Encodings.Web/4.7.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Text.Json/4.7.2": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Threading/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.3/_._": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Threading.dll": {}
+        }
+      },
+      "System.Threading.Tasks/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0",
+          "runtime.any.System.Threading.Tasks": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.3/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Threading.Tasks.Extensions/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      }
+    },
+    "net8.0-ios18.0/maccatalyst-x64": {
+      "Azure.Core/1.38.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "1.1.1",
+          "System.ClientModel": "1.0.0",
+          "System.Diagnostics.DiagnosticSource": "6.0.1",
+          "System.Memory.Data": "1.0.2",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Text.Encodings.Web": "4.7.2",
+          "System.Text.Json": "4.7.2",
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        },
+        "compile": {
+          "lib/net6.0/Azure.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Azure.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Azure.Identity/1.11.4": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.38.0",
+          "Microsoft.Identity.Client": "4.61.3",
+          "Microsoft.Identity.Client.Extensions.Msal": "4.61.3",
+          "System.Memory": "4.5.4",
+          "System.Security.Cryptography.ProtectedData": "4.7.0",
+          "System.Text.Json": "4.7.2",
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/Azure.Identity.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.Identity.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "CommunityToolkit.Maui/9.1.1": {
+        "type": "package",
+        "dependencies": {
+          "CommunityToolkit.Maui.Core": "9.1.1",
+          "Microsoft.Maui.Controls": "8.0.71"
+        },
+        "compile": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "CommunityToolkit.Maui.Core/9.1.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Maui.Core": "8.0.71",
+          "Microsoft.Maui.Essentials": "8.0.71"
+        },
+        "compile": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "CommunityToolkit.Mvvm/8.3.2": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/CommunityToolkit.Mvvm.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/CommunityToolkit.Mvvm.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "build": {
+          "buildTransitive/CommunityToolkit.Mvvm.targets": {}
+        }
+      },
+      "Dapper/2.1.35": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Dapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Dapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.CSharp/4.5.0": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/_._": {}
+        }
+      },
+      "Microsoft.Data.SqlClient/5.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Identity": "1.11.4",
+          "Microsoft.Data.SqlClient.SNI.runtime": "5.2.0",
+          "Microsoft.Identity.Client": "4.61.3",
+          "Microsoft.IdentityModel.JsonWebTokens": "6.35.0",
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.35.0",
+          "Microsoft.SqlServer.Server": "1.0.0",
+          "System.Configuration.ConfigurationManager": "8.0.0",
+          "System.Runtime.Caching": "8.0.0"
+        },
+        "compile": {
+          "ref/net8.0/Microsoft.Data.SqlClient.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/unix/lib/net8.0/Microsoft.Data.SqlClient.dll": {}
+        },
+        "resource": {
+          "lib/net8.0/de/Microsoft.Data.SqlClient.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0/es/Microsoft.Data.SqlClient.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0/fr/Microsoft.Data.SqlClient.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0/it/Microsoft.Data.SqlClient.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0/ja/Microsoft.Data.SqlClient.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0/ko/Microsoft.Data.SqlClient.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0/pt-BR/Microsoft.Data.SqlClient.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/ru/Microsoft.Data.SqlClient.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0/zh-Hans/Microsoft.Data.SqlClient.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0/zh-Hant/Microsoft.Data.SqlClient.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "Microsoft.Data.SqlClient.SNI.runtime/5.2.0": {
+        "type": "package"
+      },
+      "Microsoft.Extensions.Configuration/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/9.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Logging/9.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "9.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Options": "9.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/9.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0",
+          "System.Diagnostics.DiagnosticSource": "9.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/Microsoft.Extensions.Logging.Abstractions.targets": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.Debug/9.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Logging": "9.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Logging.Debug.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Logging.Debug.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Options/9.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Primitives": "9.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Options.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Options.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/Microsoft.Extensions.Options.targets": {}
+        }
+      },
+      "Microsoft.Extensions.Primitives/9.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Primitives.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Primitives.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "Microsoft.Identity.Client/4.61.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Abstractions": "6.35.0",
+          "System.Runtime.InteropServices.NFloat.Internal": "6.0.1",
+          "System.Security.SecureString": "4.3.0"
+        },
+        "compile": {
+          "lib/net6.0-ios15.4/Microsoft.Identity.Client.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0-ios15.4/Microsoft.Identity.Client.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Identity.Client.Extensions.Msal/4.61.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Identity.Client": "4.61.3",
+          "System.Security.Cryptography.ProtectedData": "4.5.0"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.Identity.Client.Extensions.Msal.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Identity.Client.Extensions.Msal.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Abstractions/6.35.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Microsoft.IdentityModel.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.IdentityModel.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.JsonWebTokens/6.35.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Tokens": "6.35.0",
+          "System.Text.Encoding": "4.3.0",
+          "System.Text.Encodings.Web": "4.7.2",
+          "System.Text.Json": "4.7.2"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Logging/6.35.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Abstractions": "6.35.0"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.IdentityModel.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.IdentityModel.Logging.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Protocols/6.35.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Logging": "6.35.0",
+          "Microsoft.IdentityModel.Tokens": "6.35.0"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.IdentityModel.Protocols.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.IdentityModel.Protocols.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Protocols.OpenIdConnect/6.35.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols": "6.35.0",
+          "System.IdentityModel.Tokens.Jwt": "6.35.0"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Tokens/6.35.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.IdentityModel.Logging": "6.35.0",
+          "System.Security.Cryptography.Cng": "4.5.0"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.IdentityModel.Tokens.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.IdentityModel.Tokens.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Maui.Controls/8.0.71": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Maui.Controls.Build.Tasks": "8.0.71",
+          "Microsoft.Maui.Controls.Core": "8.0.71",
+          "Microsoft.Maui.Controls.Xaml": "8.0.71",
+          "Microsoft.Maui.Resizetizer": "8.0.71"
+        }
+      },
+      "Microsoft.Maui.Controls.Build.Tasks/8.0.71": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Maui.Controls.Core": "8.0.71",
+          "Microsoft.Maui.Controls.Xaml": "8.0.71"
+        },
+        "build": {
+          "buildTransitive/net6.0-ios10.0/Microsoft.Maui.Controls.Build.Tasks.props": {},
+          "buildTransitive/net6.0-ios10.0/Microsoft.Maui.Controls.Build.Tasks.targets": {}
+        }
+      },
+      "Microsoft.Maui.Controls.Compatibility/8.0.71": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "8.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
+          "Microsoft.Maui.Controls.Core": "8.0.71",
+          "Microsoft.Maui.Controls.Xaml": "8.0.71"
+        },
+        "compile": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.Compatibility.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.Compatibility.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Microsoft.Maui.Controls.Core/8.0.71": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection": "8.0.0",
+          "Microsoft.Extensions.Logging": "8.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
+          "Microsoft.Maui.Core": "8.0.71"
+        },
+        "compile": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "resource": {
+          "lib/net8.0-ios17.2/ar/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "ar"
+          },
+          "lib/net8.0-ios17.2/ca/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "ca"
+          },
+          "lib/net8.0-ios17.2/cs/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0-ios17.2/da/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "da"
+          },
+          "lib/net8.0-ios17.2/de/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0-ios17.2/el/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "el"
+          },
+          "lib/net8.0-ios17.2/es/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0-ios17.2/fi/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "fi"
+          },
+          "lib/net8.0-ios17.2/fr/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0-ios17.2/he/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "he"
+          },
+          "lib/net8.0-ios17.2/hi/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "hi"
+          },
+          "lib/net8.0-ios17.2/hr/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "hr"
+          },
+          "lib/net8.0-ios17.2/hu/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "hu"
+          },
+          "lib/net8.0-ios17.2/id/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "id"
+          },
+          "lib/net8.0-ios17.2/it/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0-ios17.2/ja/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0-ios17.2/ko/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0-ios17.2/ms/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "ms"
+          },
+          "lib/net8.0-ios17.2/nb/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "nb"
+          },
+          "lib/net8.0-ios17.2/nl/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/net8.0-ios17.2/pl/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0-ios17.2/pt-BR/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0-ios17.2/pt/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "pt"
+          },
+          "lib/net8.0-ios17.2/ro/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "ro"
+          },
+          "lib/net8.0-ios17.2/ru/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0-ios17.2/sk/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "sk"
+          },
+          "lib/net8.0-ios17.2/sv/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/net8.0-ios17.2/th/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "th"
+          },
+          "lib/net8.0-ios17.2/tr/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0-ios17.2/uk/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "uk"
+          },
+          "lib/net8.0-ios17.2/vi/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "vi"
+          },
+          "lib/net8.0-ios17.2/zh-HK/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "zh-HK"
+          },
+          "lib/net8.0-ios17.2/zh-Hans/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0-ios17.2/zh-Hant/Microsoft.Maui.Controls.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "Microsoft.Maui.Controls.Xaml/8.0.71": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "8.0.0",
+          "Microsoft.Maui.Controls.Core": "8.0.71",
+          "Microsoft.Maui.Core": "8.0.71"
+        },
+        "compile": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.Xaml.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.Controls.Xaml.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Microsoft.Maui.Core/8.0.71": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection": "8.0.0",
+          "Microsoft.Extensions.Logging": "8.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
+          "Microsoft.Maui.Essentials": "8.0.71",
+          "Microsoft.Maui.Graphics": "8.0.71"
+        },
+        "compile": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "build": {
+          "buildTransitive/Microsoft.Maui.Core.props": {},
+          "buildTransitive/Microsoft.Maui.Core.targets": {}
+        }
+      },
+      "Microsoft.Maui.Essentials/8.0.71": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Maui.Graphics": "8.0.71"
+        },
+        "compile": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.Essentials.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.Essentials.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Microsoft.Maui.Graphics/8.0.71": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.Graphics.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-ios17.2/Microsoft.Maui.Graphics.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Microsoft.Maui.Resizetizer/8.0.71": {
+        "type": "package",
+        "build": {
+          "buildTransitive/Microsoft.Maui.Resizetizer.props": {},
+          "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
+        }
+      },
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.NET.ILLink.Tasks.props": {}
+        }
+      },
+      "Microsoft.NETCore.Platforms/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.NETCore.Targets/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.SqlServer.Server/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.SqlServer.Server.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.SqlServer.Server.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "runtime.any.System.Globalization/4.3.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Globalization.dll": {}
+        }
+      },
+      "runtime.any.System.IO/4.3.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.5/System.IO.dll": {}
+        }
+      },
+      "runtime.any.System.Reflection/4.3.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.5/System.Reflection.dll": {}
+        }
+      },
+      "runtime.any.System.Reflection.Primitives/4.3.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Reflection.Primitives.dll": {}
+        }
+      },
+      "runtime.any.System.Resources.ResourceManager/4.3.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Resources.ResourceManager.dll": {}
+        }
+      },
+      "runtime.any.System.Runtime/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Private.Uri": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.5/System.Runtime.dll": {}
+        }
+      },
+      "runtime.any.System.Runtime.Handles/4.3.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Runtime.Handles.dll": {}
+        }
+      },
+      "runtime.any.System.Runtime.InteropServices/4.3.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/System.Runtime.InteropServices.dll": {}
+        }
+      },
+      "runtime.any.System.Text.Encoding/4.3.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Text.Encoding.dll": {}
+        }
+      },
+      "runtime.any.System.Threading.Tasks/4.3.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Threading.Tasks.dll": {}
+        }
+      },
+      "runtime.native.System/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "runtime.unix.System.Diagnostics.Debug/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.native.System": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "runtimes/unix/lib/netstandard1.3/System.Diagnostics.Debug.dll": {}
+        }
+      },
+      "runtime.unix.System.Private.Uri/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.native.System": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "runtimes/unix/lib/netstandard1.0/System.Private.Uri.dll": {}
+        }
+      },
+      "SkiaSharp/2.88.7": {
+        "type": "package",
+        "dependencies": {
+          "SkiaSharp.NativeAssets.iOS": "2.88.7"
+        },
+        "compile": {
+          "lib/net6.0-ios13.6/SkiaSharp.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0-ios13.6/SkiaSharp.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "SkiaSharp.Extended/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "SkiaSharp": "2.88.7"
+        },
+        "compile": {
+          "lib/netstandard2.0/SkiaSharp.Extended.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SkiaSharp.Extended.dll": {}
+        }
+      },
+      "SkiaSharp.Extended.UI.Maui/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "SkiaSharp": "2.88.7",
+          "SkiaSharp.Extended": "2.0.0",
+          "SkiaSharp.Skottie": "2.88.7",
+          "SkiaSharp.Views.Maui.Controls": "2.88.7"
+        },
+        "compile": {
+          "lib/net7.0-ios16.1/SkiaSharp.Extended.UI.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0-ios16.1/SkiaSharp.Extended.UI.dll": {}
+        }
+      },
+      "SkiaSharp.NativeAssets.iOS/2.88.7": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0-ios13.6/_._": {}
+        },
+        "runtime": {
+          "lib/net6.0-ios13.6/_._": {}
+        },
+        "native": {
+          "runtimes/ios/native/libSkiaSharp.framework/Info.plist": {},
+          "runtimes/ios/native/libSkiaSharp.framework/_CodeSignature/CodeResources": {},
+          "runtimes/ios/native/libSkiaSharp.framework/libSkiaSharp": {}
+        },
+        "build": {
+          "buildTransitive/net6.0-ios13.6/SkiaSharp.NativeAssets.iOS.targets": {}
+        }
+      },
+      "SkiaSharp.Skottie/2.88.7": {
+        "type": "package",
+        "dependencies": {
+          "SkiaSharp": "2.88.7"
+        },
+        "compile": {
+          "lib/net6.0-ios13.6/SkiaSharp.SceneGraph.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/net6.0-ios13.6/SkiaSharp.Skottie.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0-ios13.6/SkiaSharp.SceneGraph.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/net6.0-ios13.6/SkiaSharp.Skottie.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "SkiaSharp.Views/2.88.7": {
+        "type": "package",
+        "dependencies": {
+          "SkiaSharp": "2.88.7"
+        },
+        "compile": {
+          "lib/net6.0-ios13.6/SkiaSharp.Views.iOS.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0-ios13.6/SkiaSharp.Views.iOS.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "SkiaSharp.Views.Maui.Controls/2.88.7": {
+        "type": "package",
+        "dependencies": {
+          "SkiaSharp.Views.Maui.Core": "2.88.7"
+        },
+        "compile": {
+          "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Controls.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Controls.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "SkiaSharp.Views.Maui.Core/2.88.7": {
+        "type": "package",
+        "dependencies": {
+          "SkiaSharp": "2.88.7",
+          "SkiaSharp.Views": "2.88.7"
+        },
+        "compile": {
+          "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "System.ClientModel/1.0.0": {
@@ -33871,7 +33736,7 @@
         }
       }
     },
-    "net8.0-ios17.2/win10-x64": {
+    "net8.0-ios18.0/win10-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -33924,12 +33789,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -33941,12 +33806,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -34608,7 +34473,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -34880,15 +34745,6 @@
           "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -35335,7 +35191,7 @@
         }
       }
     },
-    "net8.0-maccatalyst17.2": {
+    "net8.0-maccatalyst18.0": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -35388,12 +35244,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -35405,12 +35261,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -36098,7 +35954,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -36265,15 +36121,6 @@
           "lib/net6.0-maccatalyst13.5/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -36533,7 +36380,7 @@
         }
       }
     },
-    "net8.0-maccatalyst17.2/android-arm": {
+    "net8.0-maccatalyst18.0/android-arm": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -36586,12 +36433,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -36603,12 +36450,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -37266,7 +37113,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -37473,15 +37320,6 @@
           "lib/net6.0-maccatalyst13.5/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -37732,7 +37570,7 @@
         }
       }
     },
-    "net8.0-maccatalyst17.2/android-arm64": {
+    "net8.0-maccatalyst18.0/android-arm64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -37785,12 +37623,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -37802,12 +37640,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -38465,7 +38303,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -38672,15 +38510,6 @@
           "lib/net6.0-maccatalyst13.5/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -38931,7 +38760,7 @@
         }
       }
     },
-    "net8.0-maccatalyst17.2/android-x64": {
+    "net8.0-maccatalyst18.0/android-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -38984,12 +38813,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -39001,12 +38830,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -39664,7 +39493,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -39871,15 +39700,6 @@
           "lib/net6.0-maccatalyst13.5/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -40130,7 +39950,7 @@
         }
       }
     },
-    "net8.0-maccatalyst17.2/android-x86": {
+    "net8.0-maccatalyst18.0/android-x86": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -40183,12 +40003,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -40200,12 +40020,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -40863,7 +40683,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -41070,15 +40890,6 @@
           "lib/net6.0-maccatalyst13.5/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -41329,7 +41140,7 @@
         }
       }
     },
-    "net8.0-maccatalyst17.2/ios-arm64": {
+    "net8.0-maccatalyst18.0/ios-arm64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -41382,12 +41193,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -41399,12 +41210,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -42062,7 +41873,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -42269,15 +42080,6 @@
           "lib/net6.0-maccatalyst13.5/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -42528,7 +42330,7 @@
         }
       }
     },
-    "net8.0-maccatalyst17.2/maccatalyst-x64": {
+    "net8.0-maccatalyst18.0/maccatalyst-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -42581,12 +42383,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -42598,12 +42400,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -43261,7 +43063,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -43473,15 +43275,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -43730,7 +43523,7 @@
         }
       }
     },
-    "net8.0-maccatalyst17.2/win10-x64": {
+    "net8.0-maccatalyst18.0/win10-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -43783,12 +43576,12 @@
           "Microsoft.Maui.Controls": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
             "related": ".xml"
           }
         }
@@ -43800,12 +43593,12 @@
           "Microsoft.Maui.Essentials": "8.0.71"
         },
         "compile": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/CommunityToolkit.Maui.Core.dll": {
+          "lib/net8.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
             "related": ".xml"
           }
         }
@@ -44466,7 +44259,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/8.0.7": {
+      "Microsoft.NET.ILLink.Tasks/8.0.11": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -44657,15 +44450,6 @@
           "lib/net6.0-maccatalyst13.5/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -46027,15 +45811,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -47377,15 +47152,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -48710,15 +48476,6 @@
           "lib/net6.0-windows10.0.19041.0/SkiaSharp.Views.Windows.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -50047,15 +49804,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -51380,15 +51128,6 @@
           "lib/net6.0-windows10.0.19041.0/SkiaSharp.Views.Windows.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -52717,15 +52456,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -54052,15 +53782,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -55381,15 +55102,6 @@
           "lib/net6.0-windows10.0.19041.0/SkiaSharp.Views.Windows.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -57396,10 +57108,10 @@
         "microsoft.maui.resizetizer.nuspec"
       ]
     },
-    "Microsoft.NET.ILLink.Tasks/8.0.7": {
-      "sha512": "iI52ptEKby2ymQ6B7h4TWbFmm85T4VvLgc/HvS45Yr3lgi4IIFbQtjON3bQbX/Vc94jXNSLvrDOp5Kh7SJyFYQ==",
+    "Microsoft.NET.ILLink.Tasks/8.0.11": {
+      "sha512": "zk5lnZrYJgtuJG8L4v17Ej8rZ3PUcR2iweNV08BaO5LbYHIi2wNaVNcJoLxvqgQdnjLlKnCCfVGLDr6QHeAarQ==",
       "type": "package",
-      "path": "microsoft.net.illink.tasks/8.0.7",
+      "path": "microsoft.net.illink.tasks/8.0.11",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -57413,7 +57125,7 @@
         "build/Microsoft.NET.ILLink.Analyzers.props",
         "build/Microsoft.NET.ILLink.Tasks.props",
         "build/Microsoft.NET.ILLink.targets",
-        "microsoft.net.illink.tasks.8.0.7.nupkg.sha512",
+        "microsoft.net.illink.tasks.8.0.11.nupkg.sha512",
         "microsoft.net.illink.tasks.nuspec",
         "tools/net472/ILLink.Tasks.dll",
         "tools/net472/ILLink.Tasks.dll.config",
@@ -59163,18 +58875,6 @@
         "lib/net6.0-windows10.0.19041.0/SkiaSharp.Views.Windows.xml",
         "skiasharp.views.winui.2.88.7.nupkg.sha512",
         "skiasharp.views.winui.nuspec"
-      ]
-    },
-    "SQL/1.0.0.1": {
-      "sha512": "OkhPzXdJulgRYlqQqJ+eZRbF1JmWmBU7UKNzNegv/wvUjJ+rgHr0/bIkN8IO/Dj8pgknDN99Hp3TI+oArAkUMw==",
-      "type": "package",
-      "path": "sql/1.0.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net40/SQL.dll",
-        "sql.1.0.0.1.nupkg.sha512",
-        "sql.nuspec"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -62705,11 +62405,10 @@
       "Microsoft.Extensions.Logging.Debug >= 9.0.0",
       "Microsoft.Maui.Controls >= 8.0.71",
       "Microsoft.Maui.Controls.Compatibility >= 8.0.71",
-      "Microsoft.NET.ILLink.Tasks >= 8.0.7",
-      "SkiaSharp.Extended.UI.Maui >= 2.0.0",
-      "Sql >= 1.0.0.1"
+      "Microsoft.NET.ILLink.Tasks >= 8.0.11",
+      "SkiaSharp.Extended.UI.Maui >= 2.0.0"
     ],
-    "net8.0-ios17.2": [
+    "net8.0-ios18.0": [
       "CommunityToolkit.Maui >= 9.1.1",
       "CommunityToolkit.Mvvm >= 8.3.2",
       "Dapper >= 2.1.35",
@@ -62717,11 +62416,10 @@
       "Microsoft.Extensions.Logging.Debug >= 9.0.0",
       "Microsoft.Maui.Controls >= 8.0.71",
       "Microsoft.Maui.Controls.Compatibility >= 8.0.71",
-      "Microsoft.NET.ILLink.Tasks >= 8.0.7",
-      "SkiaSharp.Extended.UI.Maui >= 2.0.0",
-      "Sql >= 1.0.0.1"
+      "Microsoft.NET.ILLink.Tasks >= 8.0.11",
+      "SkiaSharp.Extended.UI.Maui >= 2.0.0"
     ],
-    "net8.0-maccatalyst17.2": [
+    "net8.0-maccatalyst18.0": [
       "CommunityToolkit.Maui >= 9.1.1",
       "CommunityToolkit.Mvvm >= 8.3.2",
       "Dapper >= 2.1.35",
@@ -62729,9 +62427,8 @@
       "Microsoft.Extensions.Logging.Debug >= 9.0.0",
       "Microsoft.Maui.Controls >= 8.0.71",
       "Microsoft.Maui.Controls.Compatibility >= 8.0.71",
-      "Microsoft.NET.ILLink.Tasks >= 8.0.7",
-      "SkiaSharp.Extended.UI.Maui >= 2.0.0",
-      "Sql >= 1.0.0.1"
+      "Microsoft.NET.ILLink.Tasks >= 8.0.11",
+      "SkiaSharp.Extended.UI.Maui >= 2.0.0"
     ],
     "net8.0-windows10.0.19041": [
       "CommunityToolkit.Maui >= 9.1.1",
@@ -62741,29 +62438,28 @@
       "Microsoft.Extensions.Logging.Debug >= 9.0.0",
       "Microsoft.Maui.Controls >= 8.0.71",
       "Microsoft.Maui.Controls.Compatibility >= 8.0.71",
-      "SkiaSharp.Extended.UI.Maui >= 2.0.0",
-      "Sql >= 1.0.0.1"
+      "SkiaSharp.Extended.UI.Maui >= 2.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Javier\\.nuget\\packages\\": {},
+    "C:\\Users\\gudal\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\AppTransporte.csproj",
+      "projectUniqueName": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\AppTransporte.csproj",
       "projectName": "AppTransporte",
-      "projectPath": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\AppTransporte.csproj",
-      "packagesPath": "C:\\Users\\Javier\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\obj\\",
+      "projectPath": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\AppTransporte.csproj",
+      "packagesPath": "C:\\Users\\gudal\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Javier\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gudal\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -62783,11 +62479,11 @@
           "targetAlias": "net8.0-android",
           "projectReferences": {}
         },
-        "net8.0-ios17.2": {
+        "net8.0-ios18.0": {
           "targetAlias": "net8.0-ios",
           "projectReferences": {}
         },
-        "net8.0-maccatalyst17.2": {
+        "net8.0-maccatalyst18.0": {
           "targetAlias": "net8.0-maccatalyst",
           "projectReferences": {}
         },
@@ -62804,7 +62500,7 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
+        "auditMode": "all"
       }
     },
     "frameworks": {
@@ -62842,16 +62538,12 @@
           "Microsoft.NET.ILLink.Tasks": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[8.0.7, )",
+            "version": "[8.0.11, )",
             "autoReferenced": true
           },
           "SkiaSharp.Extended.UI.Maui": {
             "target": "Package",
             "version": "[2.0.0, )"
-          },
-          "Sql": {
-            "target": "Package",
-            "version": "[1.0.0.1, )"
           }
         },
         "imports": [
@@ -62865,6 +62557,44 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.Android.Ref.34",
+            "version": "[34.0.145, 34.0.145]"
+          },
+          {
+            "name": "Microsoft.Android.Runtime.34.android-arm",
+            "version": "[34.0.145, 34.0.145]"
+          },
+          {
+            "name": "Microsoft.Android.Runtime.34.android-arm64",
+            "version": "[34.0.145, 34.0.145]"
+          },
+          {
+            "name": "Microsoft.Android.Runtime.34.android-x64",
+            "version": "[34.0.145, 34.0.145]"
+          },
+          {
+            "name": "Microsoft.Android.Runtime.34.android-x86",
+            "version": "[34.0.145, 34.0.145]"
+          },
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.Net.Sdk.Compilers.Toolset",
+            "version": "[9.0.100, 9.0.100]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.Android": {
             "privateAssets": "all"
@@ -62873,9 +62603,9 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       },
-      "net8.0-ios17.2": {
+      "net8.0-ios18.0": {
         "targetAlias": "net8.0-ios",
         "dependencies": {
           "CommunityToolkit.Maui": {
@@ -62909,16 +62639,12 @@
           "Microsoft.NET.ILLink.Tasks": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[8.0.7, )",
+            "version": "[8.0.11, )",
             "autoReferenced": true
           },
           "SkiaSharp.Extended.UI.Maui": {
             "target": "Package",
             "version": "[2.0.0, )"
-          },
-          "Sql": {
-            "target": "Package",
-            "version": "[1.0.0.1, )"
           }
         },
         "imports": [
@@ -62932,6 +62658,32 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.iOS.Ref.net8.0_18.0",
+            "version": "[18.0.8316, 18.0.8316]"
+          },
+          {
+            "name": "Microsoft.iOS.Runtime.ios-arm64.net8.0_18.0",
+            "version": "[18.0.8316, 18.0.8316]"
+          },
+          {
+            "name": "Microsoft.Net.Sdk.Compilers.Toolset",
+            "version": "[9.0.100, 9.0.100]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.iOS": {
             "privateAssets": "all"
@@ -62940,9 +62692,9 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       },
-      "net8.0-maccatalyst17.2": {
+      "net8.0-maccatalyst18.0": {
         "targetAlias": "net8.0-maccatalyst",
         "dependencies": {
           "CommunityToolkit.Maui": {
@@ -62976,16 +62728,12 @@
           "Microsoft.NET.ILLink.Tasks": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[8.0.7, )",
+            "version": "[8.0.11, )",
             "autoReferenced": true
           },
           "SkiaSharp.Extended.UI.Maui": {
             "target": "Package",
             "version": "[2.0.0, )"
-          },
-          "Sql": {
-            "target": "Package",
-            "version": "[1.0.0.1, )"
           }
         },
         "imports": [
@@ -63000,6 +62748,32 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.MacCatalyst.Ref.net8.0_18.0",
+            "version": "[18.0.8316, 18.0.8316]"
+          },
+          {
+            "name": "Microsoft.MacCatalyst.Runtime.maccatalyst-x64.net8.0_18.0",
+            "version": "[18.0.8316, 18.0.8316]"
+          },
+          {
+            "name": "Microsoft.Net.Sdk.Compilers.Toolset",
+            "version": "[9.0.100, 9.0.100]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.MacCatalyst": {
             "privateAssets": "all"
@@ -63008,7 +62782,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       },
       "net8.0-windows10.0.19041": {
         "targetAlias": "net8.0-windows10.0.19041.0",
@@ -63044,10 +62818,6 @@
           "SkiaSharp.Extended.UI.Maui": {
             "target": "Package",
             "version": "[2.0.0, )"
-          },
-          "Sql": {
-            "target": "Package",
-            "version": "[1.0.0.1, )"
           }
         },
         "imports": [
@@ -63063,19 +62833,39 @@
         "warn": true,
         "downloadDependencies": [
           {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.Net.Sdk.Compilers.Toolset",
+            "version": "[9.0.100, 9.0.100]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
             "name": "Microsoft.Windows.SDK.NET.Ref",
             "version": "[10.0.19041.41, 10.0.19041.41]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
           }
         ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           },
-          "Microsoft.Windows.SDK.NET.Ref": {
+          "Microsoft.Windows.SDK.NET.Ref.Windows": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {
@@ -63104,13 +62894,93 @@
   },
   "logs": [
     {
-      "code": "NU1701",
+      "code": "NU1903",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "El paquete \"SQL 1.0.0.1\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" en lugar de la plataforma de destino del proyecto \"net8.0-android34.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
-      "libraryId": "SQL",
+      "message": "El paquete \"System.Private.Uri\" 4.3.0 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-5f2m-466j-3848",
+      "libraryId": "System.Private.Uri",
       "targetGraphs": [
-        "net8.0-android34.0"
+        "net8.0-ios18.0/android-arm",
+        "net8.0-ios18.0/android-arm64",
+        "net8.0-ios18.0/android-x64",
+        "net8.0-ios18.0/android-x86",
+        "net8.0-ios18.0/ios-arm64",
+        "net8.0-ios18.0/maccatalyst-x64",
+        "net8.0-ios18.0/win10-x64",
+        "net8.0-maccatalyst18.0/android-arm",
+        "net8.0-maccatalyst18.0/android-arm64",
+        "net8.0-maccatalyst18.0/android-x64",
+        "net8.0-maccatalyst18.0/android-x86",
+        "net8.0-maccatalyst18.0/ios-arm64",
+        "net8.0-maccatalyst18.0/maccatalyst-x64",
+        "net8.0-maccatalyst18.0/win10-x64",
+        "net8.0-windows10.0.19041/android-arm",
+        "net8.0-windows10.0.19041/android-arm64",
+        "net8.0-windows10.0.19041/android-x64",
+        "net8.0-windows10.0.19041/android-x86",
+        "net8.0-windows10.0.19041/ios-arm64",
+        "net8.0-windows10.0.19041/maccatalyst-x64",
+        "net8.0-windows10.0.19041/win10-x64"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "El paquete \"System.Private.Uri\" 4.3.0 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-x5qj-9vmx-7g6g",
+      "libraryId": "System.Private.Uri",
+      "targetGraphs": [
+        "net8.0-ios18.0/android-arm",
+        "net8.0-ios18.0/android-arm64",
+        "net8.0-ios18.0/android-x64",
+        "net8.0-ios18.0/android-x86",
+        "net8.0-ios18.0/ios-arm64",
+        "net8.0-ios18.0/maccatalyst-x64",
+        "net8.0-ios18.0/win10-x64",
+        "net8.0-maccatalyst18.0/android-arm",
+        "net8.0-maccatalyst18.0/android-arm64",
+        "net8.0-maccatalyst18.0/android-x64",
+        "net8.0-maccatalyst18.0/android-x86",
+        "net8.0-maccatalyst18.0/ios-arm64",
+        "net8.0-maccatalyst18.0/maccatalyst-x64",
+        "net8.0-maccatalyst18.0/win10-x64",
+        "net8.0-windows10.0.19041/android-arm",
+        "net8.0-windows10.0.19041/android-arm64",
+        "net8.0-windows10.0.19041/android-x64",
+        "net8.0-windows10.0.19041/android-x86",
+        "net8.0-windows10.0.19041/ios-arm64",
+        "net8.0-windows10.0.19041/maccatalyst-x64",
+        "net8.0-windows10.0.19041/win10-x64"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "El paquete \"System.Private.Uri\" 4.3.0 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-xhfc-gr8f-ffwc",
+      "libraryId": "System.Private.Uri",
+      "targetGraphs": [
+        "net8.0-ios18.0/android-arm",
+        "net8.0-ios18.0/android-arm64",
+        "net8.0-ios18.0/android-x64",
+        "net8.0-ios18.0/android-x86",
+        "net8.0-ios18.0/ios-arm64",
+        "net8.0-ios18.0/maccatalyst-x64",
+        "net8.0-ios18.0/win10-x64",
+        "net8.0-maccatalyst18.0/android-arm",
+        "net8.0-maccatalyst18.0/android-arm64",
+        "net8.0-maccatalyst18.0/android-x64",
+        "net8.0-maccatalyst18.0/android-x86",
+        "net8.0-maccatalyst18.0/ios-arm64",
+        "net8.0-maccatalyst18.0/maccatalyst-x64",
+        "net8.0-maccatalyst18.0/win10-x64",
+        "net8.0-windows10.0.19041/android-arm",
+        "net8.0-windows10.0.19041/android-arm64",
+        "net8.0-windows10.0.19041/android-x64",
+        "net8.0-windows10.0.19041/android-x86",
+        "net8.0-windows10.0.19041/ios-arm64",
+        "net8.0-windows10.0.19041/maccatalyst-x64",
+        "net8.0-windows10.0.19041/win10-x64"
       ]
     }
   ]

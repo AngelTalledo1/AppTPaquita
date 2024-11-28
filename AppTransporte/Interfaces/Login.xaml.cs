@@ -1,4 +1,5 @@
 using AppTransporte.model;
+using Azure;
 using System.Collections;
 using System.Diagnostics.Contracts;
 using System.Net.Http.Headers;
@@ -17,39 +18,24 @@ public partial class Login : ContentPage
 
     private async void Ingresar_Clicked(object sender, EventArgs e)
     {
-        if (tipoUsuarios.SelectedIndex == -1)
+        if (string.IsNullOrWhiteSpace(usuarioEntry.Text) || string.IsNullOrWhiteSpace(contraseñaEntry.Text))
         {
-            await DisplayAlert("Tipo de usuario", "Seleccione el tipo de usuario", "OK");
+            await DisplayAlert("Error", "Por favor, complete todos los campos.", "OK");
             return;
         }
-        string categoria = tipoUsuarios.SelectedItem.ToString();
+
         string usuario = usuarioEntry.Text;
         string contraseña = contraseñaEntry.Text;
-        var handler = new HttpClientHandler()
-        {
-            ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
-        };
-        var cliente = new HttpClient(handler);
-        var bytearray = Encoding.ASCII.GetBytes("11201737:60-dayfreetrial");
-        cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(bytearray));
-        var request = new HttpRequestMessage(HttpMethod.Post, "http://emmanuel8a-001-site1.ktempurl.com/auth/login?username="+usuario+"&password="+contraseña);
-        var response = await cliente.SendAsync(request);
 
-        if (response.IsSuccessStatusCode)
+        var resultado = await App.Database.VerificarCredencialesAsync(usuario, contraseña);
+
+        if (resultado.IdUsuario.HasValue)
         {
-            var data = await response.Content.ReadAsStringAsync();
-            var usuarioResponse = JsonSerializer.Deserialize<Usuario>(data);
-            if (usuarioResponse != null)
-            {
-                var tipo_usuario = await cliente.SendAsync(new HttpRequestMessage(HttpMethod.Get,"http://emmanuel8a-001-site1.ktempurl.com/tipo_usuario/" + usuarioResponse.IdTipoUsuario));
-                var data_user =  tipo_usuario.Content.ReadAsStringAsync();
-                var tipoUsuario = JsonSerializer.Deserialize<TipoUsuario>(await data_user);
-                abrirInterfaz(tipoUsuario.descripcion);
-            }
+            abrirInterfaz(await App.Database.obtenerTipoUser(resultado.IdTipoUsuario.GetValueOrDefault()));
         }
         else
         {
-            Console.WriteLine($"Error: {response.StatusCode}");
+            Console.WriteLine($"Error");
             MensajeError.Text = "Usuario o contraseña incorrectos.";
             MensajeError.IsVisible = true;
         }
