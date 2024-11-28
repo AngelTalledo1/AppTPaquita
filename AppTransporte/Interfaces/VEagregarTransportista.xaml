@@ -34,6 +34,26 @@
                 </Frame>
                 <VerticalStackLayout Spacing="30"
                                      Margin="0,20,20,0">
+                    <!-- Tipo de trabajador -->
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="rol.png"
+                               HorizontalOptions="Center"></Image>
+                        <Grid Grid.Column="1">
+                            <Picker x:Name="categoriaPicker"
+                                    Title="Seleccione tipo de trabajador"
+                                    FontFamily="Comf-Bold"
+                                    TextColor="Black"
+                                    SelectedIndexChanged="categoriaPicker_SelectedIndexChanged">
+                                <Picker.Items>
+                                    <x:String>Administrador</x:String>
+                                    <x:String>Ayudante</x:String> 
+                                    <x:String>Transportista</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                    </Grid>
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
@@ -61,57 +81,33 @@
                                VerticalOptions="Center" />
                     </Grid>
                     <!-- Tipo de Documento -->
-                    <Grid ColumnDefinitions=".2*,.8*">
+                    <Grid ColumnDefinitions=".2*,.2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
                                Source="tipodoc.png"
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
                             <Picker x:Name="TipoDocumentoTrabEntry"
-                                    Title="Tipo de documento"
+                                    Title="Tipo"
+                                    HorizontalOptions="Center"
                                     FontFamily="Comf-Bold"
                                     TextColor="Black">
-                                <Picker.Items>
+                                <Picker.Items FontFamily="Comf-Bold">
                                     <x:String>DNI</x:String>
                                 </Picker.Items>
                             </Picker>
                         </Grid>
-                    </Grid>
-                    <!-- Número de Documento -->
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               Source="tipodoc.png"
-                               HorizontalOptions="Center"></Image>
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               x:Name="NumeroDocEntry"
-                               Placeholder="Numero Documento"
-                               Keyboard="Numeric"
-                               FontFamily="Comf-Medium"
-                               VerticalOptions="Center"
-                               MaxLength="8" />
-                    </Grid>
-                    <!-- Tipo de trabajador -->
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               Source="rol.png"
-                               HorizontalOptions="Center"></Image>
-                        <Grid Grid.Column="1">
-                            <Picker x:Name="categoriaTrabEntry"
-                                    Title="Categoria"
-                                    FontFamily="Comf-Bold"
-                                    TextColor="Black">
-                                <Picker.Items>
-                                    <x:String>Transp.</x:String>
-                                    <x:String>Admin.</x:String>
-                                    <x:String>Ayud.</x:String>
-                                </Picker.Items>
-                            </Picker>
+                        <Grid Grid.Column="2">
+                            <Entry PlaceholderColor="#515a5a"
+                                   Grid.Column="1"
+                                   x:Name="NumeroDocEntry"
+                                   Placeholder="Numero de documento"
+                                   Keyboard="Numeric"
+                                   FontFamily="Comf-Medium"
+                                   VerticalOptions="Center"
+                                   MaxLength="8" />
                         </Grid>
                     </Grid>
-                    <!-- Teléfono -->
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
@@ -121,6 +117,22 @@
                                Grid.Column="1"
                                x:Name="TelefonoTrabEntry"
                                Placeholder="Telefono"
+                               FontFamily="Comf-Medium"
+                               Keyboard="Numeric"
+                               MaxLength="9"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <!-- Licencia (solo para transportista) -->
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="licencia.png"
+                               HorizontalOptions="Center"></Image>
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               x:Name="LicenciaTrabEntry"
+                               Placeholder="Licencia"
+                               IsEnabled="False"
                                FontFamily="Comf-Medium"
                                Keyboard="Numeric"
                                MaxLength="9"

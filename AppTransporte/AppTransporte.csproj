@@ -85,6 +85,7 @@
 	  <None Remove="Resources\Images\entregado.png" />
 	  <None Remove="Resources\Images\informe.png" />
 	  <None Remove="Resources\Images\intclientes.png" />
+	  <None Remove="Resources\Images\licencia.png" />
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\mispedidos.png" />
 	  <None Remove="Resources\Images\nuevopedido.png" />
@@ -119,6 +120,12 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
 		<PackageReference Include="Sql" Version="1.0.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Interfaces\VEagregarTransportista.xaml.cs">
+	    <DependentUpon>VEagregarTransportista.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -161,6 +168,10 @@
 	  <MauiXaml Update="Interfaces\VTmisViajes.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Utilidades\" />
 	</ItemGroup>
 
 </Project>
