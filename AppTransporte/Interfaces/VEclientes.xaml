@@ -60,7 +60,7 @@
                                                    VerticalOptions="Center"
                                                    WidthRequest="40"/>
                                             <Grid Grid.Column="1" RowDefinitions=".5*,.5*" Padding="-8">
-                                                <Label Text="{Binding Persona.NombreCompleto}"
+                                                <Label Text="{Binding NombreCompleto}"
                                                    FontSize="15"
                                                    FontFamily="Comf-SemBold"
                                                    HorizontalOptions="Center"
@@ -68,13 +68,13 @@
                                                    TextColor="White"/>
                                                 <Grid Grid.Row="1"
                                                       ColumnDefinitions=".07*,.38*,.1*,.38*,.07*">
-                                                    <Label Text="{Binding Persona.NumDoc}"
+                                                    <Label Text="{Binding NumDoc}"
                                                        FontSize="12"
                                                        FontFamily="Comf-SemBold"
                                                        HorizontalOptions="End"
                                                        Grid.Column="1"
                                                        TextColor="White" />
-                                                <Label Text="{Binding Persona.Telefono}"
+                                                <Label Text="{Binding Telefono}"
                                                        FontSize="12"
                                                        FontFamily="Comf-Medium"
                                                        HorizontalOptions="StartAndExpand"
