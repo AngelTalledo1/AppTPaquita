@@ -955,15 +955,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -3925,15 +3916,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -6861,15 +6843,6 @@
           "lib/net6.0-android30.0/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -9801,15 +9774,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -12739,15 +12703,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -15672,15 +15627,6 @@
           "lib/net6.0-android30.0/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -18609,15 +18555,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -21544,15 +21481,6 @@
           "lib/net6.0-android30.0/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -24528,15 +24456,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -26014,15 +25933,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -27491,15 +27401,6 @@
           "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -28972,15 +28873,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -30449,15 +30341,6 @@
           "lib/net6.0-ios13.6/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -31935,15 +31818,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -33419,15 +33293,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -34882,15 +34747,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -36267,15 +36123,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -37475,15 +37322,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -38672,15 +38510,6 @@
           "lib/net6.0-maccatalyst13.5/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -39873,15 +39702,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -41072,15 +40892,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -42269,15 +42080,6 @@
           "lib/net6.0-maccatalyst13.5/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -43473,15 +43275,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -44657,15 +44450,6 @@
           "lib/net6.0-maccatalyst13.5/SkiaSharp.Views.Maui.Core.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -46027,15 +45811,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -47377,15 +47152,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -48710,15 +48476,6 @@
           "lib/net6.0-windows10.0.19041.0/SkiaSharp.Views.Windows.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -50047,15 +49804,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -51380,15 +51128,6 @@
           "lib/net6.0-windows10.0.19041.0/SkiaSharp.Views.Windows.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -52717,15 +52456,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -54052,15 +53782,6 @@
           }
         }
       },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -55381,15 +55102,6 @@
           "lib/net6.0-windows10.0.19041.0/SkiaSharp.Views.Windows.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "SQL/1.0.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net40/SQL.dll": {}
-        },
-        "runtime": {
-          "lib/net40/SQL.dll": {}
         }
       },
       "System.ClientModel/1.0.0": {
@@ -59165,18 +58877,6 @@
         "skiasharp.views.winui.nuspec"
       ]
     },
-    "SQL/1.0.0.1": {
-      "sha512": "OkhPzXdJulgRYlqQqJ+eZRbF1JmWmBU7UKNzNegv/wvUjJ+rgHr0/bIkN8IO/Dj8pgknDN99Hp3TI+oArAkUMw==",
-      "type": "package",
-      "path": "sql/1.0.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net40/SQL.dll",
-        "sql.1.0.0.1.nupkg.sha512",
-        "sql.nuspec"
-      ]
-    },
     "System.Buffers/4.5.1": {
       "sha512": "Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
       "type": "package",
@@ -62706,8 +62406,7 @@
       "Microsoft.Maui.Controls >= 8.0.71",
       "Microsoft.Maui.Controls.Compatibility >= 8.0.71",
       "Microsoft.NET.ILLink.Tasks >= 8.0.7",
-      "SkiaSharp.Extended.UI.Maui >= 2.0.0",
-      "Sql >= 1.0.0.1"
+      "SkiaSharp.Extended.UI.Maui >= 2.0.0"
     ],
     "net8.0-ios17.2": [
       "CommunityToolkit.Maui >= 9.1.1",
@@ -62718,8 +62417,7 @@
       "Microsoft.Maui.Controls >= 8.0.71",
       "Microsoft.Maui.Controls.Compatibility >= 8.0.71",
       "Microsoft.NET.ILLink.Tasks >= 8.0.7",
-      "SkiaSharp.Extended.UI.Maui >= 2.0.0",
-      "Sql >= 1.0.0.1"
+      "SkiaSharp.Extended.UI.Maui >= 2.0.0"
     ],
     "net8.0-maccatalyst17.2": [
       "CommunityToolkit.Maui >= 9.1.1",
@@ -62730,8 +62428,7 @@
       "Microsoft.Maui.Controls >= 8.0.71",
       "Microsoft.Maui.Controls.Compatibility >= 8.0.71",
       "Microsoft.NET.ILLink.Tasks >= 8.0.7",
-      "SkiaSharp.Extended.UI.Maui >= 2.0.0",
-      "Sql >= 1.0.0.1"
+      "SkiaSharp.Extended.UI.Maui >= 2.0.0"
     ],
     "net8.0-windows10.0.19041": [
       "CommunityToolkit.Maui >= 9.1.1",
@@ -62741,8 +62438,7 @@
       "Microsoft.Extensions.Logging.Debug >= 9.0.0",
       "Microsoft.Maui.Controls >= 8.0.71",
       "Microsoft.Maui.Controls.Compatibility >= 8.0.71",
-      "SkiaSharp.Extended.UI.Maui >= 2.0.0",
-      "Sql >= 1.0.0.1"
+      "SkiaSharp.Extended.UI.Maui >= 2.0.0"
     ]
   },
   "packageFolders": {
@@ -62848,10 +62544,6 @@
           "SkiaSharp.Extended.UI.Maui": {
             "target": "Package",
             "version": "[2.0.0, )"
-          },
-          "Sql": {
-            "target": "Package",
-            "version": "[1.0.0.1, )"
           }
         },
         "imports": [
@@ -62915,10 +62607,6 @@
           "SkiaSharp.Extended.UI.Maui": {
             "target": "Package",
             "version": "[2.0.0, )"
-          },
-          "Sql": {
-            "target": "Package",
-            "version": "[1.0.0.1, )"
           }
         },
         "imports": [
@@ -62982,10 +62670,6 @@
           "SkiaSharp.Extended.UI.Maui": {
             "target": "Package",
             "version": "[2.0.0, )"
-          },
-          "Sql": {
-            "target": "Package",
-            "version": "[1.0.0.1, )"
           }
         },
         "imports": [
@@ -63044,10 +62728,6 @@
           "SkiaSharp.Extended.UI.Maui": {
             "target": "Package",
             "version": "[2.0.0, )"
-          },
-          "Sql": {
-            "target": "Package",
-            "version": "[1.0.0.1, )"
           }
         },
         "imports": [
@@ -63101,17 +62781,5 @@
         "#import": []
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "El paquete \"SQL 1.0.0.1\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" en lugar de la plataforma de destino del proyecto \"net8.0-android34.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
-      "libraryId": "SQL",
-      "targetGraphs": [
-        "net8.0-android34.0"
-      ]
-    }
-  ]
+  }
 }

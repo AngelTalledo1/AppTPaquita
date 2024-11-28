@@ -44,7 +44,6 @@ public class MonoPackageManager_Resources {
 		"SkiaSharp.Views.Android.dll",
 		"SkiaSharp.Views.Maui.Controls.dll",
 		"SkiaSharp.Views.Maui.Core.dll",
-		"SQL.dll",
 		"System.ClientModel.dll",
 		"System.Configuration.ConfigurationManager.dll",
 		"System.Diagnostics.DiagnosticSource.dll",

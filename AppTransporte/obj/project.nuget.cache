@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pyot1JQPlSY=",
+  "dgSpecHash": "iRVjJh8f1no=",
   "success": true,
   "projectFilePath": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\AppTransporte.csproj",
   "expectedPackageFiles": [
@@ -77,7 +77,6 @@
     "C:\\Users\\Javier\\.nuget\\packages\\skiasharp.views.maui.controls\\2.88.7\\skiasharp.views.maui.controls.2.88.7.nupkg.sha512",
     "C:\\Users\\Javier\\.nuget\\packages\\skiasharp.views.maui.core\\2.88.7\\skiasharp.views.maui.core.2.88.7.nupkg.sha512",
     "C:\\Users\\Javier\\.nuget\\packages\\skiasharp.views.winui\\2.88.7\\skiasharp.views.winui.2.88.7.nupkg.sha512",
-    "C:\\Users\\Javier\\.nuget\\packages\\sql\\1.0.0.1\\sql.1.0.0.1.nupkg.sha512",
     "C:\\Users\\Javier\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Javier\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\Javier\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",
@@ -196,16 +195,5 @@
     "C:\\Users\\Javier\\.nuget\\packages\\xamarin.kotlinx.coroutines.core.jvm\\1.7.2.1\\xamarin.kotlinx.coroutines.core.jvm.1.7.2.1.nupkg.sha512",
     "C:\\Users\\Javier\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.41\\microsoft.windows.sdk.net.ref.10.0.19041.41.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "El paquete \"SQL 1.0.0.1\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" en lugar de la plataforma de destino del proyecto \"net8.0-android34.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
-      "libraryId": "SQL",
-      "targetGraphs": [
-        "net8.0-android34.0"
-      ]
-    }
-  ]
+  "logs": []
 }

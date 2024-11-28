@@ -2217,7 +2217,6 @@ C:\Users\gudal\OneDrive\Escritorio\apis_paquita\AppTPaquita\AppTransporte\obj\De
 C:\Users\gudal\OneDrive\Escritorio\apis_paquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\android\assets\CommunityToolkit.Mvvm.dll
 C:\Users\gudal\OneDrive\Escritorio\apis_paquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\android\assets\CommunityToolkit.Mvvm.pdb
 C:\Users\gudal\OneDrive\Escritorio\apis_paquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\android\assets\Dapper.dll
-C:\Users\gudal\OneDrive\Escritorio\apis_paquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\android\assets\SQL.dll
 C:\Users\gudal\OneDrive\Escritorio\apis_paquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\android\src\crc640fd0ddb16fe433d4\TouchBehavior_AccessibilityListener.java
 C:\Users\gudal\OneDrive\Escritorio\apis_paquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\android\src\crc64159f3caeb1269279\MauiDrawingView.java
 C:\Users\gudal\OneDrive\Escritorio\apis_paquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\android\src\crc64159f3caeb1269279\MauiPopup.java
@@ -3381,3 +3380,4 @@ C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\
 C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\stamp\_ResolveLibraryProjectImports.stamp
 C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\resizetizer\r\drawable\licencia.png
+C:\Users\gudal\OneDrive\Escritorio\apis_paquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\resizetizer\r\drawable\licencia.png
