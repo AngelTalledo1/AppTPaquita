@@ -6,4 +6,9 @@ public partial class VEAgregarVehiculo : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private void Btn_aggVehiculo(object sender, EventArgs e)
+    {
+		Navigation.PopAsync();
+    }
 }

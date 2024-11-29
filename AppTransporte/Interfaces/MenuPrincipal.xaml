@@ -119,7 +119,8 @@
                                ZIndex="1"/>
                         <Button ImageSource="cisterna.png"
                                 Grid.RowSpan="2"
-                                BackgroundColor="#b7bdbd" />
+                                BackgroundColor="#b7bdbd"
+                                Clicked="btn_Vehiculos"/>
                     </Grid>
                 </Grid>
                 <Image Source="paquitatext.png"

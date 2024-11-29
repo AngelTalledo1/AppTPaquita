@@ -27,4 +27,9 @@ public partial class MenuPrincipal : ContentPage
     {
         Navigation.PushAsync(new VEtransportistas());
     }
+
+    private void btn_Vehiculos(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new VEVehiculos());
+    }
 }

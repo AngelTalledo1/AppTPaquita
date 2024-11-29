@@ -27,11 +27,10 @@
         </Grid>
         <Grid Grid.Row="1"
               RowDefinitions="1*,.1*">
-            <VerticalStackLayout>
-            <ScrollView Margin="20">
+            <VerticalStackLayout Margin="20">
+            <ScrollView >
                 <VerticalStackLayout>
-                    <ActivityIndicator 
-                                       HorizontalOptions="Center" />
+                    <ActivityIndicator HorizontalOptions="Center" />
                     <CollectionView >
                         <CollectionView.ItemTemplate>
                             <DataTemplate>

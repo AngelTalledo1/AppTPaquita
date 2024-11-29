@@ -2,11 +2,72 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTransporte.Interfaces.VEVehiculos"
+             NavigationPage.HasNavigationBar="False"
              Title="VEVehiculos">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atrasVehiculo" />
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Vehiculos"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="White"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Bold"
+                   Padding="20,20,0,0" />
+        </Grid>
+        <Grid Grid.Row="1"
+              RowDefinitions="1*,.1*">
+            <VerticalStackLayout Margin="20" Spacing="5">
+                <HorizontalStackLayout >
+                    <Label Text="Filtrar por: " 
+                           FontFamily="Comf-Bold" 
+                           VerticalOptions="Center"/>
+                    <SearchBar Placeholder="Placa"
+                               FontFamily="Comf-SemBold"
+                               x:Name="PlacaSearchBar" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="Center" 
+                                       Spacing="50">
+                    <Frame Padding="0" 
+                           WidthRequest="100" 
+                           HeightRequest="40" 
+                           CornerRadius="10"
+                           BackgroundColor="#669bbc" BorderColor="Transparent">
+                    <Picker Title="Tipo"
+                            TitleColor="White"
+                            TextColor="Black"
+                            HorizontalOptions="Center"
+                            FontFamily="Comf-SemBold"
+                            ItemsSource="{Binding TipoVehiculo}"/>
+                    </Frame>
+                    <Picker Title="Vencimiento"
+                            FontFamily="Comf-SemBold"
+                            ItemsSource="{Binding VencimientoVehiculo}"/>
+                    
+                </HorizontalStackLayout>
+                <ScrollView >
+                    
+                </ScrollView>
+                <Button Text="Agregar Vehiculo"
+                        FontFamily="Comf-SemBold"
+                        Clicked="btn_agregarVehiculo"
+                        BackgroundColor="#cb4335"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        WidthRequest="300"
+                        HeightRequest="50"
+                        Grid.Row="1" />
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
 </ContentPage>
