@@ -85,6 +85,18 @@ build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.V
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEclientes.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEclientes.xaml
 
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEDetalleSolicitud.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEDetalleSolicitud.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEDetalleSolicitud.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEDetalleSolicitud.xaml
+
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEDetalleVehiculo.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEDetalleVehiculo.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEDetalleVehiculo.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEDetalleVehiculo.xaml
+
 [C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEpedidos.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEpedidos.xaml
@@ -114,12 +126,6 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEVehiculos.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEVehiculos.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEVehiculos.xaml
-
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEviajesPedido.xaml]
-build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEviajesPedido.xaml
-build_metadata.AdditionalFiles.TargetPath = Interfaces\VEviajesPedido.xaml
-build_metadata.AdditionalFiles.RelativePath = Interfaces\VEviajesPedido.xaml
 
 [C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VTmisViajes.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

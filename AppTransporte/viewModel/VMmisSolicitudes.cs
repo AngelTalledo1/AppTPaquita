@@ -24,11 +24,11 @@ namespace AppTransporte.viewModel
             // Crear algunas solicitudes de ejemplo
             Solicitudes = new ObservableCollection<Solicitud>
             {
-                new Solicitud { IdSolicitud = 1, Descripcion = "Solicitud de transporte urgente olicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgente", IdEstadoSolicitud = "Pendiente" , Comentario = "Se necesita transporte para mañana" },
+                new Solicitud { IdSolicitud = 1, Descripcion = "Solicitud de transporte urgente olicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgente", IdEstadoSolicitud = "Pendiente" , Comentario = "Se necesita transporte para mañana", Fecha =DateTime.Today },
 
 
-                new Solicitud { IdSolicitud = 2, Descripcion = "Solicitud para carga pesada", IdEstadoSolicitud = "Pedido Creado", Comentario = "Carga de maquinaria pesada para la construcción" },
-                new Solicitud { IdSolicitud = 3, Descripcion = "Solicitud estándar", IdEstadoSolicitud = "Cancelada", Comentario = "Su pedido no cumple nuestras reglas" }
+                new Solicitud { IdSolicitud = 2, Descripcion = "Solicitud para carga pesada", IdEstadoSolicitud = "Pedido Creado", Comentario = "Carga de maquinaria pesada para la construcción", Fecha =DateTime.Today },
+                new Solicitud { IdSolicitud = 3, Descripcion = "Solicitud estándar", IdEstadoSolicitud = "Cancelada", Comentario = "Su pedido no cumple nuestras reglas", Fecha =DateTime.Today }
             };
         }
 

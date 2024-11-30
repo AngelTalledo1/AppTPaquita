@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VEDetalleSolicitud"
+             NavigationPage.HasNavigationBar="False"
+             Title="VEDetalleSolicitud">
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atrasDetSolicitud" />
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Detalle Solicitud"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Bold"
+                   Padding="20,20,0,0" />
+        </Grid>
+        <Grid Grid.Row="1 ">
+            <VerticalStackLayout Margin="15" Spacing="10">
+                <Frame Padding="0"
+                       BackgroundColor="#edf2f4"
+                       BorderColor="Transparent"
+                       CornerRadius="20">
+                    <VerticalStackLayout Spacing="7"
+                                         Margin="10">
+                        <Label Text="idSolicitud"
+                               FontFamily="Comf-SemBold"
+                               TextColor="#003049" />
+                        <!--Text="{Binding MostrarIdSolicitud}" -->
+                        <Label Text="Fecha"
+                               FontFamily="Comf-SemBold"
+                               TextColor="#003049" />
+                        <!--Text="{Binding MostrarFecha}" -->
+                        <Label Text="Cliente"
+                               FontFamily="Comf-SemBold"
+                               TextColor="#003049" />
+                        <!--Text="{Binding MostrarCliente}" -->
+                        <Label Text="Descripcion"
+                               TextColor="#003049"
+                               FontFamily="Comf-SemBold" />
+                        <!--Text="{Binding MostrarDescripcion}" -->
+                        <Label Text="Estado"
+                               FontFamily="Comf-Bold"
+                               TextColor="#003049" />
+                        <!--Text="{Binding MostrarEstado}" -->
+                        
+                        <Label Text="Comentario"
+                               FontFamily="Comf-SemBold"
+                               TextColor="#003049" />
+                        <!--Text="{Binding MostrarComentario}" -->
+                    </VerticalStackLayout>
+                </Frame>
+                <Label Text="Agregar Comentario"
+                       FontFamily="Comf-Bold"
+                       TextColor="#bc4749"
+                       FontSize="Subtitle"
+                       HorizontalTextAlignment="Start"
+                       Margin="5" />
+                <Frame Padding="0"
+                       BackgroundColor="#edf2f4"
+                       BorderColor="Transparent"
+                       CornerRadius="20">
+                    <Editor PlaceholderColor="#515a5a"
+                            x:Name="ComentarioEntry"
+                            Placeholder="Se claro y preciso"
+                            FontFamily="Comf-Medium"
+                            VerticalOptions="CenterAndExpand"
+                            AutoSize="TextChanges"
+                            HeightRequest="150"
+                            TextColor="Black" />
+                </Frame>
+                <HorizontalStackLayout Spacing="100" 
+                                       HorizontalOptions="Center">
+                    
+                    <Button Text="Rechazar"
+                            FontFamily="Comf-Bold"
+                            BackgroundColor="#515a5a"
+                            WidthRequest="150"
+                            Margin="0,10,0,0"/>
+                    <Button Text="Crear Pedido"
+                            FontFamily="Comf-Bold"
+                            BackgroundColor="#cb4335"
+                            WidthRequest="150"
+                            Margin="0,10,0,0" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

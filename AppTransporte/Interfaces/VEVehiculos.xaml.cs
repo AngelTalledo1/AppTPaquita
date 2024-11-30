@@ -16,4 +16,9 @@ public partial class VEVehiculos : ContentPage
     {
         Navigation.PushAsync(new VEAgregarVehiculo());
     }
+
+    private void btn_DetallesVehiculo(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new VEDetalleVehiculo());
+    }
 }

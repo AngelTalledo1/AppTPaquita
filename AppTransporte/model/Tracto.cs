@@ -17,5 +17,15 @@ namespace AppTransporte.model
         public DateTime? EmisionCITV { get; set; }
         public DateTime? VencimientoCITV { get; set; }
         public bool Estado { get; set; }
+
+        public string MostrarPlaca => $"Placa: {Placa}".Trim();
+        public string MostrarModelo => $"Modelo: {Modelo}".Trim();
+        public string MostrarAño => $"Año Fabricacion: {AñoFabricacion}".Trim();
+        public string MostrarEmisionPoliza => $"Emision Poliza {EmisionPoliza}";
+        public string MostrarVencimientoPoliza => $"Vencimiento Poliza: {VencimientoPoliza}";
+        public string MostrarEmisionCITV => $"Emision CITV: {EmisionCITV}";
+        public string MostrarVencimientoCITV => $"Vencimiento CITV: {VencimientoCITV}";
+        public static string MostrarEmisionCubicacion => $"Emision Cubicacion: -- ";
+        public static string MostrarVencimientoCubicacion => $"Vencimiento Cubicacion: --";
     }
 }

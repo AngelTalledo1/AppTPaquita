@@ -17,8 +17,4 @@ public partial class MenuTransportista : ContentPage
         await Navigation.PushAsync(new VTmisViajes());
     }
 
-    private async void Vehiculos_Clicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new VEVehiculos());
-    }
 }

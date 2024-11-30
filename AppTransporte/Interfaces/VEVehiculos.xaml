@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:AppTransporte.viewModel"
              x:Class="AppTransporte.Interfaces.VEVehiculos"
              NavigationPage.HasNavigationBar="False"
              Title="VEVehiculos">
+    <ContentPage.BindingContext>
+        <viewModel:VMmisSolicitudes /> <!--usado para probar, cambiar-->
+    </ContentPage.BindingContext>
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0"
@@ -27,7 +31,7 @@
         </Grid>
         <Grid Grid.Row="1"
               RowDefinitions="1*,.1*">
-            <VerticalStackLayout Margin="20" Spacing="5">
+            <VerticalStackLayout Margin="20" Spacing="10">
                 <HorizontalStackLayout >
                     <Label Text="Filtrar por: " 
                            FontFamily="Comf-Bold" 
@@ -44,19 +48,73 @@
                            CornerRadius="10"
                            BackgroundColor="#669bbc" BorderColor="Transparent">
                     <Picker Title="Tipo"
+                            SelectedIndex="1"
                             TitleColor="White"
-                            TextColor="Black"
                             HorizontalOptions="Center"
                             FontFamily="Comf-SemBold"
-                            ItemsSource="{Binding TipoVehiculo}"/>
+                            ItemsSource="{Binding TipoVehiculo}"/> <!--Cisterna o tracto-->
                     </Frame>
-                    <Picker Title="Vencimiento"
-                            FontFamily="Comf-SemBold"
-                            ItemsSource="{Binding VencimientoVehiculo}"/>
-                    
+                    <Frame Padding="0"
+                           WidthRequest="150"
+                           HeightRequest="40"
+                           CornerRadius="10"
+                           BackgroundColor="#669bbc"
+                           BorderColor="Transparent">
+                        <Picker Title="Vencimiento"
+                                TitleColor="White"
+                                HorizontalOptions="Center"
+                                FontFamily="Comf-SemBold"
+                            ItemsSource="{Binding VencimientoVehiculo}"/> <!--se ordena por fecha mas proxima a vencer entre CITV o Poliza-->
+                    </Frame>
                 </HorizontalStackLayout>
                 <ScrollView >
-                    
+                    <VerticalStackLayout>
+                        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                           IsVisible="{Binding IsBusy}"
+                                           HorizontalOptions="Center" />
+                        <CollectionView ItemsSource="{Binding Solicitudes}"> <!--Cambiar a vehiculos filtrados-->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Padding="0"
+                                           BackgroundColor="#778da9" 
+                                           CornerRadius="10"
+                                           WidthRequest="400"
+                                           HeightRequest="80"
+                                           Margin="3">
+                                        <Grid ColumnDefinitions=".4*,1*,.2*" 
+                                              RowDefinitions="1*,1*">
+                                            <Label Text="{Binding IdSolicitud}"
+                                                   HorizontalOptions="Center"
+                                                   Grid.RowSpan="2"
+                                                   VerticalOptions="Center"
+                                                   FontFamily="Comf-Bold"/> <!--Enlace placa-->
+                                            <Label Text="{Binding EstadoSolicitud}"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   Grid.Column="1"
+                                                   FontFamily="Comf-SemBold"/> <!--Enlace Modelo-->
+                                            <Label Text="{Binding IdCliente}"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   Grid.Column="1"
+                                                   Grid.Row="1"
+                                                   FontFamily="Comf-SemBold" /> <!--Enlace año-->
+                                            <Button Grid.Column="2"
+                                                    Grid.RowSpan="2"
+                                                    HorizontalOptions="Center"
+                                                    Clicked="btn_DetallesVehiculo" 
+                                                    BackgroundColor="Transparent"/>
+                                            <Image Source="detalles.png"
+                                                   HorizontalOptions="Center"
+                                                   WidthRequest="30"
+                                                   Grid.Column="2"
+                                                   Grid.RowSpan="2" />
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
                 </ScrollView>
                 <Button Text="Agregar Vehiculo"
                         FontFamily="Comf-SemBold"
