@@ -19,14 +19,14 @@ namespace AppTransporte.model
         public EstadoSolicitud EstadoSolicitud { get; set; } = new EstadoSolicitud();// Relación con EstadoSolicitud
 
 
-        public string MostrarIdSolicitud => $"Solicitud ID: {IdSolicitud}".Trim();
-        public string MostrarCliente => $"Cliente: {Cliente.Persona.NombreCompleto}".Trim();
+        public string MostrarIdSolicitud => $"Solicitud ID:     {IdSolicitud}".Trim();
+        public string MostrarCliente => $"Cliente:  {Cliente.Persona.NombreCompleto}".Trim();
 
-        public string MostrarDescripcion => $"Descripcion de Solicitud: \n{Descripcion}".Trim();
+        public string MostrarDescripcion => $"Descripcion de Solicitud: \n  {Descripcion}".Trim();
 
-        public string MostrarComentario => $"Comentario: \n{Comentario}".Trim();
-        public string MostrarFecha => $"Fecha Solicitud: {Fecha}".Trim();
-        public string MostrarEstado => $"Estado de solicidu: {EstadoSolicitud.Descripcion}".Trim();
+        public string MostrarComentario => $"Comentario: \n {Comentario}".Trim();
+        public string MostrarFecha => $"Fecha Solicitud:    {Fecha}".Trim();
+        public string MostrarEstado => $"Estado de solicitud:   {EstadoSolicitud.Descripcion}".Trim();
 
 
 

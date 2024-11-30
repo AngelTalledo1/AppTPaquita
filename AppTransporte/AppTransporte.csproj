@@ -180,10 +180,13 @@
 	  <MauiXaml Update="Interfaces\VEtransportistas.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VEUbicacion.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEVehiculos.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VTmisViajes.xaml">
+	  <MauiXaml Update="Interfaces\VTMisViajes.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

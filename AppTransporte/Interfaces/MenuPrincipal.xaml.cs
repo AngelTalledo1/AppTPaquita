@@ -38,4 +38,3 @@ public partial class MenuPrincipal : ContentPage
        await Navigation.PushAsync(new VESolicitudes());
     }
 }
-}

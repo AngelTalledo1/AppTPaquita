@@ -121,17 +121,23 @@ build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.V
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEtransportistas.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEtransportistas.xaml
 
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEUbicacion.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEUbicacion.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEUbicacion.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEUbicacion.xaml
+
 [C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEVehiculos.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEVehiculos.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEVehiculos.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEVehiculos.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VTmisViajes.xaml]
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VTMisViajes.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VTmisViajes.xaml
-build_metadata.AdditionalFiles.TargetPath = Interfaces\VTmisViajes.xaml
-build_metadata.AdditionalFiles.RelativePath = Interfaces\VTmisViajes.xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VTMisViajes.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VTMisViajes.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VTMisViajes.xaml
 
 [C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

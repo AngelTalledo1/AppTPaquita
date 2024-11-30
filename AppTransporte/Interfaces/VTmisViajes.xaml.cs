@@ -1,15 +1,14 @@
 namespace AppTransporte.Interfaces;
 
-public partial class VTmisViajes : ContentPage
+public partial class VTMisViajes : ContentPage
 {
-	public VTmisViajes()
+	public VTMisViajes()
 	{
 		InitializeComponent();
 	}
 
-    private void Btn_atrasMisViajes(object sender, EventArgs e)
+    private void Btn_AtrasMisViajes(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+		Navigation.PopAsync();
     }
-
 }

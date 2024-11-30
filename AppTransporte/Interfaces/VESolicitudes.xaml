@@ -7,7 +7,6 @@
              Title="VESolicitudes">
     <ContentPage.BindingContext>
         <viewModel:VMmisSolicitudes />
-        <!--usado para probar, cambiar-->
     </ContentPage.BindingContext>
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
@@ -50,7 +49,8 @@
                     <VerticalStackLayout>
                        <!-- <ActivityIndicator HorizontalOptions="Center"
                                            VerticalOptions="Center"/> -->
-                        <CollectionView ItemsSource="{Binding Solicitudes}">
+                        <CollectionView ItemsSource="{Binding Solicitudes}"
+                                        SelectionMode="None">
                             <!--Mostrar directamente solicitudes filtradas por estado "Pendiente"-->
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
@@ -81,7 +81,9 @@
                                             <Button BackgroundColor="Transparent"
                                                     Grid.Column="2"
                                                     Grid.RowSpan="2"
-                                                    Clicked="btn_DetSolicitud"/>
+                                                    Clicked="OnPedidoSelected"
+                                                    CommandParameter="{Binding .}" />
+                                            <!--Clicked="btn_DetSolicitud"-->
                                             <Image Source="siguiente.png"
                                                    Grid.Column="2"
                                                    Grid.RowSpan="2"

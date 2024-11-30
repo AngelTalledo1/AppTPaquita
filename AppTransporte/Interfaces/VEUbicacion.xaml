@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="AppTransporte.Interfaces.VEUbicacion"
+             Title="VEUbicacion">
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_AtrasUbicacion" />
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Destino - Origen"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Bold"
+                   Padding="20,20,0,0" />
+        </Grid>
+        <Grid Grid.Row="1" RowDefinitions="1*,.1*">
+            <VerticalStackLayout Margin="20">
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Buscar: "
+                           FontFamily="Comf-SemBold"
+                           VerticalOptions="Center"/>
+                    <Frame Padding="0"
+                       WidthRequest="350"
+                       HorizontalOptions="Start"
+                       HeightRequest="40"
+                       CornerRadius="10"
+                       BackgroundColor="#669bbc"
+                       BorderColor="Transparent">
+                    <SearchBar Placeholder="Pozo o Sector"
+                               TextColor="White"/>
+                </Frame>
+                </HorizontalStackLayout>
+                <ScrollView>
+                    <VerticalStackLayout>
+                        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                           IsVisible="{Binding IsBusy}"
+                                           HorizontalOptions="Center" />
+                        <CollectionView ItemsSource="{Binding Solicitudes}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <CollectionView ItemsSource="{Binding Solicitudes}">
+                                        <!--Mostrar las ubicaciones filtrados-->
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Frame Padding="0"
+                                                       BackgroundColor="#778da9"
+                                                       CornerRadius="10"
+                                                       WidthRequest="430"
+                                                       HeightRequest="110"
+                                                       Margin="3">
+                                                    <toolkit:Expander>
+                                                        <toolkit:Expander.Header>
+                                                            <Grid ColumnDefinitions="1*,.2*"
+                                                                  RowDefinitions="1*,1*">
+                                                                <Label Text="{Binding Descripcion}"
+                                                                       FontFamily="Comf-Bold" />
+                                                                <Label Text="{Binding Sector}"
+                                                                       Grid.Row="1"
+                                                                       FontFamily="Comf-SemBold" />
+                                                                <Button BackgroundColor="Transparent"
+                                                                        Grid.Column="2"
+                                                                        Grid.RowSpan="2"
+                                                                        Clicked="Btn_ModifUbicacion" />
+                                                                <Image Source="siguiente.png"
+                                                                       Grid.Column="2"
+                                                                       Grid.RowSpan="2"
+                                                                       VerticalOptions="Center"
+                                                                       WidthRequest="20" />
+                                                            </Grid>
+                                                        </toolkit:Expander.Header>
+                                                    <VerticalStackLayout>
+                                                        <Label Text="{Binding CoordenadasMaps}"
+                                                               FontFamily="Comf-SemBold" />
+                                                        <Label Text="{Binding Referencias}"
+                                                               FontFamily="Comf-SemBold" />
+                                                        </VerticalStackLayout>
+                                                 
+                                                </toolkit:Expander>
+                                                </Frame>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </ScrollView>
+                <Button Text="Nueva Solicitud"
+                        FontFamily="Comf-SemBold"
+                        BackgroundColor="#cb4335"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        WidthRequest="300"
+                        HeightRequest="50"
+                        Grid.Row="1"
+                        Clicked="Btn_AggUbicacion" />
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>
