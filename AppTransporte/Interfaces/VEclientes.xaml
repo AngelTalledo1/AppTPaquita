@@ -95,10 +95,13 @@
                                                             WidthRequest="25"
                                                             BackgroundColor="Transparent"
                                                             Padding="0"
+                                                            Clicked="ClienteSlect_modificar"
+                                                            CommandParameter="{Binding .}"
                                                             HorizontalOptions="Start" />
                                                     <Button ImageSource="eliminar.png"
                                                             Grid.Column="1"
                                                             BackgroundColor="Transparent"
+                                                            Clicked="Btn_EliminarCliente"
                                                             Padding="0"
                                                             WidthRequest="25"
                                                             HorizontalOptions="End" />

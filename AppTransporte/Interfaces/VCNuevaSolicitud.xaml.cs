@@ -1,3 +1,6 @@
+using AppTransporte.model;
+using Microsoft.Maui.Graphics.Text;
+
 namespace AppTransporte.Interfaces;
 
 public partial class VCNuevaSolicitud : ContentPage
@@ -5,8 +8,33 @@ public partial class VCNuevaSolicitud : ContentPage
     public VCNuevaSolicitud()
     {
         InitializeComponent();
-        CargarIdCliente();
+        TituloNuev.Text = "Nueva Solicitud";
+        //IdClienteLabel.Text =
+        Solicitar.IsVisible = true;
+        Cancelar.IsVisible = true;
+        //CargarIdCliente();
     }
+
+    public VCNuevaSolicitud(Solicitud solicitud)
+    {
+        InitializeComponent();
+        TituloNuev.Text = $"Modificar Solicitud {solicitud.IdSolicitud}";
+        //IdClienteLabel.Text =
+        Eliminar.IsVisible = true;
+        Actualizar.IsVisible = true;
+        BindingContext = solicitud;
+    }
+
+
+    private void Btn_atrasSolPedido(object sender, EventArgs e)
+    {
+        Navigation.PopAsync();
+    }
+    private void Btn_cancelar(object sender, EventArgs e)
+    {
+        Navigation.PopAsync();
+    }
+
 
     private void Btn_Solicitar(object sender, EventArgs e)
     {
@@ -18,27 +46,13 @@ public partial class VCNuevaSolicitud : ContentPage
         };
 
         // Enviar el mensaje al "MenuPrincipal"
-       // MessagingCenter.Send(this, "Nueva Solicitud", solicitud);
+        // MessagingCenter.Send(this, "Nueva Solicitud", solicitud);
 
         // Opcional: Muestra un mensaje de confirmación al usuario
         DisplayAlert("Solicitud Enviada", "La solicitud se ha enviado al administrador.", "OK");
 
         // Regresa al menú principal
         Navigation.PushAsync(new VCMisSolicitudes());
-    }
-    private void Btn_atrasSolPedido(object sender, EventArgs e)
-    {
-        Navigation.PopAsync();
-    }
-    private void Btn_cancelar(object sender, EventArgs e)
-    {
-        Navigation.PopAsync();
-    }
-    private void CargarIdCliente()
-    {
-        // Supongamos que obtienes el idCliente desde un servicio o base de datos
-        string idCliente = ObtenerIdCliente();
-        IdClienteLabel.Text = idCliente;
     }
 
     private static string ObtenerIdCliente()
@@ -48,6 +62,16 @@ public partial class VCNuevaSolicitud : ContentPage
         // Esto es solo un ejemplo.
         return "12345";
 
+
+    }
+
+    private void Btn_EliminarSolicitud(object sender, EventArgs e)
+    {
+
+    }
+
+    private void Btn_ModificarSolicitud(object sender, EventArgs e)
+    {
 
     }
 }

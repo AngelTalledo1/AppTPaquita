@@ -30,9 +30,6 @@ namespace AppTransporte.model
 
 
 
-
-
-
     }
 
 }

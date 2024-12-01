@@ -53,21 +53,6 @@
                                 BackgroundColor="#b7bdbd" />
                     </Grid>
                 </Grid>
-                <Grid Grid.Column="2"
-                      Grid.Row="1"
-                      Margin="10">
-                    <Grid RowDefinitions=".1*,.9*">
-                        <Label Text="Mis direcciones"
-                               HorizontalOptions="Center"
-                               FontFamily="Comf-Variable"
-                               FontSize="14"
-                               ZIndex="1" />
-                        <Button ImageSource="direcciones.png"
-                                Grid.RowSpan="2"
-                                Clicked="NuevoPedido_Clicked"
-                                BackgroundColor="#b7bdbd" />
-                    </Grid>
-                </Grid>
                 <Grid Grid.Column="1"
                       Grid.Row="1"
                       Margin="10">

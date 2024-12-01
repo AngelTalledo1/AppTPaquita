@@ -15,7 +15,7 @@ public partial class VEagregarTransportista : ContentPage
 
     private void categoriaPicker_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (categoriaPicker.SelectedItem?.ToString() == "Transportista")
+        if (categoriaPicker.SelectedItem.ToString() == "Transportista")
         {
             // Habilita el campo de licencia
             LicenciaTrabEntry.IsEnabled = true;

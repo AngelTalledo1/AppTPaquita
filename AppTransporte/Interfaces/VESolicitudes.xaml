@@ -81,7 +81,7 @@
                                             <Button BackgroundColor="Transparent"
                                                     Grid.Column="2"
                                                     Grid.RowSpan="2"
-                                                    Clicked="OnPedidoSelected"
+                                                    Clicked="SolicitudSelected_detalle"
                                                     CommandParameter="{Binding .}" />
                                             <!--Clicked="btn_DetSolicitud"-->
                                             <Image Source="siguiente.png"
