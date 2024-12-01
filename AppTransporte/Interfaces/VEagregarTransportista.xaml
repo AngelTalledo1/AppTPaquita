@@ -27,7 +27,8 @@
                        Padding="0,10,0,0"
                        BackgroundColor="AliceBlue"
                        BorderColor="Transparent">
-                    <Label Text="Informacion General"
+                    <Label Text=""
+                           x:Name="tituloLabel"
                            HorizontalOptions="Center"
                            FontFamily="Comf-Bold"
                            FontSize="Medium" />
@@ -44,7 +45,7 @@
                             <Picker x:Name="categoriaPicker"
                                     Title="Seleccione tipo de trabajador"
                                     FontFamily="Comf-Bold"
-                                    SelectedIndex="1"
+                                    SelectedIndexChanged="categoriaPicker_SelectedIndexChanged"
                                     TextColor="Black">
                                 <Picker.Items>
                                     <x:String>Administrador</x:String>
@@ -87,7 +88,7 @@
                                Source="tipodoc.png"
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
-                            <Picker x:Name="TipoDocumentoTrabEntry"
+                            <Picker x:Name="TipoDocumentoTrabPicker"
                                     Title="Tipo"
                                     HorizontalOptions="Center"
                                     FontFamily="Comf-Bold"
@@ -132,7 +133,7 @@
                                Grid.Column="1"
                                x:Name="LicenciaTrabEntry"
                                Placeholder="Licencia"
-                               IsEnabled="False"
+                               IsVisible="False"
                                FontFamily="Comf-Medium"
                                Keyboard="Numeric"
                                MaxLength="9"
@@ -165,9 +166,23 @@
                                VerticalOptions="Center" />
                     </Grid>
                     <!-- Botón de Guardar -->
-                    <Button Text="Guardar Cliente"
+                    <Button Text="Guardar Trabajador"
+                            x:Name="GuardarTrabajador"
                             HeightRequest="50"
                             WidthRequest="300"
+                            IsVisible="False"
+                            Clicked="Btn_AgregarTrabajador"
+                            FontFamily="Comf-Bold"
+                            BackgroundColor="#007AFF"
+                            TextColor="White"
+                            CornerRadius="40"
+                            HorizontalOptions="Center" />
+                    <Button Text="Actualizar Trabajador"
+                            x:Name="ActualizarTrabajador"
+                            HeightRequest="50"
+                            WidthRequest="300"
+                            IsVisible="False"
+                            Clicked="ActualizarTrabajador_Clicked"
                             FontFamily="Comf-Bold"
                             BackgroundColor="#007AFF"
                             TextColor="White"

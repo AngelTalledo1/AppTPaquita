@@ -102,7 +102,8 @@
                                             <Button Grid.Column="2"
                                                     Grid.RowSpan="2"
                                                     HorizontalOptions="Center"
-                                                    Clicked="btn_DetallesVehiculo" 
+                                                    Clicked="btn_DetallesVehiculo"
+                                                    CommandParameter="{Binding .}"
                                                     BackgroundColor="Transparent"/>
                                             <Image Source="detalles.png"
                                                    HorizontalOptions="Center"

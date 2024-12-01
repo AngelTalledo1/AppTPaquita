@@ -97,14 +97,7 @@
                         </CollectionView>
                     </VerticalStackLayout>
                 </ScrollView>
-                <Button Text="Nueva Solicitud"
-                        FontFamily="Comf-SemBold"
-                        BackgroundColor="#cb4335"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Start"
-                        WidthRequest="300"
-                        HeightRequest="50"
-                        Grid.Row="1" />
+                
             </VerticalStackLayout>
         </Grid>
     </Grid>

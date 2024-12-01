@@ -125,10 +125,13 @@
                                                 <Button ImageSource="edit.png"
                                                         WidthRequest="25"
                                                         BackgroundColor="Transparent"
+                                                            Clicked="Btn_ModificarTrabajador"
+                                                        CommandParameter="{Binding .}"
                                                         Padding="0"
                                                         HorizontalOptions="Start" />
                                                 <Button ImageSource="eliminar.png"
                                                         Grid.Column="1"
+                                                            Clicked="EliminarTrabajador"
                                                         BackgroundColor="Transparent"
                                                         Padding="0"
                                                         WidthRequest="25"

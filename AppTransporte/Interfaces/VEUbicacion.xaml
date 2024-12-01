@@ -98,7 +98,7 @@
                         </CollectionView>
                     </VerticalStackLayout>
                 </ScrollView>
-                <Button Text="Nueva Solicitud"
+                <Button Text="Nueva Ubicacion"
                         FontFamily="Comf-SemBold"
                         BackgroundColor="#cb4335"
                         HorizontalOptions="Center"

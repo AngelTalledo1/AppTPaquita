@@ -1,4 +1,5 @@
 namespace AppTransporte.Interfaces;
+using AppTransporte.model;
 
 public partial class VEVehiculos : ContentPage
 {
@@ -17,8 +18,14 @@ public partial class VEVehiculos : ContentPage
         Navigation.PushAsync(new VEAgregarVehiculo());
     }
 
-    private void btn_DetallesVehiculo(object sender, EventArgs e)
+    private async void btn_DetallesVehiculo(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VEDetalleVehiculo());
+        var button = (Button)sender;
+        var vehiculo = button.CommandParameter as Vehiculo;
+
+        if (vehiculo != null)
+        {
+            await Navigation.PushAsync(new VEDetalleVehiculo(vehiculo));
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace AppTransporte.model
 
 
         public string NombreTrabajador => $"{Persona.Nombre} {Persona.ApePaterno}".Trim();
+        public string apellidoTrabajador => $"{Persona.ApePaterno} {Persona.ApeMaterno}";
 
         
 
