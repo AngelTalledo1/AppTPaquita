@@ -156,10 +156,16 @@
 	  <MauiXaml Update="Interfaces\VEagregarTransportista.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VEAgregarUbicacion.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEAgregarVehiculo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEclientes.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Interfaces\VECrearPedido.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Interfaces\VEDetalleSolicitud.xaml">

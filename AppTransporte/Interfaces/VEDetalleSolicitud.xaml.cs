@@ -15,4 +15,18 @@ public partial class VEDetalleSolicitud : ContentPage
     {
 		Navigation.PopAsync();
     }
+
+    private async void Btn_CrearPedido(object sender, EventArgs e)
+    {
+        var button = (Button)sender;
+        var solicitud = button.CommandParameter as Solicitud;
+
+        if (solicitud != null)
+        {
+
+            await Navigation.PushAsync(new VECrearPedido(solicitud));
+        }
+    }
+
+   
 }

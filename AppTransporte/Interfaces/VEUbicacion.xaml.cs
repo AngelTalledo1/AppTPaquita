@@ -1,4 +1,5 @@
 namespace AppTransporte.Interfaces;
+using AppTransporte.model;
 
 public partial class VEUbicacion : ContentPage
 {
@@ -14,11 +15,18 @@ public partial class VEUbicacion : ContentPage
 
     private void Btn_AggUbicacion(object sender, EventArgs e)
     {
-
+        Navigation.PushAsync(new VEAgregarUbicacion());
     }
 
-    private void Btn_ModifUbicacion(object sender, EventArgs e)
+    private async void Btn_ModifUbicacion(object sender, EventArgs e)
     {
+        var button = (Button)sender;
+        var ubicacion = button.CommandParameter as Ubicacion;
 
+        if (ubicacion != null)
+        {
+
+            await Navigation.PushAsync(new VEAgregarUbicacion(ubicacion));
+        }
     }
 }

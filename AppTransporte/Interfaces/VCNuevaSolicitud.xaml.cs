@@ -19,7 +19,7 @@ public partial class VCNuevaSolicitud : ContentPage
     {
         InitializeComponent();
         TituloNuev.Text = $"Modificar Solicitud {solicitud.IdSolicitud}";
-        //IdClienteLabel.Text =
+        IdClienteLabel.Text = $"{solicitud.IdCliente}";
         Eliminar.IsVisible = true;
         Actualizar.IsVisible = true;
         BindingContext = solicitud;

@@ -16,7 +16,7 @@ public partial class VEagregarCliente : ContentPage
         InitializeComponent();
         ActualizarCliente.IsVisible = true;
         TituloLabel.Text = "Modificar Cliente";
-        NombreEntry.Text = clienteSelect.Persona.Nombre;
+        NombreEntry.Text = clienteSelect.Nombre;
         ApellidoEntry.Text = $"{clienteSelect.ApePaterno} {clienteSelect.ApeMaterno} ";
         TipoDocumentoPicker.SelectedIndex = clienteSelect.Persona.IdTipoDoc;
         NumeroDocEntry.Text = clienteSelect.NumDoc;

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VEAgregarUbicacion"
+             NavigationPage.HasNavigationBar="False"
+             Title="VEAgregarUbicacion">
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atrasAggUbicacion" />
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text=""
+                   x:Name="TituloAggUbicacion"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+        <Grid Grid.Row="1 ">
+            <VerticalStackLayout>
+                <Frame WidthRequest="500"
+                       HeightRequest="60"
+                       Padding="0,10,0,0"
+                       BackgroundColor="AliceBlue"
+                       BorderColor="Transparent">
+                    <Label Text="Información General"
+                           HorizontalOptions="Center"
+                           TextColor="Black"
+                           FontFamily="Comf-Bold"
+                           FontSize="Medium" />
+                </Frame>
+                <VerticalStackLayout Margin="0,10,20,0">
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center"
+                               Source="descripcion.png" />
+                        <Editor PlaceholderColor="#515a5a"
+                                Grid.Column="1"
+                                Margin="10"
+                                x:Name="descripcionEntry"
+                                AutoSize="TextChanges"
+                                Placeholder="Descripcion"
+                                FontFamily="Comf-Bold"
+                                TextColor="Black" />
+                    </Grid>
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center"
+                               Source=".png" />
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               Margin="10"
+                               x:Name="sectorEntry"
+                               Placeholder="Sector"
+                               FontFamily="Comf-Bold"
+                               TextColor="Black" />
+                    </Grid>
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center"
+                               Source=".png" />
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               Margin="10"
+                               x:Name="referenciasEntry"
+                               Placeholder="Referencias"
+                               FontFamily="Comf-Bold"
+                               TextColor="Black" />
+                    </Grid>
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center"
+                               Source=".png" />
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               Margin="10"
+                               x:Name="coordenadasEntry"
+                               Placeholder="Coordenadas"
+                               FontFamily="Comf-Bold"
+                               TextColor="Black" />
+                    </Grid>
+                    
+                    <HorizontalStackLayout Margin="30"
+                                           Spacing="40"
+                                           HorizontalOptions="Center">
+                        <Button Text="Guardar"
+                                x:Name="GuardarUbicacion"
+                                HeightRequest="50"
+                                WidthRequest="150"
+                                Clicked="GuardarUbicacion_Clicked"
+                                IsVisible="False"
+                                FontFamily="Comf-Medium"
+                                BackgroundColor="#007AFF"
+                                TextColor="White"
+                                CornerRadius="40"
+                                HorizontalOptions="Center" />
+                        <Button Text="Cancelar"
+                                x:Name="CancelarUbicacion"
+                                Clicked="Btn_atrasAggUbicacion"
+                                IsVisible="False"
+                                HeightRequest="50"
+                                WidthRequest="150"
+                                FontFamily="Comf-Medium"
+                                BackgroundColor="#cb4335"
+                                TextColor="White"
+                                CornerRadius="40"
+                                HorizontalOptions="Center" />
+                        <Button Text="Actualizar"
+                                x:Name="ActualizarUbicacion"
+                                Clicked="ActualizarUbicacion_Clicked"
+                                HeightRequest="50"
+                                IsVisible="False"
+                                WidthRequest="150"
+                                FontFamily="Comf-Medium"
+                                BackgroundColor="#007AFF"
+                                TextColor="White"
+                                CornerRadius="40"
+                                HorizontalOptions="Center" />
+                        <Button Text="Eliminar"
+                                x:Name="EliminarUbicacion"
+                                Clicked="EliminarUbicacion_Clicked"
+                                HeightRequest="50"
+                                IsVisible="False"
+                                WidthRequest="150"
+                                FontFamily="Comf-Medium"
+                                BackgroundColor="#cb4335"
+                                TextColor="White"
+                                CornerRadius="40"
+                                HorizontalOptions="Center" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

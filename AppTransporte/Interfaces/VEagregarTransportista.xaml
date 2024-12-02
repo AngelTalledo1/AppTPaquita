@@ -4,7 +4,7 @@
              x:Class="AppTransporte.Interfaces.VEagregarTransportista"
              Title="VEagregarTransportista"
              NavigationPage.HasNavigationBar="False">
-    <Grid RowDefinitions=".05*,.8*">
+    <Grid RowDefinitions=".1*,.9*">
         <Grid BackgroundColor="#cb4335"
               ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0">
@@ -12,13 +12,19 @@
                     Clicked="Btn_atrasTrab" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
+                   VerticalOptions="End"
                    HeightRequest="20"
+                   Margin="20"
                    WidthRequest="20" />
-            <Label Text="Agregar nuevo trabajador"
+            <Label Text=""
+                   x:Name="tituloLabel"
                    Grid.Column="1"
+                   FontSize="20"
                    TextColor="White"
-                   FontFamily="Comf-Bold"
-                   Padding="30,12,0,0" />
+                   FontFamily="Comf-Medium"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1 ">
             <VerticalStackLayout>
@@ -27,8 +33,7 @@
                        Padding="0,10,0,0"
                        BackgroundColor="AliceBlue"
                        BorderColor="Transparent">
-                    <Label Text=""
-                           x:Name="tituloLabel"
+                    <Label Text="Informacion General"
                            HorizontalOptions="Center"
                            FontFamily="Comf-Bold"
                            FontSize="Medium" />

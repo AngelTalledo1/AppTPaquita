@@ -22,7 +22,7 @@
                    Margin="20" />
             <Label Text="Trabajador"
                    FontSize="20"
-                   FontFamily="Comf-Bold"
+                   FontFamily="Comf-Medium"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
                    TextColor="White"
@@ -30,8 +30,6 @@
                    Margin="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1">
-            <RoundRectangle CornerRadius="0,0,0,0"
-                            Fill="#FBF6FD" />
             <Grid RowDefinitions=".8*,.2*">
                 <VerticalStackLayout  Margin="20"
                                       Spacing="5">
@@ -125,7 +123,7 @@
                                                 <Button ImageSource="edit.png"
                                                         WidthRequest="25"
                                                         BackgroundColor="Transparent"
-                                                            Clicked="Btn_ModificarTrabajador"
+                                                         Clicked="Btn_ModificarTrabajador"
                                                         CommandParameter="{Binding .}"
                                                         Padding="0"
                                                         HorizontalOptions="Start" />

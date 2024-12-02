@@ -26,7 +26,7 @@
                    TextColor="White"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
-                   FontFamily="Comf-Bold"
+                   FontFamily="Comf-Medium"
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1"

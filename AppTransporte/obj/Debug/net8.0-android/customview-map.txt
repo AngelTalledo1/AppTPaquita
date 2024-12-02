@@ -18,12 +18,9 @@ attr;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransp
 attr;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\169\jl\res\values\attrs.xml
 background;obj\Debug\net8.0-android\resizetizer\r\mipmap-anydpi-v26\appicon.xml
 background;obj\Debug\net8.0-android\resizetizer\r\mipmap-anydpi-v26\appicon_round.xml
-bitmap;obj\Debug\net8.0-android\resizetizer\sp\drawable\maui_splash_image.xml
-bitmap;obj\Debug\net8.0-android\resizetizer\sp\drawable-v31\maui_splash_image.xml
 cache-path;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\167\jl\res\xml\microsoft_maui_essentials_fileprovider_file_paths.xml
 color;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\166\jl\res\values\colors.xml
 color;obj\Debug\net8.0-android\res\values\colors.xml
-color;obj\Debug\net8.0-android\resizetizer\sp\values\maui_colors.xml
 com.google.android.material.appbar.AppBarLayout;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\164\jl\res\layout\flyoutcontent.xml
 com.google.android.material.appbar.AppBarLayout;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\164\jl\res\layout\shellcontent.xml
 com.google.android.material.appbar.AppBarLayout;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\166\jl\res\layout\navigationlayout.xml
@@ -39,12 +36,8 @@ foreground;obj\Debug\net8.0-android\resizetizer\r\mipmap-anydpi-v26\appicon_roun
 item;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\163\jl\res\values\styles.xml
 item;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\166\jl\res\drawable\maui_splash.xml
 item;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\166\jl\res\values\styles.xml
-item;obj\Debug\net8.0-android\resizetizer\sp\drawable\maui_splash_image.xml
-item;obj\Debug\net8.0-android\resizetizer\sp\drawable-v31\maui_splash_image.xml
 layer-list;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\166\jl\res\drawable\maui_splash.xml
 layer-list;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\166\jl\res\drawable\maui_splash_image.xml
-layer-list;obj\Debug\net8.0-android\resizetizer\sp\drawable\maui_splash_image.xml
-layer-list;obj\Debug\net8.0-android\resizetizer\sp\drawable-v31\maui_splash_image.xml
 microsoft.maui.controls.platform.compatibility.ShellFlyoutLayout;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\164\jl\res\layout\flyoutcontent.xml
 monochrome;obj\Debug\net8.0-android\resizetizer\r\mipmap-anydpi-v26\appicon.xml
 monochrome;obj\Debug\net8.0-android\resizetizer\r\mipmap-anydpi-v26\appicon_round.xml
@@ -58,7 +51,6 @@ resources;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppT
 resources;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\166\jl\res\values\styles.xml
 resources;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\169\jl\res\values\attrs.xml
 resources;obj\Debug\net8.0-android\res\values\colors.xml
-resources;obj\Debug\net8.0-android\resizetizer\sp\values\maui_colors.xml
 set;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\164\jl\res\anim\enterfromleft.xml
 set;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\164\jl\res\anim\enterfromright.xml
 set;C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\obj\Debug\net8.0-android\lp\164\jl\res\anim\exittoleft.xml

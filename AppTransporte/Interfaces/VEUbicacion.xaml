@@ -23,14 +23,14 @@
                    TextColor="AliceBlue"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
-                   FontFamily="Comf-Bold"
+                   FontFamily="Comf-Medium"
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1" RowDefinitions="1*,.1*">
             <VerticalStackLayout Margin="20">
                 <HorizontalStackLayout Spacing="5">
                     <Label Text="Buscar: "
-                           FontFamily="Comf-SemBold"
+                           FontFamily="Comf-Bold"
                            VerticalOptions="Center"/>
                     <Frame Padding="0"
                        WidthRequest="350"
@@ -73,7 +73,8 @@
                                                                 <Button BackgroundColor="Transparent"
                                                                         Grid.Column="2"
                                                                         Grid.RowSpan="2"
-                                                                        Clicked="Btn_ModifUbicacion" />
+                                                                        Clicked="Btn_ModifUbicacion"
+                                                                        CommandParameter="{Binding .}"/>
                                                                 <Image Source="siguiente.png"
                                                                        Grid.Column="2"
                                                                        Grid.RowSpan="2"
@@ -99,7 +100,7 @@
                     </VerticalStackLayout>
                 </ScrollView>
                 <Button Text="Nueva Ubicacion"
-                        FontFamily="Comf-SemBold"
+                        FontFamily="Comf-Medium"
                         BackgroundColor="#cb4335"
                         HorizontalOptions="Center"
                         VerticalOptions="Start"

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
     <ActiveDebugFramework>net8.0-android</ActiveDebugFramework>
-    <ActiveDebugProfile>Google G011A (Android 9.0 - API 28)</ActiveDebugProfile>
+    <ActiveDebugProfile>Samsung SM-G935F (Android 9.0 - API 28)</ActiveDebugProfile>
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
     <DefaultDevice>pixel_5_-_api_34</DefaultDevice>
   </PropertyGroup>
@@ -39,10 +39,16 @@
     <MauiXaml Update="Interfaces\VEagregarTransportista.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Interfaces\VEAgregarUbicacion.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Interfaces\VEAgregarVehiculo.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Interfaces\VEclientes.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Interfaces\VECrearPedido.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Interfaces\VEDetalleSolicitud.xaml">

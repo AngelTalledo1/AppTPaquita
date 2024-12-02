@@ -20,12 +20,12 @@
                             Fill="#f4f6f7" />
             <VerticalStackLayout Margin="30,0,30,0"
                                  Spacing="1">
-                <Label FontFamily="Comfortaa-Bold.ttf"
+                <Label FontFamily="Comfortaa-Medium.ttf"
                        FontSize="24"
                        HorizontalOptions="Center"
                        Text="¡Bienvenido!"
                        TextColor="black" />
-                <Label FontFamily="Comfortaa-Medium.ttf"
+                <Label FontFamily="Comfortaa-Bold.ttf"
                        HorizontalOptions="Center"
                        Text="Ingresa para continuar"
                        TextColor="black" />
@@ -54,7 +54,7 @@
                            x:Name="contraseñaEntry"
                            Placeholder="Contraseña"
                            IsPassword="True"
-                           FontFamily="Comfortaa-VariableFont_wght.ttf"
+                           FontFamily="Comfortaa-Regular.ttf"
                            VerticalOptions="Center" />
                 </Grid>
                 <Button Margin="0,20,0,0"
@@ -62,7 +62,7 @@
                         HeightRequest="60"
                         Clicked="Ingresar_Clicked"
                         Text="Ingresar"
-                        FontFamily="Comfortaa-Bold.ttf"
+                        FontFamily="Comfortaa-Medium.ttf"
                         TextColor="#FBF6FD" />
                 <Label x:Name="MensajeError"
                        TextColor="#cb4335"

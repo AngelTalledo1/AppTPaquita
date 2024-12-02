@@ -9,7 +9,7 @@ public partial class VEagregarTransportista : ContentPage
     public VEagregarTransportista()
     {
         InitializeComponent();
-        tituloLabel.Text = "Informacion General";
+        tituloLabel.Text = "Agregar  Trabajador";
         GuardarTrabajador.IsVisible = true;
     }
     public VEagregarTransportista(Trabajador trabajador)

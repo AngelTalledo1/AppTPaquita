@@ -16,7 +16,7 @@ namespace AppTransporte.model
         public byte[]? Cubicacion { get; set; }
         public byte[]? TarjetaPropiedad { get; set; }
 
-        public Tracto Tracto { get; set; } = new Tracto();
+        public Vehiculo Tracto { get; set; } = new Vehiculo();
         
         
     }

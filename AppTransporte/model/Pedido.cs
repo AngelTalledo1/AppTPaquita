@@ -16,13 +16,14 @@ namespace AppTransporte.model
         public int IdOrigen { get; set; }
         public int IdDestino { get; set; }
         public int IdEstadoPedido { get; set; }
-        public DateTime FechaSolicitud { get; set; }
+        public DateTime FechaCreacion { get; set; }
         public DateTime? FechaEntrega { get; set; }
 
         public Solicitud Solicitud { get; set; } = new Solicitud();// Relación con Solicitud
         public Usuario Usuario { get; set; } = new Usuario();// Relación con Usuario
-        public Destino Destino { get; set; } = new Destino();// Relación con Destino
-        public Origen Origen { get; set; } = new Origen();// Relación con Origen
-        public EstadoPedido EstadoPedido { get; set; } = new EstadoPedido();// Relación con EstadoPedido
+        public Ubicacion Destino { get; set; } = new Ubicacion();// Relación con Destino
+        public Ubicacion Origen { get; set; } = new Ubicacion();// Relación con Origen
+        public EstadoPedido EstadoPedido { get; set; } = new EstadoPedido();
+
     }
 }

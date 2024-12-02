@@ -28,6 +28,8 @@ namespace AppTransporte.model
         public string MostrarFecha => $"Fecha Solicitud:    {Fecha}".Trim();
         public string MostrarEstado => $"Estado de solicitud:   {EstadoSolicitud.Descripcion}".Trim();
 
+        public bool MostrarModificar => IdEstadoSolicitud == "Pendiente";
+        public bool MostrarVerPedido => IdEstadoSolicitud == "Pedido Creado";
 
 
     }

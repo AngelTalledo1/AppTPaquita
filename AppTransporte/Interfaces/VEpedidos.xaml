@@ -7,31 +7,30 @@
     <ContentPage.BindingContext>
         <VME:VMPedidos />
     </ContentPage.BindingContext>
-    <Grid RowDefinitions=".07*,.9*"
-          BackgroundColor="#cb4335">
-        <Grid ColumnDefinitions=".1*,.9*">
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              BackgroundColor="#cb4335"
+              Padding="20,0,0,0">
             <Button BackgroundColor="Transparent"
                     Clicked="Btn_atrasPedidos"/>
             <Image Source="atras.png"
                    HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
                    HeightRequest="20"
-                   WidthRequest="20"
-                   Margin="20,20,0,0" />
+                   WidthRequest="20" />
             <Label Text="Pedidos"
                        FontSize="20"
-                       FontFamily="Comf-Bold"
+                       FontFamily="Comf-Medium"
                        Grid.Column="1"
-                       FontAttributes="Bold"
                        TextColor="White"
                        HorizontalOptions="Start"
                        VerticalOptions="Center"
-                       Margin="30,20,0,0" />
+                       Padding="20,20,0,0" />
 
         </Grid>
         <Grid Grid.Row="1"
               RowDefinitions=".1*">
-            <RoundRectangle CornerRadius="0,0,0,0"
-                            Fill="#FBF6FD" />
             <HorizontalStackLayout  Margin="15,10,15,15"
                                     Spacing="20"
                                     VerticalOptions="Start"
@@ -102,7 +101,7 @@
                                         </Grid>
                                         <Grid Grid.Column="3">
                                             <Button BackgroundColor="Transparent"
-                                                    
+                                                    Clicked="OnPedidoSelected"
                                                     CommandParameter="{Binding .}" />
                                             <Image Source="detalles.png"
                                                    WidthRequest="20" />
