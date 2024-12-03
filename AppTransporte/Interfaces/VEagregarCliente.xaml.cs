@@ -5,7 +5,8 @@ namespace AppTransporte.Interfaces;
 
 public partial class VEagregarCliente : ContentPage
 {
-	public VEagregarCliente()
+    public int id_cliente { get; set; }
+    public VEagregarCliente()
 	{
 		InitializeComponent();
         GuardarCliente.IsVisible = true;
@@ -14,8 +15,10 @@ public partial class VEagregarCliente : ContentPage
     public VEagregarCliente(Cliente clienteSelect)
     {
         InitializeComponent();
+        id_cliente = clienteSelect.IdCliente;
         ActualizarCliente.IsVisible = true;
-        TituloLabel.Text = "Modificar Cliente";
+        tituloInterfaz.Text = "Modificar Cliente";
+        TituloLabel.Text = "Informacion General";
         NombreEntry.Text = clienteSelect.Nombre;
         ApellidoEntry.Text = $"{clienteSelect.ApePaterno} {clienteSelect.ApeMaterno} ";
         TipoDocumentoPicker.SelectedIndex = clienteSelect.Persona.IdTipoDoc;
@@ -81,8 +84,46 @@ public partial class VEagregarCliente : ContentPage
         }
     }
 
-    private void Btn_ActualizarCliente(object sender, EventArgs e)
+    private async void  Btn_ActualizarCliente(object sender, EventArgs e)
     {
+        int idTipoDoc = TipoDocumentoPicker.SelectedIndex + 1;
+        try
+        {
+            string[] apellidos = ApellidoEntry.Text.Split(' ');
 
+            // Llamar al servicio
+            int resultado = await App.Database.ModificarClienteAsync(
+                id_cliente,
+                NombreEntry.Text,
+                apellidos[0],
+                apellidos[1],
+                idTipoDoc,
+                NumeroDocEntry.Text,
+                TelefonoEntry.Text,
+                DireccionEntry.Text,
+                EmailEntry.Text
+            );
+
+            if (resultado > 0)
+            {
+                await DisplayAlert("Éxito", "Cliente modificado correctamente.", "OK");
+                ApellidoEntry.Text = "";
+                TipoDocumentoPicker.SelectedIndex = -1;
+                NombreEntry.Text = "";
+                NumeroDocEntry.Text = "";
+                TelefonoEntry.Text = "";
+                DireccionEntry.Text = "";
+                EmailEntry.Text = "";
+                Navigation.PopAsync();
+            }
+            else
+            {
+                await DisplayAlert("Error", "No se pudo modificar el cliente. Verifica los datos.", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Ocurrió un problema: {ex.Message}", "OK");
+        }
     }
 }

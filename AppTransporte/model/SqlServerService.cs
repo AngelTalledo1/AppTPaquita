@@ -50,6 +50,45 @@ namespace AppTransporte.model
                 }
             }
         }
+        public async Task<int> ModificarClienteAsync(
+            int idCliente,
+            string nombre,
+            string apePaterno,
+            string apeMaterno,
+            int idTipoDoc,
+            string numDoc,
+            string telefono,
+            string direccion,
+            string email
+            )
+        {
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_ModificarCliente", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@id_cliente", idCliente);
+                    command.Parameters.AddWithValue("@Nombre", nombre);
+                    command.Parameters.AddWithValue("@apePaterno", string.IsNullOrWhiteSpace(apePaterno) ? (object)DBNull.Value : apePaterno);
+                    command.Parameters.AddWithValue("@apeMaterno", string.IsNullOrWhiteSpace(apeMaterno) ? (object)DBNull.Value : apeMaterno);
+                    command.Parameters.AddWithValue("@id_tipoDoc", idTipoDoc);
+                    command.Parameters.AddWithValue("@numDoc", numDoc);
+                    command.Parameters.AddWithValue("@Telefono", telefono);
+                    command.Parameters.AddWithValue("@direccion", direccion);
+                    command.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(email) ? (object)DBNull.Value : email);
+
+                    // Ejecutar el procedimiento almacenado
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+           
+        }
         public async Task<int> AgregarTransportistaAsync(
             string nombre,
             string apePaterno,

@@ -17,6 +17,7 @@
                    HeightRequest="20"
                    WidthRequest="20" />
             <Label Text="Agregar nuevo cliente"
+                   x:Name="tituloInterfaz"
                    Grid.Column="1"
                    FontSize="20"
                    TextColor="White"
