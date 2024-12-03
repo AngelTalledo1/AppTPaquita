@@ -24,7 +24,11 @@ androidgeneratejnimarshalmethods=false
 os=windows_nt
 androidincludedebugsymbols=true
 androidpackagenamingpolicy=lowercasecrc64
+<<<<<<< Updated upstream
 _nugetassetsfilehash=a343c10d08b54b3681d462208b7f38eed05f6c555aa1a37c66806f1b87c7d421
+=======
+_nugetassetsfilehash=b7e9b950c1897af70fcb204c134f466fe83a4357fd1f338e76abc462da4a9039
+>>>>>>> Stashed changes
 typemapkind=strings-asm
 androidmanifestplaceholders=
 projectfullpath=c:\users\gudal\onedrive\escritorio\apis_paquita\apptpaquita\apptransporte\apptransporte.csproj

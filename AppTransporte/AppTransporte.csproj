@@ -116,10 +116,11 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageReference Include="Dapper" Version="2.1.35" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.71" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.71" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.10" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
+<<<<<<< Updated upstream
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="System.Net.Http.Json" Version="7.0.0" />
@@ -131,6 +132,8 @@
 	  <Compile Update="Interfaces\VEagregarTransportista.xaml.cs">
 	    <DependentUpon>VEagregarTransportista.xaml</DependentUpon>
 	  </Compile>
+=======
+>>>>>>> Stashed changes
 	</ItemGroup>
 
 	<ItemGroup>

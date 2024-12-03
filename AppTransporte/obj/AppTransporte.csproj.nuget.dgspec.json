@@ -88,11 +88,11 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.71, )"
+              "version": "[9.0.10, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.71, )"
+              "version": "[9.0.10, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -103,10 +103,13 @@
             "SkiaSharp.Extended.UI.Maui": {
               "target": "Package",
               "version": "[2.0.0, )"
+<<<<<<< Updated upstream
             },
             "System.Net.Http.Json": {
               "target": "Package",
               "version": "[7.0.0, )"
+=======
+>>>>>>> Stashed changes
             }
           },
           "imports": [
@@ -193,11 +196,11 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.71, )"
+              "version": "[9.0.10, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.71, )"
+              "version": "[9.0.10, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -208,10 +211,13 @@
             "SkiaSharp.Extended.UI.Maui": {
               "target": "Package",
               "version": "[2.0.0, )"
+<<<<<<< Updated upstream
             },
             "System.Net.Http.Json": {
               "target": "Package",
               "version": "[7.0.0, )"
+=======
+>>>>>>> Stashed changes
             }
           },
           "imports": [
@@ -286,11 +292,11 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.71, )"
+              "version": "[9.0.10, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.71, )"
+              "version": "[9.0.10, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -301,10 +307,13 @@
             "SkiaSharp.Extended.UI.Maui": {
               "target": "Package",
               "version": "[2.0.0, )"
+<<<<<<< Updated upstream
             },
             "System.Net.Http.Json": {
               "target": "Package",
               "version": "[7.0.0, )"
+=======
+>>>>>>> Stashed changes
             }
           },
           "imports": [
@@ -380,19 +389,22 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.71, )"
+              "version": "[9.0.10, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.71, )"
+              "version": "[9.0.10, )"
             },
             "SkiaSharp.Extended.UI.Maui": {
               "target": "Package",
               "version": "[2.0.0, )"
+<<<<<<< Updated upstream
             },
             "System.Net.Http.Json": {
               "target": "Package",
               "version": "[7.0.0, )"
+=======
+>>>>>>> Stashed changes
             }
           },
           "imports": [
