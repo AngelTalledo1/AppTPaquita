@@ -86,14 +86,14 @@ namespace AppTransporte.model
                 }
             }
         }
-        public async Task<(int? IdUsuario, int? IdTipoUsuario)> VerificarCredencialesAsync(string username, string contraseña)
+        public async Task<(int IdUsuario, int IdTipoUsuario)> VerificarCredencialesAsync(string username, string contraseña)
         {
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-
+                    Console.WriteLine("que");
                     using (var command = new SqlCommand("pa_verificarCredenciales", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -120,7 +120,7 @@ namespace AppTransporte.model
             }
 
             // Devuelve null si no se encontraron coincidencias
-            return (null, null);
+            return (0, 0);
         }
         public async Task<string> obtenerTipoUser(int idTipoUsuario)
         {
@@ -154,6 +154,45 @@ namespace AppTransporte.model
 
             // Devuelve null si no se encontraron coincidencias
             return null;
+        }
+        public async Task<List<Pedido>> ListarPedidosAsync(int idUsuario, int idTipoUsuario)
+        {
+            var pedidos = new List<Pedido>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                using (var command = new SqlCommand("pa_ListarPedidos", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id_usuario", idUsuario);
+                    command.Parameters.AddWithValue("@id_categoria", idTipoUsuario);
+
+                    await connection.OpenAsync();
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            pedidos.Add(new Pedido
+                            {
+                                IdPedido = reader.GetInt32(reader.GetOrdinal("id_pedido")),
+                                IdSolicitud = reader.GetInt32(reader.GetOrdinal("id_solicitud")),
+                                Cantidad = reader.GetInt32(reader.GetOrdinal("cantidad")),
+                                Viajes = reader.GetInt32(reader.GetOrdinal("viajes")),
+                                IdOrigen = reader.GetInt32(reader.GetOrdinal("id_origen")),
+                                IdDestino = reader.GetInt32(reader.GetOrdinal("id_destino")),
+                                EstadoPedido = reader["estado_pedido"]?.ToString() ?? "Sin estado",
+                                FechaSolicitud = reader.GetDateTime(reader.GetOrdinal("fecha_solicitud")),
+                                FechaEntrega = reader.IsDBNull(reader.GetOrdinal("fecha_entrega"))
+                                    ? null
+                                    : reader.GetDateTime(reader.GetOrdinal("fecha_entrega"))
+                            });
+                        }
+                    }
+                }
+            }
+
+            return pedidos;
         }
         //public async Task<()> mostrarClientes()
         //{

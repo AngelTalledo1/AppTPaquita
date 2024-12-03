@@ -1,12 +1,20 @@
 
 namespace AppTransporte.Interfaces;
 
-public partial class MenuCliente : ContentPage
+public partial class MenuCliente : ContentPage, IMenuPage
 {
-	public MenuCliente()
+    private int _idUsuario;
+    private int _idtipousuario;
+    public MenuCliente(int idUsuario,int idTipoUsuario)
 	{
-		InitializeComponent();
+        InitializeComponent();
 	}
+
+    public void setUserData(int idUsuario, int idTipoUsuario)
+    {
+        _idUsuario = idUsuario;
+        _idtipousuario = idTipoUsuario;
+    }
 
     private void Btn_atrasMenuCliente(object sender, EventArgs e)
     {
@@ -19,7 +27,7 @@ public partial class MenuCliente : ContentPage
     }
     private void pedidosCliente_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VEpedidos());
+        Navigation.PushAsync(new VEpedidos(_idUsuario,_idtipousuario));
     }
 
 }

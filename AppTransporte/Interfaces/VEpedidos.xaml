@@ -9,6 +9,7 @@
     </ContentPage.BindingContext>
     <Grid RowDefinitions=".07*,.9*"
           BackgroundColor="#cb4335">
+        
         <Grid ColumnDefinitions=".1*,.9*">
             <Button BackgroundColor="Transparent"
                     Clicked="Btn_atrasPedidos"/>
@@ -62,7 +63,7 @@
             <ScrollView Margin="10,55,0,20">
                 <VerticalStackLayout>
                     <CollectionView x:Name="PedidosCollectionView"
-                                    ItemsSource="{Binding PedidosFiltrados  }"
+                                    ItemsSource="{Binding Pedidos}"
                                     SelectionMode="None">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -76,25 +77,25 @@
                                        CornerRadius="10"
                                        BorderColor="Transparent">
                                     <Grid ColumnDefinitions=".15*,.35*,.35*,.15 *">
-                                        <Image  Source="{Binding imagen}"
+                                        <Image  Source="{Binding IdSolicitud}"
                                                 HorizontalOptions="Center"
                                                 WidthRequest="50" />
                                         <Grid Grid.Column="1"
                                               RowDefinitions=".5*,.5*">
-                                            <Label Text="{Binding Numero}"
+                                            <Label Text="{Binding Cantidad}"
                                                    TextColor="White"
                                                    FontFamily="Comf-Bold"
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="End" />
                                             <Label Grid.Row="1"
-                                                   Text="{Binding cantidad}"
+                                                   Text="{Binding FechaSolicitud}"
                                                    TextColor="white"
                                                    FontFamily="Comf-SemBold"
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="Start" />
                                         </Grid>
                                         <Grid Grid.Column="2">
-                                            <Label Text="{Binding estado}"
+                                            <Label Text="{Binding EstadoPedido}"
                                                    TextColor="#f7f9f9"
                                                    FontFamily="Comf-Bold"
                                                    HorizontalOptions="Center"
@@ -103,7 +104,7 @@
                                         <Grid Grid.Column="3">
                                             <Button BackgroundColor="Transparent"
                                                     
-                                                    CommandParameter="{Binding .}" />
+                                                    CommandParameter="{Binding FechaEntrega}" />
                                             <Image Source="detalles.png"
                                                    WidthRequest="20" />
                                         </Grid>

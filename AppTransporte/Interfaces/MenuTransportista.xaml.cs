@@ -1,10 +1,18 @@
 namespace AppTransporte.Interfaces;
 
-public partial class MenuTransportista : ContentPage
+public partial class MenuTransportista : ContentPage,IMenuPage
 {
+    private int _idUsuario;
+    private int _idTipoUsuario; 
     public MenuTransportista()
     {
         InitializeComponent();
+    }
+
+    public void setUserData(int idUsuario, int idTipoUsuario)
+    {
+        _idUsuario = idUsuario;
+        _idTipoUsuario = idTipoUsuario;
     }
 
     private void Btn_atrasMenuTransportista(object sender, EventArgs e)

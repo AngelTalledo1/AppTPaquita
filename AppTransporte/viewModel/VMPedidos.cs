@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -11,12 +13,35 @@ namespace AppTransporte.viewModel
 {
     public class VMPedidos : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
         //public ICommand VerDetallesCommand { get; set; }
-        protected virtual void OnPropertyChanged(string propertyName)
+        private ObservableCollection<Pedido> _pedidos;
+        public ObservableCollection<Pedido> Pedidos
+        {
+            get => _pedidos;
+            set
+            {
+                _pedidos = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public VMPedidos()
+        {
+            _pedidos = new ObservableCollection<Pedido>();
+        }
+
+        public async Task CargarPedidosAsync(int idUsuario, int idTipoUsuario)
+        {
+            var pedidos = await App.Database.ListarPedidosAsync(idUsuario, idTipoUsuario);
+            Pedidos = new ObservableCollection<Pedido>(pedidos);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    
 
 
 

@@ -3,12 +3,26 @@ namespace AppTransporte.Interfaces;
 using AppTransporte.model;
 using AppTransporte.viewModel;
 
+
 public partial class VEpedidos : ContentPage
 {
-	public VEpedidos()
+    private readonly VMPedidos _viewModel;
+    private int idUsuario;
+    private int idtipousuario;
+    public VEpedidos(int idUsuario, int idTipoUsuario)
 	{
-		InitializeComponent();
-        BindingContext = new VMPedidos();
+        this.idUsuario = idUsuario;
+        this.idtipousuario = idTipoUsuario;
+        InitializeComponent();
+        _viewModel = new VMPedidos();
+        BindingContext = _viewModel;
+        CargarDatos();
+    }
+
+    private async void CargarDatos()
+    {
+
+        await _viewModel.CargarPedidosAsync(idUsuario, idtipousuario);
     }
 
     private void Btn_atrasPedidos(object sender, EventArgs e)
