@@ -11631,15 +11631,16 @@ public final class R {
     public static final int rutamen=0x7f070103;
     public static final int siguiente=0x7f070104;
     public static final int solicitar=0x7f070105;
-    public static final int telefono=0x7f070106;
-    public static final int test_level_drawable=0x7f070107;
-    public static final int tipodoc=0x7f070108;
-    public static final int tooltip_frame_dark=0x7f070109;
-    public static final int tooltip_frame_light=0x7f07010a;
-    public static final int transporte=0x7f07010b;
-    public static final int tuser=0x7f07010c;
-    public static final int usu=0x7f07010d;
-    public static final int usuario=0x7f07010e;
+    public static final int splash=0x7f070106;
+    public static final int telefono=0x7f070107;
+    public static final int test_level_drawable=0x7f070108;
+    public static final int tipodoc=0x7f070109;
+    public static final int tooltip_frame_dark=0x7f07010a;
+    public static final int tooltip_frame_light=0x7f07010b;
+    public static final int transporte=0x7f07010c;
+    public static final int tuser=0x7f07010d;
+    public static final int usu=0x7f07010e;
+    public static final int usuario=0x7f07010f;
   }
   public static final class id {
     public static final int ALT=0x7f080000;

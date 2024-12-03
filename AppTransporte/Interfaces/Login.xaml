@@ -7,8 +7,15 @@
     <Grid RowDefinitions=".4*, .6*">
         <Image Aspect="AspectFill"
                Source="logo.png" />
-        <Grid BackgroundColor="#515a5a"
-              Opacity=".85" />
+        <Grid BackgroundColor="Black"
+              Opacity="{Binding IsLoading, Converter={StaticResource BooleanToOpacityConverter}}"
+              IsVisible="{Binding IsLoading}">
+            <!-- Cuadro de carga -->
+         
+        </Grid>
+      
+                <Grid BackgroundColor="#515a5a"
+                Opacity=".85"/>
         <Grid>
             <Image HeightRequest="400"
                    WidthRequest="400"
@@ -29,7 +36,7 @@
                        HorizontalOptions="Center"
                        Text="Ingresa para continuar"
                        TextColor="black" />
-                <ActivityIndicator x:Name="loadingIndicator" IsRunning="False" IsVisible="False" />
+              
                 <Grid Margin="0,10,0,0"
                       ColumnDefinitions=".2*,.8*">
                     <Image  Source="usu.png"
@@ -44,6 +51,7 @@
                            FontFamily="Comfortaa-Regular.ttf"
                            VerticalOptions="Center" />
                 </Grid>
+                
                 <Grid Margin="0,10,0,0"
                       ColumnDefinitions=".2*,.8*">
                     <Image WidthRequest="40"
@@ -79,7 +87,38 @@
                         BorderWidth="0" />
                 <Image Source="paquitatext.png"
                        WidthRequest="140"/>
+                
             </VerticalStackLayout>
         </Grid>
+        <!-- Desenfoque en el fondo -->
+        <BoxView Color="Black" 
+                 Opacity="0.5" 
+                 IsVisible="False"
+                 x:Name="BackgroundBlur" />
+
+        <!-- Indicador de carga con el cuadro de fondo -->
+        <Grid>
+            <AbsoluteLayout>
+              
+               
+                <!-- Indicador de carga -->
+                <ActivityIndicator x:Name="loadingIndicator"
+                       IsRunning="False"
+                       IsVisible="False"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+                <!-- Texto de validación -->
+                <Label Text="Validando datos..."
+           x:Name="ValidandoDatosLabel"
+           IsVisible="False"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           TextColor="Black"
+           FontSize="18"
+           FontFamily="Comfortaa-Medium.ttf" />
+            </AbsoluteLayout>
+        </Grid>
     </Grid>
+    
 </ContentPage>

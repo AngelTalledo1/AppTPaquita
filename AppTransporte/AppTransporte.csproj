@@ -56,59 +56,59 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Fonts\Comfortaa-Bold.ttf" />
-	  <None Remove="Resources\Fonts\Comfortaa-Medium.ttf" />
-	  <None Remove="Resources\Fonts\Comfortaa-Regular.ttf" />
-	  <None Remove="Resources\Fonts\Comfortaa-SemiBold.ttf" />
-	  <None Remove="Resources\Fonts\Comfortaa-VariableFont_wght.ttf" />
-	  <None Remove="Resources\Fonts\example-js.html" />
-	  <None Remove="Resources\Fonts\Lato-Bold.ttf" />
-	  <None Remove="Resources\Fonts\Lato-Regular.ttf" />
-	  <None Remove="Resources\Images\agg.png" />
-	  <None Remove="Resources\Images\asignado.png" />
-	  <None Remove="Resources\Images\atras.png" />
-	  <None Remove="Resources\Images\barril.png" />
-	  <None Remove="Resources\Images\boton.png" />
-	  <None Remove="Resources\Images\cancelado.png" />
-	  <None Remove="Resources\Images\cargando.png" />
-	  <None Remove="Resources\Images\cisterna.png" />
-	  <None Remove="Resources\Images\cliente2.png" />
-	  <None Remove="Resources\Images\contra.png" />
-	  <None Remove="Resources\Images\detalles.png" />
-	  <None Remove="Resources\Images\direccion.png" />
-	  <None Remove="Resources\Images\direcciones.png" />
-	  <None Remove="Resources\Images\edit.png" />
-	  <None Remove="Resources\Images\eliminar.png" />
-	  <None Remove="Resources\Images\email.png" />
-	  <None Remove="Resources\Images\encurso.png" />
-	  <None Remove="Resources\Images\entrega.png" />
-	  <None Remove="Resources\Images\entregado.png" />
-	  <None Remove="Resources\Images\informe.png" />
-	  <None Remove="Resources\Images\intclientes.png" />
-	  <None Remove="Resources\Images\licencia.png" />
-	  <None Remove="Resources\Images\logo.png" />
-	  <None Remove="Resources\Images\mispedidos.png" />
-	  <None Remove="Resources\Images\nuevopedido.png" />
-	  <None Remove="Resources\Images\paquita.png" />
-	  <None Remove="Resources\Images\paquitatext.png" />
-	  <None Remove="Resources\Images\pedido2.png" />
-	  <None Remove="Resources\Images\pendiente.png" />
-	  <None Remove="Resources\Images\petro11.png" />
-	  <None Remove="Resources\Images\redondo.png" />
-	  <None Remove="Resources\Images\rol.png" />
-	  <None Remove="Resources\Images\ruta.png" />
-	  <None Remove="Resources\Images\rutamen.png" />
-	  <None Remove="Resources\Images\siguiente.png" />
-	  <None Remove="Resources\Images\solicitar.png" />
-	  <None Remove="Resources\Images\telefono.png" />
-	  <None Remove="Resources\Images\tipodoc.png" />
-	  <None Remove="Resources\Images\transporte.png" />
-	  <None Remove="Resources\Images\tuser.png" />
-	  <None Remove="Resources\Images\usu.png" />
-	  <None Remove="Resources\Images\usuario.png" />
-	  <None Remove="Resources\raw\highway_and_vehicles.mov" />
-	  <None Remove="Resources\raw\video.mp4" />
-	  <None Remove="Resources\Splash\paquita.png" />
+		<None Remove="Resources\Fonts\Comfortaa-Bold.ttf" />
+		<None Remove="Resources\Fonts\Comfortaa-Medium.ttf" />
+		<None Remove="Resources\Fonts\Comfortaa-Regular.ttf" />
+		<None Remove="Resources\Fonts\Comfortaa-SemiBold.ttf" />
+		<None Remove="Resources\Fonts\Comfortaa-VariableFont_wght.ttf" />
+		<None Remove="Resources\Fonts\example-js.html" />
+		<None Remove="Resources\Fonts\Lato-Bold.ttf" />
+		<None Remove="Resources\Fonts\Lato-Regular.ttf" />
+		<None Remove="Resources\Images\agg.png" />
+		<None Remove="Resources\Images\asignado.png" />
+		<None Remove="Resources\Images\atras.png" />
+		<None Remove="Resources\Images\barril.png" />
+		<None Remove="Resources\Images\boton.png" />
+		<None Remove="Resources\Images\cancelado.png" />
+		<None Remove="Resources\Images\cargando.png" />
+		<None Remove="Resources\Images\cisterna.png" />
+		<None Remove="Resources\Images\cliente2.png" />
+		<None Remove="Resources\Images\contra.png" />
+		<None Remove="Resources\Images\detalles.png" />
+		<None Remove="Resources\Images\direccion.png" />
+		<None Remove="Resources\Images\direcciones.png" />
+		<None Remove="Resources\Images\edit.png" />
+		<None Remove="Resources\Images\eliminar.png" />
+		<None Remove="Resources\Images\email.png" />
+		<None Remove="Resources\Images\encurso.png" />
+		<None Remove="Resources\Images\entrega.png" />
+		<None Remove="Resources\Images\entregado.png" />
+		<None Remove="Resources\Images\informe.png" />
+		<None Remove="Resources\Images\intclientes.png" />
+		<None Remove="Resources\Images\licencia.png" />
+		<None Remove="Resources\Images\logo.png" />
+		<None Remove="Resources\Images\mispedidos.png" />
+		<None Remove="Resources\Images\nuevopedido.png" />
+		<None Remove="Resources\Images\paquita.png" />
+		<None Remove="Resources\Images\paquitatext.png" />
+		<None Remove="Resources\Images\pedido2.png" />
+		<None Remove="Resources\Images\pendiente.png" />
+		<None Remove="Resources\Images\petro11.png" />
+		<None Remove="Resources\Images\redondo.png" />
+		<None Remove="Resources\Images\rol.png" />
+		<None Remove="Resources\Images\ruta.png" />
+		<None Remove="Resources\Images\rutamen.png" />
+		<None Remove="Resources\Images\siguiente.png" />
+		<None Remove="Resources\Images\solicitar.png" />
+		<None Remove="Resources\Images\telefono.png" />
+		<None Remove="Resources\Images\tipodoc.png" />
+		<None Remove="Resources\Images\transporte.png" />
+		<None Remove="Resources\Images\tuser.png" />
+		<None Remove="Resources\Images\usu.png" />
+		<None Remove="Resources\Images\usuario.png" />
+		<None Remove="Resources\raw\highway_and_vehicles.mov" />
+		<None Remove="Resources\raw\video.mp4" />
+		<None Remove="Resources\Splash\paquita.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -116,94 +116,89 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageReference Include="Dapper" Version="2.1.35" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.10" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.71" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.71" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
-<<<<<<< Updated upstream
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="System.Net.Http.Json" Version="7.0.0" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Compile Update="Interfaces\VCNuevaSolicitud.xaml.cs">
-	    <DependentUpon>VCNuevaSolicitud.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Interfaces\VEagregarTransportista.xaml.cs">
-	    <DependentUpon>VEagregarTransportista.xaml</DependentUpon>
-	  </Compile>
-=======
->>>>>>> Stashed changes
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Interfaces\Login.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\MenuCliente.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\MenuPrincipal.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\MenuTransportista.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VCMisSolicitudes.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VCNuevaSolicitud.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEagregarCliente.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEagregarTransportista.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEAgregarUbicacion.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEAgregarVehiculo.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEclientes.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VECrearPedido.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEDetalleSolicitud.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEDetalleVehiculo.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEpedidos.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEProcesoPedido.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VESolicitudes.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEtransportistas.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEUbicacion.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VEVehiculos.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Interfaces\VTMisViajes.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<Compile Update="Interfaces\VCNuevaSolicitud.xaml.cs">
+			<DependentUpon>VCNuevaSolicitud.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Interfaces\VEagregarTransportista.xaml.cs">
+			<DependentUpon>VEagregarTransportista.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Utilidades\" />
+		<MauiXaml Update="Interfaces\Login.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\MenuCliente.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\MenuPrincipal.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\MenuTransportista.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VCMisSolicitudes.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VCNuevaSolicitud.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEagregarCliente.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEagregarTransportista.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEAgregarUbicacion.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEAgregarVehiculo.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEclientes.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VECrearPedido.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEDetalleSolicitud.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEDetalleVehiculo.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEpedidos.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEProcesoPedido.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VESolicitudes.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEtransportistas.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEUbicacion.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEVehiculos.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VTMisViajes.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Utilidades\" />
 	</ItemGroup>
 
 </Project>

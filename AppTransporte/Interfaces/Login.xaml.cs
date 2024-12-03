@@ -1,25 +1,38 @@
 using AppTransporte.Servicios;
+using CommunityToolkit.Maui.Views;
+
 namespace AppTransporte.Interfaces;
 
 public partial class Login : ContentPage
 {
     private readonly AuthService _authService;
+    public bool IsLoading { get; set; } = false;
+
     public Login()
 	{
 		InitializeComponent();
         _authService = new AuthService();
+        BindingContext = this;
     }
 
     private async void Ingresar_Clicked(object sender, EventArgs e)
     {
-        loadingIndicator.IsRunning = true;
-        loadingIndicator.IsVisible = true;
         if (string.IsNullOrWhiteSpace(usuarioEntry.Text) || string.IsNullOrWhiteSpace(contraseñaEntry.Text))
         {
             await DisplayAlert("Error", "Por favor, complete todos los campos.", "OK");
             return;
         }
 
+        //var popup = new ValidatingPopup();
+        //await this.ShowPopupAsync(popup);
+        //loadingIndicator.IsRunning = true;
+        //loadingIndicator.IsVisible = true;
+
+        //ValidandoDatosLabel.IsVisible = true;
+        usuarioEntry.IsEnabled = false;
+        contraseñaEntry.IsEnabled = false;
+        MensajeError.IsVisible = false;
+        
         string usuario = usuarioEntry.Text;
         string contraseña = contraseñaEntry.Text;
         
@@ -28,7 +41,7 @@ public partial class Login : ContentPage
         {
             
             abrirInterfaz(await _authService.ObtenerTipoUsuarioAsync(resultado.idTipoUsuario), resultado.idUsuario, resultado.idTipoUsuario);
-        
+            //popup.Close();
         }
         else
         {
@@ -36,11 +49,17 @@ public partial class Login : ContentPage
             MensajeError.Text = "Usuario o contraseña incorrectos.";
             MensajeError.IsVisible = true;
         }
+
         MainThread.BeginInvokeOnMainThread(() =>
         {
+            //boxValidar.IsVisible = false;
             
-            loadingIndicator.IsRunning = false; // Detener indicador de carga
-            loadingIndicator.IsVisible = false; // Ocultar indicador de carga
+            //ValidandoDatosLabel.IsVisible = false;
+            //loadingIndicator.IsRunning = false;
+            //loadingIndicator.IsVisible = false;
+            usuarioEntry.IsEnabled = true;
+            contraseñaEntry.IsEnabled = true;
+
         });
     }
     private async void abrirInterfaz(string categoria, int idUsuario, int idTipoUsuario)

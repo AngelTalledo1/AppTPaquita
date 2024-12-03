@@ -4,13 +4,20 @@ namespace AppTransporte.Interfaces;
 
 public partial class MenuPrincipal : ContentPage
 {
-	public MenuPrincipal()
+    private int _idUsuario;
+    private int _idtipousuario;
+    public MenuPrincipal()
 	{
 		InitializeComponent();
 	}
+    public void setUserData(int idUsuario, int idTipoUsuario)
+    {
+        _idUsuario = idUsuario;
+        _idtipousuario = idTipoUsuario;
+    }
     private async void pedidos_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VEpedidos());
+        await Navigation.PushAsync(new VEpedidos(_idUsuario, _idtipousuario));
     }
 
     private async void cliente_Clicked(object sender, EventArgs e)

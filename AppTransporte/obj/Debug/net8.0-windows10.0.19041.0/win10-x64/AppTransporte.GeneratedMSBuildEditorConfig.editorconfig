@@ -83,6 +83,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.V
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEagregarTransportista.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEagregarTransportista.xaml
 
+[C:/Users/gudal/OneDrive/Escritorio/apis_paquita/AppTPaquita/AppTransporte/Interfaces/VEAgregarUbicacion.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEAgregarUbicacion.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEAgregarUbicacion.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEAgregarUbicacion.xaml
+
 [C:/Users/gudal/OneDrive/Escritorio/apis_paquita/AppTPaquita/AppTransporte/Interfaces/VEAgregarVehiculo.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEAgregarVehiculo.xaml
@@ -94,6 +100,24 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEclientes.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEclientes.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEclientes.xaml
+
+[C:/Users/gudal/OneDrive/Escritorio/apis_paquita/AppTPaquita/AppTransporte/Interfaces/VECrearPedido.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VECrearPedido.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VECrearPedido.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VECrearPedido.xaml
+
+[C:/Users/gudal/OneDrive/Escritorio/apis_paquita/AppTPaquita/AppTransporte/Interfaces/VEDetalleSolicitud.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEDetalleSolicitud.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEDetalleSolicitud.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEDetalleSolicitud.xaml
+
+[C:/Users/gudal/OneDrive/Escritorio/apis_paquita/AppTPaquita/AppTransporte/Interfaces/VEDetalleVehiculo.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEDetalleVehiculo.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEDetalleVehiculo.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEDetalleVehiculo.xaml
 
 [C:/Users/gudal/OneDrive/Escritorio/apis_paquita/AppTPaquita/AppTransporte/Interfaces/VEpedidos.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
@@ -119,17 +143,17 @@ build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.V
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEtransportistas.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEtransportistas.xaml
 
+[C:/Users/gudal/OneDrive/Escritorio/apis_paquita/AppTPaquita/AppTransporte/Interfaces/VEUbicacion.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEUbicacion.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VEUbicacion.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VEUbicacion.xaml
+
 [C:/Users/gudal/OneDrive/Escritorio/apis_paquita/AppTPaquita/AppTransporte/Interfaces/VEVehiculos.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEVehiculos.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEVehiculos.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEVehiculos.xaml
-
-[C:/Users/gudal/OneDrive/Escritorio/apis_paquita/AppTPaquita/AppTransporte/Interfaces/VEviajesPedido.xaml]
-build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEviajesPedido.xaml
-build_metadata.AdditionalFiles.TargetPath = Interfaces\VEviajesPedido.xaml
-build_metadata.AdditionalFiles.RelativePath = Interfaces\VEviajesPedido.xaml
 
 [C:/Users/gudal/OneDrive/Escritorio/apis_paquita/AppTPaquita/AppTransporte/Interfaces/VTmisViajes.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
