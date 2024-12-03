@@ -3113,8 +3113,8 @@ int drawable redondo 0x7f070100
 int drawable rol 0x7f070101
 int drawable ruta 0x7f070102
 int drawable rutamen 0x7f070103
-int drawable solicitar 0x7f070104
-int drawable splash 0x7f070105
+int drawable siguiente 0x7f070104
+int drawable solicitar 0x7f070105
 int drawable telefono 0x7f070106
 int drawable test_level_drawable 0x7f070107
 int drawable tipodoc 0x7f070108

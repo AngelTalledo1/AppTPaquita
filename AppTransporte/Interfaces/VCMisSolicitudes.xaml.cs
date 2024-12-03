@@ -1,6 +1,7 @@
 using AppTransporte.viewModel;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
+using AppTransporte.model;
 
 namespace AppTransporte.Interfaces;
 
@@ -24,4 +25,14 @@ public partial class VCMisSolicitudes : ContentPage
 
     
 
+    private async void btnModificar_Clicked(object sender, EventArgs e)
+    {
+        var button = (Button)sender;
+        var solicitud = button.CommandParameter as Solicitud; 
+
+        if (solicitud != null)
+        {
+            await Navigation.PushAsync(new VCNuevaSolicitud(solicitud));
+        }
+    }
 }

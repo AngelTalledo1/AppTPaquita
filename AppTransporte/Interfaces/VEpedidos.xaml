@@ -7,32 +7,30 @@
     <ContentPage.BindingContext>
         <VME:VMPedidos />
     </ContentPage.BindingContext>
-    <Grid RowDefinitions=".07*,.9*"
-          BackgroundColor="#cb4335">
-        
-        <Grid ColumnDefinitions=".1*,.9*">
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              BackgroundColor="#cb4335"
+              Padding="20,0,0,0">
             <Button BackgroundColor="Transparent"
                     Clicked="Btn_atrasPedidos"/>
             <Image Source="atras.png"
                    HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
                    HeightRequest="20"
-                   WidthRequest="20"
-                   Margin="20,20,0,0" />
+                   WidthRequest="20" />
             <Label Text="Pedidos"
                        FontSize="20"
-                       FontFamily="Comf-Bold"
+                       FontFamily="Comf-Medium"
                        Grid.Column="1"
-                       FontAttributes="Bold"
                        TextColor="White"
                        HorizontalOptions="Start"
                        VerticalOptions="Center"
-                       Margin="30,20,0,0" />
+                       Padding="20,20,0,0" />
 
         </Grid>
         <Grid Grid.Row="1"
               RowDefinitions=".1*">
-            <RoundRectangle CornerRadius="0,0,0,0"
-                            Fill="#FBF6FD" />
             <HorizontalStackLayout  Margin="15,10,15,15"
                                     Spacing="20"
                                     VerticalOptions="Start"
@@ -63,7 +61,7 @@
             <ScrollView Margin="10,55,0,20">
                 <VerticalStackLayout>
                     <CollectionView x:Name="PedidosCollectionView"
-                                    ItemsSource="{Binding Pedidos}"
+                                    ItemsSource="{Binding PedidosFiltrados  }"
                                     SelectionMode="None">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -77,25 +75,25 @@
                                        CornerRadius="10"
                                        BorderColor="Transparent">
                                     <Grid ColumnDefinitions=".15*,.35*,.35*,.15 *">
-                                        <Image  Source="{Binding IdSolicitud}"
+                                        <Image  Source="{Binding imagen}"
                                                 HorizontalOptions="Center"
                                                 WidthRequest="50" />
                                         <Grid Grid.Column="1"
                                               RowDefinitions=".5*,.5*">
-                                            <Label Text="{Binding Cantidad}"
+                                            <Label Text="{Binding Numero}"
                                                    TextColor="White"
                                                    FontFamily="Comf-Bold"
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="End" />
                                             <Label Grid.Row="1"
-                                                   Text="{Binding FechaSolicitud}"
+                                                   Text="{Binding cantidad}"
                                                    TextColor="white"
                                                    FontFamily="Comf-SemBold"
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="Start" />
                                         </Grid>
                                         <Grid Grid.Column="2">
-                                            <Label Text="{Binding EstadoPedido}"
+                                            <Label Text="{Binding estado}"
                                                    TextColor="#f7f9f9"
                                                    FontFamily="Comf-Bold"
                                                    HorizontalOptions="Center"
@@ -103,8 +101,8 @@
                                         </Grid>
                                         <Grid Grid.Column="3">
                                             <Button BackgroundColor="Transparent"
-                                                    
-                                                    CommandParameter="{Binding FechaEntrega}" />
+                                                    Clicked="OnPedidoSelected"
+                                                    CommandParameter="{Binding .}" />
                                             <Image Source="detalles.png"
                                                    WidthRequest="20" />
                                         </Grid>

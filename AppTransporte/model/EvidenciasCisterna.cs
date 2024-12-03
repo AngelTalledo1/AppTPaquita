@@ -16,6 +16,6 @@ namespace AppTransporte.model
         public byte[]? Cubicacion { get; set; }
         public byte[]?  TarjetaPropiedad { get; set; }
 
-        public Cisterna Cisterna { get; set; } = new Cisterna();// Relación con Cisterna
+        public Vehiculo Cisterna { get; set; } = new Vehiculo();// Relación con Cisterna
     }
 }

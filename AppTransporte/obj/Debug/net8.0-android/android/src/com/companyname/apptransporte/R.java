@@ -11629,8 +11629,8 @@ public final class R {
     public static final int rol=0x7f070101;
     public static final int ruta=0x7f070102;
     public static final int rutamen=0x7f070103;
-    public static final int solicitar=0x7f070104;
-    public static final int splash=0x7f070105;
+    public static final int siguiente=0x7f070104;
+    public static final int solicitar=0x7f070105;
     public static final int telefono=0x7f070106;
     public static final int test_level_drawable=0x7f070107;
     public static final int tipodoc=0x7f070108;

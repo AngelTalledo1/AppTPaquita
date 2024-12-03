@@ -1,7 +1,7 @@
 using AppTransporte.viewModel;
 
-
 namespace AppTransporte.Interfaces;
+using AppTransporte.model;
 
 public partial class VEclientes : ContentPage
 {
@@ -21,14 +21,19 @@ public partial class VEclientes : ContentPage
         Navigation.PopAsync();
     }
 
-    private void editar_cliente(object sender, EventArgs e)
+    private async void ClienteSlect_modificar(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VEagregarCliente());
+        var button = (Button)sender;
+        var clienteSelect = button.CommandParameter as Cliente;
+
+        if (clienteSelect != null)
+        {
+            await Navigation.PushAsync(new VEagregarCliente(clienteSelect));
+        }
     }
 
-    private void eliminar_cliente(object sender, EventArgs e)
+    private void Btn_EliminarCliente(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VEagregarCliente());
 
     }
 }

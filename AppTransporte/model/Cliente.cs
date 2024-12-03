@@ -20,6 +20,7 @@ namespace AppTransporte.model
         public int Estado { get; set; }
 
         // Propiedad calculada para el nombre completo
+        public Persona Persona { get; set; } = new Persona();
         public string NombreCompleto => $"{Nombre} {ApePaterno} {ApeMaterno}";
     }
 }

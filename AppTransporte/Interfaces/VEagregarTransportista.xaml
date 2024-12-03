@@ -4,7 +4,7 @@
              x:Class="AppTransporte.Interfaces.VEagregarTransportista"
              Title="VEagregarTransportista"
              NavigationPage.HasNavigationBar="False">
-    <Grid RowDefinitions=".05*,.8*">
+    <Grid RowDefinitions=".1*,.9*">
         <Grid BackgroundColor="#cb4335"
               ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0">
@@ -12,13 +12,19 @@
                     Clicked="Btn_atrasTrab" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
+                   VerticalOptions="End"
                    HeightRequest="20"
+                   Margin="20"
                    WidthRequest="20" />
-            <Label Text="Agregar nuevo trabajador"
+            <Label Text=""
+                   x:Name="tituloLabel"
                    Grid.Column="1"
+                   FontSize="20"
                    TextColor="White"
-                   FontFamily="Comf-Bold"
-                   Padding="30,12,0,0" />
+                   FontFamily="Comf-Medium"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1 ">
             <VerticalStackLayout>
@@ -44,6 +50,7 @@
                             <Picker x:Name="categoriaPicker"
                                     Title="Seleccione tipo de trabajador"
                                     FontFamily="Comf-Bold"
+                                    SelectedIndexChanged="categoriaPicker_SelectedIndexChanged"
                                     TextColor="Black">
                                 <Picker.Items>
                                     <x:String>Administrador</x:String>
@@ -86,7 +93,7 @@
                                Source="tipodoc.png"
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
-                            <Picker x:Name="TipoDocumentoTrabEntry"
+                            <Picker x:Name="TipoDocumentoTrabPicker"
                                     Title="Tipo"
                                     HorizontalOptions="Center"
                                     FontFamily="Comf-Bold"
@@ -131,7 +138,7 @@
                                Grid.Column="1"
                                x:Name="LicenciaTrabEntry"
                                Placeholder="Licencia"
-                               IsEnabled="False"
+                               IsVisible="False"
                                FontFamily="Comf-Medium"
                                Keyboard="Numeric"
                                MaxLength="9"
@@ -164,9 +171,23 @@
                                VerticalOptions="Center" />
                     </Grid>
                     <!-- Botón de Guardar -->
-                    <Button Text="Guardar Cliente"
+                    <Button Text="Guardar Trabajador"
+                            x:Name="GuardarTrabajador"
                             HeightRequest="50"
                             WidthRequest="300"
+                            IsVisible="False"
+                            Clicked="Btn_AgregarTrabajador"
+                            FontFamily="Comf-Bold"
+                            BackgroundColor="#007AFF"
+                            TextColor="White"
+                            CornerRadius="40"
+                            HorizontalOptions="Center" />
+                    <Button Text="Actualizar Trabajador"
+                            x:Name="ActualizarTrabajador"
+                            HeightRequest="50"
+                            WidthRequest="300"
+                            IsVisible="False"
+                            Clicked="ActualizarTrabajador_Clicked"
                             FontFamily="Comf-Bold"
                             BackgroundColor="#007AFF"
                             TextColor="White"

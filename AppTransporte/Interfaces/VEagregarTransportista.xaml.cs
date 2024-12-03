@@ -1,12 +1,33 @@
+using AppTransporte.model;
 using AppTransporte.viewModel;
 
 namespace AppTransporte.Interfaces;
 
 public partial class VEagregarTransportista : ContentPage
 {
-	public VEagregarTransportista( )
+
+    public VEagregarTransportista()
+    {
+        InitializeComponent();
+        tituloLabel.Text = "Agregar  Trabajador";
+        GuardarTrabajador.IsVisible = true;
+    }
+    public VEagregarTransportista(Trabajador trabajador)
 	{
 		InitializeComponent();
+        BindingContext = trabajador;
+        tituloLabel.Text = "Modificar Trabajador";
+        ActualizarTrabajador.IsVisible = true;
+        categoriaPicker.SelectedIndex = trabajador.IdCategoria;
+        NombreTrabEntry.Text = trabajador.Persona.Nombre;
+        ApellidoTrabEntry.Text = trabajador.apellidoTrabajador;
+        TipoDocumentoTrabPicker.SelectedIndex = 1;
+        NumeroDocEntry.Text = trabajador.Persona.NumDoc;
+        TelefonoTrabEntry.Text = trabajador.Persona.Telefono;
+        LicenciaTrabEntry.Text = trabajador.Licencia;
+        DireccionTrabEntry.Text = trabajador.Persona.Direccion;
+        EmailTrabEntry.Text = trabajador.Persona.Email; 
+
     }
     private void Btn_atrasTrab(object sender, EventArgs e)
     {
@@ -18,13 +39,18 @@ public partial class VEagregarTransportista : ContentPage
         if (categoriaPicker.SelectedItem?.ToString() == "Transportista")
         {
             // Habilita el campo de licencia
-            LicenciaTrabEntry.IsEnabled = true;
+            LicenciaTrabEntry.IsVisible = true;
         }
-        else
-        {
-            // Deshabilita el campo de licencia
-            LicenciaTrabEntry.IsEnabled = false;
-        }
+    }
+
+    private void Btn_AgregarTrabajador(object sender, EventArgs e)
+    {
+
+    }
+
+    private void ActualizarTrabajador_Clicked(object sender, EventArgs e)
+    {
+
     }
 
     /*private async void OnGuardarTransportistaClicked(object sender, EventArgs e)

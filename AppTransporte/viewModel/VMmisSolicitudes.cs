@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using AppTransporte.model;
 using System.Threading.Tasks;
+using AppTransporte.Interfaces;
+using System.Windows.Input;
 
 namespace AppTransporte.viewModel
 {
@@ -14,7 +16,7 @@ namespace AppTransporte.viewModel
 
 
         public ObservableCollection<Solicitud> Solicitudes { get; set; }
-
+        public ICommand VerDetalleCommand { get; }
         public bool IsBusy { get; set; }
 
         
@@ -24,15 +26,21 @@ namespace AppTransporte.viewModel
             // Crear algunas solicitudes de ejemplo
             Solicitudes = new ObservableCollection<Solicitud>
             {
-                new Solicitud { IdSolicitud = 1, Descripcion = "Solicitud de transporte urgente olicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgente", IdEstadoSolicitud = "Pendiente" , Comentario = "Se necesita transporte para mañana" },
+                new Solicitud { IdSolicitud = 1, Descripcion = "Solicitud de transporte urgente olicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgenteolicitud de transporte urgente", IdEstadoSolicitud = "Pendiente" , Comentario = "Se necesita transporte para mañana", Fecha =DateTime.Today },
 
 
-                new Solicitud { IdSolicitud = 2, Descripcion = "Solicitud para carga pesada", IdEstadoSolicitud = "Pedido Creado", Comentario = "Carga de maquinaria pesada para la construcción" },
-                new Solicitud { IdSolicitud = 3, Descripcion = "Solicitud estándar", IdEstadoSolicitud = "Cancelada", Comentario = "Su pedido no cumple nuestras reglas" }
+                new Solicitud { IdSolicitud = 2, Descripcion = "Solicitud para carga pesada", IdEstadoSolicitud = "Pedido Creado", Comentario = "Carga de maquinaria pesada para la construcción", Fecha =DateTime.Today },
+                new Solicitud { IdSolicitud = 3, Descripcion = "Solicitud estándar", IdEstadoSolicitud = "Cancelada", Comentario = "Su pedido no cumple nuestras reglas", Fecha =DateTime.Today }
             };
+
+            VerDetalleCommand = new Command<Solicitud>(VerDetalle);
         }
 
-
+        private async void VerDetalle(Solicitud solicitud)
+        {
+            // Navega a la página de detalles con la solicitud seleccionada
+            await Application.Current.MainPage.Navigation.PushAsync(new VEDetalleSolicitud(solicitud));
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
     protected virtual void OnPropertyChanged(string propertyName)
     {

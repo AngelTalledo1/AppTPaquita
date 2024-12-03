@@ -18,7 +18,10 @@ namespace AppTransporte.model
         public Categoria Categoria { get; set; } = new Categoria(); // Relación con Categoria
 
 
+        public string NombreTrabajador => $"{Persona.Nombre} {Persona.ApePaterno}".Trim();
+        public string apellidoTrabajador => $"{Persona.ApePaterno} {Persona.ApeMaterno}";
 
+        
 
 
     }

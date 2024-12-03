@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VECrearPedido"
+             NavigationPage.HasNavigationBar="False"
+             Padding="0"
+             Title="VECrearPedido">
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atrasCrearPedido" />
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Crear Pedido"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="White"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+        <Grid Grid.Row="1"
+              RowDefinitions="1*,.1*">
+            <ScrollView >
+                <VerticalStackLayout Spacing="30"
+                                     Margin="0,20,20,0">
+                    <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   Source="usuario.png"
+                                   HorizontalOptions="Center"></Image>
+                            <Label TextColor="Black"
+                                   Grid.Column="1"
+                                   x:Name="IdClienteLabel"
+                                   FontFamily="Comf-Medium"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   Source="conductor.png"
+                                   HorizontalOptions="Center"></Image>
+                            <Grid Grid.Column="1">
+                                <Picker x:Name="TransportistaPicker"
+                                        Title="Transportista Disponibles"
+                                        FontFamily="Comf-Bold"
+                                        TextColor="Black">
+                                    <Picker.Items>
+                                        <x:String>Alejandro Martinez</x:String>
+                                        <x:String>Marlon Sanchez</x:String>
+                                        <x:String>Mauricio Vidal</x:String>
+                                        <x:String>Carlos Romero</x:String>
+                                        <x:String>Alexis Calle</x:String>
+                                        <x:String>Jairo Rodriguez</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </Grid>
+                        </Grid>
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="conductor.png"
+                               HorizontalOptions="Center"></Image>
+                        <Grid Grid.Column="1">
+                            <Picker x:Name="AyudantePicker"
+                                    Title="Ayudante Disponibles"
+                                    FontFamily="Comf-Bold"
+                                    TextColor="Black">
+                                <Picker.Items>
+                                    <x:String>Alejandro Martinez</x:String>
+                                    <x:String>Marlon Sanchez</x:String>
+                                    <x:String>Mauricio Vidal</x:String>
+                                    <x:String>Carlos Romero</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                    </Grid>
+                    <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   Source="cantidad.png"
+                                   HorizontalOptions="Center"></Image>
+                            <Entry PlaceholderColor="#515a5a"
+                                   Grid.Column="1"
+                                   TextColor="Black"
+                                   Placeholder="Barriles"
+                                   Keyboard="Numeric"
+                                   FontFamily="Comf-Medium"
+                                   VerticalOptions="Center"
+                                   MaxLength="8"
+                                   x:Name="CantidadFluidoEntry"
+                                   TextChanged="OnCantidadFluidoChanged" />
+                        </Grid>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Label x:Name="ViajesLabel"
+                                   FontFamily="Comf-Medium"
+                                   TextColor="Red"
+                                   Grid.Column="2" />
+                        </Grid>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   Source="direccion.png"
+                                   HorizontalOptions="Center"></Image>
+                        <Picker x:Name="OrigenPicker"
+                                Title="Origen Disponibles"
+                                Grid.Column="1"
+                                FontFamily="Comf-Bold"
+                                TextColor="Black">
+                            <Picker.Items>
+                                <x:String>origen</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Grid>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   Source="direccion.png"
+                                   HorizontalOptions="Center"></Image>
+                        <Picker x:Name="DestinoPicker"
+                                Title="Destino Disponibles"
+                                Grid.Column="1"
+                                FontFamily="Comf-Bold"
+                                TextColor="Black">
+                            <Picker.Items>
+                                <x:String>Destino</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Grid>
+                        <Grid   ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   Source="calendario.png"
+                                   HorizontalOptions="Center"></Image>
+                            <Label 
+                                   Grid.Column="1"
+                                   TextColor="Black"
+                                   FontFamily="Comf-Bold"
+                                   VerticalOptions="Center"
+                                   x:Name="fechaEntry" />
+                        </Grid>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   Source="calendario.png"
+                                   HorizontalOptions="Center"></Image>
+                            <Label Grid.Column="1"
+                                   TextColor="Black"
+                                   FontFamily="Comf-Bold"
+                                   VerticalOptions="Center"
+                                   x:Name="entregaEntry" />
+                        </Grid>
+                        <Button Text="Crear"
+                                HeightRequest="50"
+                                WidthRequest="150"
+                                Clicked="Btn_crear"
+                                FontFamily="Comf-Bold"
+                                BackgroundColor="#007AFF"
+                                TextColor="White"
+                                CornerRadius="40"
+                                HorizontalOptions="Center" />
+                        <Button Text="Cancelar"
+                            HeightRequest="50"
+                            Clicked="Btn_cancelar"
+                            WidthRequest="150"
+                            FontFamily="Comf-Bold"
+                            BackgroundColor="#cb4335"
+                            TextColor="White"
+                            CornerRadius="40"
+                            HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentPage>

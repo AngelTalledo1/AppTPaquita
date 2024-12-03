@@ -22,7 +22,7 @@
                    Margin="20" />
             <Label Text="Trabajador"
                    FontSize="20"
-                   FontFamily="Comf-Bold"
+                   FontFamily="Comf-Medium"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
                    TextColor="White"
@@ -30,8 +30,6 @@
                    Margin="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1">
-            <RoundRectangle CornerRadius="0,0,0,0"
-                            Fill="#FBF6FD" />
             <Grid RowDefinitions=".8*,.2*">
                 <VerticalStackLayout  Margin="20"
                                       Spacing="5">
@@ -87,14 +85,14 @@
                                                   RowDefinitions=".5*,.5*"
                                                   Padding="-8">
                                                 <Grid ColumnDefinitions=".8*,.2*">
-                                                <Label Text="{Binding nombre}"
+                                                    <Label Text="{Binding NombreTrabajador}"
                                                        FontSize="15"
                                                        FontFamily="Comf-SemBold"
                                                        HorizontalOptions="Start"
                                                        Margin="10,0,0,0"
                                                        VerticalOptions="Center"
                                                        TextColor="White" />
-                                                    <Label Text="{Binding categoria}"
+                                                        <Label Text="{Binding Categoria.Descripcion}"
                                                            FontSize="11"
                                                            FontFamily="Comf-Reg"
                                                            HorizontalOptions="Start"
@@ -104,14 +102,14 @@
                                                 </Grid>
                                                 <Grid Grid.Row="1"
                                                       ColumnDefinitions=".5*,.5*">
-                                                    <Label Text="{Binding DNI}"
+                                                    <Label Text="{Binding Persona.NumDoc}"
                                                            FontSize="12"
                                                            FontFamily="Comf-Reg"
                                                            Margin="10,0,0,0"
                                                            HorizontalOptions="Start"
                                                            TextColor="White" />
                                                     
-                                                    <Label Text="{Binding telefono}"    
+                                                    <Label Text="{Binding Persona.Telefono}"    
                                                            FontSize="12"
                                                            FontFamily="Comf-Reg"
                                                            HorizontalOptions="Start"
@@ -125,10 +123,13 @@
                                                 <Button ImageSource="edit.png"
                                                         WidthRequest="25"
                                                         BackgroundColor="Transparent"
+                                                         Clicked="Btn_ModificarTrabajador"
+                                                        CommandParameter="{Binding .}"
                                                         Padding="0"
                                                         HorizontalOptions="Start" />
                                                 <Button ImageSource="eliminar.png"
                                                         Grid.Column="1"
+                                                            Clicked="EliminarTrabajador"
                                                         BackgroundColor="Transparent"
                                                         Padding="0"
                                                         WidthRequest="25"

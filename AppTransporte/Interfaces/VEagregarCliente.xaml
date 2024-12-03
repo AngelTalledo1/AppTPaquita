@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTransporte.Interfaces.VEagregarCliente"
-             NavigationPage.HasNavigationBar="False">
-    <Grid RowDefinitions=".05*,.8*">
+             NavigationPage.HasNavigationBar="False"
+             Padding="0">
+    <Grid RowDefinitions=".1*,.9*">
         <Grid BackgroundColor="#cb4335"
               ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0">
@@ -11,13 +12,18 @@
                     Clicked="Btn_atras"/>
             <Image Source="atras.png"
                    HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
                    HeightRequest="20"
                    WidthRequest="20" />
             <Label Text="Agregar nuevo cliente"
                    Grid.Column="1"
+                   FontSize="20"
                    TextColor="White"
-                   FontFamily="Comf-Bold"
-                   Padding="30,12,0,0"/>
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0"/>
         </Grid>
         <Grid Grid.Row="1 ">
             <VerticalStackLayout>
@@ -26,7 +32,8 @@
                        Padding="0,10,0,0"
                        BackgroundColor="AliceBlue"
                        BorderColor="Transparent">
-                <Label Text="Informacion General"
+                <Label Text=""
+                       x:Name="TituloLabel"
                        HorizontalOptions="Center"
                        FontFamily="Comf-Bold"
                        FontSize="Medium" />
@@ -133,16 +140,29 @@
                                FontFamily="Comf-Medium"
                                VerticalOptions="Center" />
                     </Grid>
-                    <!-- Botón de Guardar -->
+                    <!-- Botón de Guardar y actualizar-->
+                    <HorizontalStackLayout HorizontalOptions="Center">
                     <Button Text="Guardar Cliente"
                             HeightRequest="50"
-                            WidthRequest="300"
-                            FontFamily="Comf-Bold"
+                                x:Name="GuardarCliente"
+                                WidthRequest="300"
+                                IsVisible="False"
+                                FontFamily="Comf-Bold"
                             Clicked="OnGuardarClienteClicked"
                             BackgroundColor="#007AFF"
                             TextColor="White"
-                            CornerRadius="40"
-                            HorizontalOptions="Center"/>
+                            CornerRadius="40"/>
+                        <Button Text="Actualizar Cliente"
+                                x:Name="ActualizarCliente"
+                                HeightRequest="50"
+                                WidthRequest="300"
+                                IsVisible="False"
+                                FontFamily="Comf-Bold"
+                                Clicked="Btn_ActualizarCliente"
+                                BackgroundColor="#007AFF"
+                                TextColor="White"
+                                CornerRadius="40" />
+                    </HorizontalStackLayout>
                 </VerticalStackLayout>
             </VerticalStackLayout>
             

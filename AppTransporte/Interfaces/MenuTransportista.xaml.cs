@@ -22,11 +22,7 @@ public partial class MenuTransportista : ContentPage,IMenuPage
 
     private async void btn_misViajes(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VTmisViajes());
+        await Navigation.PushAsync(new VTMisViajes());
     }
 
-    private async void Vehiculos_Clicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new VEVehiculos());
-    }
 }

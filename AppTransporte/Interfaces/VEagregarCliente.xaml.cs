@@ -1,4 +1,6 @@
 
+using AppTransporte.model;
+
 namespace AppTransporte.Interfaces;
 
 public partial class VEagregarCliente : ContentPage
@@ -6,7 +8,24 @@ public partial class VEagregarCliente : ContentPage
 	public VEagregarCliente()
 	{
 		InitializeComponent();
+        GuardarCliente.IsVisible = true;
+        TituloLabel.Text = "Informacion General";
 	}
+    public VEagregarCliente(Cliente clienteSelect)
+    {
+        InitializeComponent();
+        ActualizarCliente.IsVisible = true;
+        TituloLabel.Text = "Modificar Cliente";
+        NombreEntry.Text = clienteSelect.Nombre;
+        ApellidoEntry.Text = $"{clienteSelect.ApePaterno} {clienteSelect.ApeMaterno} ";
+        TipoDocumentoPicker.SelectedIndex = clienteSelect.Persona.IdTipoDoc;
+        NumeroDocEntry.Text = clienteSelect.NumDoc;
+        TelefonoEntry.Text = clienteSelect.Telefono;
+        DireccionEntry.Text = clienteSelect.Direccion;
+        EmailEntry.Text = clienteSelect.Email;
+
+        BindingContext = clienteSelect;
+    }
 
     private void Btn_atras(object sender, EventArgs e)
     {
@@ -60,5 +79,10 @@ public partial class VEagregarCliente : ContentPage
         {
             await DisplayAlert("Error", $"Ocurrió un problema: {ex.Message}", "OK");
         }
+    }
+
+    private void Btn_ActualizarCliente(object sender, EventArgs e)
+    {
+
     }
 }

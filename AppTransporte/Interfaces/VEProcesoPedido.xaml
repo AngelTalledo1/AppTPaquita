@@ -4,34 +4,36 @@
              x:Class="AppTransporte.Interfaces.VEProcesoPedido"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="VEProcesoPedido"
+             Padding="0"
              NavigationPage.HasNavigationBar="False">
-    <Grid RowDefinitions=".07*,.9*"
-          BackgroundColor="#cb4335">
-        <Grid ColumnDefinitions=".1*,.9*">
+    <Grid RowDefinitions=".1*,.9*"
+          >
+        <Grid ColumnDefinitions=".1*,.9*"
+              BackgroundColor="#cb4335"
+              Padding="20,0,0,0">
             <Button BackgroundColor="Transparent"
                     Clicked="Btn_atrasEstado" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
+                   VerticalOptions="End"
                    HeightRequest="20"
                    WidthRequest="20"
-                   Margin="20,20,0,0" />
-            <Label Text="TITULO"
+                   Margin="20" />
+            <Label Text=""
+                   x:Name="TituloPedido"
                    FontSize="20"
-                   FontFamily="Comf-Bold"
+                   FontFamily="Comf-Medium"
                    Grid.Column="1"
-                   FontAttributes="Bold"
                    TextColor="White"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
-                   Margin="30,20,0,0" />
+                   Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1"
               RowDefinitions=".1*">
-            <RoundRectangle CornerRadius="0,0,0,0"
-                            Fill="#edede9" />
             <ScrollView>
                 <StackLayout Padding="15"
-                             Margin="3,20">
+                             Margin="0  ">
                     <Frame Padding="0"
                            CornerRadius=" 20"
                            BorderColor="Transparent"
@@ -41,36 +43,42 @@
                                   RowDefinitions="1*,1*"
                                   Margin="0,10,0,0">
                                 <Label Text="Orig"
+                                       x:Name="Origen"
                                        TextColor="White"
                                        FontSize="Large"
                                        HorizontalOptions="Center"
-                                       FontFamily="Comf-Bold" />
-                                <Label Text="Central"
+                                       FontFamily="Comf-Medium" />
+                                <Label Text="Sector"
+                                       x:Name="OrigenSector"
                                        TextColor="White"
                                        HorizontalOptions="Center"
                                        VerticalOptions="Start"
                                        FontSize="Caption"
+                                       FontFamily="Comf-Bold"
                                        Grid.Row="1" />
-                                <!--<Image Grid.Column="1"
-                                       Source=""
+                                <Label Grid.Column="1"
+                                       x:Name="Cantidad"
                                        HeightRequest="30"
                                        VerticalOptions="Center"
-                                       HorizontalOptions="Center" />-->
-                                <!--<Label Text="{Binding EstadoPedido}"
+                                       HorizontalOptions="Center" />
+                                <Label Text="Estado"
+                                       x:Name="Estado"
                                        Grid.Column="1"
                                        TextColor="White"
                                        Grid.RowSpan="2"
                                        FontFamily="Comf-Bold"
                                        FontSize="Subtitle"
                                        HorizontalOptions="Center"
-                                       VerticalOptions="End" />-->
+                                       VerticalOptions="End" />
                                 <Label Text="Dest"
+                                       x:Name="Destino"
                                        TextColor="White"
                                        FontSize="Large"
                                        Grid.Column="2"
                                        HorizontalOptions="Center"
                                        FontFamily="Comf-Bold" />
-                                <Label Text="Central"
+                                <Label Text="Sector"
+                                       x:Name="DestinoSector"
                                        HorizontalOptions="Center"
                                        VerticalOptions="Start"
                                        TextColor="White"
@@ -84,215 +92,57 @@
                                        CornerRadius="20"
                                        BackgroundColor="#edede9"
                                        Padding="0">
-                                    
-                                        <VerticalStackLayout Margin="30"
-                                                             Spacing="7">
-                                            <Frame Padding="0"
-                                                   BorderColor="Transparent"
-                                                   BackgroundColor="#d8e2dc"
-                                                   CornerRadius="10">
-                                                <toolkit:Expander x:Name="ExpandirDetalle"
-                                                                  >
-                                                    <toolkit:Expander.Header>
-                                                        <Grid>
-                                                            <Button BackgroundColor="Transparent"
-                                                                    Clicked="expandir_Clicked" />
-                                                            <VerticalStackLayout Margin="10"
-                                                                                 Spacing="7">
-                                                                <Label Text="Detalles del pedido"
-                                                                       FontFamily="Comf-Bold"
-                                                                       FontSize="Small"
-                                                                       TextColor="#780000"
-                                                                       HorizontalOptions="Start" />
-                                                                <VerticalStackLayout Spacing="7"
-                                                                                     Margin="15,0,0,0">
-                                                                    <Label Text="Numero de pedido: "
-                                                                           FontFamily="Comf-SemBold"
-                                                                           TextColor="#003049" />
-                                                                    <Label Text="Cliente: "
-                                                                           FontFamily="Comf-SemBold"
-                                                                           TextColor="#003049" />
-                                                                    <Label Text="Producto: "
-                                                                           TextColor="#003049"
-                                                                           FontFamily="Comf-SemBold" />
-                                                                    <Label Text="Cantidad: "
-                                                                           FontFamily="Comf-SemBold"
-                                                                           TextColor="#003049" />
-                                                                </VerticalStackLayout>
-                                                            </VerticalStackLayout>
-                                                        </Grid>
-                                                    </toolkit:Expander.Header>
+                                    <VerticalStackLayout Margin="30"
+                                                         Spacing="7">
+                                        <Frame Padding="0"
+                                               BorderColor="Transparent"
+                                               BackgroundColor="#d8e2dc"
+                                               CornerRadius="10">
+                                            <Grid>
+                                                <Button BackgroundColor="Transparent"
+                                                        Clicked="expandir_Clicked" />
+                                                <VerticalStackLayout Margin="10"
+                                                                     Spacing="7">
+                                                    <Label Text="Detalles del pedido"
+                                                           FontFamily="Comf-Bold"
+                                                           FontSize="Small"
+                                                           TextColor="#780000"
+                                                           HorizontalOptions="Start" />
                                                     <VerticalStackLayout Spacing="7"
-                                                                         Margin="25,0,0,0">
-                                                        <Label Text="Vehiculo: "
+                                                                         Margin="15,0,0,0">
+                                                        <Label Text="Cliente: "
+                                                               x:Name="NombreCliente"
                                                                FontFamily="Comf-SemBold"
                                                                TextColor="#003049" />
-                                                        <Label Text="Transportista: "
-                                                               FontFamily="Comf-SemBold"
-                                                               TextColor="#003049" />
-                                                        <Label Text="Ayudante:"
-                                                               FontFamily="Comf-SemBold"
-                                                               TextColor="#003049" />
-                                                        <Label Text="Origen: "
-                                                               TextColor="#003049"
-                                                               FontFamily="Comf-SemBold" />
-                                                        <Label Text="Estado: "
-                                                               TextColor="#003049"
-                                                               FontFamily="Comf-SemBold" />
                                                         <Label Text="Fecha Solicitud: "
+                                                               x:Name="FechaSolicitud"
                                                                TextColor="#003049"
                                                                FontFamily="Comf-SemBold" />
-                                                        <Label Text="Fecha de entrega: "
-                                                               TextColor="#003049"
-                                                               FontFamily="Comf-SemBold" />
-                                                        <Label Text="-------------- "
-                                                               TextColor="#780000"
+                                                        <Label Text="Cantidad: "
+                                                               x:Name="cantidadTotalPedido"
                                                                FontFamily="Comf-SemBold"
-                                                               HorizontalOptions="Center" />
+                                                               TextColor="#003049" />
+                                                        <Label Text="Viajes: "
+                                                               x:Name="cantidadViajes"
+                                                               FontFamily="Comf-SemBold"
+                                                               TextColor="#003049" />
+                                                        <Label Text="Creado por: "
+                                                               x:Name="creadorAdmin"
+                                                               FontFamily="Comf-SemBold"
+                                                               TextColor="#003049" />
+                                                        <Label Text="Fecha Creacion:  "
+                                                               x:Name="creacionPedido"
+                                                               FontFamily="Comf-SemBold"
+                                                               TextColor="#003049" />
                                                     </VerticalStackLayout>
-                                                </toolkit:Expander>
-                                            </Frame>
-                                            <Frame BorderColor="Transparent"
-                                                   BackgroundColor="#d8e2dc"
-                                                   Padding="0">
-                                                <toolkit:Expander x:Name="ExpandirLinea"
-                                                                  >
-                                                    <toolkit:Expander.Header>
-                                                        <Grid ColumnDefinitions=".5*,1*,.5*"
-                                                              RowDefinitions="1*,1*">
-                                                            <Label Text="Linea de tiempo"
-                                                                   FontFamily="Comf-Bold"
-                                                                   FontSize="Small"
-                                                                   TextColor="#780000"
-                                                                   Margin="10"
-                                                                   HorizontalOptions="Start"
-                                                                   Grid.ColumnSpan="3" />
-                                                            <Button BackgroundColor="Transparent"
-                                                                    Grid.ColumnSpan="3"
-                                                                    Grid.RowSpan="2"
-                                                                    Clicked="ExpandirLinea_Clicked" />
-                                                            <!--<Image Source="{Binding Step1Icon}"
-                                                                   HeightRequest="20"
-                                                                   Grid.Row="1"
-                                                                   VerticalOptions="Center"
-                                                                   Margin="15"
-                                                                   HorizontalOptions="Center" />-->
-                                                            <Grid Grid.Column="1"
-                                                                  Grid.Row="1"
-                                                                  RowDefinitions="1*,1*"
-                                                                  Margin="0,20">
-                                                                <Label Text="Recibimos tu Pedido"
-                                                                       FontFamily="Comf-Bold"
-                                                                       TextColor="Black"
-                                                                       HorizontalOptions="Start" />
-                                                                <Label Text="17 mayo 2020 23:20 hrs."
-                                                                       TextColor="#7A93AC"
-                                                                       FontFamily="Comf-Regular"
-                                                                       HorizontalOptions="Start"
-                                                                       FontSize="Small"
-                                                                       Grid.Row="1" />
-                                                            </Grid>
-                                                        </Grid>
-                                                    </toolkit:Expander.Header>
-                                                    <Grid RowDefinitions="1*,1*,1*,1*,1*"
-                                                          ColumnDefinitions=".5*,1*,.5*">
-                                                        <!--<Image Source="{Binding Step2Icon}"
-                                                               HeightRequest="20"
-                                                               VerticalOptions="Center"
-                                                               Grid.Row="1"
-                                                               Margin="15" />-->
-                                                        <Grid Grid.Column="1"
-                                                              Grid.Row="1"
-                                                              RowDefinitions="1*,1*"
-                                                              Margin="0,20">
-                                                            <Label Text="Preparando Pedido"
-                                                                   FontFamily="Comf-Bold"
-                                                                   
-                                                                   HorizontalOptions="Start" />
-                                                            <Label Text="04 junio 2020 11:43 hrs."
-                                                                   TextColor="#7A93AC"
-                                                                   FontFamily="Comf-Regular"
-                                                                   HorizontalOptions="Start"
-                                                                   FontSize="Small"
-                                                                   Grid.Row="1" />
-                                                        </Grid>
-                                                        <!--<Image Source="{Binding Step3Icon}"
-                                                               HeightRequest="20"
-                                                               VerticalOptions="Center"
-                                                               Grid.Row="2"
-                                                               Margin="15" />-->
-                                                        <Grid Grid.Column="1"
-                                                              Grid.Row="2"
-                                                              RowDefinitions="1*,1*"
-                                                              Margin="0,20">
-                                                            <Label Text="En Tránsito a Destino"
-                                                                   FontFamily="Comf-Bold"
-                                                                   HorizontalOptions="Start" />
-                                                            <Label Text="08 junio 2020 12:31 hrs."
-                                                                   TextColor="#7A93AC"
-                                                                   FontFamily="Comf-Regular"
-                                                                   HorizontalOptions="Start"
-                                                                   FontSize="Small"
-                                                                   Grid.Row="1" />
-                                                        </Grid>
-                                                        <!--<Image Source="{Binding Step4Icon}"
-                                                               HeightRequest="20"
-                                                               VerticalOptions="Center"
-                                                               Grid.Row="3"
-                                                               Margin="15" />-->
-                                                        <Grid Grid.Column="1"
-                                                              Grid.Row="3"
-                                                              RowDefinitions="1*,1*"
-                                                              Margin="0,20">
-                                                            <Label Text="En Destino"
-                                                                   FontFamily="Comf-Bold"
-                                                                   
-                                                                   HorizontalOptions="Start" />
-                                                            <Label Text="10 junio 2020 10:05 hrs."
-                                                                   TextColor="#7A93AC"
-                                                                   FontFamily="Comf-Regular"
-                                                                   HorizontalOptions="Start"
-                                                                   FontSize="Small"
-                                                                   Grid.Row="1" />
-                                                        </Grid>
-                                                        <!--<Image Source="{Binding Step5Icon}"
-                                                               HeightRequest="20"
-                                                               VerticalOptions="Center"
-                                                               Grid.Row="4"
-                                                               Margin="15" />-->
-                                                        <Grid Grid.Column="1"
-                                                              Grid.Row="4"
-                                                              RowDefinitions="1*,1*"
-                                                              Margin="0,20">
-                                                            <Label Text="Pedido Finalizado"
-                                                                   FontFamily="Comf-Bold"
-                                                                   HorizontalOptions="Start" />
-                                                            <Label Text="10 junio 2020 10:05 hrs."
-                                                                   TextColor="#7A93AC"
-                                                                   FontFamily="Comf-Regular"
-                                                                   HorizontalOptions="Start"
-                                                                   FontSize="Small"
-                                                                   Grid.Row="1" />
-                                                        </Grid>
-                                                    </Grid>
-                                                </toolkit:Expander>
-                                            </Frame>
-                                        </VerticalStackLayout>
-                                    
+                                                </VerticalStackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </VerticalStackLayout>
                                 </Frame>
                             </Grid>
                         </Grid>
                     </Frame>
-                    <Button Text="Actualizar Estado"
-                            BackgroundColor="#cb4335"
-                            FontFamily="Comf-Bold"
-                            TextColor="White"
-                            Margin="30,15,30,15" />
-                    <Button Text="Agregar Evidencias"
-                            BackgroundColor="#669bbc"
-                            FontFamily="Comf-Bold"
-                            TextColor="White"
-                            Margin="30,10" />
                 </StackLayout>
             </ScrollView>
         </Grid>
