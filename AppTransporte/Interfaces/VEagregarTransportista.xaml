@@ -47,7 +47,7 @@
                                Source="rol.png"
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
-                            <Picker x:Name="categoriaPicker"
+                            <Picker x:Name="trabajadorPicker"
                                     Title="Seleccione tipo de trabajador"
                                     FontFamily="Comf-Bold"
                                     SelectedIndexChanged="categoriaPicker_SelectedIndexChanged"
@@ -129,7 +129,9 @@
                                VerticalOptions="Center" />
                     </Grid>
                     <!-- Licencia (solo para transportista) -->
-                    <Grid ColumnDefinitions=".2*,.8*">
+                    <Grid ColumnDefinitions=".2*,.8*"
+                          x:Name="licenciaField"
+                          IsVisible="False">
                         <Image WidthRequest="40"
                                HeightRequest="40"
                                Source="licencia.png"
@@ -138,7 +140,6 @@
                                Grid.Column="1"
                                x:Name="LicenciaTrabEntry"
                                Placeholder="Licencia"
-                               IsVisible="False"
                                FontFamily="Comf-Medium"
                                Keyboard="Numeric"
                                MaxLength="9"

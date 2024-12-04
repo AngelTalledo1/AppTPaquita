@@ -1,9 +1,12 @@
 namespace AppTransporte.Interfaces;
 using AppTransporte.model;
+using AppTransporte.viewModel;
+
 public partial class VEtransportistas : ContentPage
 {
 	public VEtransportistas()
 	{
+        BindingContext = new VMTrabajadores();
         InitializeComponent();
 	}
 

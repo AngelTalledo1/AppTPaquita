@@ -31,7 +31,8 @@
                    FontFamily="Comf-Medium"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1" RowDefinitions="1*,.1*">
+        <Grid Grid.Row="1">
+            <ScrollView>
             <VerticalStackLayout>
             <ScrollView Margin="20">
                 <VerticalStackLayout>
@@ -103,9 +104,9 @@
                     HorizontalOptions="Center"
                     VerticalOptions="Start"
                     WidthRequest="300" HeightRequest="50"
-                    Grid.Row="1"
                     Clicked="btn_NewSolicitud" />
             </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </ContentPage>

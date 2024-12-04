@@ -5,7 +5,7 @@ public partial class MenuCliente : ContentPage, IMenuPage
 {
     private int _idUsuario;
     private int _idtipousuario;
-    public MenuCliente(int idUsuario,int idTipoUsuario)
+    public MenuCliente()
 	{
         InitializeComponent();
 	}
@@ -15,7 +15,7 @@ public partial class MenuCliente : ContentPage, IMenuPage
         _idUsuario = idUsuario;
         _idtipousuario = idTipoUsuario;
     }
-
+        
     private void Btn_atrasMenuCliente(object sender, EventArgs e)
     {
         Navigation.PopAsync();

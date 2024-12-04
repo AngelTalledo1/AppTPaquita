@@ -1,32 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\",
+  "WorkspaceRootPath": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\interfaces\\veagregarcliente.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veagregarcliente.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\apptpaquita\\apptpaquita\\apptransporte\\interfaces\\veagregartransportista.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veagregartransportista.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\model\\sqlserverservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\model\\sqlserverservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\apptpaquita\\apptpaquita\\apptransporte\\interfaces\\veagregartransportista.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veagregartransportista.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\interfaces\\veagregarcliente.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veagregarcliente.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gudal\\AppData\\Local\\Temp\\tflnx2p0..sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\interfaces\\veclientes.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veclientes.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\interfaces\\veclientes.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veclientes.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gudal\\AppData\\Local\\Temp\\tflnx2p0..sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\apptpaquita\\apptpaquita\\apptransporte\\interfaces\\veagregarubicacion.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veagregarubicacion.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,20 +21,24 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 221,
-          "SelectedChildIndex": 5,
+          "DockedWidth": 232,
+          "SelectedChildIndex": 7,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SQLQuery1.sql ",
-              "DocumentMoniker": "C:\\Users\\gudal\\AppData\\Local\\Temp\\tflnx2p0..sql",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\tflnx2p0..sql",
-              "ToolTip": "SQLQuery1.sql *",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-12-03T20:47:55.378Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",
@@ -59,72 +49,42 @@
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SqlServerService.cs",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\model\\SqlServerService.cs",
-              "RelativeDocumentMoniker": "AppTransporte\\model\\SqlServerService.cs",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\model\\SqlServerService.cs",
-              "RelativeToolTip": "AppTransporte\\model\\SqlServerService.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAiwDQAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-03T21:07:59.136Z",
+              "DocumentIndex": 2,
+              "Title": "VEAgregarUbicacion.xaml",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEAgregarUbicacion.xaml",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEAgregarUbicacion.xaml",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEAgregarUbicacion.xaml",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\VEAgregarUbicacion.xaml",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-12-04T05:34:21.613Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "VEagregarCliente.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarCliente.xaml.cs",
-              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEagregarCliente.xaml.cs",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarCliente.xaml.cs",
-              "RelativeToolTip": "AppTransporte\\Interfaces\\VEagregarCliente.xaml.cs",
-              "ViewState": "AgIAAFwAAAAAAAAAAAAUwG0AAAAoAAAAAAAAAA==",
+              "Title": "VEagregarTransportista.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarTransportista.xaml.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEagregarTransportista.xaml.cs",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarTransportista.xaml.cs",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\VEagregarTransportista.xaml.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAowCAAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-03T20:54:31.518Z",
+              "WhenOpened": "2024-12-04T05:30:24.492Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "VEagregarCliente.xaml",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarCliente.xaml",
-              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEagregarCliente.xaml",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarCliente.xaml",
-              "RelativeToolTip": "AppTransporte\\Interfaces\\VEagregarCliente.xaml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABcAAAAsAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "VEagregarTransportista.xaml",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarTransportista.xaml",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEagregarTransportista.xaml",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\AppTPaquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarTransportista.xaml",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\VEagregarTransportista.xaml",
+              "ViewState": "AQIAACcAAAAAAAAAAAAAADEAAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-12-03T20:57:03.827Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "VEclientes.xaml",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEclientes.xaml",
-              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEclientes.xaml",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEclientes.xaml",
-              "RelativeToolTip": "AppTransporte\\Interfaces\\VEclientes.xaml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABYAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-12-03T20:55:56.425Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "VEclientes.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEclientes.xaml.cs",
-              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEclientes.xaml.cs",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEclientes.xaml.cs",
-              "RelativeToolTip": "AppTransporte\\Interfaces\\VEclientes.xaml.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAEBBwB4AAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-03T20:54:07.368Z",
+              "WhenOpened": "2024-12-04T05:27:57.504Z",
               "EditorCaption": ""
             }
           ]

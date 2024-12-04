@@ -9,17 +9,20 @@ namespace AppTransporte.model
     public class Trabajador
     {
         public int IdTrabajador { get; set; }
-        public int IdPersona { get; set; }
-        public int IdCategoria { get; set; }
-        public string Licencia { get; set; } = string.Empty;
-        public bool Estado { get; set; }
+        public string Nombre { get; set; } = string.Empty;
+        public string? apePaterno { get; set; }
+        public string? apeMaterno { get; set; } = string.Empty;
+        public string numDoc { get; set; } = string.Empty;
+        public string Telefono { get; set; } = string.Empty;
+        public string direccion { get; set; } = string.Empty;
+        public string? email { get; set; } 
+        public string categoria { get; set; } = string.Empty;   
+        public string? licencia { get; set; } = string.Empty;
+        public string usuario { get; set; } = string.Empty;
+        public string password { get; set; } = string.Empty;
 
-        public Persona Persona { get; set; } = new Persona();// Relación con Persona
-        public Categoria Categoria { get; set; } = new Categoria(); // Relación con Categoria
-
-
-        public string NombreTrabajador => $"{Persona.Nombre} {Persona.ApePaterno}".Trim();
-        public string apellidoTrabajador => $"{Persona.ApePaterno} {Persona.ApeMaterno}";
+        public string NombreTrabajador => $"{Nombre} {apePaterno}".Trim();
+        public string apellidoTrabajador => $"{apePaterno} {apeMaterno}".Trim();
 
         
 

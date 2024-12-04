@@ -2,12 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTransporte.Interfaces.VEProcesoPedido"
+             xmlns:viewModel="clr-namespace:AppTransporte.viewModel"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="VEProcesoPedido"
              Padding="0"
              NavigationPage.HasNavigationBar="False">
-    <Grid RowDefinitions=".1*,.9*"
-          >
+    <ContentPage.BindingContext>
+        <viewModel:VMViajes />
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
               BackgroundColor="#cb4335"
               Padding="20,0,0,0">
@@ -41,7 +44,7 @@
                         <Grid RowDefinitions="1*,1*">
                             <Grid ColumnDefinitions=".33*,.33*,.33*"
                                   RowDefinitions="1*,1*"
-                                  Margin="0,10,0,0">
+                                  Margin="10">
                                 <Label Text="Orig"
                                        x:Name="Origen"
                                        TextColor="White"
@@ -51,14 +54,16 @@
                                 <Label Text="Sector"
                                        x:Name="OrigenSector"
                                        TextColor="White"
-                                       HorizontalOptions="Center"
+                                       HorizontalOptions="CenterAndExpand"
                                        VerticalOptions="Start"
                                        FontSize="Caption"
                                        FontFamily="Comf-Bold"
                                        Grid.Row="1" />
                                 <Label Grid.Column="1"
+                                       FontFamily="Comf-Bold"
+                                       FontSize="Subtitle"
                                        x:Name="Cantidad"
-                                       HeightRequest="30"
+                                       TextColor="#cb4335"
                                        VerticalOptions="Center"
                                        HorizontalOptions="Center" />
                                 <Label Text="Estado"
@@ -68,18 +73,19 @@
                                        Grid.RowSpan="2"
                                        FontFamily="Comf-Bold"
                                        FontSize="Subtitle"
-                                       HorizontalOptions="Center"
+                                       HorizontalOptions="CenterAndExpand"
                                        VerticalOptions="End" />
                                 <Label Text="Dest"
                                        x:Name="Destino"
                                        TextColor="White"
                                        FontSize="Large"
+                                       MaxLines="2"
                                        Grid.Column="2"
-                                       HorizontalOptions="Center"
+                                       HorizontalOptions="CenterAndExpand"  
                                        FontFamily="Comf-Bold" />
                                 <Label Text="Sector"
                                        x:Name="DestinoSector"
-                                       HorizontalOptions="Center"
+                                       HorizontalOptions="CenterAndExpand"
                                        VerticalOptions="Start"
                                        TextColor="White"
                                        FontSize="Caption"
@@ -89,57 +95,95 @@
                             <Grid Grid.Row="1"
                                   Margin="0,10,0,0">
                                 <Frame BorderColor="Transparent"
-                                       CornerRadius="20"
-                                       BackgroundColor="#edede9"
-                                       Padding="0">
-                                    <VerticalStackLayout Margin="30"
-                                                         Spacing="7">
+                                           CornerRadius="20"
+                                           BackgroundColor="#edede9"
+                                           Padding="0">
+                                        <VerticalStackLayout Margin="30"
+                                                             Spacing="7">
+                                            <Frame Padding="0"
+                                                   BorderColor="Transparent"
+                                                   BackgroundColor="#d8e2dc"
+                                                   CornerRadius="10">
+                                                <Grid>
+                                                    <Button BackgroundColor="Transparent"
+                                                             />
+                                                    <VerticalStackLayout Margin="10"
+                                                                         Spacing="7">
+                                                        <Label Text="Detalles del pedido"
+                                                               FontFamily="Comf-Bold"
+                                                               FontSize="Small"
+                                                               TextColor="#780000"
+                                                               HorizontalOptions="Start" />
+                                                        <VerticalStackLayout Spacing="7"
+                                                                             Margin="15,0,0,0">
+                                                            <Label Text="Cliente: "
+                                                                   x:Name="NombreCliente"
+                                                                   FontFamily="Comf-Bold"
+                                                                   TextColor="#003049" />
+                                                            <Label Text="Cantidad: "
+                                                                   x:Name="cantidadTotalPedido"
+                                                                   FontFamily="Comf-Bold"
+                                                                   TextColor="#003049" />
+                                                            <Label Text="Viajes: "
+                                                                   x:Name="cantidadViajes"
+                                                                   FontFamily="Comf-Bold"
+                                                                   TextColor="#003049" />
+                                                            <Label Text="Creado por: "
+                                                                   x:Name="creadorAdmin"
+                                                                   FontFamily="Comf-Bold"
+                                                                   TextColor="#003049" />
+                                                            <Label Text="Fecha Creacion:  "
+                                                                   x:Name="creacionPedido"
+                                                                   FontFamily="Comf-Bold"
+                                                                   TextColor="#003049" />
+                                                            <Label Text="Servicios:  "
+                                                                   x:Name="ServiciosPedido"
+                                                                   FontFamily="Comf-Bold"
+                                                                   TextColor="#003049" />
+                                                        </VerticalStackLayout>
+                                                    </VerticalStackLayout>
+                                                </Grid>
+                                            </Frame>
                                         <Frame Padding="0"
                                                BorderColor="Transparent"
                                                BackgroundColor="#d8e2dc"
                                                CornerRadius="10">
-                                            <Grid>
-                                                <Button BackgroundColor="Transparent"
-                                                        Clicked="expandir_Clicked" />
-                                                <VerticalStackLayout Margin="10"
-                                                                     Spacing="7">
-                                                    <Label Text="Detalles del pedido"
-                                                           FontFamily="Comf-Bold"
-                                                           FontSize="Small"
-                                                           TextColor="#780000"
-                                                           HorizontalOptions="Start" />
-                                                    <VerticalStackLayout Spacing="7"
-                                                                         Margin="15,0,0,0">
-                                                        <Label Text="Cliente: "
-                                                               x:Name="NombreCliente"
-                                                               FontFamily="Comf-SemBold"
-                                                               TextColor="#003049" />
-                                                        <Label Text="Fecha Solicitud: "
-                                                               x:Name="FechaSolicitud"
-                                                               TextColor="#003049"
-                                                               FontFamily="Comf-SemBold" />
-                                                        <Label Text="Cantidad: "
-                                                               x:Name="cantidadTotalPedido"
-                                                               FontFamily="Comf-SemBold"
-                                                               TextColor="#003049" />
-                                                        <Label Text="Viajes: "
-                                                               x:Name="cantidadViajes"
-                                                               FontFamily="Comf-SemBold"
-                                                               TextColor="#003049" />
-                                                        <Label Text="Creado por: "
-                                                               x:Name="creadorAdmin"
-                                                               FontFamily="Comf-SemBold"
-                                                               TextColor="#003049" />
-                                                        <Label Text="Fecha Creacion:  "
-                                                               x:Name="creacionPedido"
-                                                               FontFamily="Comf-SemBold"
-                                                               TextColor="#003049" />
+                                            <toolkit:Expander x:Name="ExpanderViajes">
+                                                <toolkit:Expander.Header >
+                                                    <Grid>
+                                                        <Button Background="Transparent"
+                                                                Clicked="expandir_Clicked" />
+                                                        <VerticalStackLayout Margin="10">
+                                                            <Label TextColor="#780000"
+                                                                   FontFamily="Comf-Bold"
+                                                                   FontSize="Small"
+                                                                   Text="Viajes" />
+                                                        </VerticalStackLayout>
+                                                    </Grid>
+                                                </toolkit:Expander.Header>
+                                                <ScrollView>
+                                                    <VerticalStackLayout Margin="20,10,0,0">
+                                                        <CollectionView ItemsSource="{Binding viajes}">
+                                                            <CollectionView.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <Frame WidthRequest="400">
+                                                                        <VerticalStackLayout>
+                                                                            <Label Text="{Binding TractoAsig}" />
+                                                                            <Label Text="{Binding CisternaAsig}" />
+                                                                            <Label Text="{Binding TrabajadoresAsig}" />
+                                                                        </VerticalStackLayout>
+                                                                    </Frame>
+                                                                    
+                                                                    
+                                                                </DataTemplate>
+                                                            </CollectionView.ItemTemplate>
+                                                            </CollectionView>
                                                     </VerticalStackLayout>
-                                                </VerticalStackLayout>
-                                            </Grid>
+                                                </ScrollView>
+                                            </toolkit:Expander>
                                         </Frame>
                                     </VerticalStackLayout>
-                                </Frame>
+                                    </Frame>
                             </Grid>
                         </Grid>
                     </Frame>

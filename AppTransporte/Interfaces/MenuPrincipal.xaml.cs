@@ -44,4 +44,9 @@ public partial class MenuPrincipal : ContentPage
     {
        await Navigation.PushAsync(new VESolicitudes());
     }
+
+    private async void Btn_DestinosClicket(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new VEUbicacion());
+    }
 }

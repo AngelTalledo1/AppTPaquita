@@ -18,15 +18,15 @@ public partial class VEagregarTransportista : ContentPage
         BindingContext = trabajador;
         tituloLabel.Text = "Modificar Trabajador";
         ActualizarTrabajador.IsVisible = true;
-        categoriaPicker.SelectedIndex = trabajador.IdCategoria;
-        NombreTrabEntry.Text = trabajador.Persona.Nombre;
-        ApellidoTrabEntry.Text = trabajador.apellidoTrabajador;
-        TipoDocumentoTrabPicker.SelectedIndex = 1;
-        NumeroDocEntry.Text = trabajador.Persona.NumDoc;
-        TelefonoTrabEntry.Text = trabajador.Persona.Telefono;
-        LicenciaTrabEntry.Text = trabajador.Licencia;
-        DireccionTrabEntry.Text = trabajador.Persona.Direccion;
-        EmailTrabEntry.Text = trabajador.Persona.Email; 
+        //categoriaPicker.SelectedIndex = trabajador.IdCategoria;
+        //NombreTrabEntry.Text = trabajador.Persona.Nombre;
+        //ApellidoTrabEntry.Text = trabajador.apellidoTrabajador;
+        //TipoDocumentoTrabPicker.SelectedIndex = 1;
+        //NumeroDocEntry.Text = trabajador.Persona.NumDoc;
+        //TelefonoTrabEntry.Text = trabajador.Persona.Telefono;
+        //LicenciaTrabEntry.Text = trabajador.Licencia;
+        //DireccionTrabEntry.Text = trabajador.Persona.Direccion;
+        //EmailTrabEntry.Text = trabajador.Persona.Email; 
 
     }
     private void Btn_atrasTrab(object sender, EventArgs e)
@@ -36,10 +36,15 @@ public partial class VEagregarTransportista : ContentPage
 
     private void categoriaPicker_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (categoriaPicker.SelectedItem?.ToString() == "Transportista")
+        var selectedOption = trabajadorPicker.SelectedItem?.ToString();
+
+        if (selectedOption == "Transportista")
         {
-            // Habilita el campo de licencia
-            LicenciaTrabEntry.IsVisible = true;
+            licenciaField.IsVisible = true;
+        }
+        else
+        {
+            licenciaField.IsVisible = false;
         }
     }
 

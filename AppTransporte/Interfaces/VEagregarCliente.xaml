@@ -27,6 +27,7 @@
                    Padding="20,20,0,0"/>
         </Grid>
         <Grid Grid.Row="1 ">
+            <ScrollView>
             <VerticalStackLayout>
                 <Frame WidthRequest="500"
                        HeightRequest="50"
@@ -166,7 +167,7 @@
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </VerticalStackLayout>
-            
+            </ScrollView>
         </Grid>
     </Grid>
 </ContentPage>

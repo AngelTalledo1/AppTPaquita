@@ -6,7 +6,7 @@
              x:Class="AppTransporte.Interfaces.VEtransportistas"
              Title="VEtransportistas">
     <ContentPage.BindingContext>
-        <VME:VMTransportista />
+        <VME:VMTrabajadores />
     </ContentPage.BindingContext>
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
@@ -30,8 +30,8 @@
                    Margin="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1">
-            <Grid RowDefinitions=".8*,.2*">
-                <VerticalStackLayout  Margin="20"
+            <ScrollView>
+            <VerticalStackLayout  Margin="20"
                                       Spacing="5">
                 <Grid ColumnDefinitions=".6*,.4*">
                     <VerticalStackLayout Spacing="5">
@@ -64,7 +64,7 @@
                                                IsVisible="{Binding IsBusy}"
                                                HorizontalOptions="Center" />
                             <CollectionView x:Name="TransportistaCollectionView"
-                                        ItemsSource="{Binding TransportistaFiltrados}">
+                                        ItemsSource="{Binding Trabajadores}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Frame BackgroundColor="#2e4053"
@@ -142,21 +142,16 @@
                         </CollectionView>
                     </VerticalStackLayout>
                 </ScrollView>
-                <Grid Grid.Row="1">
-                    <HorizontalStackLayout HorizontalOptions="Center"
-                                           VerticalOptions="Center">
-                        <Button Text="Nuevo Trabajador"
-                                TextColor="White"
-                                FontFamily="Comf-Bold"
-                                Margin="20"
-                                HeightRequest="50"
-                                WidthRequest="200"
-                                BackgroundColor="#cb4335"
-                                Clicked="btn_agregarTransportista" />
-                    </HorizontalStackLayout>
-                </Grid>
+                    <Button Text="Nuevo Trabajador"
+                            TextColor="White"
+                            FontFamily="Comf-Bold"
+                            Margin="20"
+                            HeightRequest="50"
+                            WidthRequest="200"
+                            BackgroundColor="#cb4335"
+                            Clicked="btn_agregarTransportista" />
                 </VerticalStackLayout>
-            </Grid>
+            </ScrollView>
         </Grid>
     </Grid>
 </ContentPage>

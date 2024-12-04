@@ -26,24 +26,25 @@
                    TextColor="White"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
-                   FontFamily="Comf-Medium"
+                   FontFamily="Comf-Bold"
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1">
+            <ScrollView>
             <VerticalStackLayout Margin="10"
                                  Spacing="15">
                 <Frame Padding="0"
                        WidthRequest="200"
                        HeightRequest="40"
                        CornerRadius="10"
-                       BackgroundColor="#669bbc"
+                       BackgroundColor="#b7bdbd"
                        BorderColor="Transparent">
                     <Picker Title="Estado"
                             TitleColor="White"
                             HorizontalOptions="Center"
                             FontFamily="Comf-SemBold"
                             ItemsSource="{Binding EstadoSolicitud}"
-                            SelectedIndex="1"/>
+                            SelectedIndex="1"/> <!--Por defecto el picker en estado pendiente-->
                 </Frame>
                 <ScrollView>
                     <VerticalStackLayout>
@@ -56,6 +57,7 @@
                                 <DataTemplate>
                                     <Frame Padding="0"
                                            BackgroundColor="#778da9"
+                                           BorderColor="Transparent"
                                            CornerRadius="10"
                                            WidthRequest="430"
                                            HeightRequest="110"
@@ -97,6 +99,7 @@
                     </VerticalStackLayout>
                 </ScrollView>
             </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </ContentPage>

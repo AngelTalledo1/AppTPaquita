@@ -194,17 +194,15 @@ namespace AppTransporte.model
             // Devuelve null si no se encontraron coincidencias
             return null;
         }
-        public async Task<List<Pedido>> ListarPedidosAsync(int idUsuario, int idTipoUsuario)
+        public async Task<List<Pedido>> ListarPedidosAdminAsync()
         {
             var pedidos = new List<Pedido>();
 
             using (var connection = new SqlConnection(_connectionString))
             {
-                using (var command = new SqlCommand("pa_ListarPedidos", connection))
+                using (var command = new SqlCommand("pa_ListPedidosDet", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@id_usuario", idUsuario);
-                    command.Parameters.AddWithValue("@id_categoria", idTipoUsuario);
 
                     await connection.OpenAsync();
 
@@ -215,11 +213,17 @@ namespace AppTransporte.model
                             pedidos.Add(new Pedido
                             {
                                 IdPedido = reader.GetInt32(reader.GetOrdinal("id_pedido")),
-                                IdSolicitud = reader.GetInt32(reader.GetOrdinal("id_solicitud")),
+                                Usuario = reader.GetString(reader.GetOrdinal("nombre_usuario")),
+                                Cliente = reader.GetString(reader.GetOrdinal("nombre_cliente")),
                                 Cantidad = reader.GetInt32(reader.GetOrdinal("cantidad")),
                                 Viajes = reader.GetInt32(reader.GetOrdinal("viajes")),
-                                IdOrigen = reader.GetInt32(reader.GetOrdinal("id_origen")),
-                                IdDestino = reader.GetInt32(reader.GetOrdinal("id_destino")),
+                                Origen = reader.GetString(reader.GetOrdinal("origen_descripcion")),
+                                OrigSector = reader.GetString(reader.GetOrdinal("origen_sector")),
+                                Servicios = reader.GetString(reader.GetOrdinal("servicios_relacionados")),
+
+                                Destino = reader.GetString(reader.GetOrdinal("destino_descripcion")),
+                                DestSector = reader.GetString(reader.GetOrdinal("destino_sector")),
+
                                 EstadoPedido = reader["estado_pedido"]?.ToString() ?? "Sin estado",
                                 FechaSolicitud = reader.GetDateTime(reader.GetOrdinal("fecha_solicitud")),
                                 FechaEntrega = reader.IsDBNull(reader.GetOrdinal("fecha_entrega"))
@@ -233,41 +237,7 @@ namespace AppTransporte.model
 
             return pedidos;
         }
-        //public async Task<()> mostrarClientes()
-        //{
-        //    try
-        //    {
-        //        using (var connection = new SqlConnection(_connectionString))
-        //        {
-        //            await connection.OpenAsync();
-
-        //            using (var command = new SqlCommand("mostrarClientes", connection))
-        //            {
-        //                command.CommandType = CommandType.StoredProcedure;
-
-        //                using (var reader = await command.ExecuteReaderAsync())
-        //                {
-        //                    while (await reader.ReadAsync())
-        //                    {
-        //                        Console.WriteLine($"Nombre: {reader.GetString(0)}");
-        //                        Console.WriteLine($"Apellido Paterno: {reader.GetString(1)}");
-        //                        Console.WriteLine($"Apellido Materno: {reader.GetString(2)}");
-        //                        Console.WriteLine($"Tipo de documento: {reader.GetString(3)}");
-        //                        Console.WriteLine($"Número de documento: {reader.GetString(4)}");
-        //                        Console.WriteLine($"Teléfono: {reader.GetString(5)}");
-        //                        Console.WriteLine($"Dirección: {reader.GetString(6)}");
-        //                        Console.WriteLine($"Email: {reader.GetString(7)}");
-        //                        Console.WriteLine();
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Error al mostrar clientes: {ex.Message}");
-        //    }
-        //}
+       
         public async Task<List<Cliente>> ObtenerClientesAsync()
         {
             var clientes = new List<Cliente>();
@@ -302,6 +272,85 @@ namespace AppTransporte.model
             }
 
             return clientes;
+        }
+
+
+        public async Task<List<Viaje>> ObtenerViajesAsync()
+        {
+            var viajes = new List<Viaje>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_ListViajesDatos", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            viajes.Add(new Viaje
+                            {
+                                IdViaje = reader.GetInt32(reader.GetOrdinal("id_viaje")),
+                                IdPedido = reader.GetInt32(reader.GetOrdinal("id_pedido")),
+                                TractoAsig = reader.IsDBNull(reader.GetOrdinal("placa_tracto")) ? null : reader.GetString(reader.GetOrdinal("placa_tracto")),
+                                CisternaAsig = reader.IsDBNull(reader.GetOrdinal("placa_cisterna")) ? null : reader.GetString(reader.GetOrdinal("placa_cisterna")),
+                                Cantidad = reader.IsDBNull(reader.GetOrdinal("cantidad_viaje")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("cantidad_viaje")),
+                                TrabajadoresAsig = reader.IsDBNull(reader.GetOrdinal("trabajadores")) ? null : reader.GetString(reader.GetOrdinal("trabajadores")),
+
+                                ultEstado = reader.IsDBNull(reader.GetOrdinal("estado_ultimo_registro")) ? null : reader.GetString(reader.GetOrdinal("estado_ultimo_registro")),
+
+                            });
+                        }
+                    }
+                }
+            }
+
+            return viajes;
+        }
+
+
+        public async Task<List<Trabajador>> ObtenerTrabajadoresAsync()
+        {
+            var trabajadores = new List<Trabajador>();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_MostrarTrabajadores", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            trabajadores.Add(new Trabajador
+                            {
+                                IdTrabajador = reader.IsDBNull(reader.GetOrdinal("id_trabajador")) ? 0 : reader.GetInt32(reader.GetOrdinal("id_trabajador")),
+                                Nombre = reader.IsDBNull(reader.GetOrdinal("Nombre")) ? null : reader.GetString(reader.GetOrdinal("Nombre")),
+                                apePaterno = reader.IsDBNull(reader.GetOrdinal("apePaterno")) ? null : reader.GetString(reader.GetOrdinal("apePaterno")),
+                                apeMaterno = reader.IsDBNull(reader.GetOrdinal("apeMaterno")) ? null : reader.GetString(reader.GetOrdinal("apeMaterno")),
+                                // Aseguramos que numDoc sea tratado como un string en caso de que contenga texto
+                                numDoc = reader.IsDBNull(reader.GetOrdinal("numDoc")) ? null : reader.GetString(reader.GetOrdinal("numDoc")),
+                                Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? null : reader.GetString(reader.GetOrdinal("Telefono")),
+                                direccion = reader.IsDBNull(reader.GetOrdinal("direccion")) ? null : reader.GetString(reader.GetOrdinal("direccion")),
+                                email = reader.IsDBNull(reader.GetOrdinal("email")) ? null : reader.GetString(reader.GetOrdinal("email")),
+                                categoria = reader.IsDBNull(reader.GetOrdinal("categoria")) ? null : reader.GetString(reader.GetOrdinal("categoria")),
+                                licencia = reader.IsDBNull(reader.GetOrdinal("licencia")) ? null : reader.GetString(reader.GetOrdinal("licencia")),
+                                usuario = reader.IsDBNull(reader.GetOrdinal("usuario")) ? null : reader.GetString(reader.GetOrdinal("usuario")),
+                                password = reader.IsDBNull(reader.GetOrdinal("contraseña")) ? null : reader.GetString(reader.GetOrdinal("contraseña"))
+
+
+                            });
+                        }
+                    }
+                }
+            }
+
+            return trabajadores;
         }
     }
 }

@@ -9,8 +9,8 @@ public partial class Login : ContentPage
     public bool IsLoading { get; set; } = false;
 
     public Login()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _authService = new AuthService();
         BindingContext = this;
     }
@@ -32,14 +32,15 @@ public partial class Login : ContentPage
         usuarioEntry.IsEnabled = false;
         contraseñaEntry.IsEnabled = false;
         MensajeError.IsVisible = false;
-        
+
         string usuario = usuarioEntry.Text;
         string contraseña = contraseñaEntry.Text;
-        
+        Cargando.IsVisible = true;
+        await Task.Delay(2000);
         var resultado = await _authService.VerificarCredencialesAsync(usuario, contraseña);
         if (resultado != null)
         {
-            
+
             abrirInterfaz(await _authService.ObtenerTipoUsuarioAsync(resultado.idTipoUsuario), resultado.idUsuario, resultado.idTipoUsuario);
             //popup.Close();
         }
@@ -53,7 +54,7 @@ public partial class Login : ContentPage
         MainThread.BeginInvokeOnMainThread(() =>
         {
             //boxValidar.IsVisible = false;
-            
+            Cargando.IsVisible = false;
             //ValidandoDatosLabel.IsVisible = false;
             //loadingIndicator.IsRunning = false;
             //loadingIndicator.IsVisible = false;
@@ -67,7 +68,7 @@ public partial class Login : ContentPage
         Console.WriteLine(categoria);
         var navigator = new MenuNavigator();
         await navigator.NavigateToMenu(categoria, idUsuario, idTipoUsuario);
-}
+    }
     private async void Olvide_contra(object sender, EventArgs e)
     {
         await DisplayAlert("Información", "Contacte con el administrador", "OK");

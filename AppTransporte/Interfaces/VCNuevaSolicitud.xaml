@@ -70,7 +70,6 @@
                         
                         <Editor PlaceholderColor="#515a5a"
                                 Grid.Column="1"
-                                Text="{Binding Descripcion}"
                                 x:Name="descripcionEntry"
                                 Placeholder="Detalles: Barriles, destino, servicio"
                                 FontFamily="Comf-Bold"

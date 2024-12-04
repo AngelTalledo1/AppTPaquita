@@ -4,121 +4,111 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="AppTransporte.Interfaces.Login"
              Title="Login">
-    <Grid RowDefinitions=".4*, .6*">
-        <Image Aspect="AspectFill"
-               Source="logo.png" />
-        <Grid BackgroundColor="Black"
-              Opacity="{Binding IsLoading, Converter={StaticResource BooleanToOpacityConverter}}"
-              IsVisible="{Binding IsLoading}">
-            <!-- Cuadro de carga -->
-         
+    <Grid>
+        <Grid RowDefinitions=".4*, .6*">
+            <Image Aspect="AspectFill"
+                   Source="logo.png" />
+            <Grid BackgroundColor="#515a5a"
+                  Opacity=".85" />
+            <Grid>
+                <Image HeightRequest="400"
+                       WidthRequest="400"
+                       Source="ruta.png" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <RoundRectangle Margin="-5,-30,-5,-2"
+                                CornerRadius="30,30,0,0"
+                                Fill="#f4f6f7" />
+                <VerticalStackLayout Margin="30,0,30,0"
+                                     Spacing="1">
+                    <Label FontFamily="Comfortaa-Medium.ttf"
+                           FontSize="24"
+                           HorizontalOptions="Center"
+                           Text="¡Bienvenido!"
+                           TextColor="black" />
+                    <Label FontFamily="Comfortaa-Bold.ttf"
+                           HorizontalOptions="Center"
+                           Text="Ingresa para continuar"
+                           TextColor="black" />
+                    <Grid Margin="0,10,0,0"
+                          ColumnDefinitions=".2*,.8*">
+                        <Image  Source="usu.png"
+                                HeightRequest="40"
+                                WidthRequest="40" />
+                        <Entry Grid.Column="1"
+                               Placeholder="Usuario"
+                               Keyboard="Numeric"
+                               MaxLength="11"
+                               x:Name="usuarioEntry"
+                               PlaceholderColor="#515a5a"
+                               FontFamily="Comfortaa-Regular.ttf"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <Grid Margin="0,10,0,0"
+                          ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="contra.png"
+                               HorizontalOptions="Center" />
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               x:Name="contraseñaEntry"
+                               Placeholder="Contraseña"
+                               IsPassword="True"
+                               FontFamily="Comfortaa-Regular.ttf"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <Button Margin="0,20,0,0"
+                            BackgroundColor="#cb4335"
+                            HeightRequest="60"
+                            Clicked="Ingresar_Clicked"
+                            Text="Ingresar"
+                            FontFamily="Comfortaa-Medium.ttf"
+                            TextColor="#FBF6FD" />
+                    <Label x:Name="MensajeError"
+                           TextColor="#cb4335"
+                           IsVisible="False"
+                           FontFamily="Comfortaa-SemiBold.ttf" />
+                    <Button Margin="0,0,0,0"
+                            HorizontalOptions="Center"
+                            FontFamily="Comf-Medium"
+                            BackgroundColor="Transparent"
+                            Text="Olvidaste tu contraseña?"
+                            TextColor="Blue"
+                            Clicked="Olvide_contra"
+                            BorderWidth="0" />
+                    <Image Source="paquitatext.png"
+                           WidthRequest="140" />
+                </VerticalStackLayout>
+            </Grid>
+            <!-- Desenfoque en el fondo -->
+            <BoxView Color="Black"
+                     Opacity="0.5"
+                     IsVisible="False"
+                     x:Name="BackgroundBlur" />
+            <!-- Indicador de carga con el cuadro de fondo -->
         </Grid>
-      
-                <Grid BackgroundColor="#515a5a"
-                Opacity=".85"/>
-        <Grid>
-            <Image HeightRequest="400"
-                   WidthRequest="400"
-                   Source="ruta.png" />
-        </Grid>
-        <Grid Grid.Row="1">
-            <RoundRectangle Margin="-5,-30,-5,-2"
-                            CornerRadius="30,30,0,0"
-                            Fill="#f4f6f7" />
-            <VerticalStackLayout Margin="30,0,30,0"
-                                 Spacing="1">
-                <Label FontFamily="Comfortaa-Medium.ttf"
-                       FontSize="24"
-                       HorizontalOptions="Center"
-                       Text="¡Bienvenido!"
-                       TextColor="black" />
-                <Label FontFamily="Comfortaa-Bold.ttf"
-                       HorizontalOptions="Center"
-                       Text="Ingresa para continuar"
-                       TextColor="black" />
-              
-                <Grid Margin="0,10,0,0"
-                      ColumnDefinitions=".2*,.8*">
-                    <Image  Source="usu.png"
-                            HeightRequest="40"
-                            WidthRequest="40" />
-                    <Entry Grid.Column="1"
-                           Placeholder="Usuario"
-                           Keyboard="Numeric"
-                           MaxLength="11"
-                           x:Name="usuarioEntry"
-                           PlaceholderColor="#515a5a"
-                           FontFamily="Comfortaa-Regular.ttf"
-                           VerticalOptions="Center" />
-                </Grid>
-                
-                <Grid Margin="0,10,0,0"
-                      ColumnDefinitions=".2*,.8*">
-                    <Image WidthRequest="40"
-                           HeightRequest="40"
-                           Source="contra.png"
-                           HorizontalOptions="Center" />
-                    <Entry PlaceholderColor="#515a5a"
-                           Grid.Column="1"
-                           x:Name="contraseñaEntry"
-                           Placeholder="Contraseña"
-                           IsPassword="True"
-                           FontFamily="Comfortaa-Regular.ttf"
-                           VerticalOptions="Center" />
-                </Grid>
-                <Button Margin="0,20,0,0"
-                        BackgroundColor="#cb4335"
-                        HeightRequest="60"
-                        Clicked="Ingresar_Clicked"
-                        Text="Ingresar"
-                        FontFamily="Comfortaa-Medium.ttf"
-                        TextColor="#FBF6FD" />
-                <Label x:Name="MensajeError"
-                       TextColor="#cb4335"
-                       IsVisible="False"
-                       FontFamily="Comfortaa-SemiBold.ttf"/>
-                <Button Margin="0,0,0,0"
-                        HorizontalOptions="Center"
-                        FontFamily="Comf-Medium"    
-                        BackgroundColor="Transparent"
-                        Text="Olvidaste tu contraseña?"
-                        TextColor="Blue"
-                        Clicked="Olvide_contra"
-                        BorderWidth="0" />
-                <Image Source="paquitatext.png"
-                       WidthRequest="140"/>
-                
+        <Grid x:Name="Cargando"
+              BackgroundColor="Black"
+              Opacity="0.9"
+              IsVisible="False"
+              ZIndex="10"
+              VerticalOptions="FillAndExpand"
+              HorizontalOptions="FillAndExpand">
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="10">
+                <ActivityIndicator IsRunning="True"
+                                   x:name="loadingIndicator"
+                                   Color="Red"
+                                   HeightRequest="50"
+                                   WidthRequest="50" />
+                <Label Text="Verificando datos..."
+                       TextColor="White"
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
             </VerticalStackLayout>
         </Grid>
-        <!-- Desenfoque en el fondo -->
-        <BoxView Color="Black" 
-                 Opacity="0.5" 
-                 IsVisible="False"
-                 x:Name="BackgroundBlur" />
-
-        <!-- Indicador de carga con el cuadro de fondo -->
-        <Grid>
-            <AbsoluteLayout>
-              
-               
-                <!-- Indicador de carga -->
-                <ActivityIndicator x:Name="loadingIndicator"
-                       IsRunning="False"
-                       IsVisible="False"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center" />
-
-                <!-- Texto de validación -->
-                <Label Text="Validando datos..."
-           x:Name="ValidandoDatosLabel"
-           IsVisible="False"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"
-           TextColor="Black"
-           FontSize="18"
-           FontFamily="Comfortaa-Medium.ttf" />
-            </AbsoluteLayout>
-        </Grid>
     </Grid>
-    
 </ContentPage>

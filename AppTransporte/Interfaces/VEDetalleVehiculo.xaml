@@ -26,6 +26,7 @@
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1 ">
+            <ScrollView>
             <VerticalStackLayout Margin="15">
                 <Frame Padding="0"
                        BackgroundColor="#edf2f4" 
@@ -107,6 +108,7 @@
                             Margin="0,10,0,0" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </ContentPage>

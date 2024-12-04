@@ -23,23 +23,27 @@
                    TextColor="AliceBlue"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
-                   FontFamily="Comf-Medium"
+                   FontFamily="Comf-Bold"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1" RowDefinitions="1*,.1*">
+        <Grid Grid.Row="1" >
+            <ScrollView>
             <VerticalStackLayout Margin="20">
                 <HorizontalStackLayout Spacing="5">
                     <Label Text="Buscar: "
-                           FontFamily="Comf-Bold"
+                           FontFamily="Comf-Medium"
                            VerticalOptions="Center"/>
                     <Frame Padding="0"
                        WidthRequest="350"
                        HorizontalOptions="Start"
                        HeightRequest="40"
                        CornerRadius="10"
-                       BackgroundColor="#669bbc"
+                           BackgroundColor="#edede9"
+                           
                        BorderColor="Transparent">
                     <SearchBar Placeholder="Pozo o Sector"
+                               FontFamily="Comf-Bold"
+                               VerticalTextAlignment="Center"
                                TextColor="White"/>
                 </Frame>
                 </HorizontalStackLayout>
@@ -100,15 +104,15 @@
                     </VerticalStackLayout>
                 </ScrollView>
                 <Button Text="Nueva Ubicacion"
-                        FontFamily="Comf-Medium"
+                        FontFamily="Comf-Bold"
                         BackgroundColor="#cb4335"
                         HorizontalOptions="Center"
                         VerticalOptions="Start"
                         WidthRequest="300"
                         HeightRequest="50"
-                        Grid.Row="1"
                         Clicked="Btn_AggUbicacion" />
             </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </ContentPage>

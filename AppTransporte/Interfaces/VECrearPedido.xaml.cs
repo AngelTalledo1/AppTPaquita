@@ -8,7 +8,7 @@ public partial class VECrearPedido : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = solicitud;
-		IdClienteLabel.Text = solicitud.IdCliente.ToString();
+		IdSolicitud.Text = solicitud.IdSolicitud.ToString();
 		fechaEntry.Text = DateTime.Today.ToString();
 	}
 

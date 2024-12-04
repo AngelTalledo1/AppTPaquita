@@ -114,7 +114,7 @@ public partial class VEagregarCliente : ContentPage
                 TelefonoEntry.Text = "";
                 DireccionEntry.Text = "";
                 EmailEntry.Text = "";
-                Navigation.PopAsync();
+                 await Navigation.PopAsync();
             }
             else
             {

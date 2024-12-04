@@ -13,156 +13,137 @@ namespace AppTransporte.viewModel
 {
     public class VMPedidos : INotifyPropertyChanged
     {
-        //public ICommand VerDetallesCommand { get; set; }
-        private ObservableCollection<Pedido> _pedidos;
-        public ObservableCollection<Pedido> Pedidos
+
+        private bool _isBusy;
+        private List<Pedido> _pedidos;
+        private List<Pedido> _pedidosFiltrados;
+        private string _estadoSeleccionado;
+        private string _numero;
+
+        public List<string> Estados { get; set; }
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+
+        public List<Pedido> Pedidos
         {
             get => _pedidos;
             set
             {
                 _pedidos = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Pedidos));
             }
         }
 
+        public List<Pedido> PedidosFiltrados
+        {
+            get => _pedidosFiltrados;
+            set
+            {
+                _pedidosFiltrados = value;
+                OnPropertyChanged(nameof(PedidosFiltrados));
+            }
+        }
+
+        public string EstadoSeleccionado
+        {
+            get => _estadoSeleccionado;
+            set
+            {
+                if (_estadoSeleccionado != value)
+                {
+                    _estadoSeleccionado = value;
+                    FiltrarPedidos();
+                    OnPropertyChanged(nameof(EstadoSeleccionado));
+                }
+            }
+        }
+
+        public string Numero
+        {
+            get => _numero;
+            set
+            {
+                if (_numero != value)
+                {
+                    _numero = value;
+                    FiltrarPedidos();
+                    OnPropertyChanged(nameof(Numero));
+                }
+            }
+        }
         public VMPedidos()
         {
-            _pedidos = new ObservableCollection<Pedido>();
+            _pedidos = new List<Pedido>();
+            Estados = new List<string>
+            {
+                "Todos",
+                "Pendiente",
+                "En el punto de Carga",
+                "En camino al destino",
+                "Finalizado"
+            };
+
+            CargarPedidos(); // Cargar los pedidos al inicializar el ViewModel
         }
 
-        public async Task CargarPedidosAsync(int idUsuario, int idTipoUsuario)
+        private async void CargarPedidos()
         {
-            var pedidos = await App.Database.ListarPedidosAsync(idUsuario, idTipoUsuario);
-            Pedidos = new ObservableCollection<Pedido>(pedidos);
+            IsBusy = true; // Indicar que los datos están cargando
+
+            try
+            {
+                // Llamar al método de la capa de datos
+                var pedidos = await App.Database.ListarPedidosAdminAsync();
+
+                // Asignar los pedidos obtenidos
+                Pedidos = pedidos;
+
+                // Aplicar los filtros iniciales
+                FiltrarPedidos();
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier error
+                Console.WriteLine($"Error al cargar los pedidos: {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false; // Finalizar el proceso de carga
+            }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void FiltrarPedidos()
+        {
+            var pedidosFiltrados = Pedidos.AsEnumerable();
+            if (!string.IsNullOrEmpty(EstadoSeleccionado) && EstadoSeleccionado != "Todos")
+            {
+                pedidosFiltrados = pedidosFiltrados.Where(p => p.EstadoPedido == EstadoSeleccionado);
+            }
+
+            if (!string.IsNullOrEmpty(Numero))
+            {
+                pedidosFiltrados = pedidosFiltrados.Where(p => p.IdPedido.ToString()
+                    .Contains(Numero, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Actualizar la lista filtrada
+            PedidosFiltrados = pedidosFiltrados.ToList();
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    
 
-
-
-        //private List<Pedidos> _pedido;
-
-        //public List<Pedidos> Pedido
-        //{
-        //    get
-        //    {
-        //        return _pedido;
-        //    }
-        //    set
-        //    {
-        //        _pedido = value;
-        //        OnPropertyChanged(nameof(Pedido));
-
-        //    }
-        //}
-
-        //public List<string> Estados { get; set; }
-
-        //private List<Pedidos> _pedidosFiltrados;
-        //public List<Pedidos> PedidosFiltrados
-        //{
-        //    get
-        //    {
-        //        return _pedidosFiltrados;
-        //    }
-        //    set
-        //    {
-        //        _pedidosFiltrados = value;
-        //        OnPropertyChanged(nameof(PedidosFiltrados));
-        //    }
-        //}
-
-        //private string _estadoSeleccionado;
-        //public string EstadoSeleccionado
-        //{
-        //    get
-        //    {
-        //        return _estadoSeleccionado;
-        //    }
-        //    set
-        //    {
-        //        if (_estadoSeleccionado != value)
-        //        {
-        //            _estadoSeleccionado = value;
-        //            FiltrarPedidos();
-        //            OnPropertyChanged(nameof(EstadoSeleccionado));
-        //        }
-        //    }
-        //}
-
-       // private string _Numero;
-        //public string Numero
-        //{
-        //    get
-        //    {
-        //        return _Numero;
-        //    }
-        //    set
-        //    {
-        //        if (_Numero != value)
-        //        {
-        //            _Numero = value;
-        //            FiltrarPedidos();
-        //            OnPropertyChanged(nameof(Numero));
-        //        }
-        //    }
-        //}
-
-        //public VMPedidos()
-        //{
-        //    Pedido = new List<Pedidos>
-        //    {
-        //        new Pedidos { Numero = "#0001", imagen = "barril.png", cantidad = 25.5, estado = "Pendiente"},
-        //        new Pedidos { Numero = "#0002", imagen = "barril.png", cantidad = 10.5, estado = "En curso" },
-        //        new Pedidos { Numero = "#0003", imagen = "barril.png", cantidad = 20.5, estado = "Entregado" },
-        //        new Pedidos { Numero = "#0004", imagen = "barril.png", cantidad = 85.5, estado = "Pendiente" },
-        //        new Pedidos { Numero = "#0005", imagen = "barril.png", cantidad = 5.5, estado = "En curso" },
-        //        new Pedidos { Numero = "#0006", imagen = "barril.png", cantidad = 24.5, estado = "En curso" },
-        //        new Pedidos { Numero = "#0007", imagen = "barril.png", cantidad = 98.5, estado = "Pendiente" },
-        //        new Pedidos { Numero = "#0008", imagen = "barril.png", cantidad = 100.5, estado = "Entregado" },
-        //        new Pedidos { Numero = "#0009", imagen = "barril.png", cantidad = 201.5, estado = "En curso" },
-        //    };
-
-
-        //    Estados = new List<String>
-        //    {
-        //        "Todos",
-        //        "Pendiente",
-        //        "Asignado",
-        //        "En curso",
-        //        "Entregado"
-        //    };
-
-        //    PedidosFiltrados = Pedido;
-
-        //}
-
-
-
-
-        //        private void FiltrarPedidos()
-        //        {
-        //            var pedidosFiltrados = _pedido.AsEnumerable();
-        //            if (!string.IsNullOrEmpty(EstadoSeleccionado) && EstadoSeleccionado != "Todos")
-        //            {
-        //                pedidosFiltrados = pedidosFiltrados.Where(p => p.estado == EstadoSeleccionado);
-        //            }
-
-        //            // Filtrar por número de pedido
-        //            if (!string.IsNullOrEmpty(Numero))
-        //            {
-        //                pedidosFiltrados = pedidosFiltrados.Where(p => p.Numero.Contains(Numero, System.StringComparison.OrdinalIgnoreCase));
-        //            }
-
-        //            // Actualizar la lista filtrada
-        //            PedidosFiltrados = pedidosFiltrados.ToList();
-        //        }
-
-        //    }
     }
 }
+

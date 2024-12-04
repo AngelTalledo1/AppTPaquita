@@ -23,7 +23,7 @@
                    TextColor="White"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
-                   FontFamily="Comf-Medium"
+                   FontFamily="Comf-Bold"
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1"
@@ -34,11 +34,11 @@
                     <Grid ColumnDefinitions=".2*,.8*">
                             <Image WidthRequest="40"
                                    HeightRequest="40"
-                                   Source="usuario.png"
+                                   Source="mispedidos.png"
                                    HorizontalOptions="Center"></Image>
                             <Label TextColor="Black"
                                    Grid.Column="1"
-                                   x:Name="IdClienteLabel"
+                                   x:Name="IdSolicitud"
                                    FontFamily="Comf-Medium"
                                    VerticalOptions="Center" />
                         </Grid>
@@ -50,7 +50,7 @@
                             <Grid Grid.Column="1">
                                 <Picker x:Name="TransportistaPicker"
                                         Title="Transportista Disponibles"
-                                        FontFamily="Comf-Bold"
+                                    FontFamily="Comf-Medium"
                                         TextColor="Black">
                                     <Picker.Items>
                                         <x:String>Alejandro Martinez</x:String>
@@ -71,7 +71,7 @@
                         <Grid Grid.Column="1">
                             <Picker x:Name="AyudantePicker"
                                     Title="Ayudante Disponibles"
-                                    FontFamily="Comf-Bold"
+                                    FontFamily="Comf-Medium"
                                     TextColor="Black">
                                 <Picker.Items>
                                     <x:String>Alejandro Martinez</x:String>
@@ -98,12 +98,14 @@
                                    x:Name="CantidadFluidoEntry"
                                    TextChanged="OnCantidadFluidoChanged" />
                         </Grid>
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Label x:Name="ViajesLabel"
+                    <Grid ColumnDefinitions=".2*,.8*"
+                          Grid.Column="2">
+                        <Label x:Name="ViajesLabel"
                                    FontFamily="Comf-Medium"
                                    TextColor="Red"
                                    Grid.Column="2" />
-                        </Grid>
+                        
+                    </Grid>
                         <Grid ColumnDefinitions=".2*,.8*">
                             <Image WidthRequest="40"
                                    HeightRequest="40"
@@ -112,7 +114,7 @@
                         <Picker x:Name="OrigenPicker"
                                 Title="Origen Disponibles"
                                 Grid.Column="1"
-                                FontFamily="Comf-Bold"
+                                FontFamily="Comf-Medium"
                                 TextColor="Black">
                             <Picker.Items>
                                 <x:String>origen</x:String>
@@ -127,45 +129,26 @@
                         <Picker x:Name="DestinoPicker"
                                 Title="Destino Disponibles"
                                 Grid.Column="1"
-                                FontFamily="Comf-Bold"
+                                FontFamily="Comf-Medium"
                                 TextColor="Black">
                             <Picker.Items>
                                 <x:String>Destino</x:String>
                             </Picker.Items>
                         </Picker>
                     </Grid>
-                        <Grid   ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="calendario.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Label 
-                                   Grid.Column="1"
-                                   TextColor="Black"
-                                   FontFamily="Comf-Bold"
-                                   VerticalOptions="Center"
-                                   x:Name="fechaEntry" />
-                        </Grid>
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="calendario.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Label Grid.Column="1"
-                                   TextColor="Black"
-                                   FontFamily="Comf-Bold"
-                                   VerticalOptions="Center"
-                                   x:Name="entregaEntry" />
-                        </Grid>
-                        <Button Text="Crear"
-                                HeightRequest="50"
-                                WidthRequest="150"
-                                Clicked="Btn_crear"
-                                FontFamily="Comf-Bold"
-                                BackgroundColor="#007AFF"
-                                TextColor="White"
-                                CornerRadius="40"
-                                HorizontalOptions="Center" />
+                    <Grid   ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="calendario.png"
+                               HorizontalOptions="Center"></Image>
+                        <Label Grid.Column="1"
+                               TextColor="Black"
+                               FontFamily="Comf-Bold"
+                               VerticalOptions="Center"
+                               x:Name="fechaEntry" />
+                    </Grid>
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
+                        
                         <Button Text="Cancelar"
                             HeightRequest="50"
                             Clicked="Btn_cancelar"
@@ -175,6 +158,16 @@
                             TextColor="White"
                             CornerRadius="40"
                             HorizontalOptions="Center" />
+                        <Button Text="Crear"
+                                HeightRequest="50"
+                                WidthRequest="150"
+                                Clicked="Btn_crear"
+                                FontFamily="Comf-Bold"
+                                BackgroundColor="#007AFF"
+                                TextColor="White"
+                                CornerRadius="40"
+                                HorizontalOptions="Center" />
+                    </HorizontalStackLayout>
                 </VerticalStackLayout>
             </ScrollView>
         </Grid>
