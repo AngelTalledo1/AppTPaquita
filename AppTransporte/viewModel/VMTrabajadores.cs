@@ -28,8 +28,12 @@ namespace AppTransporte.viewModel
         {
             CargarTrabajadores();
         }
-
-        private async void CargarTrabajadores()
+        public async Task ActualizarDatos()
+        {
+            Trabajadores.Clear();
+            CargarTrabajadores();
+        }
+            private async void CargarTrabajadores()
         {
             IsBusy = true;
 

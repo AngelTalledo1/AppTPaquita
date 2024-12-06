@@ -1,11 +1,13 @@
 namespace AppTransporte.Interfaces;
 using AppTransporte.model;
+using AppTransporte.viewModel;
 
 public partial class VEUbicacion : ContentPage
 {
 	public VEUbicacion()
 	{
-		InitializeComponent();
+        BindingContext = new VMUbicacion();
+        InitializeComponent();
 	}
 
     private void Btn_AtrasUbicacion(object sender, EventArgs e)
@@ -28,5 +30,12 @@ public partial class VEUbicacion : ContentPage
 
             await Navigation.PushAsync(new VEAgregarUbicacion(ubicacion));
         }
+    }
+    private async void OnMapButtonClicked(object sender, EventArgs e)
+    {
+        var button = (Button)sender;
+        string coords = button.Text;
+        string uri = $"geo:{coords}?q={coords}";
+        await Launcher.OpenAsync(uri);
     }
 }

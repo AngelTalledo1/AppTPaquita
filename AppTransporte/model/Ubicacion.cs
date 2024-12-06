@@ -13,6 +13,5 @@ namespace AppTransporte.model
         public string Sector { get; set; } = string.Empty;
         public string Referencias { get; set; } = string.Empty;
         public string CoordenadasMaps { get; set; } = string.Empty;
-        public bool Estado { get; set; }
     }
 }

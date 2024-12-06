@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Android.Icu.Text;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -89,7 +90,7 @@ namespace AppTransporte.model
             }
            
         }
-        public async Task<int> AgregarTransportistaAsync(
+        public async Task<int> AgregarTrabajadorAsync(
             string nombre,
             string apePaterno,
             string apeMaterno,
@@ -99,7 +100,7 @@ namespace AppTransporte.model
             string direccion,
             string email,
             int idCat,
-            string licencia)
+            string? licencia)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -119,7 +120,11 @@ namespace AppTransporte.model
                     command.Parameters.AddWithValue("@direccion", direccion);
                     command.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(email) ? (object)DBNull.Value : email);
                     command.Parameters.AddWithValue("@id_categoria", idCat);
-                    command.Parameters.AddWithValue("@licencia", idCat);
+                    if (licencia is not null)
+                    {
+                    command.Parameters.AddWithValue("@licencia", licencia);
+                    }
+                    
                     // Ejecutar el procedimiento almacenado
                     return await command.ExecuteNonQueryAsync();
                 }
@@ -161,6 +166,53 @@ namespace AppTransporte.model
             // Devuelve null si no se encontraron coincidencias
             return (0, 0);
         }
+        public async Task<int> ModificarTrabajadorAsync(
+            int id_trabajador,
+            string nombre,
+            string apePaterno,
+            string apeMaterno,
+            int idTipoDoc,
+            string numDoc,
+            string telefono,
+            string direccion,
+            string email,
+            int idCategoria,
+            string? licencia
+            )
+        {
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_ModificarTrabajador", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@id_trabajador", id_trabajador);
+                    command.Parameters.AddWithValue("@Nombre", nombre);
+                    command.Parameters.AddWithValue("@apePaterno", string.IsNullOrWhiteSpace(apePaterno) ? (object)DBNull.Value : apePaterno);
+                    command.Parameters.AddWithValue("@apeMaterno", string.IsNullOrWhiteSpace(apeMaterno) ? (object)DBNull.Value : apeMaterno);
+                    command.Parameters.AddWithValue("@id_tipoDoc", idTipoDoc);
+                    command.Parameters.AddWithValue("@numDoc", numDoc);
+                    command.Parameters.AddWithValue("@Telefono", telefono);
+                    command.Parameters.AddWithValue("@direccion", direccion);
+                    command.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(email) ? (object)DBNull.Value : email);
+                    command.Parameters.AddWithValue("@id_categoria", idCategoria);
+                    if (licencia != "")
+                    {
+                        command.Parameters.AddWithValue("@licencia", licencia);
+                    }
+
+                    // Ejecutar el procedimiento almacenado
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+
+        }
+
         public async Task<string> obtenerTipoUser(int idTipoUsuario)
         {
             try
@@ -237,7 +289,6 @@ namespace AppTransporte.model
 
             return pedidos;
         }
-       
         public async Task<List<Cliente>> ObtenerClientesAsync()
         {
             var clientes = new List<Cliente>();
@@ -273,8 +324,6 @@ namespace AppTransporte.model
 
             return clientes;
         }
-
-
         public async Task<List<Viaje>> ObtenerViajesAsync()
         {
             var viajes = new List<Viaje>();
@@ -310,8 +359,6 @@ namespace AppTransporte.model
 
             return viajes;
         }
-
-
         public async Task<List<Trabajador>> ObtenerTrabajadoresAsync()
         {
             var trabajadores = new List<Trabajador>();
@@ -334,6 +381,8 @@ namespace AppTransporte.model
                                 apePaterno = reader.IsDBNull(reader.GetOrdinal("apePaterno")) ? null : reader.GetString(reader.GetOrdinal("apePaterno")),
                                 apeMaterno = reader.IsDBNull(reader.GetOrdinal("apeMaterno")) ? null : reader.GetString(reader.GetOrdinal("apeMaterno")),
                                 // Aseguramos que numDoc sea tratado como un string en caso de que contenga texto
+                                idtipoDoc = reader.GetInt32(reader.GetOrdinal("id_tipoDoc")),
+                                idcategoria = reader.GetInt32(reader.GetOrdinal("id_categoria")),
                                 numDoc = reader.IsDBNull(reader.GetOrdinal("numDoc")) ? null : reader.GetString(reader.GetOrdinal("numDoc")),
                                 Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? null : reader.GetString(reader.GetOrdinal("Telefono")),
                                 direccion = reader.IsDBNull(reader.GetOrdinal("direccion")) ? null : reader.GetString(reader.GetOrdinal("direccion")),
@@ -351,6 +400,55 @@ namespace AppTransporte.model
             }
 
             return trabajadores;
+        }
+        public async Task<List<Ubicacion>> ObtenerUbicacionesAsync()
+        {
+            var ubicaciones = new List<Ubicacion>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_MostrarOrigenDestino", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            ubicaciones.Add(new Ubicacion
+                            {
+                                IdUbicacion = reader.GetInt32(reader.GetOrdinal("id_origen")),
+                                Descripcion = reader.GetString(reader.GetOrdinal("descripcion")),
+                                Sector = reader.GetString(reader.GetOrdinal("sector")),
+                                Referencias = reader.IsDBNull(reader.GetOrdinal("referencias")) ? null : reader.GetString(reader.GetOrdinal("referencias")),
+                                CoordenadasMaps = reader.IsDBNull(reader.GetOrdinal("coordenadas_maps")) ? null : reader.GetString(reader.GetOrdinal("coordenadas_maps"))
+                            });
+                        }
+                    }
+                }
+            }
+
+            return ubicaciones;
+        }
+        public async Task<int> eliminarTrabajadorAsync(int idTrabajador)
+        {
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_EliminarTrabajador", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@id_trabajador", idTrabajador);
+                    // Ejecutar el procedimiento almacenado
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
         }
     }
 }

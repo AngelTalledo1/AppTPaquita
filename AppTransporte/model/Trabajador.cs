@@ -12,6 +12,8 @@ namespace AppTransporte.model
         public string Nombre { get; set; } = string.Empty;
         public string? apePaterno { get; set; }
         public string? apeMaterno { get; set; } = string.Empty;
+        public int idtipoDoc { get; set; }
+        public int idcategoria { get; set; }
         public string numDoc { get; set; } = string.Empty;
         public string Telefono { get; set; } = string.Empty;
         public string direccion { get; set; } = string.Empty;

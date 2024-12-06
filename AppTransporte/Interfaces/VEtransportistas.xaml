@@ -8,8 +8,9 @@
     <ContentPage.BindingContext>
         <VME:VMTrabajadores />
     </ContentPage.BindingContext>
-    <Grid RowDefinitions=".1*,.9*">
+    <Grid RowDefinitions=".1*,.8*,.1*">
         <Grid ColumnDefinitions=".1*,.9*"
+              Grid.Row="0"
               Padding="20,0,0,0"
               BackgroundColor="#cb4335">
             <Button BackgroundColor="Transparent"
@@ -28,9 +29,10 @@
                    TextColor="White"
                    Grid.Column="1"
                    Margin="20,20,0,0" />
+            
         </Grid>
         <Grid Grid.Row="1">
-            <ScrollView>
+            
             <VerticalStackLayout  Margin="20"
                                       Spacing="5">
                 <Grid ColumnDefinitions=".6*,.4*">
@@ -56,6 +58,15 @@
                                     ItemsSource="{Binding Categoria}"
                                     SelectedItem="{Binding CategoriaSeleccionada}" />
                         </Frame>
+                    <Grid>
+                        <Button Text="Actualizar"
+        FontSize="14"
+        BackgroundColor="#cb4335"
+        TextColor="White"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        Clicked="OnActualizarClicked" />
+                    </Grid>
                     
                 </Grid>
                 <ScrollView >
@@ -92,7 +103,7 @@
                                                        Margin="10,0,0,0"
                                                        VerticalOptions="Center"
                                                        TextColor="White" />
-                                                        <Label Text="{Binding Categoria.Descripcion}"
+                                                        <Label Text="{Binding categoria}"
                                                            FontSize="11"
                                                            FontFamily="Comf-Reg"
                                                            HorizontalOptions="Start"
@@ -102,14 +113,14 @@
                                                 </Grid>
                                                 <Grid Grid.Row="1"
                                                       ColumnDefinitions=".5*,.5*">
-                                                    <Label Text="{Binding Persona.NumDoc}"
+                                                    <Label Text="{Binding numDoc}"
                                                            FontSize="12"
                                                            FontFamily="Comf-Reg"
                                                            Margin="10,0,0,0"
                                                            HorizontalOptions="Start"
                                                            TextColor="White" />
                                                     
-                                                    <Label Text="{Binding Persona.Telefono}"    
+                                                    <Label Text="{Binding Telefono}"    
                                                            FontSize="12"
                                                            FontFamily="Comf-Reg"
                                                            HorizontalOptions="Start"
@@ -129,6 +140,7 @@
                                                         HorizontalOptions="Start" />
                                                 <Button ImageSource="eliminar.png"
                                                         Grid.Column="1"
+                                                        CommandParameter="{Binding .}"
                                                             Clicked="EliminarTrabajador"
                                                         BackgroundColor="Transparent"
                                                         Padding="0"
@@ -142,16 +154,20 @@
                         </CollectionView>
                     </VerticalStackLayout>
                 </ScrollView>
-                    <Button Text="Nuevo Trabajador"
-                            TextColor="White"
-                            FontFamily="Comf-Bold"
-                            Margin="20"
-                            HeightRequest="50"
-                            WidthRequest="200"
-                            BackgroundColor="#cb4335"
-                            Clicked="btn_agregarTransportista" />
+               
                 </VerticalStackLayout>
-            </ScrollView>
+            
+        </Grid>
+        <Grid Grid.Row="2"
+              BackgroundColor="White">
+            <Button Text="Nuevo Trabajador"
+          TextColor="White"
+          FontFamily="Comf-Bold"
+          Margin="20"
+          HeightRequest="50"
+          WidthRequest="200"
+          BackgroundColor="#cb4335"
+          Clicked="btn_agregarTransportista" />
         </Grid>
     </Grid>
 </ContentPage>

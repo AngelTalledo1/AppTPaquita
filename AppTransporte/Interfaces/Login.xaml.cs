@@ -22,13 +22,6 @@ public partial class Login : ContentPage
             await DisplayAlert("Error", "Por favor, complete todos los campos.", "OK");
             return;
         }
-
-        //var popup = new ValidatingPopup();
-        //await this.ShowPopupAsync(popup);
-        //loadingIndicator.IsRunning = true;
-        //loadingIndicator.IsVisible = true;
-
-        //ValidandoDatosLabel.IsVisible = true;
         usuarioEntry.IsEnabled = false;
         contraseñaEntry.IsEnabled = false;
         MensajeError.IsVisible = false;
@@ -40,9 +33,7 @@ public partial class Login : ContentPage
         var resultado = await _authService.VerificarCredencialesAsync(usuario, contraseña);
         if (resultado != null)
         {
-
             abrirInterfaz(await _authService.ObtenerTipoUsuarioAsync(resultado.idTipoUsuario), resultado.idUsuario, resultado.idTipoUsuario);
-            //popup.Close();
         }
         else
         {
@@ -53,14 +44,9 @@ public partial class Login : ContentPage
 
         MainThread.BeginInvokeOnMainThread(() =>
         {
-            //boxValidar.IsVisible = false;
             Cargando.IsVisible = false;
-            //ValidandoDatosLabel.IsVisible = false;
-            //loadingIndicator.IsRunning = false;
-            //loadingIndicator.IsVisible = false;
             usuarioEntry.IsEnabled = true;
             contraseñaEntry.IsEnabled = true;
-
         });
     }
     private async void abrirInterfaz(string categoria, int idUsuario, int idTipoUsuario)
@@ -82,7 +68,6 @@ public partial class Login : ContentPage
         { "Cliente", typeof(MenuCliente) },
         // Agrega más menús según sea necesario
     };
-
         public async Task NavigateToMenu(string menuName, int idUsuario, int idTipoUsuario)
         {
             if (_menuPages.TryGetValue(menuName, out Type pageType))

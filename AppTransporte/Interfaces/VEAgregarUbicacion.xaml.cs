@@ -17,7 +17,10 @@ public partial class VEAgregarUbicacion : ContentPage
         InitializeComponent();
         ActualizarUbicacion.IsVisible = true;
         EliminarUbicacion.IsVisible = true;
-        BindingContext = ubicacion;
+        descripcionEntry.Text = ubicacion.Descripcion;
+        sectorEntry.Text = ubicacion.Sector;
+        coordenadasEntry.Text = ubicacion.CoordenadasMaps;
+        referenciasEntry.Text = ubicacion.Referencias;
         TituloAggUbicacion.Text = "Modificar Origen - Destino";
     }
 
