@@ -48,7 +48,8 @@
                 <ScrollView>
                     <VerticalStackLayout>
                         <ActivityIndicator IsRunning="{Binding IsBusy}"
-                                           IsVisible="{Binding IsBusy}"
+                                               Color="#bc4749"
+                                               IsVisible="{Binding IsBusy}"
                                            HorizontalOptions="Center" />
                         <CollectionView ItemsSource="{Binding Solicitudes}">
                             <CollectionView.ItemTemplate>

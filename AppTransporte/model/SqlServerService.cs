@@ -34,7 +34,6 @@ namespace AppTransporte.model
                 using (SqlCommand command = new SqlCommand("pa_AgregarCliente", connection))
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-
                     // Agregar parámetros
                     command.Parameters.AddWithValue("@Nombre", nombre);
                     command.Parameters.AddWithValue("@apePaterno", string.IsNullOrWhiteSpace(apePaterno) ? (object)DBNull.Value : apePaterno);
@@ -351,6 +350,39 @@ namespace AppTransporte.model
             }
 
             return trabajadores;
+        }
+
+        public async Task<List<Seguimiento>> ObtenerEstadosViaje()
+        {
+            var seguimiento = new List<Seguimiento>();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_ListarSeguimientoViaje", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            seguimiento.Add(new Seguimiento
+                            {
+                                IdSeguimiento = reader.GetInt32(reader.GetOrdinal("id_seguimiento")),
+                                IdViaje = reader.GetInt32(reader.GetOrdinal("id_viaje")),
+                                FechaHora = reader.GetDateTime(reader.GetOrdinal("fechaHora")),
+                                EstadoViaje = reader.GetString(reader.GetOrdinal("estadoViajeDescripcion")),
+                                Comentario = reader.IsDBNull(reader.GetOrdinal("Comentario")) ? null : reader.GetString(reader.GetOrdinal("Comentario")),
+                                Evidencia = reader.IsDBNull(reader.GetOrdinal("evidencia"))? null: reader.GetSqlBinary(reader.GetOrdinal("evidencia")).Value,
+
+                            });
+                        }
+                    }
+                }
+            }
+
+            return seguimiento;
         }
     }
 }

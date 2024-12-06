@@ -48,8 +48,10 @@
                 </Frame>
                 <ScrollView>
                     <VerticalStackLayout>
-                       <!-- <ActivityIndicator HorizontalOptions="Center"
-                                           VerticalOptions="Center"/> -->
+                            <ActivityIndicator HorizontalOptions="Center"
+                                               Color="#bc4749"
+                                               IsRunning="{Binding IsBusy}"
+                                               IsVisible="{Binding IsBusy}" /> 
                         <CollectionView ItemsSource="{Binding Solicitudes}"
                                         SelectionMode="None">
                             <!--Mostrar directamente solicitudes filtradas por estado "Pendiente"-->

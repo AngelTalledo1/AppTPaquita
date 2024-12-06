@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="AppTransporte.Interfaces.VESeguimientoViaje"
+             xmlns:viewModel="clr-namespace:AppTransporte.viewModel"
+             NavigationPage.HasNavigationBar="False"
+             Title="VESeguimientoViaje">
+    <ContentPage.BindingContext>
+        <viewModel:VMSeguimientoViaje />
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atrasSeguimientoViaje" />
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Seguimiento del viaje"
+                   x:Name="tituloseg"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="White"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <ScrollView>
+            <VerticalStackLayout Margin="20" Spacing="20">
+                <Frame CornerRadius="20" Padding="10"
+                       BorderColor="Transparent"
+                       BackgroundColor="#f4f3ee">
+                        <toolkit:Expander >
+                        <toolkit:Expander.Header>
+                            <Grid ColumnDefinitions="*,.2*">
+                                    <Label Text="Detalle del envio"
+                                           FontFamily="Comf-Medium"
+                                           TextColor="#003049"
+                                           FontSize="17"
+                                           Margin="10,0" />
+                                </Grid>
+                        </toolkit:Expander.Header>
+                        <VerticalStackLayout Margin="20" Spacing="10">
+                            <Label x:Name="Cliente"
+                                   FontFamily="Comf-SemBold" />
+                                <Label x:Name="tracto"
+                                       FontFamily="Comf-SemBold" />
+                                <Label x:Name="Cisterna"
+                                       FontFamily="Comf-SemBold" />
+                                <Label x:Name="cantidad"
+                                       FontFamily="Comf-SemBold" />
+                            </VerticalStackLayout>
+                    </toolkit:Expander>
+                </Frame>
+                    <Frame  CornerRadius="20"
+                            Padding="0,10,0,0"
+                            BorderColor="Transparent"
+                            BackgroundColor="#f4f3ee">
+                        <VerticalStackLayout>
+                        <Grid ColumnDefinitions=".8*,.2*"
+                                      Padding="0">
+                                    <Label Text="Historial de envio"
+                                           FontFamily="Comf-Medium"
+                                           VerticalOptions="Start"
+                                           TextColor="#003049"
+                                           FontSize="17"
+                                           Margin="20,10,0,15" />
+                                    <Label Text=""
+                                           x:Name="EstadoDetalle"
+                                           FontFamily="Comf-SemBold"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Start"
+                                           TextColor="#c1121f"
+                                           Margin="0,10,10,0"
+                                           Grid.Column="1" />
+                                </Grid>
+                            <ActivityIndicator HorizontalOptions="Center"
+                                               Color="#bc4749"
+                                               IsRunning="{Binding IsBusy}"
+                                               IsVisible="{Binding IsBusy}" />
+                            <CollectionView ItemsSource="{Binding seguimientoFiltrados}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <VerticalStackLayout Margin="30,10,10,10" Spacing="10">
+                                        <Label Text="{Binding FechaHora, StringFormat='{0:dddd dd, 'de' MMMM 'del' yyyy}'}"
+                                               IsEnabled="False"
+                                               TextColor="#bc4749"
+                                               FontFamily="Comf-Bold"
+                                               HorizontalTextAlignment="Center" />
+                                            <BoxView HeightRequest="1"
+                                                     BackgroundColor="#bc4749"
+                                                     HorizontalOptions="FillAndExpand" />
+                                            <Grid ColumnDefinitions=".2*,1*">
+                                            <Image Source="valido.png"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   WidthRequest="30"
+                                                   HeightRequest="30" />
+                                            <Frame Grid.Column="1"
+                                                   Padding="15"
+                                                   BorderColor="Transparent"
+                                                   CornerRadius="10"
+                                                   BackgroundColor="#e0e1dd">
+                                                <toolkit:Expander>
+                                                    <toolkit:Expander.Header>
+                                                        <Grid ColumnDefinitions=".8*,.3*">
+                                                            <Label Text="{Binding EstadoViaje}"
+                                                                   FontFamily="Comf-Medium"
+                                                                   TextColor="#0077b6" />
+                                                            <Label Text="{Binding FechaHora, StringFormat='{0:HH:mm}'}"
+                                                                   HorizontalOptions="End"
+                                                                   Grid.Column="1"
+                                                                   FontFamily="Comf-Medium"
+                                                                   TextColor="#457b9d" />
+                                                        </Grid>
+                                                    </toolkit:Expander.Header>
+                                                    <Grid ColumnDefinitions=".6*,.4*">
+                                                        <Label Text="{Binding Comentario}"
+                                                               FontFamily="Comf-SemBold"
+                                                               Margin="0,5,5,0" />
+                                                        <Image Source="{Binding Evidencia}"
+                                                               WidthRequest="50"
+                                                               Grid.Column="1" />
+                                                    </Grid>
+                                                </toolkit:Expander>
+                                            </Frame>
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        </VerticalStackLayout>
+                    </Frame>
+            </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentPage>

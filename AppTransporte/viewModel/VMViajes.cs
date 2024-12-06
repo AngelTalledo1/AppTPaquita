@@ -38,69 +38,74 @@
                     {
                         _idPedidoSeleccionado = value;
                         OnPropertyChanged(nameof(IdPedidoSeleccionado));
-                        //FiltrarViajes(); // Filtra los viajes automáticamente al cambiar el IdPedido
+                        FiltrarViajes(); // Filtra los viajes automáticamente al cambiar el IdPedido
                     }
                 }
             }
-            public VMViajes()
-            {
-                CargarViajes();
-            }
-            public VMViajes(int idPedido)
-            {
-                this.IdPedidoSeleccionado = idPedido;
-                CargarViajes();
-            }
-
-            private async void CargarViajes()
-            {
-                IsBusy = true;
-
-                try
-                {
-                    var Viaje = await App.Database.ObtenerViajesAsync();
-
-                    // Si viajes es null, asignamos una lista vacía
-                    viajes.Clear();
-
-                    foreach (var viaje in Viaje)
-                    {
-                        viajes.Add(viaje);
-                    }  // Filtrar después de asignar los viajes
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error al cargar los viajes: {ex.Message}");
-                }
-                finally
-                {
-                    IsBusy = false;
-                }
-            }
-
-            //private void FiltrarViajes()
-            //{
-            //    // Verificar si Viajes está vacío o null
-            //    if (Viajes == null || !Viajes.Any())
-            //    {
-            //        ViajesFiltrados = new List<Viaje>();
-            //        return;
-            //    }
-
-            //    var viajesFiltrados = Viajes.AsEnumerable();
-
-            //    if (IdPedidoSeleccionado.HasValue)
-            //    {
-            //        viajesFiltrados = viajesFiltrados.Where(v => v.IdPedido == IdPedidoSeleccionado.Value);
-            //    }
-
-            //    ViajesFiltrados = viajesFiltrados.ToList();
-            //}
-            protected  void OnPropertyChanged(string propertyName)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-
+        public VMViajes()
+        {
+            InicializarViajes();
         }
+        public VMViajes(int idPedido)
+        {
+            this.IdPedidoSeleccionado = idPedido;
+            InicializarViajes(); // Carga los viajes y aplica el filtro automáticamente
+        }
+
+
+        private async void InicializarViajes()
+        {
+            IsBusy = true;
+
+            try
+            {
+                var viajesDesdeBD = await App.Database.ObtenerViajesAsync();
+
+                this.viajes.Clear();
+
+                foreach (var viaje in viajesDesdeBD)
+                {
+                    this.viajes.Add(viaje);
+                }
+
+                FiltrarViajes(); // Aplica el filtro después de cargar los datos
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al cargar los viajes: {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private void FiltrarViajes()
+        {
+            if (viajes == null || !viajes.Any())
+            {
+                viajesFiltrados.Clear();
+                return;
+            }
+
+            var viajesFiltradosTemp = viajes.AsEnumerable();
+
+            if (IdPedidoSeleccionado.HasValue)
+            {
+                viajesFiltradosTemp = viajesFiltradosTemp.Where(v => v.IdPedido == IdPedidoSeleccionado.Value);
+            }
+
+            viajesFiltrados.Clear();
+
+            foreach (var viaje in viajesFiltradosTemp)
+            {
+                viajesFiltrados.Add(viaje);
+            }
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
     }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>UIAppFonts</key>
+  <array>
+	<string>Comfortaa-Bold.ttf</string>
+	<string>Comfortaa-Medium.ttf</string>
+	<string>Comfortaa-Regular.ttf</string>
+	<string>Comfortaa-SemiBold.ttf</string>
+	<string>Comfortaa-VariableFont_wght.ttf</string>
+	<string>example-js.html</string>
+	<string>Lato-Bold.ttf</string>
+	<string>Lato-Regular.ttf</string>
+	<string>OpenSans-Regular.ttf</string>
+	<string>OpenSans-Semibold.ttf</string>
+  </array>
+
+</dict>
+</plist>

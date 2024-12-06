@@ -45,6 +45,9 @@
     <MauiXaml Update="Interfaces\VEAgregarVehiculo.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Interfaces\VEAsignarViaje.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Interfaces\VEclientes.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
@@ -61,6 +64,9 @@
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Interfaces\VEProcesoPedido.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Interfaces\VESeguimientoViaje.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Interfaces\VESolicitudes.xaml">

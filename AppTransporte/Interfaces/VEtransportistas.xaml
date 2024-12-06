@@ -62,6 +62,7 @@
                     <VerticalStackLayout>
                             <ActivityIndicator IsRunning="{Binding IsBusy}"
                                                IsVisible="{Binding IsBusy}"
+                                               Color="#bc4749"
                                                HorizontalOptions="Center" />
                             <CollectionView x:Name="TransportistaCollectionView"
                                         ItemsSource="{Binding Trabajadores}">

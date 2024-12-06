@@ -6,12 +6,10 @@ namespace AppTransporte.Interfaces;
 public partial class VEProcesoPedido : ContentPage
 {
 
-    
     public VEProcesoPedido(Pedido pedido)
     {
         InitializeComponent();
-        var viajes = new VMViajes(pedido.IdPedido);
-        BindingContext = viajes;
+        this.BindingContext = new VMViajes(pedido.IdPedido); ;
         TituloPedido.Text = $"Pedido {pedido.IdPedido}";
         Origen.Text = $"{pedido.Origen}";
         Cantidad.Text = $"222 / {pedido.Cantidad}";
@@ -38,10 +36,33 @@ public partial class VEProcesoPedido : ContentPage
     {
         ExpanderViajes.IsExpanded = !ExpanderViajes.IsExpanded;
     }
-    
 
-    
+    private async void Btn_SeguimientoViajes(object sender, EventArgs e)
+    {
+        var button = (Button)sender;
+        var viaje = button.CommandParameter as Viaje;
+        if (viaje != null)
+        {
+            // Validar si algún campo está sin asignar
+            if (string.IsNullOrWhiteSpace(viaje.TractoAsig) || viaje.TractoAsig == "S/A" ||
+                string.IsNullOrWhiteSpace(viaje.CisternaAsig) || viaje.CisternaAsig == "S/A" ||
+                viaje.Cantidad <= 0 ||
+                string.IsNullOrWhiteSpace(viaje.TrabajadoresAsig) || viaje.TrabajadoresAsig == "S/A")
+            {
+                // Navegar a la interfaz para asignar el viaje
+                await Navigation.PushAsync(new VEAsignarViaje(viaje));
+            }
+            else
+            {
+                // Navegar a la interfaz de seguimiento del viaje
+                await Navigation.PushAsync(new VESeguimientoViaje(viaje));
+            }
+        }
+    }
 
+
+
+     
     //public decimal CalcularCantidadFinalizada(Pedido pedido)
     //{
     //    decimal cantidadFinalizada = 0;

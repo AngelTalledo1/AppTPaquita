@@ -147,7 +147,8 @@
                                         <Frame Padding="0"
                                                BorderColor="Transparent"
                                                BackgroundColor="#d8e2dc"
-                                               CornerRadius="10">
+                                               CornerRadius="10" 
+                                               Margin="0,5">
                                             <toolkit:Expander x:Name="ExpanderViajes">
                                                 <toolkit:Expander.Header >
                                                     <Grid>
@@ -162,19 +163,47 @@
                                                     </Grid>
                                                 </toolkit:Expander.Header>
                                                 <ScrollView>
-                                                    <VerticalStackLayout Margin="20,10,0,0">
-                                                        <CollectionView ItemsSource="{Binding viajes}">
+                                                    <VerticalStackLayout Margin="30,0,0,10">
+                                                        <CollectionView ItemsSource="{Binding viajesFiltrados}">
                                                             <CollectionView.ItemTemplate>
                                                                 <DataTemplate>
-                                                                    <Frame WidthRequest="400">
-                                                                        <VerticalStackLayout>
-                                                                            <Label Text="{Binding TractoAsig}" />
-                                                                            <Label Text="{Binding CisternaAsig}" />
-                                                                            <Label Text="{Binding TrabajadoresAsig}" />
-                                                                        </VerticalStackLayout>
+                                                                    <Frame WidthRequest="300"
+                                                                           BorderColor="Transparent"
+                                                                           BackgroundColor="#cad2c5"
+                                                                           HeightRequest="80"
+                                                                           Padding="0"
+                                                                           Margin="0,5">
+                                                                        <Grid ColumnDefinitions=".2*,.35*,.45*"
+                                                                              RowDefinitions="1*,1*" Padding="0">
+                                                                            <Label Text="{Binding IdViaje}"
+                                                                                   FontFamily="Comf-Regular"
+                                                                                   Grid.RowSpan="2"
+                                                                                   VerticalOptions="Center"
+                                                                                   HorizontalOptions="Center" />
+                                                                            <Label Text="{Binding TractoAsig}"
+                                                                                   Grid.Column="1" 
+                                                                                   VerticalOptions="Center" 
+                                                                                   HorizontalOptions="Start"
+                                                                                   FontFamily="Comf-Regular"/>
+                                                                            <Label Text="{Binding CisternaAsig}"
+                                                                                   Grid.Column="1"
+                                                                                   Grid.Row="1"
+                                                                                   FontFamily="Comf-Regular"
+                                                                                   VerticalOptions="Center"
+                                                                                   HorizontalOptions="Start" />
+                                                                            <Label Text="{Binding ultEstado}"
+                                                                                   Grid.Column="2"
+                                                                                   Grid.RowSpan="2"
+                                                                                   FontFamily="Comf-Bold"
+                                                                                   VerticalOptions="Center"
+                                                                                   HorizontalOptions="Start" />
+                                                                            <Button Grid.ColumnSpan="3"
+                                                                                    Grid.RowSpan="2"
+                                                                                    BackgroundColor="Transparent"
+                                                                                    Clicked="Btn_SeguimientoViajes"
+                                                                                    CommandParameter="{Binding .}"/>
+                                                                        </Grid>
                                                                     </Frame>
-                                                                    
-                                                                    
                                                                 </DataTemplate>
                                                             </CollectionView.ItemTemplate>
                                                             </CollectionView>

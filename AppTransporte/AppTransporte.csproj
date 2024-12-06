@@ -64,7 +64,9 @@
 		<None Remove="Resources\Fonts\example-js.html" />
 		<None Remove="Resources\Fonts\Lato-Bold.ttf" />
 		<None Remove="Resources\Fonts\Lato-Regular.ttf" />
+		<None Remove="Resources\Images\abajo.png" />
 		<None Remove="Resources\Images\agg.png" />
+		<None Remove="Resources\Images\arriba.png" />
 		<None Remove="Resources\Images\asignado.png" />
 		<None Remove="Resources\Images\atras.png" />
 		<None Remove="Resources\Images\barril.png" />
@@ -106,6 +108,7 @@
 		<None Remove="Resources\Images\tuser.png" />
 		<None Remove="Resources\Images\usu.png" />
 		<None Remove="Resources\Images\usuario.png" />
+		<None Remove="Resources\Images\valido.png" />
 		<None Remove="Resources\raw\highway_and_vehicles.mov" />
 		<None Remove="Resources\raw\video.mp4" />
 		<None Remove="Resources\Splash\paquita.png" />
@@ -162,6 +165,9 @@
 		<MauiXaml Update="Interfaces\VEAgregarVehiculo.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEAsignarViaje.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Interfaces\VEclientes.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -179,6 +185,9 @@
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\VEProcesoPedido.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VESeguimientoViaje.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\VESolicitudes.xaml">
 			<Generator>MSBuild:Compile</Generator>
