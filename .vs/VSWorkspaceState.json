@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\AppTransporte",
+    "\\AppTransporte\\Resources",
+    "\\AppTransporte\\Resources\\AppIcon",
+    "\\AppTransporte\\Resources\\Splash"
   ],
   "SelectedNode": "\\AppTransporte.sln",
   "PreviewInSolutionExplorer": false

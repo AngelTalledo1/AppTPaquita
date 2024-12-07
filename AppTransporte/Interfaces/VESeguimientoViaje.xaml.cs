@@ -13,10 +13,10 @@ public partial class VESeguimientoViaje : ContentPage
          
         this.BindingContext = new VMSeguimientoViaje(viaje.IdViaje);
         EstadoDetalle.Text = viaje.ultEstado;
-        Cliente.Text = $"Trabajadores asignados: {viaje.TrabajadoresAsig}";
-        tracto.Text = $"Placa Tracto asignado: {viaje.TractoAsig}";
-        Cisterna.Text = $"Placa Tracto asignado: {viaje.CisternaAsig}";
-        cantidad.Text = $"Cantidad de viaje: {viaje.Cantidad}";
+        Trabajadores.Text = $"{viaje.TrabajadoresAsig}";
+        tracto.Text = $"{viaje.TractoAsig}";
+        Cisterna.Text = $"{viaje.CisternaAsig}";
+        cantidad.Text = $"{viaje.Cantidad}";
 
     }
 

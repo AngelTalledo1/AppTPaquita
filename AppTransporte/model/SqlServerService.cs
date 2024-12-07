@@ -1,5 +1,6 @@
-﻿using Android.Icu.Text;
-using Microsoft.Data.SqlClient;
+﻿
+    using Microsoft.Data.SqlClient;
+using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -87,7 +88,7 @@ namespace AppTransporte.model
                     return await command.ExecuteNonQueryAsync();
                 }
             }
-           
+
         }
         public async Task<int> AgregarTrabajadorAsync(
             string nombre,
@@ -121,9 +122,9 @@ namespace AppTransporte.model
                     command.Parameters.AddWithValue("@id_categoria", idCat);
                     if (licencia is not null)
                     {
-                    command.Parameters.AddWithValue("@licencia", licencia);
+                        command.Parameters.AddWithValue("@licencia", licencia);
                     }
-                    
+
                     // Ejecutar el procedimiento almacenado
                     return await command.ExecuteNonQueryAsync();
                 }
@@ -400,26 +401,17 @@ namespace AppTransporte.model
 
             return trabajadores;
         }
-<<<<<<< HEAD
+
 
         public async Task<List<Seguimiento>> ObtenerEstadosViaje()
         {
             var seguimiento = new List<Seguimiento>();
-=======
-        public async Task<List<Ubicacion>> ObtenerUbicacionesAsync()
-        {
-            var ubicaciones = new List<Ubicacion>();
 
->>>>>>> b104c35d0c4aee2bdbaadf0b29aaaa7a01e13e37
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
 
-<<<<<<< HEAD
                 using (var command = new SqlCommand("pa_ListarSeguimientoViaje", connection))
-=======
-                using (var command = new SqlCommand("pa_MostrarOrigenDestino", connection))
->>>>>>> b104c35d0c4aee2bdbaadf0b29aaaa7a01e13e37
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -427,7 +419,7 @@ namespace AppTransporte.model
                     {
                         while (await reader.ReadAsync())
                         {
-<<<<<<< HEAD
+
                             seguimiento.Add(new Seguimiento
                             {
                                 IdSeguimiento = reader.GetInt32(reader.GetOrdinal("id_seguimiento")),
@@ -435,9 +427,35 @@ namespace AppTransporte.model
                                 FechaHora = reader.GetDateTime(reader.GetOrdinal("fechaHora")),
                                 EstadoViaje = reader.GetString(reader.GetOrdinal("estadoViajeDescripcion")),
                                 Comentario = reader.IsDBNull(reader.GetOrdinal("Comentario")) ? null : reader.GetString(reader.GetOrdinal("Comentario")),
-                                Evidencia = reader.IsDBNull(reader.GetOrdinal("evidencia"))? null: reader.GetSqlBinary(reader.GetOrdinal("evidencia")).Value,
+                                Evidencia = reader.IsDBNull(reader.GetOrdinal("evidencia")) ? null : reader.GetSqlBinary(reader.GetOrdinal("evidencia")).Value,
 
-=======
+
+                            });
+                        }
+                    }
+                }
+            }
+            return seguimiento;
+        }
+
+        public async Task<List<Ubicacion>> ObtenerUbicacionesAsync()
+        {
+            var ubicaciones = new List<Ubicacion>();
+
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_MostrarOrigenDestino", connection))
+
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
                             ubicaciones.Add(new Ubicacion
                             {
                                 IdUbicacion = reader.GetInt32(reader.GetOrdinal("id_origen")),
@@ -445,16 +463,12 @@ namespace AppTransporte.model
                                 Sector = reader.GetString(reader.GetOrdinal("sector")),
                                 Referencias = reader.IsDBNull(reader.GetOrdinal("referencias")) ? null : reader.GetString(reader.GetOrdinal("referencias")),
                                 CoordenadasMaps = reader.IsDBNull(reader.GetOrdinal("coordenadas_maps")) ? null : reader.GetString(reader.GetOrdinal("coordenadas_maps"))
->>>>>>> b104c35d0c4aee2bdbaadf0b29aaaa7a01e13e37
+
                             });
                         }
                     }
                 }
             }
-
-<<<<<<< HEAD
-            return seguimiento;
-=======
             return ubicaciones;
         }
         public async Task<int> eliminarTrabajadorAsync(int idTrabajador)
@@ -474,7 +488,7 @@ namespace AppTransporte.model
                     return await command.ExecuteNonQueryAsync();
                 }
             }
->>>>>>> b104c35d0c4aee2bdbaadf0b29aaaa7a01e13e37
+
         }
     }
 }

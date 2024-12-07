@@ -17,7 +17,7 @@ public partial class VEtransportistas : ContentPage
 
     private void Btn_atrasTransportista(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PushAsync(new MenuPrincipal());
     }
 
     private async void Btn_ModificarTrabajador(object sender, EventArgs e)

@@ -7,9 +7,10 @@ public partial class VEclientes : ContentPage
 {
 	public VEclientes()
 	{
-        BindingContext = new ClienteViewModel();
+        
         InitializeComponent();
-	}
+        BindingContext = new ClienteViewModel();
+    }
 
     private void btn_agregarCliente(object sender, EventArgs e)
     {
@@ -18,7 +19,7 @@ public partial class VEclientes : ContentPage
 
     private void Btn_atrasCliente(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PushAsync(new MenuPrincipal());
     }
 
     private async void ClienteSlect_modificar(object sender, EventArgs e)

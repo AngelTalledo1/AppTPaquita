@@ -4,11 +4,15 @@ using AppTransporte.viewModel;
 
 public partial class VEUbicacion : ContentPage
 {
-	public VEUbicacion()
+    private readonly VMUbicacion _viewModel;
+    public  VEUbicacion()
 	{
-        BindingContext = new VMUbicacion();
+
         InitializeComponent();
-	}
+        _viewModel = new VMUbicacion();
+        BindingContext = _viewModel;
+
+    }
 
     private void Btn_AtrasUbicacion(object sender, EventArgs e)
     {

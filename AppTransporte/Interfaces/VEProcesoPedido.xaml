@@ -25,7 +25,7 @@
             <Label Text=""
                    x:Name="TituloPedido"
                    FontSize="20"
-                   FontFamily="Comf-Medium"
+                   FontFamily="Comf-Bold"
                    Grid.Column="1"
                    TextColor="White"
                    HorizontalOptions="Start"
@@ -109,7 +109,7 @@
                                                              />
                                                     <VerticalStackLayout Margin="10"
                                                                          Spacing="7">
-                                                        <Label Text="Detalles del pedido"
+                                                        <Label Text="Detalle del pedido"
                                                                FontFamily="Comf-Bold"
                                                                FontSize="Small"
                                                                TextColor="#780000"
@@ -118,27 +118,27 @@
                                                                              Margin="15,0,0,0">
                                                             <Label Text="Cliente: "
                                                                    x:Name="NombreCliente"
-                                                                   FontFamily="Comf-Bold"
+                                                                   FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
                                                             <Label Text="Cantidad: "
                                                                    x:Name="cantidadTotalPedido"
-                                                                   FontFamily="Comf-Bold"
+                                                               FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
                                                             <Label Text="Viajes: "
                                                                    x:Name="cantidadViajes"
-                                                                   FontFamily="Comf-Bold"
+                                                               FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
                                                             <Label Text="Creado por: "
                                                                    x:Name="creadorAdmin"
-                                                                   FontFamily="Comf-Bold"
+                                                               FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
                                                             <Label Text="Fecha Creacion:  "
                                                                    x:Name="creacionPedido"
-                                                                   FontFamily="Comf-Bold"
+                                                               FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
                                                             <Label Text="Servicios:  "
                                                                    x:Name="ServiciosPedido"
-                                                                   FontFamily="Comf-Bold"
+                                                               FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
                                                         </VerticalStackLayout>
                                                     </VerticalStackLayout>
@@ -164,6 +164,10 @@
                                                 </toolkit:Expander.Header>
                                                 <ScrollView>
                                                     <VerticalStackLayout Margin="30,0,0,10">
+                                                        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                                                           IsVisible="{Binding IsBusy}"
+                                                                           Color="#bc4749"
+                                                                           HorizontalOptions="Center" />
                                                         <CollectionView ItemsSource="{Binding viajesFiltrados}">
                                                             <CollectionView.ItemTemplate>
                                                                 <DataTemplate>

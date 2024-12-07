@@ -18,11 +18,6 @@ public partial class VEpedidos : ContentPage
         BindingContext = _viewModel;
     }
 
-    //private async void CargarDatos()
-    //{
-
-    //    await _viewModel.CargarPedidosAsync(idUsuario, idtipousuario);
-    //}
 
     private void Btn_atrasPedidos(object sender, EventArgs e)
     {

@@ -119,6 +119,7 @@ public partial class VEagregarCliente : ContentPage
             else
             {
                 await DisplayAlert("Error", "No se pudo modificar el cliente. Verifica los datos.", "OK");
+                await Navigation.PushAsync(new VEclientes());
             }
         }
         catch (Exception ex)

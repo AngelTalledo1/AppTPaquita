@@ -54,9 +54,8 @@
                                Source="cantidad.png"></Image>
                         <Entry PlaceholderColor="#515a5a"
                                Grid.Column="1"
-                               Margin="10"
                                x:Name="cantidadEntry"
-                               Placeholder="Cantidad en barriles"
+                               Placeholder="Cantidad"
                                FontFamily="Comf-Bold"
                                TextColor="Black" />
                     </Grid>
@@ -67,7 +66,8 @@
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
                             <Picker x:Name="transportistaPicker"
-                                    Title="Transportista disponible"
+                                    Title="Transportista"
+                                    TitleColor="#515a5a"
                                     FontFamily="Comf-Bold"
                                     TextColor="Black">
                                 <Picker.Items>
@@ -85,7 +85,8 @@
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
                             <Picker x:Name="ayudantePicker"
-                                    Title="Ayudante disponible"
+                                    TitleColor="#515a5a"
+                                    Title="Ayudante"
                                     FontFamily="Comf-Bold"
                                     TextColor="Black">
                                 <Picker.Items>
@@ -103,7 +104,8 @@
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
                             <Picker x:Name="cisternaPicker"
-                                    Title="Cisterna disponible"
+                                    TitleColor="#515a5a"
+                                    Title="Cisterna"
                                     FontFamily="Comf-Bold"
                                     TextColor="Black">
                                 <Picker.Items>
@@ -121,7 +123,8 @@
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
                             <Picker x:Name="tractoPicker"
-                                    Title="Tracto disponible"
+                                    TitleColor="#515a5a"
+                                    Title="Tracto"
                                     FontFamily="Comf-Bold"
                                     TextColor="Black">
                                 <Picker.Items>

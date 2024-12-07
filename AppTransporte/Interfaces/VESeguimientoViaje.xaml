@@ -28,7 +28,7 @@
                    TextColor="White"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
-                   FontFamily="Comf-Medium"
+                   FontFamily="Comf-Bold"
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1">
@@ -38,36 +38,70 @@
                        BorderColor="Transparent"
                        BackgroundColor="#f4f3ee">
                         <toolkit:Expander >
-                        <toolkit:Expander.Header>
-                            <Grid ColumnDefinitions="*,.2*">
+                            <toolkit:Expander.Header>
+                                <VerticalStackLayout>
                                     <Label Text="Detalle del envio"
-                                           FontFamily="Comf-Medium"
+                                           FontFamily="Comf-Bold"
                                            TextColor="#003049"
                                            FontSize="17"
                                            Margin="10,0" />
-                                </Grid>
-                        </toolkit:Expander.Header>
+                                    <BoxView HeightRequest="1"
+                                             Margin="0,5,0,7"
+                                             Grid.ColumnSpan="2"
+                                             BackgroundColor="#003049"
+                                             HorizontalOptions="FillAndExpand" />
+                                </VerticalStackLayout>
+                            </toolkit:Expander.Header>
                         <VerticalStackLayout Margin="20" Spacing="10">
-                            <Label x:Name="Cliente"
-                                   FontFamily="Comf-SemBold" />
-                                <Label x:Name="tracto"
-                                       FontFamily="Comf-SemBold" />
-                                <Label x:Name="Cisterna"
-                                       FontFamily="Comf-SemBold" />
-                                <Label x:Name="cantidad"
-                                       FontFamily="Comf-SemBold" />
+                                <Grid ColumnDefinitions=".5*,1*"
+                                      RowDefinitions="1*,1*,1*,1*"
+                                     >
+                                    <Label Text="Trabajadores: "
+                                           FontFamily="Comf-Bold"
+                                           Margin="0,0,0,15" />
+                                    <Label x:Name="Trabajadores"
+                                           FontFamily="Comf-Reg"
+                                           Grid.Column="1"
+                                           Margin="0,0,0,15 "/>
+                                    <Label Text="Tracto:"
+                                           FontFamily="Comf-Bold"
+                                           Grid.Row="1"
+                                           Margin="0,0,0,15" />
+                                    <Label x:Name="tracto"
+                                           FontFamily="Comf-Reg"
+                                           Grid.Row="1"
+                                           Margin="0,0,0,15"
+                                           Grid.Column="1" />
+                                    <Label Text="Cisterna:"
+                                           FontFamily="Comf-Bold"
+                                           Grid.Row="2"
+                                           Margin="0,0,0,15" />
+                                    <Label x:Name="Cisterna"
+                                           FontFamily="Comf-Reg"
+                                           Grid.Row="2"
+                                           Grid.Column="1"
+                                           Margin="0,0,0,15" />
+                                    <Label Text="Cantidad:"
+                                           FontFamily="Comf-Bold"
+                                           Grid.Row="3"
+                                           Margin="0,0,0,15" />
+                                    <Label x:Name="cantidad"
+                                           FontFamily="Comf-Reg"
+                                           Grid.Row="3"
+                                           Grid.Column="1" />
+                                </Grid>
                             </VerticalStackLayout>
                     </toolkit:Expander>
                 </Frame>
                     <Frame  CornerRadius="20"
-                            Padding="0,10,0,0"
+                            Padding="10"
                             BorderColor="Transparent"
                             BackgroundColor="#f4f3ee">
-                        <VerticalStackLayout>
-                        <Grid ColumnDefinitions=".8*,.2*"
+                        <VerticalStackLayout >
+                        <Grid ColumnDefinitions=".8*,.4*"
                                       Padding="0">
                                     <Label Text="Historial de envio"
-                                           FontFamily="Comf-Medium"
+                                           FontFamily="Comf-Bold"
                                            VerticalOptions="Start"
                                            TextColor="#003049"
                                            FontSize="17"
@@ -81,6 +115,10 @@
                                            Margin="0,10,10,0"
                                            Grid.Column="1" />
                                 </Grid>
+                            <BoxView HeightRequest="1"
+                                     Margin="0,5,0,7"
+                                     BackgroundColor="#003049"
+                                     HorizontalOptions="FillAndExpand" />
                             <ActivityIndicator HorizontalOptions="Center"
                                                Color="#bc4749"
                                                IsRunning="{Binding IsBusy}"
@@ -89,7 +127,7 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <VerticalStackLayout Margin="30,10,10,10" Spacing="10">
-                                        <Label Text="{Binding FechaHora, StringFormat='{0:dddd dd, 'de' MMMM 'del' yyyy}'}"
+                                        <Label Text="{Binding FechaHora, StringFormat='{0:dddd dd, De MMMM Del yyyy}'}"
                                                IsEnabled="False"
                                                TextColor="#bc4749"
                                                FontFamily="Comf-Bold"

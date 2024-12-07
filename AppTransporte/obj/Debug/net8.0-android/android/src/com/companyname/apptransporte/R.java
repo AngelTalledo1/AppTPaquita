@@ -11633,16 +11633,17 @@ public final class R {
     public static final int rutamen=0x7f070105;
     public static final int siguiente=0x7f070106;
     public static final int solicitar=0x7f070107;
-    public static final int telefono=0x7f070108;
-    public static final int test_level_drawable=0x7f070109;
-    public static final int tipodoc=0x7f07010a;
-    public static final int tooltip_frame_dark=0x7f07010b;
-    public static final int tooltip_frame_light=0x7f07010c;
-    public static final int transporte=0x7f07010d;
-    public static final int tuser=0x7f07010e;
-    public static final int usu=0x7f07010f;
-    public static final int usuario=0x7f070110;
-    public static final int valido=0x7f070111;
+    public static final int splashpaqui=0x7f070108;
+    public static final int telefono=0x7f070109;
+    public static final int test_level_drawable=0x7f07010a;
+    public static final int tipodoc=0x7f07010b;
+    public static final int tooltip_frame_dark=0x7f07010c;
+    public static final int tooltip_frame_light=0x7f07010d;
+    public static final int transporte=0x7f07010e;
+    public static final int tuser=0x7f07010f;
+    public static final int usu=0x7f070110;
+    public static final int usuario=0x7f070111;
+    public static final int valido=0x7f070112;
   }
   public static final class id {
     public static final int ALT=0x7f080000;
@@ -12378,10 +12379,10 @@ public final class R {
     public static final int toolbar=0x7f0b0071;
   }
   public static final class mipmap {
-    public static final int appicon=0x7f0d0000;
-    public static final int appicon_background=0x7f0d0001;
-    public static final int appicon_foreground=0x7f0d0002;
-    public static final int appicon_round=0x7f0d0003;
+    public static final int iconopaqui=0x7f0d0000;
+    public static final int iconopaqui_background=0x7f0d0001;
+    public static final int iconopaqui_foreground=0x7f0d0002;
+    public static final int iconopaqui_round=0x7f0d0003;
   }
   public static final class plurals {
     public static final int mtrl_badge_content_description=0x7f0e0000;

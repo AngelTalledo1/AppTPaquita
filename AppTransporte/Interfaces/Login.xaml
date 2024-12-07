@@ -99,7 +99,7 @@
                                  VerticalOptions="Center"
                                  Spacing="10">
                 <ActivityIndicator IsRunning="True"
-                                   x:name="loadingIndicator"
+                                   x:Name="loadingIndicator"
                                    Color="Red"
                                    HeightRequest="50"
                                    WidthRequest="50" />

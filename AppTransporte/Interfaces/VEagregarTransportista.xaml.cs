@@ -100,7 +100,7 @@ public partial class VEagregarTransportista : ContentPage
                 await DisplayAlert("Error", "No se pudo agregar el trabajador. Verifica los datos.", "OK");
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             await DisplayAlert("Error", "Ocurrió un error al agregar el trabajador. Inténtalo de nuevo.", "OK");
         }
@@ -143,14 +143,14 @@ public partial class VEagregarTransportista : ContentPage
             if (resultado > 0)
             {
                 await DisplayAlert("Éxito", "Trabajador actualizado correctamente.", "OK");
-                Navigation.PopAsync();
+                await Navigation.PushAsync(new VEtransportistas());
             }
             else
             {
                 await DisplayAlert("Error", "No se pudo agregar el trabajador. Verifica los datos.", "OK");
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             await DisplayAlert("Error", "Ocurrió un error al agregar el trabajador. Inténtalo de nuevo.", "OK");
         }
