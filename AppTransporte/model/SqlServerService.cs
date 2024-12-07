@@ -490,5 +490,24 @@ namespace AppTransporte.model
             }
 
         }
+        public async Task<int> eliminarClienteAsync(int idCliente)
+        {
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_EliminarCliente", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@id_cliente", idCliente);
+                    // Ejecutar el procedimiento almacenado
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+
+        }
     }
 }

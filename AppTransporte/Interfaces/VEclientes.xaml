@@ -99,6 +99,7 @@
                                                         HorizontalOptions="Start" />
                                                 <Button ImageSource="eliminar.png"
                                                         Grid.Column="1"
+                                                        CommandParameter="{Binding .}"
                                                         BackgroundColor="Transparent"
                                                         Clicked="Btn_EliminarCliente"
                                                         Padding="0"
