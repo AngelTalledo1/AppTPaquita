@@ -141,7 +141,6 @@
                                x:Name="LicenciaTrabEntry"
                                Placeholder="Licencia"
                                FontFamily="Comf-Medium"
-                               Keyboard="Numeric"
                                MaxLength="9"
                                VerticalOptions="Center" />
                     </Grid>
