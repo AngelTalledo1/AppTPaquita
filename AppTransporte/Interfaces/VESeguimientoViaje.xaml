@@ -34,7 +34,7 @@
         <Grid Grid.Row="1">
             <ScrollView>
             <VerticalStackLayout Margin="20" Spacing="20">
-                <Frame CornerRadius="20" Padding="10"
+                <Frame CornerRadius="20" Padding="5,10"
                        BorderColor="Transparent"
                        BackgroundColor="#f4f3ee">
                         <toolkit:Expander >
@@ -53,8 +53,8 @@
                                 </VerticalStackLayout>
                             </toolkit:Expander.Header>
                         <VerticalStackLayout Margin="20" Spacing="10">
-                                <Grid ColumnDefinitions=".5*,1*"
-                                      RowDefinitions="1*,1*,1*,1*"
+                                <Grid ColumnDefinitions=".6*,1*"
+                                      RowDefinitions="1*,1*,1*,1*" Padding="0"
                                      >
                                     <Label Text="Trabajadores: "
                                            FontFamily="Comf-Bold"
@@ -94,7 +94,7 @@
                     </toolkit:Expander>
                 </Frame>
                     <Frame  CornerRadius="20"
-                            Padding="10"
+                            Padding="5,10"
                             BorderColor="Transparent"
                             BackgroundColor="#f4f3ee">
                         <VerticalStackLayout >

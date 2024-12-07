@@ -29,79 +29,79 @@
                    FontFamily="Comf-Bold"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1">
-            <ScrollView>
-            <VerticalStackLayout Margin="10"
-                                 Spacing="15">
-                <Frame Padding="0"
-                       WidthRequest="200"
-                       HeightRequest="40"
-                       CornerRadius="10"
-                       BackgroundColor="#b7bdbd"
-                       BorderColor="Transparent">
-                    <Picker Title="Estado"
-                            TitleColor="White"
-                            HorizontalOptions="Center"
-                            FontFamily="Comf-SemBold"
-                            ItemsSource="{Binding EstadoSolicitud}"
-                            SelectedIndex="1"/> <!--Por defecto el picker en estado pendiente-->
-                </Frame>
+        <Grid Grid.Row="1"
+              BackgroundColor="#edf2f4">
+            
+                <VerticalStackLayout Margin="10"
+                                     Spacing="15">
+                    <Frame Padding="0"
+                           CornerRadius="10"
+                           BackgroundColor="#b7bdbd"
+                           BorderColor="Transparent">
+                        <Picker Title="Estado"
+                                TitleColor="White"
+                                HorizontalTextAlignment="Center"
+                                FontFamily="Comf-SemBold"
+                                ItemsSource="{Binding EstadoSolicitud}"
+                                SelectedIndex="1"
+                                SelectedItem="{Binding EstadoSeleccionado}" />
+                    </Frame>
                 <ScrollView>
                     <VerticalStackLayout>
-                            <ActivityIndicator HorizontalOptions="Center"
+                        <ActivityIndicator HorizontalOptions="Center"
                                                Color="#bc4749"
                                                IsRunning="{Binding IsBusy}"
-                                               IsVisible="{Binding IsBusy}" /> 
-                        <CollectionView ItemsSource="{Binding Solicitudes}"
-                                        SelectionMode="None">
-                            <!--Mostrar directamente solicitudes filtradas por estado "Pendiente"-->
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Frame Padding="0"
-                                           BackgroundColor="#778da9"
-                                           BorderColor="Transparent"
-                                           CornerRadius="10"
-                                           WidthRequest="430"
-                                           HeightRequest="110"
-                                           Margin="3">
-                                        <Grid ColumnDefinitions=".3*,1*,.2*"
-                                              RowDefinitions="1*,.4*">
-                                            <Label Text="{Binding IdSolicitud}"
-                                                   HorizontalOptions="Center"
-                                                   Grid.RowSpan="2"
-                                                   FontFamily="Comf-Bold"
-                                                   VerticalOptions="Center" />
-                                            <Label Text="{Binding Descripcion}"
-                                                   Grid.Column="1"
-                                                   FontFamily="Comf-SemBold"
-                                                   MaxLines="3"
-                                                   VerticalOptions="Center" />
-                                            <Label Text="{Binding Fecha}"
-                                                   Grid.Column="1"
-                                                   Grid.Row="1"
-                                                   HorizontalOptions="Center"
-                                                   VerticalOptions="Center"
-                                                   FontFamily="Comf-SemBold" />
-                                            <Button BackgroundColor="Transparent"
-                                                    Grid.Column="2"
-                                                    Grid.RowSpan="2"
-                                                    Clicked="SolicitudSelected_detalle"
-                                                    CommandParameter="{Binding .}" />
-                                            <!--Clicked="btn_DetSolicitud"-->
-                                            <Image Source="siguiente.png"
-                                                   Grid.Column="2"
-                                                   Grid.RowSpan="2"
-                                                   VerticalOptions="Center"
-                                                   WidthRequest="20" />
-                                        </Grid>
-                                    </Frame>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </VerticalStackLayout>
+                                               IsVisible="{Binding IsBusy}" />
+                            <CollectionView ItemsSource="{Binding Solicitudes}"
+                                            SelectionMode="None">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame Padding="5"
+                                               BackgroundColor="#778da9"
+                                               BorderColor="Transparent"
+                                               CornerRadius="10"
+                                               Margin="3">
+                                            <Grid ColumnDefinitions=".2*,.7*,.1*"
+                                                  RowDefinitions="1*,.4*">
+                                                <Label Text="{Binding IdSolicitud}"
+                                                       HorizontalOptions="Center"
+                                                       Grid.RowSpan="2"
+                                                       FontFamily="Comf-Bold"
+                                                       VerticalOptions="Center" />
+                                                <Label Text="{Binding Descripcion}"
+                                                       Grid.Column="1"
+                                                       FontFamily="Comf-Medium"
+                                                       MaxLines="3"
+                                                       VerticalOptions="Center"
+                                                       Margin="0,5" />
+                                                <Label Text="{Binding Fecha}"
+                                                       Grid.Column="1"
+                                                       TextColor="#264653"
+                                                       Grid.Row="1"
+                                                       Margin="0,5"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       FontFamily="Comf-Bold" />
+                                                <Button BackgroundColor="Transparent"
+                                                        Grid.Column="2"
+                                                        Grid.RowSpan="2"
+                                                        Clicked="SolicitudSelected_detalle"
+                                                        CommandParameter="{Binding .}" />
+                                                <!--Clicked="btn_DetSolicitud"-->
+                                                <Image Source="siguiente.png"
+                                                       Grid.Column="2"
+                                                       Grid.RowSpan="2"
+                                                       VerticalOptions="Center"
+                                                       WidthRequest="20" />
+                                            </Grid>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
                 </ScrollView>
             </VerticalStackLayout>
-            </ScrollView>
+            
         </Grid>
     </Grid>
 </ContentPage>

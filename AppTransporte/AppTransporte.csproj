@@ -169,7 +169,7 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\VEAsignarViaje.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\VEclientes.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -190,7 +190,7 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\VESeguimientoViaje.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\VESolicitudes.xaml">
 			<Generator>MSBuild:Compile</Generator>

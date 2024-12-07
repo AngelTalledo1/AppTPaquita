@@ -12,7 +12,7 @@
               BackgroundColor="#cb4335"
               Padding="20,0,0,0">
             <Button BackgroundColor="Transparent"
-                    Clicked="Btn_atrasPedidos"/>
+                    Clicked="Btn_atrasPedidos" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
                    VerticalOptions="End"
@@ -20,115 +20,110 @@
                    HeightRequest="20"
                    WidthRequest="20" />
             <Label Text="Pedidos"
-                       FontSize="20"
-                       FontFamily="Comf-Medium"
-                       Grid.Column="1"
-                       TextColor="White"
-                       HorizontalOptions="Start"
-                       VerticalOptions="Center"
-                       Padding="20,20,0,0" />
-
+                   FontSize="20"
+                   FontFamily="Comf-Medium"
+                   Grid.Column="1"
+                   TextColor="White"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1"
-              RowDefinitions=".1*">
+        <Grid Grid.Row="1">
             <ScrollView>
                 <VerticalStackLayout>
-            <HorizontalStackLayout  Margin="15,10,15,15"
-                                    VerticalOptions="Start">
-                <Label Text="Buscar por: "
-                       FontFamily="Comf-Bold"
-                       VerticalOptions="Center"/>
-                <Frame  HeightRequest="40"
-                        WidthRequest="300"
-                        Padding="0"
-                        HorizontalOptions="Start"
-                        CornerRadius="10"
-                        BorderColor="Transparent">
-                    <SearchBar Placeholder="Numero de pedido"
-                           PlaceholderColor="#515a5a"
-                           HorizontalTextAlignment="Start"
-                           TextColor="Black"
-                           FontFamily="Comf-SemBold"
-                           Text="{Binding Numero}" />
-                </Frame>
+                    <HorizontalStackLayout  Margin="15,10,15,15"
+                                            VerticalOptions="Start">
+                        <Label Text="Buscar por: "
+                               FontFamily="Comf-Bold"
+                               VerticalOptions="Center" />
+                        <Frame  HeightRequest="40"
+                                WidthRequest="300"
+                                Padding="0"
+                                HorizontalOptions="Start"
+                                CornerRadius="10"
+                                BorderColor="Transparent">
+                            <SearchBar Placeholder="Numero de pedido"
+                                       PlaceholderColor="#515a5a"
+                                       HorizontalTextAlignment="Start"
+                                       TextColor="Black"
+                                       FontFamily="Comf-SemBold"
+                                       Text="{Binding Numero}" />
+                        </Frame>
                     </HorizontalStackLayout>
                     <Frame  HeightRequest="40"
-                        WidthRequest="300"
-                        Margin="30,0,0,0"
-                        Padding="0"
-                        CornerRadius="10"
-                        HorizontalOptions="Start"
-                        BorderColor="Transparent"
-                                BackgroundColor="#edede9">
-                    <Picker Title="Estado"
-                            HorizontalTextAlignment="Center"
-                                    TitleColor="#bc4749"
-                            FontFamily="Comf-SemBold"
-                            ItemsSource="{Binding Estados}"
-                            SelectedItem="{Binding EstadoSeleccionado}" />
-                </Frame>
-            
-            <ScrollView Margin="10,15,0,20">
-                <VerticalStackLayout>
+                            WidthRequest="300"
+                            Padding="0"
+                            CornerRadius="10"
+                            HorizontalOptions="Center"
+                            BorderColor="Transparent"
+                            BackgroundColor="#edede9">
+                        <Picker Title="Estado"
+                                HorizontalTextAlignment="Center"
+                                TitleColor="#bc4749"
+                                FontFamily="Comf-SemBold"
+                                ItemsSource="{Binding Estados}"
+                                SelectedItem="{Binding EstadoSeleccionado}" />
+                    </Frame>
+                    <ScrollView Margin="10,15,0,20">
+                        <VerticalStackLayout>
                             <ActivityIndicator IsRunning="{Binding IsBusy}"
                                                IsVisible="{Binding IsBusy}"
                                                Color="#bc4749"
                                                HorizontalOptions="Center" />
                             <CollectionView x:Name="PedidosCollectionView"
-                                    ItemsSource="{Binding PedidosFiltrados}"
-                                    SelectionMode="None">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Frame BackgroundColor="#2e4053"
-                                       Opacity="0.8"
-                                       Margin="0,10,0,0"
-                                       Padding="0"
-                                       WidthRequest="400"
-                                       HeightRequest="80"
-                                       HasShadow="False"
-                                       CornerRadius="10"
-                                       BorderColor="Transparent">
-                                    <Grid ColumnDefinitions=".15*,.35*,.35*,.15 *">
-                                        <Label  Text="{Binding IdPedido}"
-                                                HorizontalOptions="Center"
-                                                VerticalOptions="Center"
+                                            ItemsSource="{Binding PedidosFiltrados}"
+                                            SelectionMode="None">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame BackgroundColor="#2e4053"
+                                               Opacity="0.8"
+                                               Margin="10,5"
+                                               Padding="15"
+                                               HasShadow="False"
+                                               CornerRadius="10"
+                                               BorderColor="Transparent">
+                                            <Grid ColumnDefinitions=".15*,.35*,.35*,.15 *">
+                                                <Label  Text="{Binding IdPedido}"
+                                                        HorizontalOptions="Center"
+                                                        VerticalOptions="Center"
                                                         TextColor="White"
-                                                        FontFamily="Comf-Bold"/>
-                                        <Grid Grid.Column="1"
-                                              RowDefinitions=".5*,.5*">
-                                            <Label Text="{Binding Destino}"
-                                                   TextColor="White"
-                                                   FontFamily="Comf-Bold"
-                                                   HorizontalOptions="Start"
-                                                   VerticalOptions="End" />
-                                            <Label Grid.Row="1"
-                                                   Text="{Binding Origen}"
-                                                   TextColor="white"
-                                                   FontFamily="Comf-SemBold"
-                                                   HorizontalOptions="Start"
-                                                   VerticalOptions="Start" />
-                                        </Grid>
-                                        <Grid Grid.Column="2">
-                                            <Label Text="{Binding EstadoPedido}"
-                                                   TextColor="#f7f9f9"
-                                                   FontFamily="Comf-Bold"
-                                                   HorizontalOptions="Center"
-                                                   VerticalOptions="Center" />
-                                        </Grid>
-                                        <Grid Grid.Column="3">
-                                            <Button BackgroundColor="Transparent"
-                                                    Clicked="Btn_DetallePedido"
-                                                    CommandParameter="{Binding .}"/>
-                                            <Image Source="detalles.png"
-                                                   WidthRequest="20" />
-                                        </Grid>
-                                    </Grid>
-                                </Frame>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </VerticalStackLayout>
-            </ScrollView>
+                                                        FontFamily="Comf-Bold" />
+                                                <Grid Grid.Column="1"
+                                                      RowDefinitions=".5*,.5*">
+                                                    <Label Text="{Binding Destino}"
+                                                           TextColor="White"
+                                                           FontFamily="Comf-Bold"
+                                                           HorizontalOptions="Start"
+                                                           VerticalOptions="End" Margin="0,5"/>
+                                                    <Label Grid.Row="1"
+                                                           Text="{Binding Origen}"
+                                                           TextColor="white"
+                                                           FontFamily="Comf-Bold"
+                                                           HorizontalOptions="Start"
+                                                           Margin="0,15"
+                                                           VerticalOptions="Center" />
+                                                </Grid>
+                                                <Grid Grid.Column="2">
+                                                    <Label Text="{Binding EstadoPedido}"
+                                                           TextColor="#f7f9f9"
+                                                           FontFamily="Comf-Bold"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center" />
+                                                </Grid>
+                                                <Grid Grid.Column="3" Padding="0">
+                                                    <Button BackgroundColor="Transparent"
+                                                            Clicked="Btn_DetallePedido"
+                                                            CommandParameter="{Binding .}" />
+                                                    <Image Source="detalles.png"
+                                                           WidthRequest="20" />
+                                                </Grid>
+                                            </Grid>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </ScrollView>
                 </VerticalStackLayout>
             </ScrollView>
         </Grid>

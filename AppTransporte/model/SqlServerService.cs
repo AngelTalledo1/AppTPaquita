@@ -3,6 +3,7 @@
 using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -508,6 +509,42 @@ namespace AppTransporte.model
                 }
             }
 
+        }
+
+
+        public async Task<List<Solicitud>> ObtenerSolicitudesAsync()
+        {
+            var solicitud = new List<Solicitud>();
+
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_ListSolicitudes", connection))
+
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            solicitud.Add(new Solicitud
+                            {
+                                IdSolicitud = reader.GetInt32(reader.GetOrdinal("id_solicitud")),
+                                Descripcion = reader.GetString(reader.GetOrdinal("SolicitudDescripcion")),
+                                IdEstadoSolicitud = reader.GetInt32(reader.GetOrdinal("id_estadoSolicitud")),
+                                Comentario = reader.IsDBNull(reader.GetOrdinal("SolicitudComentario")) ? null : reader.GetString(reader.GetOrdinal("SolicitudComentario")),
+                                IdCliente = reader.GetInt32(reader.GetOrdinal("id_cliente")),
+                                Cliente = reader.IsDBNull(reader.GetOrdinal("ClienteNombreCompleto")) ? null : reader.GetString(reader.GetOrdinal("ClienteNombreCompleto"))
+
+                            });
+                        }
+                    }
+                }
+            }
+            return solicitud;
         }
     }
 }

@@ -11,25 +11,26 @@ namespace AppTransporte.model
         public int IdSolicitud { get; set; }
         public string Descripcion { get; set; } = string.Empty;
         public string? Comentario { get; set; }
+        public string EstadoSolicitud { get; set; } = string.Empty ;
+
         public DateTime Fecha { get; set; }
-        public string IdEstadoSolicitud { get; set; } = string.Empty;
+        public int IdEstadoSolicitud { get; set; }
         public int IdCliente { get; set; }
 
-        public Cliente Cliente { get; set; } = new Cliente();// Relación con Cliente
-        public EstadoSolicitud EstadoSolicitud { get; set; } = new EstadoSolicitud();// Relación con EstadoSolicitud
+        public string Cliente { get; set; } = string.Empty;
 
 
         public string MostrarIdSolicitud => $"Solicitud ID:     {IdSolicitud}".Trim();
-        public string MostrarCliente => $"Cliente:  {Cliente.Persona.NombreCompleto}".Trim();
+        public string MostrarCliente => $"Cliente:  {Cliente}".Trim();
 
         public string MostrarDescripcion => $"Descripcion de Solicitud: \n  {Descripcion}".Trim();
 
         public string MostrarComentario => $"Comentario: \n {Comentario}".Trim();
         public string MostrarFecha => $"Fecha Solicitud:    {Fecha}".Trim();
-        public string MostrarEstado => $"Estado de solicitud:   {EstadoSolicitud.Descripcion}".Trim();
+        public string MostrarEstado => $"Estado de solicitud:   {EstadoSolicitud}".Trim();
 
-        public bool MostrarModificar => IdEstadoSolicitud == "Pendiente";
-        public bool MostrarVerPedido => IdEstadoSolicitud == "Pedido Creado";
+        public bool MostrarModificar => EstadoSolicitud == "Pendiente";
+        public bool MostrarVerPedido => EstadoSolicitud == "Pedido Creado";
 
 
     }

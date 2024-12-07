@@ -2,17 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:VME="clr-namespace:AppTransporte.viewModel"
-             NavigationPage.HasNavigationBar="False" 
+             NavigationPage.HasNavigationBar="False"
              x:Class="AppTransporte.Interfaces.VEtransportistas"
              Title="VEtransportistas">
     <ContentPage.BindingContext>
         <VME:VMTrabajadores />
     </ContentPage.BindingContext>
-    <Grid RowDefinitions=".1*,.8*,.1*">
-        <Grid ColumnDefinitions=".1*,.7*,.3*"
-              Grid.Row="0"
-              Padding="20,0,0,0"
-              BackgroundColor="#cb4335">
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              BackgroundColor="#cb4335"
+              Padding="20,0,0,0">
             <Button BackgroundColor="Transparent"
                     Clicked="Btn_atrasTransportista" />
             <Image Source="atras.png"
@@ -21,147 +20,134 @@
                    HeightRequest="20"
                    WidthRequest="20"
                    Margin="20" />
-            <Label Text="Trabajador"
+            <Label Text="Trabajadores"
                    FontSize="20"
-                   FontFamily="Comf-Bold"
+                   FontFamily="Comf-Medium"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
                    TextColor="White"
                    Grid.Column="1"
-                   Margin="20,20,0,0" />
-            <Button Text="Actualizar"
-                    FontSize="14"
-                    Grid.Column="2"
-                    BackgroundColor="#cb4335"
-                    TextColor="White"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    Clicked="OnActualizarClicked" />
+                   Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1">
-            <ScrollView>
-            <VerticalStackLayout  Margin="20"
-                                      Spacing="5">
-                    <Grid ColumnDefinitions=".6*,.4*">
-                        <VerticalStackLayout Spacing="5">
-                            <Label Text="Buscar por Nombre"
-                                   FontFamily="Comf-SemBold" />
-                            <SearchBar x:Name="TransportistaSearchBar"
-                                       Placeholder="Nombre del Trabajador"
-                                       FontFamily="Comf-Reg" />
-                        </VerticalStackLayout>
-                        <Frame  HeightRequest="40"
-                                WidthRequest="100"
-                                Margin="10,20,0,0"
-                                Grid.Column="1"
-                                VerticalOptions="Start"
-                                Padding="0"
-                                BackgroundColor="#b7bdbd">
-                            <Picker Title="Categoria"
-                                    TitleColor="Black"
-                                    HorizontalTextAlignment="Center"
-                                    FontSize="11"
-                                    FontFamily="Comf-SemBold"
-                                    ItemsSource="{Binding Categoria}"
-                                    SelectedItem="{Binding CategoriaSeleccionada}" />
-                        </Frame>
-                    </Grid>
-                    <VerticalStackLayout>
-                            <ActivityIndicator IsRunning="{Binding IsBusy}"
-                                               IsVisible="{Binding IsBusy}"
-                                               Color="#bc4749"
-                                               HorizontalOptions="Center" />
-                            <CollectionView x:Name="TransportistaCollectionView"
-                                            ItemsSource="{Binding Trabajadores}">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Frame BackgroundColor="#2e4053"
-                                               Opacity="0.85"
-                                               Margin="0,10,0,0"
-                                               WidthRequest="400"
-                                               HeightRequest="80"
-                                               HasShadow="False"
-                                               CornerRadius="20"
-                                               Padding="10">
-                                            <Grid ColumnDefinitions=".15*,.70*,.15*"
-                                                  Padding="0">
-                                                <Image Source="usu.png"
-                                                       HorizontalOptions="Center"
-                                                       VerticalOptions="Center"
-                                                       WidthRequest="40" />
-                                                <Grid Grid.Column="1"
-                                                      RowDefinitions=".5*,.5*"
-                                                      Padding="-8">
-                                                    <Grid ColumnDefinitions=".8*,.2*">
-                                                        <Label Text="{Binding NombreTrabajador}"
-                                                               FontSize="15"
-                                                               FontFamily="Comf-SemBold"
-                                                               HorizontalOptions="Start"
-                                                               Margin="10,0,0,0"
-                                                               VerticalOptions="Center"
-                                                               TextColor="White" />
-                                                        <Label Text="{Binding categoria}"
-                                                               FontSize="11"
-                                                               FontFamily="Comf-Reg"
-                                                               HorizontalOptions="Start"
-                                                               VerticalOptions="End"
-                                                               Grid.Column="1"
-                                                               TextColor="White" />
-                                                    </Grid>
-                                                    <Grid Grid.Row="1"
-                                                          ColumnDefinitions=".5*,.5*">
-                                                        <Label Text="{Binding numDoc}"
-                                                               FontSize="12"
-                                                               FontFamily="Comf-Reg"
-                                                               Margin="10,0,0,0"
-                                                               HorizontalOptions="Start"
-                                                               TextColor="White" />
-                                                        <Label Text="{Binding Telefono}"
-                                                               FontSize="12"
-                                                               FontFamily="Comf-Reg"
-                                                               HorizontalOptions="Start"
-                                                               Grid.Column="1"
-                                                               TextColor="White" />
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid Grid.Column="3"
-                                                      ColumnDefinitions=".5*,.5*"
-                                                      Padding="0">
-                                                    <Button ImageSource="edit.png"
-                                                            WidthRequest="25"
-                                                            BackgroundColor="Transparent"
-                                                            Clicked="Btn_ModificarTrabajador"
-                                                            CommandParameter="{Binding .}"
-                                                            Padding="0"
-                                                            HorizontalOptions="Start" />
-                                                    <Button ImageSource="eliminar.png"
-                                                            Grid.Column="1"
-                                                            CommandParameter="{Binding .}"
-                                                            Clicked="EliminarTrabajador"
-                                                            BackgroundColor="Transparent"
-                                                            Padding="0"
-                                                            WidthRequest="25"
-                                                            HorizontalOptions="End" />
-                                                </Grid>
-                                            </Grid>
-                                        </Frame>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </VerticalStackLayout>
-                </VerticalStackLayout>
+        <Grid Grid.Row="1"
+              RowDefinitions=".15*,.75*,.08*">
+            <VerticalStackLayout  Margin="15,10,10,0"
+                                  Spacing="5">
+                <HorizontalStackLayout Spacing="5">
+                        <Label Text="Buscar por"
+                               FontFamily="Comf-SemBold" 
+                               VerticalOptions="Center"/>
+                        <SearchBar x:Name="TransportistaSearchBar"
+                                   Placeholder="Nombre del Trabajador"
+                                   FontFamily="Comf-Reg" />
+                    </HorizontalStackLayout>
+                <Frame  WidthRequest="200"
+                        HeightRequest="40"
+                        Margin="0,7"
+                        Grid.Column="1"
+                        VerticalOptions="Start"
+                        Padding="0"
+                        BackgroundColor="#b7bdbd">
+                    <Picker Title="Categoria"
+                            TitleColor="Black"
+                            HorizontalTextAlignment="Center"
+                            FontSize="11"
+                            FontFamily="Comf-Reg"
+                            ItemsSource="{Binding Categoria}"
+                            SelectedItem="{Binding CategoriaSeleccionada}" />
+                </Frame>
+            </VerticalStackLayout>
+            
+                <ScrollView Grid.Row="1" Margin="10">
+                <VerticalStackLayout>
+                    <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}"
+                                   Color="#bc4749"
+                                   HorizontalOptions="Center" />
+                <CollectionView x:Name="TransportistaCollectionView"
+                                ItemsSource="{Binding Trabajadores}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="#2e4053"
+                                   Opacity="0.85"
+                                   Margin="0,0,0,5"
+                                   HasShadow="False"
+                                   CornerRadius="20"
+                                   Padding="15">
+                                    <Grid ColumnDefinitions=".82*,.15*"
+                                          Padding="0">
+                                        <Grid
+                                          RowDefinitions=".5*,.5*"
+                                          Padding="0">
+                                        <Grid ColumnDefinitions=".7*,.3*">
+                                            <Label Text="{Binding NombreTrabajador}"
+                                                   FontSize="15"
+                                                   FontFamily="Comf-SemBold"
+                                                   HorizontalOptions="Start"
+                                                   Margin="10,0,0,0"
+                                                   VerticalOptions="Start"
+                                                   TextColor="White" />
+                                            <Label Text="{Binding categoria}"
+                                                   FontSize="11"
+                                                   FontFamily="Comf-Bold"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="End"
+                                                   Grid.Column="1"
+                                                   TextColor="White" />
+                                        </Grid>
+                                        <Grid Grid.Row="1"
+                                              ColumnDefinitions=".3*,.5*">
+                                            <Label Text="{Binding numDoc}"
+                                                   FontSize="12"
+                                                   FontFamily="Comf-Reg"
+                                                   Margin="10,0,0,0"
+                                                   HorizontalOptions="Start"
+                                                   TextColor="White" />
+                                            <Label Text="{Binding Telefono}"
+                                                   FontSize="12"
+                                                   FontFamily="Comf-Reg"
+                                                   HorizontalOptions="Start"
+                                                   Grid.Column="1"
+                                                   TextColor="White" />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid Grid.Column="3"
+                                          ColumnDefinitions=".5*,.5*"
+                                          Padding="0">
+                                        <Button ImageSource="edit.png"
+                                                BackgroundColor="Transparent"
+                                                Clicked="Btn_ModificarTrabajador"
+                                                CommandParameter="{Binding .}"
+                                                Padding="0"
+                                                HorizontalOptions="Start" />
+                                        <Button ImageSource="eliminar.png"
+                                                Grid.Column="1"
+                                                CommandParameter="{Binding .}"
+                                                Clicked="EliminarTrabajador"
+                                                BackgroundColor="Transparent"
+                                                Padding="0"
+                                                HorizontalOptions="End" />
+                                    </Grid>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
             </ScrollView>
-        </Grid>
+        
         <Grid Grid.Row="2"
               BackgroundColor="White">
             <Button Text="Nuevo Trabajador"
-          TextColor="White"
-          FontFamily="Comf-Bold"
-          Margin="20"
-          HeightRequest="50"
-          WidthRequest="200"
-          BackgroundColor="#cb4335"
-          Clicked="btn_agregarTransportista" />
+                    TextColor="White"
+                    VerticalOptions="Start"
+                    FontFamily="Comf-Bold"
+                    Margin="0"
+                    HeightRequest="50"
+                    WidthRequest="200"
+                    BackgroundColor="#cb4335"
+                    Clicked="btn_agregarTransportista" />
+        </Grid>
         </Grid>
     </Grid>
 </ContentPage>

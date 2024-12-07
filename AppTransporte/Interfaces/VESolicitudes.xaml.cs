@@ -6,7 +6,9 @@ public partial class VESolicitudes : ContentPage
 {
 	public VESolicitudes()
 	{
-		InitializeComponent();
+
+        BindingContext = new VCMisSolicitudes();
+        InitializeComponent();
 	}
 
     private void Btn_atrasSolicitudes(object sender, EventArgs e)
