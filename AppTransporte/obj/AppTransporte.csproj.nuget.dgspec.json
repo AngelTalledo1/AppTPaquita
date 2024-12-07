@@ -103,6 +103,10 @@
             "SkiaSharp.Extended.UI.Maui": {
               "target": "Package",
               "version": "[2.0.0, )"
+            },
+            "System.Private.Uri": {
+              "target": "Package",
+              "version": "[4.3.2, )"
             }
           },
           "imports": [
@@ -166,6 +170,10 @@
             "SkiaSharp.Extended.UI.Maui": {
               "target": "Package",
               "version": "[2.0.0, )"
+            },
+            "System.Private.Uri": {
+              "target": "Package",
+              "version": "[4.3.2, )"
             }
           },
           "imports": [
@@ -229,6 +237,10 @@
             "SkiaSharp.Extended.UI.Maui": {
               "target": "Package",
               "version": "[2.0.0, )"
+            },
+            "System.Private.Uri": {
+              "target": "Package",
+              "version": "[4.3.2, )"
             }
           },
           "imports": [
@@ -287,6 +299,10 @@
             "SkiaSharp.Extended.UI.Maui": {
               "target": "Package",
               "version": "[2.0.0, )"
+            },
+            "System.Private.Uri": {
+              "target": "Package",
+              "version": "[4.3.2, )"
             }
           },
           "imports": [

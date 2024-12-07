@@ -4,7 +4,11 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              NavigationPage.HasNavigationBar="False"
              x:Class="AppTransporte.Interfaces.VEUbicacion"
+             xmlns:VME="clr-namespace:AppTransporte.viewModel"
              Title="VEUbicacion">
+    <ContentPage.BindingContext>
+        <VME:VMUbicacion />
+    </ContentPage.BindingContext>
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0"
@@ -27,6 +31,7 @@
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1" >
+            
             <ScrollView>
             <VerticalStackLayout Margin="20">
                 <HorizontalStackLayout Spacing="5">
@@ -47,10 +52,11 @@
                                TextColor="White"/>
                 </Frame>
                 </HorizontalStackLayout>
-                <ScrollView>
-                    <VerticalStackLayout>
-                        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                    <ScrollView>
+                        <VerticalStackLayout>
+                            <ActivityIndicator IsRunning="{Binding IsBusy}"
                                            IsVisible="{Binding IsBusy}"
+<<<<<<< HEAD
                                                Color="#bc4749"
                                                HorizontalOptions="Center" />
                         <CollectionView ItemsSource="{Binding Solicitudes}">
@@ -61,50 +67,56 @@
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate>
                                                 <Frame Padding="0"
+=======
+                                           HorizontalOptions="Center" />
+                            <CollectionView ItemsSource="{Binding Ubicaciones}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame Padding="0"
+>>>>>>> b104c35d0c4aee2bdbaadf0b29aaaa7a01e13e37
                                                        BackgroundColor="#778da9"
                                                        CornerRadius="10"
                                                        WidthRequest="430"
                                                        HeightRequest="110"
                                                        Margin="3">
-                                                    <toolkit:Expander>
-                                                        <toolkit:Expander.Header>
-                                                            <Grid ColumnDefinitions="1*,.2*"
+                                            <toolkit:Expander>
+                                                <toolkit:Expander.Header>
+                                                    <Grid ColumnDefinitions="1*,.2*"
                                                                   RowDefinitions="1*,1*">
-                                                                <Label Text="{Binding Descripcion}"
+                                                        <Label Text="{Binding Descripcion}"
                                                                        FontFamily="Comf-Bold" />
-                                                                <Label Text="{Binding Sector}"
+                                                        <Label Text="{Binding Sector}"
                                                                        Grid.Row="1"
                                                                        FontFamily="Comf-SemBold" />
-                                                                <Button BackgroundColor="Transparent"
+                                                        <Button BackgroundColor="Transparent"
                                                                         Grid.Column="2"
                                                                         Grid.RowSpan="2"
                                                                         Clicked="Btn_ModifUbicacion"
                                                                         CommandParameter="{Binding .}"/>
-                                                                <Image Source="siguiente.png"
+                                                        <Image Source="siguiente.png"
                                                                        Grid.Column="2"
                                                                        Grid.RowSpan="2"
                                                                        VerticalOptions="Center"
                                                                        WidthRequest="20" />
-                                                            </Grid>
-                                                        </toolkit:Expander.Header>
-                                                    <VerticalStackLayout>
-                                                        <Label Text="{Binding CoordenadasMaps}"
+                                                    </Grid>
+                                                </toolkit:Expander.Header>
+                                                <VerticalStackLayout>
+                                                    <Button Text="{Binding CoordenadasMaps}"
+                                                               x:Name="coords_button"
+                                                                FontFamily="Comf-SemBold"
+                                                                Clicked="OnMapButtonClicked"/>
+                                                    <Label Text="{Binding Referencias}"
                                                                FontFamily="Comf-SemBold" />
-                                                        <Label Text="{Binding Referencias}"
-                                                               FontFamily="Comf-SemBold" />
-                                                        </VerticalStackLayout>
-                                                 
-                                                </toolkit:Expander>
-                                                </Frame>
-                                            </DataTemplate>
-                                        </CollectionView.ItemTemplate>
-                                    </CollectionView>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </VerticalStackLayout>
-                </ScrollView>
-                <Button Text="Nueva Ubicacion"
+                                                </VerticalStackLayout>
+
+                                            </toolkit:Expander>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </ScrollView>
+                    <Button Text="Nueva Ubicacion"
                         FontFamily="Comf-Bold"
                         BackgroundColor="#cb4335"
                         HorizontalOptions="Center"

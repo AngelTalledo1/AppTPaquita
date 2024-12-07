@@ -111,7 +111,7 @@
                                    Keyboard="Numeric"
                                    FontFamily="Comf-Medium"
                                    VerticalOptions="Center"
-                                   MaxLength="8" />
+                                   MaxLength="11" />
                         </Grid>
                     </Grid>
                     <Grid ColumnDefinitions=".2*,.8*">
