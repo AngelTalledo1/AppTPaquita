@@ -28,7 +28,11 @@ namespace AppTransporte.viewModel
         {
             CargarClientes();
         }
-
+        public async Task ActualizarDatos()
+        {
+            Clientes.Clear();
+            CargarClientes();
+        }
         private async void CargarClientes()
         {
             IsBusy = true;
