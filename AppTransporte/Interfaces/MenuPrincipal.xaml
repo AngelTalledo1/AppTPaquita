@@ -5,8 +5,8 @@
              NavigationPage.HasNavigationBar="False"
              Title="MenuPrincipal">
     <Grid RowDefinitions=".1*,.9*">
-        <Grid ColumnDefinitions=".1*,.9*"
-              Padding="20,0,0,0"
+        <Grid ColumnDefinitions=".1*,.8*,.2*"
+              Padding="0"
               BackgroundColor="#cb4335">
             <Button BackgroundColor="Transparent"
                     Clicked="Btn_atrasMenuPrincipal" />
@@ -15,7 +15,7 @@
                    VerticalOptions="End"
                    HeightRequest="20"
                    WidthRequest="20"
-                   Margin="20" />
+                   Margin="40,20,20,20" />
             <Label Text="Menu Administrador"
                    FontSize="20"
                    Grid.Column="1"
@@ -24,6 +24,14 @@
                    VerticalOptions="Center"
                    Padding="20,20,0,0"
                    TextColor="White" />
+            <Button Grid.Column="2" 
+                    BackgroundColor="Transparent"/>
+            <Image Source="cerrar.png"
+                   WidthRequest="40"
+                   HeightRequest="40"
+                   HorizontalOptions="End"
+                   Margin="10"
+                   VerticalOptions="End" Grid.Column="2"/>
         </Grid>
         <Grid Grid.Row="1"
               BackgroundColor="#edf2f4">

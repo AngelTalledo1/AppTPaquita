@@ -1,5 +1,5 @@
 using AppTransporte.model;
-
+using AppTransporte.viewModel;
 namespace AppTransporte.Interfaces;
 
 public partial class VEDetalleVehiculo : ContentPage
@@ -12,12 +12,27 @@ public partial class VEDetalleVehiculo : ContentPage
     public VEDetalleVehiculo(Vehiculo vehiculo)
 	{
 		InitializeComponent();
-        BindingContext = vehiculo;
-	}
+        BindingContext = new VMVehiculo();
+        MostrarPlaca.Text = vehiculo.Placa;
+        MostrarModelo.Text = vehiculo.Modelo;
+        MostrarAño.Text = vehiculo.AñoFabricacion;
+        MostrarEmisionPoliza.Text = vehiculo.EmisionPoliza.ToString();
+        MostrarVencimientoPoliza.Text = vehiculo.VencimientoPoliza.ToString();
+        MostrarEmisionCITV.Text = vehiculo.EmisionCITV.ToString();
+        MostrarVencimientoCITV.Text = vehiculo.VencimientoCITV.ToString();
+        MostrarEmisionCubicacion.Text = vehiculo.EmisionCubicacion.ToString();
+        MostrarVencimientoCubicacion.Text = vehiculo.VencimientoCubicacion.ToString();
+    }
 
     private void Btn_atrasDetVehiculo(object sender, EventArgs e)
     {
 		Navigation.PopAsync();
+    }
+
+
+    private void Btn_EliminarVehiculo(object sender, EventArgs e)
+    {
+        
     }
 
     private async void Btn_ModificarVehiculo(object sender, EventArgs e)
@@ -29,10 +44,5 @@ public partial class VEDetalleVehiculo : ContentPage
         {
             await Navigation.PushAsync(new VEAgregarVehiculo(vehiculo));
         }
-    }
-
-    private void Btn_EliminarVehiculo(object sender, EventArgs e)
-    {
-
     }
 }

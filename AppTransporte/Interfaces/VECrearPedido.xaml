@@ -32,57 +32,18 @@
                 <VerticalStackLayout Spacing="30"
                                      Margin="0,20,20,0">
                     <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="mispedidos.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Label TextColor="Black"
-                                   Grid.Column="1"
-                                   x:Name="IdSolicitud"
-                                   FontFamily="Comf-Medium"
-                                   VerticalOptions="Center" />
-                        </Grid>
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="conductor.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Grid Grid.Column="1">
-                                <Picker x:Name="TransportistaPicker"
-                                        Title="Transportista Disponibles"
-                                    FontFamily="Comf-Medium"
-                                        TextColor="Black">
-                                    <Picker.Items>
-                                        <x:String>Alejandro Martinez</x:String>
-                                        <x:String>Marlon Sanchez</x:String>
-                                        <x:String>Mauricio Vidal</x:String>
-                                        <x:String>Carlos Romero</x:String>
-                                        <x:String>Alexis Calle</x:String>
-                                        <x:String>Jairo Rodriguez</x:String>
-                                    </Picker.Items>
-                                </Picker>
-                            </Grid>
-                        </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
-                               Source="conductor.png"
+                               Source="mispedidos.png"
                                HorizontalOptions="Center"></Image>
-                        <Grid Grid.Column="1">
-                            <Picker x:Name="AyudantePicker"
-                                    Title="Ayudante Disponibles"
-                                    FontFamily="Comf-Medium"
-                                    TextColor="Black">
-                                <Picker.Items>
-                                    <x:String>Alejandro Martinez</x:String>
-                                    <x:String>Marlon Sanchez</x:String>
-                                    <x:String>Mauricio Vidal</x:String>
-                                    <x:String>Carlos Romero</x:String>
-                                </Picker.Items>
-                            </Picker>
-                        </Grid>
+                        <Label TextColor="Black"
+                               Grid.Column="1"
+                               x:Name="IdSolicitud"
+                               FontFamily="Comf-Medium"
+                               VerticalOptions="Center" />
                     </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
+                    
+                    <Grid ColumnDefinitions=".2*,.4*,.4*">
                             <Image WidthRequest="40"
                                    HeightRequest="40"
                                    Source="cantidad.png"
@@ -97,15 +58,14 @@
                                    MaxLength="8"
                                    x:Name="CantidadFluidoEntry"
                                    TextChanged="OnCantidadFluidoChanged" />
-                        </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*"
-                          Grid.Column="2">
-                        <Label x:Name="ViajesLabel"
-                                   FontFamily="Comf-Medium"
-                                   TextColor="Red"
-                                   Grid.Column="2" />
-                        
+                            <Label x:Name="ViajesLabel"
+                                   Margin="10,0"
+                               FontFamily="Comf-Bold"
+                               TextColor="#cb4335"
+                                   VerticalOptions="Center"
+                               Grid.Column="2" />
                     </Grid>
+                    
                         <Grid ColumnDefinitions=".2*,.8*">
                             <Image WidthRequest="40"
                                    HeightRequest="40"
@@ -141,11 +101,11 @@
                                HeightRequest="40"
                                Source="calendario.png"
                                HorizontalOptions="Center"></Image>
-                        <Label Grid.Column="1"
-                               TextColor="Black"
+                        <Label Text="Selecciona los servicios"
+                               Grid.Column="1"
+                               TextColor="#cb4335"
                                FontFamily="Comf-Bold"
-                               VerticalOptions="Center"
-                               x:Name="fechaEntry" />
+                               VerticalOptions="Center" />
                     </Grid>
                     <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
                         

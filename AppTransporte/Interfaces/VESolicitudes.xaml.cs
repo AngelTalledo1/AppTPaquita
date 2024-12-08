@@ -1,4 +1,5 @@
 using AppTransporte.model;
+using AppTransporte.viewModel;
 
 namespace AppTransporte.Interfaces;
 
@@ -7,9 +8,9 @@ public partial class VESolicitudes : ContentPage
 	public VESolicitudes()
 	{
 
-        BindingContext = new VCMisSolicitudes();
+        BindingContext = new VMmisSolicitudes();
         InitializeComponent();
-	}
+    }
 
     private void Btn_atrasSolicitudes(object sender, EventArgs e)
     {
@@ -28,4 +29,6 @@ public partial class VESolicitudes : ContentPage
             await Navigation.PushAsync(new VEDetalleSolicitud(solicitud));
         }
     }
+
+    
 }

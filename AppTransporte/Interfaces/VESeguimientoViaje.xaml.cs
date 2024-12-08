@@ -12,11 +12,11 @@ public partial class VESeguimientoViaje : ContentPage
 		InitializeComponent();
          
         this.BindingContext = new VMSeguimientoViaje(viaje.IdViaje);
-        EstadoDetalle.Text = viaje.ultEstado;
         Trabajadores.Text = $"{viaje.TrabajadoresAsig}";
         tracto.Text = $"{viaje.TractoAsig}";
         Cisterna.Text = $"{viaje.CisternaAsig}";
         cantidad.Text = $"{viaje.Cantidad}";
+        UltEstado.Text = viaje.ultEstado;
 
     }
 

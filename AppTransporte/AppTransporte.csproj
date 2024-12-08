@@ -74,6 +74,7 @@
 		<None Remove="Resources\Images\boton.png" />
 		<None Remove="Resources\Images\cancelado.png" />
 		<None Remove="Resources\Images\cargando.png" />
+		<None Remove="Resources\Images\cerrar.png" />
 		<None Remove="Resources\Images\cisterna.png" />
 		<None Remove="Resources\Images\cliente2.png" />
 		<None Remove="Resources\Images\contra.png" />

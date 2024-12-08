@@ -30,20 +30,20 @@
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1"
-              BackgroundColor="#edf2f4">
+              BackgroundColor="White">
             
                 <VerticalStackLayout Margin="10"
                                      Spacing="15">
                     <Frame Padding="0"
                            CornerRadius="10"
-                           BackgroundColor="#b7bdbd"
+                           BackgroundColor="#e1dddb"
                            BorderColor="Transparent">
                         <Picker Title="Estado"
+                            TextColor="#780000"
                                 TitleColor="White"
                                 HorizontalTextAlignment="Center"
-                                FontFamily="Comf-SemBold"
+                                FontFamily="Comf-Bold"
                                 ItemsSource="{Binding EstadoSolicitud}"
-                                SelectedIndex="1"
                                 SelectedItem="{Binding EstadoSeleccionado}" />
                     </Frame>
                 <ScrollView>
@@ -52,12 +52,12 @@
                                                Color="#bc4749"
                                                IsRunning="{Binding IsBusy}"
                                                IsVisible="{Binding IsBusy}" />
-                            <CollectionView ItemsSource="{Binding Solicitudes}"
+                            <CollectionView ItemsSource="{Binding SolicitudesFiltradas}"
                                             SelectionMode="None">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <Frame Padding="5"
-                                               BackgroundColor="#778da9"
+                                           BackgroundColor="#edf2f4"
                                                BorderColor="Transparent"
                                                CornerRadius="10"
                                                Margin="3">
@@ -66,6 +66,7 @@
                                                 <Label Text="{Binding IdSolicitud}"
                                                        HorizontalOptions="Center"
                                                        Grid.RowSpan="2"
+                                                       
                                                        FontFamily="Comf-Bold"
                                                        VerticalOptions="Center" />
                                                 <Label Text="{Binding Descripcion}"
@@ -74,12 +75,14 @@
                                                        MaxLines="3"
                                                        VerticalOptions="Center"
                                                        Margin="0,5" />
-                                                <Label Text="{Binding Fecha}"
+                                                <Label Text="{Binding EstadoSolicitud}"
                                                        Grid.Column="1"
-                                                       TextColor="#264653"
+                                                       TextColor="#780000"
                                                        Grid.Row="1"
                                                        Margin="0,5"
-                                                       HorizontalOptions="Start"
+                                                       BackgroundColor="#e9c46a"
+                                                       
+                                                       HorizontalOptions="End"
                                                        VerticalOptions="Center"
                                                        FontFamily="Comf-Bold" />
                                                 <Button BackgroundColor="Transparent"

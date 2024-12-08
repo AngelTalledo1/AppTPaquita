@@ -28,39 +28,30 @@
                    VerticalOptions="Center"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" BackgroundColor="White">
             <ScrollView>
                 <VerticalStackLayout>
-                    <HorizontalStackLayout  Margin="15,10,15,15"
+                    <HorizontalStackLayout  Margin="15,10"
                                             VerticalOptions="Start">
                         <Label Text="Buscar por: "
                                FontFamily="Comf-Bold"
                                VerticalOptions="Center" />
-                        <Frame  HeightRequest="40"
-                                WidthRequest="300"
-                                Padding="0"
-                                HorizontalOptions="Start"
-                                CornerRadius="10"
-                                BorderColor="Transparent">
-                            <SearchBar Placeholder="Numero de pedido"
-                                       PlaceholderColor="#515a5a"
-                                       HorizontalTextAlignment="Start"
-                                       TextColor="Black"
-                                       FontFamily="Comf-SemBold"
-                                       Text="{Binding Numero}" />
-                        </Frame>
+                        <SearchBar Placeholder="Numero de pedido"
+                                   PlaceholderColor="#515a5a"
+                                   HorizontalTextAlignment="Start"
+                                   TextColor="Black"
+                                   FontFamily="Comf-SemBold"
+                                   Text="{Binding Numero}" />
                     </HorizontalStackLayout>
-                    <Frame  HeightRequest="40"
-                            WidthRequest="300"
+                    <Frame  Margin="15,0"
                             Padding="0"
                             CornerRadius="10"
-                            HorizontalOptions="Center"
                             BorderColor="Transparent"
-                            BackgroundColor="#edede9">
+                           BackgroundColor="#e1dddb">
                         <Picker Title="Estado"
                                 HorizontalTextAlignment="Center"
-                                TitleColor="#bc4749"
-                                FontFamily="Comf-SemBold"
+                                TitleColor="#780000"
+                                FontFamily="Comf-Bold"
                                 ItemsSource="{Binding Estados}"
                                 SelectedItem="{Binding EstadoSeleccionado}" />
                     </Frame>
@@ -75,7 +66,7 @@
                                             SelectionMode="None">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <Frame BackgroundColor="#2e4053"
+                                        <Frame BackgroundColor="#edf2f4"
                                                Opacity="0.8"
                                                Margin="10,5"
                                                Padding="15"
@@ -86,18 +77,18 @@
                                                 <Label  Text="{Binding IdPedido}"
                                                         HorizontalOptions="Center"
                                                         VerticalOptions="Center"
-                                                        TextColor="White"
+                                                        TextColor="#003554"
                                                         FontFamily="Comf-Bold" />
                                                 <Grid Grid.Column="1"
                                                       RowDefinitions=".5*,.5*">
                                                     <Label Text="{Binding Destino}"
-                                                           TextColor="White"
+                                                           TextColor="#003554"
                                                            FontFamily="Comf-Bold"
                                                            HorizontalOptions="Start"
                                                            VerticalOptions="End" Margin="0,5"/>
                                                     <Label Grid.Row="1"
                                                            Text="{Binding Origen}"
-                                                           TextColor="white"
+                                                           TextColor="#003554"
                                                            FontFamily="Comf-Bold"
                                                            HorizontalOptions="Start"
                                                            Margin="0,15"
@@ -105,9 +96,10 @@
                                                 </Grid>
                                                 <Grid Grid.Column="2">
                                                     <Label Text="{Binding EstadoPedido}"
-                                                           TextColor="#f7f9f9"
+                                                           TextColor="#780000"
                                                            FontFamily="Comf-Bold"
-                                                           HorizontalOptions="Center"
+                                                           Margin="15,0"
+                                                           HorizontalOptions="Start"
                                                            VerticalOptions="Center" />
                                                 </Grid>
                                                 <Grid Grid.Column="3" Padding="0">

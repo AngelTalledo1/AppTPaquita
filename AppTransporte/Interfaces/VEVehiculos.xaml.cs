@@ -31,14 +31,5 @@ public partial class VEVehiculos : ContentPage
         }
     }
 
-    //private async void btn_DetallesVehiculo(object sender, EventArgs e)
-    //{
-    //    var button = (Button)sender;
-    //    var vehiculo = button.CommandParameter as Vehiculo;
-
-    //    if (vehiculo != null)
-    //    {
-    //        await Navigation.PushAsync(new VEDetalleVehiculo(vehiculo));
-    //    }
-    //}
+    
 }

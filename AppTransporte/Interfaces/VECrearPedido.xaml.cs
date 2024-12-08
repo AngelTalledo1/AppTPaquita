@@ -9,7 +9,6 @@ public partial class VECrearPedido : ContentPage
 		InitializeComponent();
 		BindingContext = solicitud;
 		IdSolicitud.Text = solicitud.IdSolicitud.ToString();
-		fechaEntry.Text = DateTime.Today.ToString();
 	}
 
 	private void Btn_atrasCrearPedido(object sender, EventArgs e)

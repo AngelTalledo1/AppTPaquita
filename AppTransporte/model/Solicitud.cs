@@ -19,17 +19,7 @@ namespace AppTransporte.model
 
         public string Cliente { get; set; } = string.Empty;
 
-
-        public string MostrarIdSolicitud => $"Solicitud ID:     {IdSolicitud}".Trim();
-        public string MostrarCliente => $"Cliente:  {Cliente}".Trim();
-
-        public string MostrarDescripcion => $"Descripcion de Solicitud: \n  {Descripcion}".Trim();
-
-        public string MostrarComentario => $"Comentario: \n {Comentario}".Trim();
-        public string MostrarFecha => $"Fecha Solicitud:    {Fecha}".Trim();
-        public string MostrarEstado => $"Estado de solicitud:   {EstadoSolicitud}".Trim();
-
-        public bool MostrarModificar => EstadoSolicitud == "Pendiente";
+        public bool MostrarModificar => EstadoSolicitud == "Por revisar";
         public bool MostrarVerPedido => EstadoSolicitud == "Pedido Creado";
 
 

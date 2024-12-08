@@ -30,7 +30,7 @@
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1"
-              RowDefinitions=".15*,.75*,.08*">
+              RowDefinitions=".15*,.75*,.08*" BackgroundColor="White">
             <VerticalStackLayout  Margin="15,10,10,0"
                                   Spacing="5">
                 <HorizontalStackLayout Spacing="5">

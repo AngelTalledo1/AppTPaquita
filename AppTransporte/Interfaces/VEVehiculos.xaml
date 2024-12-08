@@ -6,7 +6,7 @@
              NavigationPage.HasNavigationBar="False"
              Title="VEVehiculos">
     <ContentPage.BindingContext>
-        <viewModel:VMmisSolicitudes /> <!--usado para probar, cambiar-->
+        <viewModel:VMVehiculo /> <!--usado para probar, cambiar-->
     </ContentPage.BindingContext>
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
@@ -29,72 +29,72 @@
                    FontFamily="Comf-Medium"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1">
-            <ScrollView>
-            <VerticalStackLayout Margin="20" Spacing="10">
-                <HorizontalStackLayout >
-                    <Label Text="Filtrar por: " 
-                           FontFamily="Comf-Bold" 
-                           VerticalOptions="Center"/>
+        <Grid Grid.Row="1"
+              RowDefinitions=".2*,.72*,.08*">
+            <VerticalStackLayout Margin="20"
+                                 Spacing="10">
+                <HorizontalStackLayout>
+                    <Label Text="Buscar por: "
+                           FontFamily="Comf-Bold"
+                           VerticalOptions="Center" />
                     <SearchBar Placeholder="Placa"
+                               Text="{Binding SearchText}"
                                FontFamily="Comf-SemBold"
-                               x:Name="PlacaSearchBar" />
+                               x:Name="PlacaSearchBar" 
+                               WidthRequest="200"/>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout HorizontalOptions="Center" 
-                                       Spacing="50">
-                    <Frame Padding="0" 
-                           WidthRequest="100" 
-                           HeightRequest="40" 
-                           CornerRadius="10"
-                           BackgroundColor="#669bbc" BorderColor="Transparent">
-                    <Picker Title="Tipo"
-                            SelectedIndex="1"
-                            TitleColor="White"
-                            HorizontalOptions="Center"
-                            FontFamily="Comf-SemBold"
-                            ItemsSource="{Binding TipoVehiculo}"/> <!--Cisterna o tracto-->
-                    </Frame>
-                    <Frame Padding="0"
-                           WidthRequest="150"
-                           HeightRequest="40"
+                <HorizontalStackLayout HorizontalOptions="Center"
+                                       Spacing="20">
+                    <Frame Padding="20,0"
                            CornerRadius="10"
                            BackgroundColor="#669bbc"
                            BorderColor="Transparent">
-                        <Picker Title="Vencimiento"
+                        <Picker Title="Selecciona"
+                                x:Name="pickerseleccion"
                                 TitleColor="White"
-                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
                                 FontFamily="Comf-SemBold"
-                            ItemsSource="{Binding VencimientoVehiculo}"/> <!--se ordena por fecha mas proxima a vencer entre CITV o Poliza-->
+                                ItemsSource="{Binding TipoVehiculo}"
+                                SelectedItem="{Binding FiltroSeleccionado}"/>
+                        <!--Cisterna o tracto-->
+                    </Frame>
+                    <Frame Padding="20,0"
+                           CornerRadius="10"
+                           BackgroundColor="#669bbc"
+                           BorderColor="Transparent">
+                        <Picker Title="Ordenar Por"
+                                TitleColor="White"
+                                HorizontalTextAlignment="Center"
+                                FontFamily="Comf-SemBold"
+                                ItemsSource="{Binding Vencimiento}"
+                                SelectedItem="{Binding OrdenSeleccionado}"/>
+                        <!--se ordena por fecha mas proxima a vencer entre CITV o Poliza-->
                     </Frame>
                 </HorizontalStackLayout>
-                <ScrollView >
-                    <VerticalStackLayout>
-                        <ActivityIndicator IsRunning="{Binding IsBusy}"
-                                           IsVisible="{Binding IsBusy}"
-                                               Color="#bc4749"
-                                               HorizontalOptions="Center" />
-                        <CollectionView ItemsSource="{Binding Solicitudes}"> <!--Cambiar a vehiculos filtrados-->
+            </VerticalStackLayout>
+            <ScrollView Grid.Row="1" Margin="10,0">
+                <VerticalStackLayout>
+                    <CollectionView ItemsSource="{Binding VehiculosFiltrados}"> <!--Cambiar a vehiculos filtrados-->
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Frame Padding="0"
-                                           BackgroundColor="#778da9" 
+                                    <Frame Padding="10"
+                                       BackgroundColor="#edf2f4" 
+                                           BorderColor="Transparent"
                                            CornerRadius="10"
-                                           WidthRequest="400"
-                                           HeightRequest="80"
                                            Margin="3">
                                         <Grid ColumnDefinitions=".4*,1*,.2*" 
                                               RowDefinitions="1*,1*">
-                                            <Label Text="{Binding IdSolicitud}"
+                                            <Label Text="{Binding Placa}"
                                                    HorizontalOptions="Center"
                                                    Grid.RowSpan="2"
                                                    VerticalOptions="Center"
                                                    FontFamily="Comf-Bold"/> <!--Enlace placa-->
-                                            <Label Text="{Binding EstadoSolicitud}"
+                                            <Label Text="{Binding Modelo}"
                                                    HorizontalOptions="Center"
                                                    VerticalOptions="Center"
                                                    Grid.Column="1"
                                                    FontFamily="Comf-SemBold"/> <!--Enlace Modelo-->
-                                            <Label Text="{Binding IdCliente}"
+                                            <Label Text="{Binding VencimientoPoliza}"
                                                    HorizontalOptions="Center"
                                                    VerticalOptions="Center"
                                                    Grid.Column="1"
@@ -118,17 +118,13 @@
                         </CollectionView>
                     </VerticalStackLayout>
                 </ScrollView>
-                <Button Text="Agregar Vehiculo"
-                        FontFamily="Comf-SemBold"
-                        Clicked="btn_agregarVehiculo"
-                        BackgroundColor="#cb4335"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Start"
-                        WidthRequest="300"
-                        HeightRequest="50"
-                         />
-            </VerticalStackLayout>
-            </ScrollView>
+            <Button Text="Agregar Vehiculo"
+                    Padding="20,0"
+                    FontFamily="Comf-SemBold"
+                    Clicked="btn_agregarVehiculo"
+                    BackgroundColor="#cb4335"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start" Grid.Row="2"/>
         </Grid>
     </Grid>
 </ContentPage>

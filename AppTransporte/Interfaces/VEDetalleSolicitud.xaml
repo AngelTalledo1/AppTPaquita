@@ -25,7 +25,7 @@
                    FontFamily="Comf-Bold"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1 ">
+        <Grid Grid.Row="1 " BackgroundColor="White">
             <ScrollView>
             <VerticalStackLayout Margin="15" Spacing="10">
                 <Frame Padding="0"
@@ -34,25 +34,53 @@
                        CornerRadius="20">
                     <VerticalStackLayout Spacing="10"
                                          Margin="10">
-                        <Label Text="{Binding MostrarIdSolicitud}"
-                               FontFamily="Comf-Bold"
-                               TextColor="#003049" />
-                        <Label Text="{Binding MostrarFecha}"
-                               FontFamily="Comf-Bold"
-                               TextColor="#003049" />
-                        <Label Text="{Binding MostrarCliente}"
-                               FontFamily="Comf-Bold"
-                               TextColor="#003049" />
-                        <Label Text="{Binding MostrarDescripcion}"
-                               TextColor="#003049"
-                               FontFamily="Comf-Bold" />
-                        <Label Text="{Binding MostrarEstado}"
-                               FontFamily="Comf-Bold"
-                               TextColor="#003049" />
-                        <Label Text="{Binding MostrarComentario}"
-                               FontFamily="Comf-Bold"
-                               TextColor="#003049" />
-                    </VerticalStackLayout>
+                            <Grid ColumnDefinitions=".6*,1*"
+                                  RowDefinitions="1*,1*,1*,1*,1*"
+                                  Padding="0">
+                                <Label Text="# Solicitud: "
+                                       FontFamily="Comf-Bold"
+                                       Margin="0,0,0,15" />
+                                <Label x:Name="solicitudid"
+                                       FontFamily="Comf-Reg"
+                                       Grid.Column="1"
+                                       Margin="0,0,0,15 " />
+                                <Label Text="Fecha:"
+                                       FontFamily="Comf-Bold"
+                                       Grid.Row="1"
+                                       Margin="0,0,0,15" />
+                                <Label x:Name="fechaSolicitud"
+                                       FontFamily="Comf-Reg"
+                                       Grid.Row="1"
+                                       Margin="0,0,0,15"
+                                       Grid.Column="1" />
+                                <Label Text="Cliente:"
+                                       FontFamily="Comf-Bold"
+                                       Grid.Row="2"
+                                       Margin="0,0,0,15" />
+                                <Label x:Name="clienteSolicitud"
+                                       FontFamily="Comf-Reg"
+                                       Grid.Row="2"
+                                       Grid.Column="1"
+                                       Margin="0,0,0,15" />
+                                <Label Text="Descripcion:"
+                                       FontFamily="Comf-Bold"
+                                       Grid.Row="3"
+                                       Margin="0,0,0,15" />
+                                <Label x:Name="descripcionSolicitud"
+                                       FontFamily="Comf-Reg"
+                                       Grid.Row="3"
+                                       Grid.Column="1" />
+                                <Label Text="Estado:"
+                                       FontFamily="Comf-Bold"
+                                       Grid.Row="4"
+                                       Margin="0,0,0,15" />
+                                <Label x:Name="estadoSolicitud"
+                                       FontFamily="Comf-Bold"
+                                       TextColor="#bc4749"
+                                       Grid.Row="4"
+                                       Grid.Column="1" />
+                            </Grid>
+                        </VerticalStackLayout>
                 </Frame>
                 <Label Text="Agregar Comentario"
                        FontFamily="Comf-Bold"
@@ -72,14 +100,14 @@
                             AutoSize="TextChanges"
                             TextColor="Black" />
                 </Frame>
-                <HorizontalStackLayout Spacing="100" 
+                <HorizontalStackLayout Spacing="20" 
                                        HorizontalOptions="Center">
                     
                     <Button Text="Rechazar"
                             IsVisible="{Binding MostrarModificar}"
                             FontFamily="Comf-Bold"
                             BackgroundColor="#515a5a"
-                            WidthRequest="150"
+                            Padding="20,0"
                             Margin="0,10,0,0"/>
                     <Button Text="Crear Pedido"
                             IsVisible="{Binding MostrarModificar}"
@@ -87,14 +115,14 @@
                             Clicked="Btn_CrearPedido"
                             CommandParameter="{Binding .}"
                             BackgroundColor="#cb4335"
-                            WidthRequest="150"
-                            Margin="0,10,0,0" />
+                                Padding="20,0"
+                                Margin="0,10,0,0" />
                     <Button Text="Ir a pedido"
                             IsVisible="{Binding MostrarVerPedido}"
                             FontFamily="Comf-Bold"
-                            BackgroundColor="#515a5a"
-                            WidthRequest="150"
-                            Margin="0,10,0,0" />
+                                BackgroundColor="#cb4335"
+                                Padding="20,0"
+                                Margin="0,10,0,0" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
             </ScrollView>

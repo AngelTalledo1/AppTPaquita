@@ -9,6 +9,11 @@ public partial class VEDetalleSolicitud : ContentPage
 	{
 		InitializeComponent();
         BindingContext = solicitud;
+        solicitudid.Text = solicitud.IdSolicitud.ToString();
+        fechaSolicitud.Text = solicitud.Fecha.ToString();
+        clienteSolicitud.Text = solicitud.Cliente;
+        descripcionSolicitud.Text = solicitud.Descripcion;
+        estadoSolicitud.Text = solicitud.EstadoSolicitud;
     }
 
     private void Btn_atrasDetSolicitud(object sender, EventArgs e)

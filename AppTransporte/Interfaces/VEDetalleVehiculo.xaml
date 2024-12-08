@@ -27,87 +27,131 @@
         </Grid>
         <Grid Grid.Row="1 ">
             <ScrollView>
-            <VerticalStackLayout Margin="15">
-                <Frame Padding="0"
-                       BackgroundColor="#edf2f4" 
-                       BorderColor="Transparent"
-                       CornerRadius="20">
-                    <VerticalStackLayout Spacing="7"
-                                         Margin="10">
-                        <Label Text="{Binding MostrarPlaca}"
-                               FontFamily="Comf-SemBold"
-                               TextColor="#003049" />
-                        <!-- -->
-                        <Label Text="{Binding MostrarModelo}"
-                               FontFamily="Comf-SemBold"
-                               TextColor="#003049" />
-                        <!-- -->
-                        <Label Text="{Binding MostrarAño}"
-                               TextColor="#003049"
-                               FontFamily="Comf-SemBold" />
-                        <!--Text="{Binding MostrarAño}" -->
-                        <Label Text="{Binding MostrarEmisionPoliza}"
-                               Grid.Column="1"
-                               FontFamily="Comf-SemBold"
-                               TextColor="#003049" />
-                        <!--Text="{Binding MostrarEmisionPoliza}" -->
-                        <Label Text="{Binding MostrarVencimientoPoliza}"
-                               Grid.Column="1"
-                               FontFamily="Comf-SemBold"
-                               TextColor="#003049" />
-                        <!--Text="{Binding MostrarVencimientoPoliza}" -->
-                        <Label Text="{Binding MostrarEmisionCITV}"
-                               Grid.Column="1"
-                               FontFamily="Comf-SemBold"
-                               TextColor="#003049" />
-                        <!--Text="{Binding MostrarEmisionCITV}" -->
-                        <Label Text="{Binding MostrarVencimientoCITV}"
-                               Grid.Column="1"
-                               FontFamily="Comf-SemBold"
-                               TextColor="#003049" />
-                        <!--Text="{Binding MostrarVencimientoCITV}" -->
-                        <Label Text="{Binding MostrarEmisionCubicacion}"
-                               Grid.Column="1"
-                               FontFamily="Comf-SemBold"
-                               TextColor="#003049" />
-                        <!--Text="{Binding MostrarEmisionCubicacion}" -->
-                        <Label Text="{Binding MostrarVencimientoCubicacion}"
-                               Grid.Column="1"
-                               FontFamily="Comf-SemBold"
-                               TextColor="#003049" />
-                        <!--Text="{Binding MostrarVencimientoCubicacion}" -->
-                    </VerticalStackLayout>
-                </Frame>
-                <Label Text="Evidencias"
-                       FontFamily="Comf-Bold"
-                       TextColor="#bc4749"
-                       FontSize="20" 
-                       HorizontalTextAlignment="Center"
-                       Margin="5"/>
-                <Frame Padding="0"
-                       BackgroundColor="#edf2f4"
-                       BorderColor="Transparent"
-                       CornerRadius="20">
-                    <!--Argregar carrusel de evidencias-->
-                    
-                </Frame>
-                <HorizontalStackLayout Spacing="100"
-                                       HorizontalOptions="Center">
-                    <Button Text="Eliminar"
-                            FontFamily="Comf-Bold"
-                            Clicked="Btn_EliminarVehiculo"
-                            BackgroundColor="#515a5a"
-                            WidthRequest="150"
-                            Margin="0,10,0,0" />
-                    <Button Text="Modificar"
-                            FontFamily="Comf-Bold"
-                            Clicked="Btn_ModificarVehiculo"
-                            CommandParameter="{Binding .}"
-                            BackgroundColor="#cb4335"
-                            WidthRequest="150"
-                            Margin="0,10,0,0" />
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
+                <VerticalStackLayout Margin="15">
+                    <Frame Padding="0"
+                           BackgroundColor="#edf2f4"
+                           BorderColor="Transparent"
+                           CornerRadius="20">
+                        <VerticalStackLayout Spacing="7"
+                                             Margin="10">
+                            <Grid ColumnDefinitions=".3*,.1*,.6*"
+                                  RowDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*">
+                                <Label Text="Placa: "
+                                       FontFamily="Comf-Bold"
+                                       Margin="0,0,0,15" />
+                                <Label x:Name="MostrarPlaca"
+                                       FontFamily="Comf-SemBold"
+                                       TextColor="#003049" Grid.Column="2"/>
+                                <Label Text="Modelo: "
+                                       FontFamily="Comf-Bold"
+                                       Margin="0,0,0,15" Grid.Row="1" />
+                                <Label 
+                                       x:Name="MostrarModelo"
+                                       FontFamily="Comf-SemBold"
+                                       TextColor="#003049" 
+                                        Grid.Row="1"
+                                       Grid.Column="2"/>
+                                <Label Text="Año: "
+                                       FontFamily="Comf-Bold"
+                                       Margin="0,0,0,15"
+                                       Grid.Row="2" />
+                                <Label 
+                                       x:Name="MostrarAño"
+                                       TextColor="#003049"
+                                       FontFamily="Comf-SemBold"
+                                       Grid.Row="2"
+                                       Grid.Column="2" />
+                                <Label Text="Emision Poliza: "
+                                       FontFamily="Comf-Bold"
+                                       Margin="0,0,0,15"
+                                       Grid.Row="3" />
+                                <Label 
+                                       x:Name="MostrarEmisionPoliza"
+                                       FontFamily="Comf-SemBold"
+                                       TextColor="#003049"
+                                       Grid.Row="3"
+                                       Grid.Column="2" />
+                                <Label Text="Vencimiento Poliza: "
+                                       FontFamily="Comf-Bold"
+                                       Margin="0,0,0,15"
+                                       Grid.Row="4" />
+                                <Label 
+                                       x:Name="MostrarVencimientoPoliza"
+                                       FontFamily="Comf-SemBold"
+                                       TextColor="#003049"
+                                       Grid.Row="4"
+                                       Grid.Column="2" />
+                                <Label Text="Emision CITV: "
+                                       FontFamily="Comf-Bold"
+                                       Margin="0,0,0,15"
+                                       Grid.Row="5" />
+                                <Label 
+                                       x:Name="MostrarEmisionCITV"
+                                       FontFamily="Comf-SemBold"
+                                       TextColor="#003049"
+                                       Grid.Row="5"
+                                       Grid.Column="2" />
+                                <Label Text="Vencimiento CITV: "
+                                       FontFamily="Comf-Bold"
+                                       Margin="0,0,0,15"
+                                       Grid.Row="6" />
+                                <Label 
+                                       x:Name="MostrarVencimientoCITV"
+                                       FontFamily="Comf-SemBold"
+                                       TextColor="#003049"
+                                       Grid.Row="6"
+                                       Grid.Column="2" />
+                                <Label Text="Emision Cubicacion: "
+                                       FontFamily="Comf-Bold"
+                                       Margin="0,0,0,15"
+                                       Grid.Row="7" />
+                                <Label 
+                                       x:Name="MostrarEmisionCubicacion"
+                                       FontFamily="Comf-SemBold"
+                                       TextColor="#003049"
+                                       Grid.Row="7"
+                                       Grid.Column="2" />
+                                <Label Text="Vencimiento Cubicacion: "
+                                       FontFamily="Comf-Bold"
+                                       Margin="0,0,0,15"
+                                       Grid.Row="8" />
+                                <Label x:Name="MostrarVencimientoCubicacion"
+                                       FontFamily="Comf-SemBold"
+                                       TextColor="#003049"
+                                       Grid.Row="8"
+                                       Grid.Column="2" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Label Text="Evidencias"
+                           FontFamily="Comf-Bold"
+                           TextColor="#bc4749"
+                           FontSize="20"
+                           HorizontalTextAlignment="Center"
+                           Margin="5" />
+                    <Frame Padding="0"
+                           BackgroundColor="#edf2f4"
+                           BorderColor="Transparent"
+                           CornerRadius="20">
+                        <!--Argregar carrusel de evidencias-->
+                    </Frame>
+                    <HorizontalStackLayout Spacing="20"
+                                           HorizontalOptions="Center">
+                        <Button Text="Eliminar"
+                                FontFamily="Comf-Bold"
+                                Padding="20,0"
+                                Clicked="Btn_EliminarVehiculo"
+                                BackgroundColor="#515a5a"
+                                Margin="0,10,0,0" />
+                        <Button Text="Modificar"
+                                Padding="20,0"
+                                FontFamily="Comf-Bold"
+                                Clicked="Btn_ModificarVehiculo"
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="#cb4335"
+                                Margin="0,10,0,0" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
             </ScrollView>
         </Grid>
     </Grid>

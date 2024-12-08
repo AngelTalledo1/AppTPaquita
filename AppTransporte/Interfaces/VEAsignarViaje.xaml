@@ -26,18 +26,7 @@
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1 ">
-            <VerticalStackLayout>
-                <Frame WidthRequest="500"
-                       HeightRequest="60"
-                       Padding="0,10,0,0"
-                       BackgroundColor="AliceBlue"
-                       BorderColor="Transparent">
-                    <Label Text="Nuevo Viaje"
-                           HorizontalOptions="Center"
-                           TextColor="Black"
-                           FontFamily="Comf-Bold"
-                           FontSize="Medium" />
-                </Frame>
+            <VerticalStackLayout Margin="10,20">
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
                     <Label x:Name="Id_Pedido"
                            FontFamily="Comf-Bold"
@@ -135,25 +124,22 @@
                             </Picker>
                         </Grid>
                     </Grid>
-                    <HorizontalStackLayout Margin="30"
-                                           Spacing="40"
+                    <HorizontalStackLayout 
+                                           Spacing="20"
                                            HorizontalOptions="Center">
                         <Button Text="Asignar"
-                                HeightRequest="50"
-                                WidthRequest="150"
+                                Padding="40,0"
                                 FontFamily="Comf-Bold"
-                                BackgroundColor="#007AFF"
+                                BackgroundColor="#415a77"
                                 TextColor="White"
-                                CornerRadius="40"
+                                CornerRadius="20"
                                 HorizontalOptions="Center" />
                         <Button Text="Cancelar"
-                                HeightRequest="50"
-                                WidthRequest="150"
                                 FontFamily="Comf-Bold"
+                                Padding="40,0"
                                 BackgroundColor="#cb4335"
                                 TextColor="White"
-                                CornerRadius="40"
-                                HorizontalOptions="Center" />
+                                CornerRadius="20" />
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </VerticalStackLayout>

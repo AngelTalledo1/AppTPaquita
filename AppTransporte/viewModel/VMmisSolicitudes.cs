@@ -58,6 +58,7 @@ namespace AppTransporte.viewModel
         }
         public VMmisSolicitudes()
         {
+            EstadoSeleccionado = "Por revisar";
             CargarSolicitudes();
             EstadoSolicitud = new List<string>
         {
@@ -81,6 +82,7 @@ namespace AppTransporte.viewModel
             {
                 Solicitudes.Add(solicitud);
             }
+            Filtrar();
 
             IsBusy = false;
         }
@@ -90,12 +92,11 @@ namespace AppTransporte.viewModel
         {
             var solicitudesFiltradas = Solicitudes.AsEnumerable();
 
-            if (!string.IsNullOrEmpty(EstadoSeleccionado) && EstadoSeleccionado != "Todos")
+            if (EstadoSeleccionado != "Todos")
             {
                 solicitudesFiltradas = solicitudesFiltradas.Where(s => s.EstadoSolicitud == EstadoSeleccionado);
             }
 
-            // Aquí puedes asignar el resultado filtrado si lo deseas
             SolicitudesFiltradas = new ObservableCollection<Solicitud>(solicitudesFiltradas);
         }
         public event PropertyChangedEventHandler? PropertyChanged;

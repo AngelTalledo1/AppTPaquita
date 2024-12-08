@@ -31,12 +31,12 @@
                    FontFamily="Comf-Bold"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" BackgroundColor="White">
             <ScrollView>
             <VerticalStackLayout Margin="20" Spacing="20">
                 <Frame CornerRadius="20" Padding="5,10"
                        BorderColor="Transparent"
-                       BackgroundColor="#f4f3ee">
+                           BackgroundColor="#edf2f4">
                         <toolkit:Expander >
                             <toolkit:Expander.Header>
                                 <VerticalStackLayout>
@@ -54,7 +54,7 @@
                             </toolkit:Expander.Header>
                         <VerticalStackLayout Margin="20" Spacing="10">
                                 <Grid ColumnDefinitions=".6*,1*"
-                                      RowDefinitions="1*,1*,1*,1*" Padding="0"
+                                      RowDefinitions="1*,1*,1*,1*,1*" Padding="0"
                                      >
                                     <Label Text="Trabajadores: "
                                            FontFamily="Comf-Bold"
@@ -89,6 +89,15 @@
                                            FontFamily="Comf-Reg"
                                            Grid.Row="3"
                                            Grid.Column="1" />
+                                    <Label Text="Estado:"
+                                           FontFamily="Comf-Bold"
+                                           Grid.Row="4"
+                                           Margin="0,0,0,15" />
+                                    <Label x:Name="UltEstado"
+                                           FontFamily="Comf-Bold"
+                                           TextColor="#bc4749"
+                                           Grid.Row="4"
+                                           Grid.Column="1" />
                                 </Grid>
                             </VerticalStackLayout>
                     </toolkit:Expander>
@@ -96,7 +105,7 @@
                     <Frame  CornerRadius="20"
                             Padding="5,10"
                             BorderColor="Transparent"
-                            BackgroundColor="#f4f3ee">
+                            BackgroundColor="#edf2f4">
                         <VerticalStackLayout >
                         <Grid ColumnDefinitions=".8*,.4*"
                                       Padding="0">
