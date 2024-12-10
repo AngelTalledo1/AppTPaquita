@@ -4,7 +4,7 @@ namespace AppTransporte.Interfaces;
 
 public partial class VEDetalleVehiculo : ContentPage
 {
-
+    public Vehiculo Vehiculoseleccionado { get; set; } = new();
     public VEDetalleVehiculo()
     {
         InitializeComponent();
@@ -12,6 +12,7 @@ public partial class VEDetalleVehiculo : ContentPage
     public VEDetalleVehiculo(Vehiculo vehiculo)
 	{
 		InitializeComponent();
+        Vehiculoseleccionado = vehiculo;
         BindingContext = new VMVehiculo();
         MostrarPlaca.Text = vehiculo.Placa;
         MostrarModelo.Text = vehiculo.Modelo;
@@ -38,11 +39,7 @@ public partial class VEDetalleVehiculo : ContentPage
     private async void Btn_ModificarVehiculo(object sender, EventArgs e)
     {
         var button = (Button)sender;
-        var vehiculo = button.CommandParameter as Vehiculo;
-
-        if (vehiculo != null)
-        {
-            await Navigation.PushAsync(new VEAgregarVehiculo(vehiculo));
-        }
+        await Navigation.PushAsync(new VEAgregarVehiculo(Vehiculoseleccionado));
+       
     }
 }

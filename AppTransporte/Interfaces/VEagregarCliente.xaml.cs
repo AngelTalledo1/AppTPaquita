@@ -66,12 +66,8 @@ public partial class VEagregarCliente : ContentPage
             if (resultado > 0)
             {
                 await DisplayAlert("Éxito", "Cliente agregado correctamente.", "OK");
-                TipoDocumentoPicker.SelectedIndex = -1;
-                NombreEntry.Text = "";
-                NumeroDocEntry.Text = "";
-                TelefonoEntry.Text= "";
-                DireccionEntry.Text = "";
-                EmailEntry.Text = "";
+                await Navigation.PushAsync(new VEclientes());
+
             }
             else
             {
@@ -107,14 +103,7 @@ public partial class VEagregarCliente : ContentPage
             if (resultado > 0)
             {
                 await DisplayAlert("Éxito", "Cliente modificado correctamente.", "OK");
-                ApellidoEntry.Text = "";
-                TipoDocumentoPicker.SelectedIndex = -1;
-                NombreEntry.Text = "";
-                NumeroDocEntry.Text = "";
-                TelefonoEntry.Text = "";
-                DireccionEntry.Text = "";
-                EmailEntry.Text = "";
-                 await Navigation.PopAsync();
+                await Navigation.PushAsync(new VEclientes());
             }
             else
             {

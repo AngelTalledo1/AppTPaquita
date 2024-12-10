@@ -85,15 +85,8 @@ public partial class VEagregarTransportista : ContentPage
             if (resultado > 0)
             {
                 await DisplayAlert("Éxito", "Trabajador agregado correctamente.", "OK");
-                TipoDocumentoTrabPicker.SelectedIndex = -1;
-                NombreTrabEntry.Text = "";
-                ApellidoTrabEntry.Text = "";
-                NumeroDocEntry.Text = "";
-                TelefonoTrabEntry.Text = "";
-                DireccionTrabEntry.Text = "";
-                EmailTrabEntry.Text = "";
-                trabajadorPicker.SelectedIndex = -1;
-                LicenciaTrabEntry.Text = "";
+                await Navigation.PushAsync(new VEtransportistas());
+
             }
             else
             {

@@ -5,8 +5,8 @@ using AppTransporte.viewModel;
 public partial class VEUbicacion : ContentPage
 {
     private readonly VMUbicacion _viewModel;
-    public  VEUbicacion()
-	{
+    public VEUbicacion()
+    {
 
         InitializeComponent();
         _viewModel = new VMUbicacion();
@@ -16,7 +16,7 @@ public partial class VEUbicacion : ContentPage
 
     private void Btn_AtrasUbicacion(object sender, EventArgs e)
     {
-		Navigation.PopAsync();
+        Navigation.PushAsync(new MenuPrincipal());
     }
 
     private void Btn_AggUbicacion(object sender, EventArgs e)

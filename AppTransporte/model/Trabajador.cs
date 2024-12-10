@@ -23,6 +23,8 @@ namespace AppTransporte.model
         public string usuario { get; set; } = string.Empty;
         public string password { get; set; } = string.Empty;
 
+        public string NombreCompleto => $"{Nombre} {apePaterno} {apeMaterno}".Trim();
+
         public string NombreTrabajador => $"{Nombre} {apePaterno}".Trim();
         public string apellidoTrabajador => $"{apePaterno} {apeMaterno}".Trim();
 

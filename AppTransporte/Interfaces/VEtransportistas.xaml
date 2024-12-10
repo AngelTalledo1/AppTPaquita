@@ -38,6 +38,7 @@
                                FontFamily="Comf-SemBold" 
                                VerticalOptions="Center"/>
                         <SearchBar x:Name="TransportistaSearchBar"
+                                   Text="{Binding SearchText}"
                                    Placeholder="Nombre del Trabajador"
                                    FontFamily="Comf-Reg" />
                     </HorizontalStackLayout>

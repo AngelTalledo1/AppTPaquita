@@ -16,10 +16,7 @@ public partial class MenuCliente : ContentPage, IMenuPage
         _idtipousuario = idTipoUsuario;
     }
         
-    private void Btn_atrasMenuCliente(object sender, EventArgs e)
-    {
-        Navigation.PopAsync();
-    }
+   
     
         private void NuevoPedido_Clicked(object sender, EventArgs e)
     {

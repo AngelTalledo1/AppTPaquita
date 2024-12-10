@@ -9,167 +9,167 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AppTransporte
-build_property.ProjectDir = C:\Users\Javier\Desktop\Proyectos\Xamarin\AppTPaquita\AppTPaquita\AppTransporte\
+build_property.ProjectDir = C:\Users\angel\Documents\CLONPACA\AppTPaquita\AppTransporte\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/App.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/AppShell.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/AppShell.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.AppShell.xaml
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/Login.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/Login.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.Login.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\Login.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\Login.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/MenuCliente.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/MenuCliente.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.MenuCliente.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\MenuCliente.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\MenuCliente.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/MenuPrincipal.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/MenuPrincipal.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.MenuPrincipal.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\MenuPrincipal.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\MenuPrincipal.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/MenuTransportista.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/MenuTransportista.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.MenuTransportista.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\MenuTransportista.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\MenuTransportista.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VCMisSolicitudes.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VCMisSolicitudes.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VCMisSolicitudes.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VCMisSolicitudes.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VCMisSolicitudes.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VCNuevaSolicitud.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VCNuevaSolicitud.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VCNuevaSolicitud.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VCNuevaSolicitud.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VCNuevaSolicitud.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEagregarCliente.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEagregarCliente.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEagregarCliente.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEagregarCliente.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEagregarCliente.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEagregarTransportista.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEagregarTransportista.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEagregarTransportista.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEagregarTransportista.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEagregarTransportista.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEAgregarUbicacion.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEAgregarUbicacion.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEAgregarUbicacion.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEAgregarUbicacion.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEAgregarUbicacion.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEAgregarVehiculo.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEAgregarVehiculo.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEAgregarVehiculo.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEAgregarVehiculo.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEAgregarVehiculo.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEAsignarViaje.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEAsignarViaje.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEAsignarViaje.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEAsignarViaje.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEAsignarViaje.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEclientes.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEclientes.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEclientes.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEclientes.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEclientes.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VECrearPedido.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VECrearPedido.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VECrearPedido.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VECrearPedido.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VECrearPedido.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEDetalleSolicitud.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEDetalleSolicitud.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEDetalleSolicitud.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEDetalleSolicitud.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEDetalleSolicitud.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEDetalleVehiculo.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEDetalleVehiculo.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEDetalleVehiculo.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEDetalleVehiculo.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEDetalleVehiculo.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEpedidos.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEpedidos.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEpedidos.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEpedidos.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEpedidos.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEProcesoPedido.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEProcesoPedido.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEProcesoPedido.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEProcesoPedido.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEProcesoPedido.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VESeguimientoViaje.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VESeguimientoViaje.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VESeguimientoViaje.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VESeguimientoViaje.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VESeguimientoViaje.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VESolicitudes.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VESolicitudes.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VESolicitudes.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VESolicitudes.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VESolicitudes.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEtransportistas.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEtransportistas.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEtransportistas.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEtransportistas.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEtransportistas.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEUbicacion.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEUbicacion.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEUbicacion.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEUbicacion.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEUbicacion.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VEVehiculos.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VEVehiculos.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VEVehiculos.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VEVehiculos.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VEVehiculos.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Interfaces/VTMisViajes.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Interfaces/VTmisViajes.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VTMisViajes.xaml
-build_metadata.AdditionalFiles.TargetPath = Interfaces\VTMisViajes.xaml
-build_metadata.AdditionalFiles.RelativePath = Interfaces\VTMisViajes.xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VTmisViajes.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VTmisViajes.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VTmisViajes.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Resources/Styles/Colors.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Resources.Styles.Colors.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/AppTPaquita/AppTPaquita/AppTransporte/Resources/Styles/Styles.xaml]
+[C:/Users/angel/Documents/CLONPACA/AppTPaquita/AppTransporte/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml

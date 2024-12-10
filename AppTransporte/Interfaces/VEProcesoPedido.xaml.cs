@@ -9,7 +9,7 @@ public partial class VEProcesoPedido : ContentPage
     public VEProcesoPedido(Pedido pedido)
     {
         InitializeComponent();
-        this.BindingContext = new VMViajes(pedido.IdPedido); ;
+        this.BindingContext = new VMViajes(pedido.IdPedido); 
         TituloPedido.Text = $"Pedido {pedido.IdPedido}";
         Origen.Text = $"{pedido.Origen}";
         Cantidad.Text = $"222 / {pedido.Cantidad}";

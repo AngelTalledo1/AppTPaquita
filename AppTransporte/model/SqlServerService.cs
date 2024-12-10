@@ -593,6 +593,73 @@ namespace AppTransporte.model
             }
             return tracto;
         }
+        public async Task<int> eliminarUbicacionAsync(int idUbicacion)
+        {
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("sp_EliminarOrigenYDestino", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id_origen", idUbicacion);
+                    command.Parameters.AddWithValue("@id_destino", idUbicacion);
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+
+        }
+        public async Task<int> ModificarUbicacionAsync(
+     int idUbicacion,
+      string descripcion,
+     string sector,
+     string referencias,
+     string coordenadas)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_ModificarOrigenYDestino", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@id_origen", idUbicacion);
+                    command.Parameters.AddWithValue("@id_destino", idUbicacion);
+                    command.Parameters.AddWithValue("@descripcion", descripcion);
+                    command.Parameters.AddWithValue("@sector", sector);
+                    command.Parameters.AddWithValue("@referencias", referencias);
+                    command.Parameters.AddWithValue("@coordenadas_maps", coordenadas);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+        public async Task<int> AgregarUbicacionAsync(
+    string descripcion,
+    string sector,
+    string referencias,
+    string coordenadas)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_InsertarOrigenYDestino", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@descripcion", descripcion);
+                    command.Parameters.AddWithValue("@sector", sector);
+                    command.Parameters.AddWithValue("@referencias", referencias);
+                    command.Parameters.AddWithValue("@coordenadas_maps", coordenadas);
+                    // Ejecutar el procedimiento almacenado
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
         public async Task<List<Vehiculo>> ObtenerCisternaAsync(string placa = null, string ordenarPor = null)
         {
             var cisterna = new List<Vehiculo>();

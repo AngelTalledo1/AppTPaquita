@@ -36,6 +36,7 @@
                        FontFamily="Comf-SemBold"
                        TextColor="Black" />
                 <SearchBar x:Name="ClienteSearchBar"
+                           Text="{Binding SearchText}"
                            Placeholder="Nombre del Cliente"
                            FontFamily="Comf-Reg" />
             </VerticalStackLayout>
