@@ -316,7 +316,9 @@ namespace AppTransporte.model
                                 NumDoc = reader.GetString(reader.GetOrdinal("numDoc")),
                                 Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
                                 Direccion = reader.GetString(reader.GetOrdinal("direccion")),
-                                Email = reader.IsDBNull(reader.GetOrdinal("email")) ? null : reader.GetString(reader.GetOrdinal("email"))
+                                Email = reader.IsDBNull(reader.GetOrdinal("email")) ? null : reader.GetString(reader.GetOrdinal("email")),
+                                Username = reader.GetString(reader.GetOrdinal("Username")),
+                                Contraseña = reader.GetString(reader.GetOrdinal("Contraseña"))
                             });
                         }
                     }
@@ -390,8 +392,8 @@ namespace AppTransporte.model
                                 email = reader.IsDBNull(reader.GetOrdinal("email")) ? null : reader.GetString(reader.GetOrdinal("email")),
                                 categoria = reader.IsDBNull(reader.GetOrdinal("categoria")) ? null : reader.GetString(reader.GetOrdinal("categoria")),
                                 licencia = reader.IsDBNull(reader.GetOrdinal("licencia")) ? null : reader.GetString(reader.GetOrdinal("licencia")),
-                                usuario = reader.IsDBNull(reader.GetOrdinal("usuario")) ? null : reader.GetString(reader.GetOrdinal("usuario")),
-                                password = reader.IsDBNull(reader.GetOrdinal("contraseña")) ? null : reader.GetString(reader.GetOrdinal("contraseña"))
+                                usuario = reader.IsDBNull(reader.GetOrdinal("Usuario")) ? null : reader.GetString(reader.GetOrdinal("Usuario")),
+                                password = reader.IsDBNull(reader.GetOrdinal("Contraseña")) ? null : reader.GetString(reader.GetOrdinal("Contraseña"))
 
 
                             });

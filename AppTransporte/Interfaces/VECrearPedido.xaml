@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTransporte.Interfaces.VECrearPedido"
              NavigationPage.HasNavigationBar="False"
@@ -30,19 +31,33 @@
               RowDefinitions="1*,.1*">
             <ScrollView >
                 <VerticalStackLayout Spacing="30"
-                                     Margin="0,20,20,0">
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               Source="mispedidos.png"
-                               HorizontalOptions="Center"></Image>
-                        <Label TextColor="Black"
-                               Grid.Column="1"
-                               x:Name="IdSolicitud"
-                               FontFamily="Comf-Medium"
-                               VerticalOptions="Center" />
-                    </Grid>
-                    
+                                     Margin="20,20,20,0">
+                    <toolkit:Expander BackgroundColor="#edede9" Padding="10">
+                        <toolkit:Expander.Header>
+                            <Grid ColumnDefinitions=".2*,.6*,.2*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="mispedidos.png"
+                                       HorizontalOptions="Center"></Image>
+                                <Label TextColor="Black"
+                                       Grid.Column="1"
+                                       x:Name="IdSolicitud"
+                                       FontFamily="Comf-Medium"
+                                       VerticalOptions="Center" />
+                                <Image Source="detalles.png"
+                                       WidthRequest="20"
+                                       Grid.Column="2"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       HeightRequest="20" />
+                            </Grid>
+                        </toolkit:Expander.Header>
+                        <Grid ColumnDefinitions=".3*,.6*,.2*">
+                            <Label x:Name="Descripcionlbl"
+                                   FontFamily="Comf-Medium"
+                                   Grid.Column="1" />
+                        </Grid>
+                    </toolkit:Expander>
                     <Grid ColumnDefinitions=".2*,.4*,.4*">
                             <Image WidthRequest="40"
                                    HeightRequest="40"

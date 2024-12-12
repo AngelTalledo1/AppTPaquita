@@ -82,34 +82,49 @@
                                            BorderColor="Transparent"
                                            CornerRadius="10"
                                            Margin="3">
-                                        <Grid ColumnDefinitions=".4*,1*,.2*" 
+                                        <Grid ColumnDefinitions=".2*,.23*,.47*,.1*" 
                                               RowDefinitions="1*,1*">
-                                            <Label Text="{Binding Placa}"
+                                        <Label Text="Placa"
+                                               FontFamily="Comf-SemBold" 
+                                               HorizontalOptions="Center" />
+                                        <Label Text="{Binding Placa}"
                                                    HorizontalOptions="Center"
-                                                   Grid.RowSpan="2"
+                                                   Grid.Row="1"
                                                    VerticalOptions="Center"
                                                    FontFamily="Comf-Bold"/> <!--Enlace placa-->
-                                            <Label Text="{Binding Modelo}"
-                                                   HorizontalOptions="Center"
+                                        <Label Text="V. CITV: "
+                                               FontFamily="Comf-Bold"
+                                               FontSize="12"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Grid.Column="1"/>
+                                        <Label Text="{Binding VencimientoCITV, StringFormat='{0:dd, MMMM yyyy}'}"
+                                                   HorizontalOptions="Start"
                                                    VerticalOptions="Center"
-                                                   Grid.Column="1"
+                                                   Grid.Column="2"
                                                    FontFamily="Comf-SemBold"/> <!--Enlace Modelo-->
-                                            <Label Text="{Binding VencimientoPoliza}"
-                                                   HorizontalOptions="Center"
+                                        <Label Text="V. Poliza: "
+                                               FontFamily="Comf-Bold"
+                                               FontSize="12"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Grid.Column="1" Grid.Row="1" />
+                                        <Label Text="{Binding VencimientoPoliza,StringFormat='{0:dd, MMMM yyyy}'}"
+                                                   HorizontalOptions="Start" 
                                                    VerticalOptions="Center"
-                                                   Grid.Column="1"
+                                                   Grid.Column="2"
                                                    Grid.Row="1"
                                                    FontFamily="Comf-SemBold" /> <!--Enlace año-->
-                                            <Button Grid.Column="2"
+                                            <Button Grid.Column="3"
                                                     Grid.RowSpan="2"
-                                                    HorizontalOptions="Center"
+                                                    HorizontalOptions="Start"
                                                     Clicked="btn_DetallesVehiculo"
                                                     CommandParameter="{Binding .}"
                                                     BackgroundColor="Transparent"/>
                                             <Image Source="detalles.png"
                                                    HorizontalOptions="Center"
                                                    WidthRequest="30"
-                                                   Grid.Column="2"
+                                                   Grid.Column="3"
                                                    Grid.RowSpan="2" />
                                         </Grid>
                                     </Frame>

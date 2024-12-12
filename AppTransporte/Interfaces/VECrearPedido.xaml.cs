@@ -9,7 +9,9 @@ public partial class VECrearPedido : ContentPage
 		InitializeComponent();
 		BindingContext = solicitud;
 		IdSolicitud.Text = solicitud.IdSolicitud.ToString();
-	}
+        Descripcionlbl.Text = solicitud.Descripcion.ToString();
+
+    }
 
 	private void Btn_atrasCrearPedido(object sender, EventArgs e)
 	{

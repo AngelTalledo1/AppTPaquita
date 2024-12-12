@@ -21,13 +21,12 @@ public partial class VEAgregarVehiculo : ContentPage
         placaEntry.Text = vehiculo.Placa;
         modeloEntry.Text = vehiculo.Modelo;
         añofabricacionEntry.Text = vehiculo.AñoFabricacion;
-        emipolizaEntry.Text = vehiculo.EmisionPoliza.ToString();
-        venpolizaEntry.Text = vehiculo.VencimientoPoliza.ToString();
-        emicitvEntry.Text = vehiculo.EmisionCITV.ToString();
-        venCITVEntry.Text = vehiculo.EmisionCITV.ToString();
-        venCITVEntry.Text = vehiculo.EmisionCITV.ToString();
-        emicubEntry.Text = vehiculo.EmisionCubicacion.ToString();
-        vencubEntry.Text = vehiculo.VencimientoCubicacion.ToString();
+        emipolizaEntry.Text = vehiculo.EmisionPoliza?.ToString("dd/MM/yyyy");
+        venpolizaEntry.Text = vehiculo.VencimientoPoliza?.ToString("dd/MM/yyyy");
+        emicitvEntry.Text = vehiculo.EmisionCITV?.ToString("dd/MM/yyyy");
+        venCITVEntry.Text = vehiculo.VencimientoCITV?.ToString("dd/MM/yyyy");
+        emicubEntry.Text = vehiculo.EmisionCubicacion?.ToString("dd/MM/yyyy");
+        vencubEntry.Text = vehiculo.VencimientoCubicacion?.ToString("dd/MM/yyyy");
 
     }
     private void Btn_atrasAggVehiculo(object sender, EventArgs e)

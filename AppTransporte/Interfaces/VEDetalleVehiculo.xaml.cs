@@ -17,12 +17,12 @@ public partial class VEDetalleVehiculo : ContentPage
         MostrarPlaca.Text = vehiculo.Placa;
         MostrarModelo.Text = vehiculo.Modelo;
         MostrarAño.Text = vehiculo.AñoFabricacion;
-        MostrarEmisionPoliza.Text = vehiculo.EmisionPoliza.ToString();
-        MostrarVencimientoPoliza.Text = vehiculo.VencimientoPoliza.ToString();
-        MostrarEmisionCITV.Text = vehiculo.EmisionCITV.ToString();
-        MostrarVencimientoCITV.Text = vehiculo.VencimientoCITV.ToString();
-        MostrarEmisionCubicacion.Text = vehiculo.EmisionCubicacion.ToString();
-        MostrarVencimientoCubicacion.Text = vehiculo.VencimientoCubicacion.ToString();
+        MostrarEmisionPoliza.Text = vehiculo.EmisionPoliza?.ToString("dd, MMMM yyyy");
+        MostrarVencimientoPoliza.Text = vehiculo.VencimientoPoliza?.ToString("dd, MMMM yyyy");
+        MostrarEmisionCITV.Text = vehiculo.EmisionCITV?.ToString("dd, MMMM yyyy");
+        MostrarVencimientoCITV.Text = vehiculo.VencimientoCITV?.ToString("dd, MMMM yyyy");
+        MostrarEmisionCubicacion.Text = vehiculo.EmisionCubicacion?.ToString("dd, MMMM yyyy");
+        MostrarVencimientoCubicacion.Text = vehiculo.VencimientoCubicacion?.ToString("dd, MMMM yyyy");
     }
 
     private void Btn_atrasDetVehiculo(object sender, EventArgs e)
