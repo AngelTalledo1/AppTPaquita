@@ -404,8 +404,6 @@ namespace AppTransporte.model
 
             return trabajadores;
         }
-
-
         public async Task<List<Seguimiento>> ObtenerEstadosViaje()
         {
             var seguimiento = new List<Seguimiento>();
@@ -440,7 +438,6 @@ namespace AppTransporte.model
             }
             return seguimiento;
         }
-
         public async Task<List<Ubicacion>> ObtenerUbicacionesAsync()
         {
             var ubicaciones = new List<Ubicacion>();
@@ -512,8 +509,6 @@ namespace AppTransporte.model
             }
 
         }
-
-
         public async Task<List<Solicitud>> ObtenerSolicitudesAsync()
         {
             var solicitud = new List<Solicitud>();
@@ -549,8 +544,6 @@ namespace AppTransporte.model
             }
             return solicitud;
         }
-
-
         public async Task<List<Vehiculo>> ObtenerTractoAsync(string placa = null, string ordenarPor = null)
         {
             var tracto = new List<Vehiculo>();
@@ -706,6 +699,117 @@ namespace AppTransporte.model
                 }
             }
             return cisterna;
+        }
+        public async Task CrearPedidoAsync(
+    int idSolicitud,
+    int cantidad,
+    int viajes,
+    int idOrigen,
+    int idDestino,
+    int idEstadoPedido,
+    string listaServicios)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_CrearPedido", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetros del procedimiento
+                    command.Parameters.AddWithValue("@id_solicitud", idSolicitud);
+                    command.Parameters.AddWithValue("@cantidad", cantidad);
+                    command.Parameters.AddWithValue("@viajes", viajes);
+                    command.Parameters.AddWithValue("@id_origen", idOrigen);
+                    command.Parameters.AddWithValue("@id_destino", idDestino);
+                    command.Parameters.AddWithValue("@id_estadoPedido", idEstadoPedido);
+                    command.Parameters.AddWithValue("@lista_servicios", (object)listaServicios ?? DBNull.Value);
+
+                    // Ejecutar el procedimiento
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public async Task<List<Servicio>> ObtenerServiciosAsync(string filtro = null)
+        {
+            var servicios = new List<Servicio>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_MostrarServicios", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@filtro", (object)filtro ?? DBNull.Value);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            servicios.Add(new Servicio
+                            {
+                                IdServicio = reader.GetInt32(reader.GetOrdinal("id_servicio")),
+                                Descripcion = reader.GetString(reader.GetOrdinal("descripcion")),
+                                Estado = reader.GetBoolean(reader.GetOrdinal("estado"))
+                            });
+                        }
+                    }
+                }
+            }
+
+            return servicios;
+        }
+
+        public async Task<int>AgregarVehiculo(
+            string placa,
+            string modelo,
+            string añoFabricacion,
+            DateTime? emisionPoliza,
+            DateTime? vencimientoPoliza,
+            DateTime? emisionCITV,
+            DateTime? vencimientoCITV,
+            DateTime? emisionCubicacion,
+            DateTime? vencimientoCubicacion,
+            byte[] imagen,
+            byte[] poliza,
+            byte[] citv,
+            byte[] cubicacion,
+            byte[] tarjetaPropiedad,
+            string tipoVehiculo
+            )
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_AgregarVehiculo", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@placa", placa);
+                    command.Parameters.AddWithValue("@modelo", string.IsNullOrWhiteSpace(modelo) ? (object)DBNull.Value : modelo);
+                    command.Parameters.AddWithValue("@añoFabricacion", string.IsNullOrWhiteSpace(añoFabricacion) ? (object)DBNull.Value : añoFabricacion);
+                    command.Parameters.AddWithValue("@emisionPoliza", emisionPoliza);
+                    command.Parameters.AddWithValue("@vencimientoPoliza", vencimientoPoliza);
+                    command.Parameters.AddWithValue("@emisionCITV", emisionCITV);
+                    command.Parameters.AddWithValue("@vencimientoCITV", vencimientoCITV);
+                    command.Parameters.AddWithValue("@emisionCubicacion", emisionCubicacion);
+                    command.Parameters.AddWithValue("@vencimientoCubicacion", vencimientoCubicacion);
+                    command.Parameters.AddWithValue("@imagen", imagen);
+                    command.Parameters.AddWithValue("@poliza", poliza);
+                    command.Parameters.AddWithValue("@citv", citv);
+                    command.Parameters.AddWithValue("@cubicacion", cubicacion);
+                    command.Parameters.AddWithValue("@tarjetaPropiedad", tarjetaPropiedad);
+                    command.Parameters.AddWithValue("@tipoVehiculo", tipoVehiculo);
+
+                    // Ejecutar el procedimiento almacenado
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
         }
     }
 }
