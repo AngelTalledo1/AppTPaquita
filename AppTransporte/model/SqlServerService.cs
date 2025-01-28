@@ -52,6 +52,73 @@ namespace AppTransporte.model
                 }
             }
         }
+        public async Task<Cliente?> ObtenerClientePorUsuarioAsync(int idUsuario)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                            {
+                                await connection.OpenAsync();
+
+                                using (var command = new SqlCommand("pa_ObtenerClientePorUsuario", connection))
+                                {
+                                    command.CommandType = CommandType.StoredProcedure;
+
+                                    // Parámetro del procedimiento almacenado
+                                    command.Parameters.AddWithValue("@id_usuario", idUsuario);
+
+                                    using (var reader = await command.ExecuteReaderAsync())
+                                    {
+                                        if (await reader.ReadAsync())
+                                        {
+                                            return new Cliente
+                                            {
+                                                IdPersona = reader.GetInt32(reader.GetOrdinal("id_persona")),
+                                                IdCliente = reader.GetInt32(reader.GetOrdinal("id_cliente")),
+                                                Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                                                ApePaterno = reader.GetString(reader.GetOrdinal("apePaterno")),
+                                                ApeMaterno = reader.GetString(reader.GetOrdinal("apeMaterno")),
+                                                NumDoc = reader.GetString(reader.GetOrdinal("numDoc")),
+                                                Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
+                                                Direccion = reader.GetString(reader.GetOrdinal("direccion")),
+                                                Email = reader.IsDBNull(reader.GetOrdinal("email")) ? null : reader.GetString(reader.GetOrdinal("email")),
+                                                Username = reader.GetString(reader.GetOrdinal("Username")),
+                                                Contraseña = reader.GetString(reader.GetOrdinal("Contraseña"))
+                                            };
+                                        }
+                                    }
+                                }
+                            }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener cliente: {ex.Message}");
+            }
+            
+
+            return null; // Devuelve null si no se encuentra el cliente
+        }
+
+        public async Task AgregarSolicitudAsync(Solicitud solicitud)
+            {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_AgregarSolicitud", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetros del procedimiento
+                    command.Parameters.AddWithValue("@descripcion", solicitud.Descripcion);
+                    command.Parameters.AddWithValue("@comentario", (object)solicitud.Comentario ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@id_cliente", solicitud.IdCliente);
+
+                    // Ejecutar el procedimiento
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
         public async Task<int> ModificarClienteAsync(
             int idCliente,
             string nombre,

@@ -10,6 +10,7 @@ public partial class VEDetalleSolicitud : ContentPage
 		InitializeComponent();
         BindingContext = solicitud;
         solicitudid.Text = solicitud.IdSolicitud.ToString();
+        Console.WriteLine(solicitud.Fecha);
         fechaSolicitud.Text = solicitud.Fecha.ToString();
         clienteSolicitud.Text = solicitud.Cliente;
         descripcionSolicitud.Text = solicitud.Descripcion;
