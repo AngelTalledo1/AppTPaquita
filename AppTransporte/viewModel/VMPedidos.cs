@@ -95,7 +95,7 @@ namespace AppTransporte.viewModel
             CargarPedidos(); // Cargar los pedidos al inicializar el ViewModel
         }
 
-        private async void CargarPedidos()
+        public async void CargarPedidos()
         {
             IsBusy = true; // Indicar que los datos están cargando
 

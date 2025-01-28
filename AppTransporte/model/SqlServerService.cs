@@ -276,6 +276,7 @@ namespace AppTransporte.model
 
                                 Destino = reader.GetString(reader.GetOrdinal("destino_descripcion")),
                                 DestSector = reader.GetString(reader.GetOrdinal("destino_sector")),
+                                IdSolicitud = reader.GetInt32(reader.GetOrdinal("idSolicitud")),
 
                                 EstadoPedido = reader["estado_pedido"]?.ToString() ?? "Sin estado",
                                 FechaSolicitud = reader.GetDateTime(reader.GetOrdinal("fecha_solicitud")),
@@ -613,11 +614,11 @@ namespace AppTransporte.model
 
         }
         public async Task<int> ModificarUbicacionAsync(
-     int idUbicacion,
-      string descripcion,
-     string sector,
-     string referencias,
-     string coordenadas)
+             int idUbicacion,
+              string descripcion,
+             string sector,
+             string referencias,
+             string coordenadas)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

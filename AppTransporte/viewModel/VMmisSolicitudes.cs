@@ -18,6 +18,21 @@ namespace AppTransporte.viewModel
         public ObservableCollection<Solicitud> Solicitudes { get; set; } = new ObservableCollection<Solicitud>();
         private bool _isBusy;
 
+        private string _textoBusquedaCliente;
+
+        public string TextoBusquedaCliente
+        {
+            get => _textoBusquedaCliente;
+            set
+            {
+                if (_textoBusquedaCliente != value)
+                {
+                    _textoBusquedaCliente = value;
+                    Filtrar(); // Aplica el filtro al cambiar el texto de búsqueda
+                    OnPropertyChanged(nameof(TextoBusquedaCliente));
+                }
+            }
+        }
         public List<string> EstadoSolicitud { get; set; }
 
         public bool IsBusy
@@ -59,6 +74,7 @@ namespace AppTransporte.viewModel
         public VMmisSolicitudes()
         {
             EstadoSeleccionado = "Por revisar";
+            TextoBusquedaCliente = string.Empty; // Inicializa el texto de búsqueda vacío
             CargarSolicitudes();
             EstadoSolicitud = new List<string>
         {
@@ -92,11 +108,20 @@ namespace AppTransporte.viewModel
         {
             var solicitudesFiltradas = Solicitudes.AsEnumerable();
 
+            // Filtro por estado seleccionado
             if (EstadoSeleccionado != "Todos")
             {
                 solicitudesFiltradas = solicitudesFiltradas.Where(s => s.EstadoSolicitud == EstadoSeleccionado);
             }
 
+            // Filtro por texto de cliente
+            if (!string.IsNullOrWhiteSpace(TextoBusquedaCliente))
+            {
+                solicitudesFiltradas = solicitudesFiltradas.Where(s =>
+                    s.Cliente.Contains(TextoBusquedaCliente, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Actualiza las solicitudes filtradas
             SolicitudesFiltradas = new ObservableCollection<Solicitud>(solicitudesFiltradas);
         }
         public event PropertyChangedEventHandler? PropertyChanged;

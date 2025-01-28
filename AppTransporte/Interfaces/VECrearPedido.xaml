@@ -32,6 +32,7 @@
             <ScrollView >
                 <VerticalStackLayout Spacing="30"
                                      Margin="20,20,20,0">
+                    <Frame Padding="0" BorderColor="Transparent" CornerRadius="20" BackgroundColor="Transparent">
                     <toolkit:Expander BackgroundColor="#edede9" Padding="10">
                         <toolkit:Expander.Header>
                             <Grid ColumnDefinitions=".2*,.6*,.2*">
@@ -58,6 +59,7 @@
                                    Grid.Column="1" />
                         </Grid>
                     </toolkit:Expander>
+                    </Frame>
                     <Grid ColumnDefinitions=".2*,.4*,.4*">
                             <Image WidthRequest="40"
                                    HeightRequest="40"
