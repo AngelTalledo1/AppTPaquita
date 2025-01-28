@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\interfaces\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\interfaces\\vepedidos.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\vepedidos.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,10 +41,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\interfaces\\vedetallesolicitud.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\vedetallesolicitud.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -63,6 +79,55 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Login.xaml",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\Login.xaml",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\Login.xaml",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\Login.xaml",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\Login.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-28T20:23:06.3Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MauiProgram.cs",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\MauiProgram.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\MauiProgram.cs",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\MauiProgram.cs",
+              "RelativeToolTip": "AppTransporte\\MauiProgram.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T20:22:36.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppShell.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\AppShell.xaml.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\AppShell.xaml.cs",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\AppShell.xaml.cs",
+              "RelativeToolTip": "AppTransporte\\AppShell.xaml.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAgwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T20:22:32.989Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppShell.xaml",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\AppShell.xaml",
+              "RelativeDocumentMoniker": "AppTransporte\\AppShell.xaml",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\AppShell.xaml",
+              "RelativeToolTip": "AppTransporte\\AppShell.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-28T20:22:28.58Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "VEpedidos.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VEpedidos.xaml.cs",
               "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEpedidos.xaml.cs",
@@ -70,12 +135,11 @@
               "RelativeToolTip": "AppTransporte\\Interfaces\\VEpedidos.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-28T20:16:28.022Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-28T20:16:28.022Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "VECrearPedido.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VECrearPedido.xaml.cs",
               "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VECrearPedido.xaml.cs",
@@ -83,12 +147,11 @@
               "RelativeToolTip": "AppTransporte\\Interfaces\\VECrearPedido.xaml.cs",
               "ViewState": "AQIAAFkAAAAAAAAAAAAuwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-28T20:14:32.104Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-28T20:14:32.104Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "VECrearPedido.xaml",
               "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VECrearPedido.xaml",
               "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VECrearPedido.xaml",
@@ -96,12 +159,11 @@
               "RelativeToolTip": "AppTransporte\\Interfaces\\VECrearPedido.xaml",
               "ViewState": "AQIAAA8AAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-28T20:14:29.48Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-28T20:14:29.48Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "VEDetalleSolicitud.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VEDetalleSolicitud.xaml.cs",
               "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEDetalleSolicitud.xaml.cs",
@@ -109,12 +171,11 @@
               "RelativeToolTip": "AppTransporte\\Interfaces\\VEDetalleSolicitud.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-28T20:14:19.368Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-28T20:14:19.368Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "VEDetalleSolicitud.xaml",
               "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VEDetalleSolicitud.xaml",
               "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEDetalleSolicitud.xaml",
@@ -122,21 +183,19 @@
               "RelativeToolTip": "AppTransporte\\Interfaces\\VEDetalleSolicitud.xaml",
               "ViewState": "AQIAAA8AAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-28T20:14:17.273Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-28T20:14:17.273Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\App.xaml.cs",
               "RelativeDocumentMoniker": "AppTransporte\\App.xaml.cs",
               "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\App.xaml.cs",
               "RelativeToolTip": "AppTransporte\\App.xaml.cs",
-              "ViewState": "AQIAAAAAAACAH8F9BPcnwBIAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-28T20:03:45.653Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-28T20:03:45.653Z"
             }
           ]
         },
