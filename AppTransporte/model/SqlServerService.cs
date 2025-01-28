@@ -52,6 +52,73 @@ namespace AppTransporte.model
                 }
             }
         }
+        public async Task<Cliente?> ObtenerClientePorUsuarioAsync(int idUsuario)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                            {
+                                await connection.OpenAsync();
+
+                                using (var command = new SqlCommand("pa_ObtenerClientePorUsuario", connection))
+                                {
+                                    command.CommandType = CommandType.StoredProcedure;
+
+                                    // Parámetro del procedimiento almacenado
+                                    command.Parameters.AddWithValue("@id_usuario", idUsuario);
+
+                                    using (var reader = await command.ExecuteReaderAsync())
+                                    {
+                                        if (await reader.ReadAsync())
+                                        {
+                                            return new Cliente
+                                            {
+                                                IdPersona = reader.GetInt32(reader.GetOrdinal("id_persona")),
+                                                IdCliente = reader.GetInt32(reader.GetOrdinal("id_cliente")),
+                                                Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                                                ApePaterno = reader.GetString(reader.GetOrdinal("apePaterno")),
+                                                ApeMaterno = reader.GetString(reader.GetOrdinal("apeMaterno")),
+                                                NumDoc = reader.GetString(reader.GetOrdinal("numDoc")),
+                                                Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
+                                                Direccion = reader.GetString(reader.GetOrdinal("direccion")),
+                                                Email = reader.IsDBNull(reader.GetOrdinal("email")) ? null : reader.GetString(reader.GetOrdinal("email")),
+                                                Username = reader.GetString(reader.GetOrdinal("Username")),
+                                                Contraseña = reader.GetString(reader.GetOrdinal("Contraseña"))
+                                            };
+                                        }
+                                    }
+                                }
+                            }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener cliente: {ex.Message}");
+            }
+            
+
+            return null; // Devuelve null si no se encuentra el cliente
+        }
+
+        public async Task AgregarSolicitudAsync(Solicitud solicitud)
+            {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_AgregarSolicitud", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetros del procedimiento
+                    command.Parameters.AddWithValue("@descripcion", solicitud.Descripcion);
+                    command.Parameters.AddWithValue("@comentario", (object)solicitud.Comentario ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@id_cliente", solicitud.IdCliente);
+
+                    // Ejecutar el procedimiento
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
         public async Task<int> ModificarClienteAsync(
             int idCliente,
             string nombre,
@@ -405,8 +472,6 @@ namespace AppTransporte.model
 
             return trabajadores;
         }
-
-
         public async Task<List<Seguimiento>> ObtenerEstadosViaje()
         {
             var seguimiento = new List<Seguimiento>();
@@ -441,7 +506,6 @@ namespace AppTransporte.model
             }
             return seguimiento;
         }
-
         public async Task<List<Ubicacion>> ObtenerUbicacionesAsync()
         {
             var ubicaciones = new List<Ubicacion>();
@@ -513,8 +577,6 @@ namespace AppTransporte.model
             }
 
         }
-
-
         public async Task<List<Solicitud>> ObtenerSolicitudesAsync()
         {
             var solicitud = new List<Solicitud>();
@@ -550,8 +612,6 @@ namespace AppTransporte.model
             }
             return solicitud;
         }
-
-
         public async Task<List<Vehiculo>> ObtenerTractoAsync(string placa = null, string ordenarPor = null)
         {
             var tracto = new List<Vehiculo>();
@@ -707,6 +767,117 @@ namespace AppTransporte.model
                 }
             }
             return cisterna;
+        }
+        public async Task CrearPedidoAsync(
+    int idSolicitud,
+    int cantidad,
+    int viajes,
+    int idOrigen,
+    int idDestino,
+    int idEstadoPedido,
+    string listaServicios)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_CrearPedido", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetros del procedimiento
+                    command.Parameters.AddWithValue("@id_solicitud", idSolicitud);
+                    command.Parameters.AddWithValue("@cantidad", cantidad);
+                    command.Parameters.AddWithValue("@viajes", viajes);
+                    command.Parameters.AddWithValue("@id_origen", idOrigen);
+                    command.Parameters.AddWithValue("@id_destino", idDestino);
+                    command.Parameters.AddWithValue("@id_estadoPedido", idEstadoPedido);
+                    command.Parameters.AddWithValue("@lista_servicios", (object)listaServicios ?? DBNull.Value);
+
+                    // Ejecutar el procedimiento
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public async Task<List<Servicio>> ObtenerServiciosAsync(string filtro = null)
+        {
+            var servicios = new List<Servicio>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_MostrarServicios", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@filtro", (object)filtro ?? DBNull.Value);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            servicios.Add(new Servicio
+                            {
+                                IdServicio = reader.GetInt32(reader.GetOrdinal("id_servicio")),
+                                Descripcion = reader.GetString(reader.GetOrdinal("descripcion")),
+                                Estado = reader.GetBoolean(reader.GetOrdinal("estado"))
+                            });
+                        }
+                    }
+                }
+            }
+
+            return servicios;
+        }
+
+        public async Task<int>AgregarVehiculo(
+            string placa,
+            string modelo,
+            string añoFabricacion,
+            DateTime? emisionPoliza,
+            DateTime? vencimientoPoliza,
+            DateTime? emisionCITV,
+            DateTime? vencimientoCITV,
+            DateTime? emisionCubicacion,
+            DateTime? vencimientoCubicacion,
+            byte[] imagen,
+            byte[] poliza,
+            byte[] citv,
+            byte[] cubicacion,
+            byte[] tarjetaPropiedad,
+            string tipoVehiculo
+            )
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_AgregarVehiculo", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@placa", placa);
+                    command.Parameters.AddWithValue("@modelo", string.IsNullOrWhiteSpace(modelo) ? (object)DBNull.Value : modelo);
+                    command.Parameters.AddWithValue("@añoFabricacion", string.IsNullOrWhiteSpace(añoFabricacion) ? (object)DBNull.Value : añoFabricacion);
+                    command.Parameters.AddWithValue("@emisionPoliza", emisionPoliza);
+                    command.Parameters.AddWithValue("@vencimientoPoliza", vencimientoPoliza);
+                    command.Parameters.AddWithValue("@emisionCITV", emisionCITV);
+                    command.Parameters.AddWithValue("@vencimientoCITV", vencimientoCITV);
+                    command.Parameters.AddWithValue("@emisionCubicacion", emisionCubicacion);
+                    command.Parameters.AddWithValue("@vencimientoCubicacion", vencimientoCubicacion);
+                    command.Parameters.AddWithValue("@imagen", imagen);
+                    command.Parameters.AddWithValue("@poliza", poliza);
+                    command.Parameters.AddWithValue("@citv", citv);
+                    command.Parameters.AddWithValue("@cubicacion", cubicacion);
+                    command.Parameters.AddWithValue("@tarjetaPropiedad", tarjetaPropiedad);
+                    command.Parameters.AddWithValue("@tipoVehiculo", tipoVehiculo);
+
+                    // Ejecutar el procedimiento almacenado
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
         }
     }
 }

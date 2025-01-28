@@ -6,7 +6,7 @@
              NavigationPage.HasNavigationBar="False"
              Title="VEVehiculos">
     <ContentPage.BindingContext>
-        <viewModel:VMVehiculo /> <!--usado para probar, cambiar-->
+        <viewModel:VMVehiculo /> 
     </ContentPage.BindingContext>
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"

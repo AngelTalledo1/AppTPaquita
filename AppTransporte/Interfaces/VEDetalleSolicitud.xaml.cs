@@ -13,6 +13,7 @@ public partial class VEDetalleSolicitud : ContentPage
         _pedidosViewModel = pedidosViewModel;
         BindingContext = solicitud;
         solicitudid.Text = solicitud.IdSolicitud.ToString();
+        Console.WriteLine(solicitud.Fecha);
         fechaSolicitud.Text = solicitud.Fecha.ToString();
         clienteSolicitud.Text = solicitud.Cliente;
         descripcionSolicitud.Text = solicitud.Descripcion;

@@ -5,14 +5,18 @@ namespace AppTransporte.Interfaces;
 
 public partial class VCNuevaSolicitud : ContentPage
 {
-    public VCNuevaSolicitud()
+    public Cliente cliente { get; set; }
+    public int idUsuario { get; set; }
+    public VCNuevaSolicitud(Cliente cliente,int idUsuario)
     {
         InitializeComponent();
+        this.cliente = cliente;
+        this.idUsuario = idUsuario;
         TituloNuev.Text = "Nueva Solicitud";
-        //IdClienteLabel.Text =
+        IdClienteLabel.Text = cliente.ApePaterno+" "+cliente.ApeMaterno + ", " + cliente.Nombre;
         Solicitar.IsVisible = true;
         Cancelar.IsVisible = true;
-        //CargarIdCliente();
+    
     }
 
     public VCNuevaSolicitud(Solicitud solicitud)
@@ -37,34 +41,39 @@ public partial class VCNuevaSolicitud : ContentPage
     }
 
 
-    private void Btn_Solicitar(object sender, EventArgs e)
+    private async void Btn_Solicitar(object sender, EventArgs e)
     {
-        // Simula la recolección de datos del formulario
-        var solicitud = new
+        
+        try
         {
-            IdCliente = IdClienteLabel.Text,
-            Direccion = descripcionEntry.Text
-        };
+            if (string.IsNullOrWhiteSpace(descripcionEntry.Text))
+            {
+                await DisplayAlert("Error", "La descripción es obligatoria.", "OK");
+                return;
+            }
 
-        // Enviar el mensaje al "MenuPrincipal"
-        // MessagingCenter.Send(this, "Nueva Solicitud", solicitud);
+            var nuevaSolicitud = new Solicitud
+            {
+                Descripcion = descripcionEntry.Text,
+                IdEstadoSolicitud = 1,
+                IdCliente = cliente.IdCliente, 
+                Fecha = DateTime.Now
+            };
 
-        // Opcional: Muestra un mensaje de confirmación al usuario
-        DisplayAlert("Solicitud Enviada", "La solicitud se ha enviado al administrador.", "OK");
+            await App.Database.AgregarSolicitudAsync(nuevaSolicitud);
 
-        // Regresa al menú principal
-        Navigation.PushAsync(new VCMisSolicitudes());
+            await DisplayAlert("Éxito", "Solicitud creada exitosamente.", "OK");
+            Navigation.PushAsync(new VCMisSolicitudes(idUsuario));
+
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Ocurrió un error al crear la solicitud: {ex.Message}", "OK");
+        }
+      
     }
 
-    private static string ObtenerIdCliente()
-    {
-        // Aquí puedes implementar la lógica para obtener el idCliente, 
-        // por ejemplo, desde una API, base de datos, etc.
-        // Esto es solo un ejemplo.
-        return "12345";
 
-
-    }
 
     private void Btn_EliminarSolicitud(object sender, EventArgs e)
     {
