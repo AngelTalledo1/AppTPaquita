@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="splashpaqui_C819ACB07732F0F497B0CCBCF5F1CCE964DE541C54293A552880EF016EFDEA24.png" translatesAutoresizingMaskIntoConstraints="NO" id="aT4-1l-d9a">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="splashpaqui_01E590B021F9B35ABB2C6504B4F0766415EBCB0AF12F5649D534B0AF996AADFD.png" translatesAutoresizingMaskIntoConstraints="NO" id="aT4-1l-d9a">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
@@ -33,6 +33,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splashpaqui_C819ACB07732F0F497B0CCBCF5F1CCE964DE541C54293A552880EF016EFDEA24.png" />
+        <image name="splashpaqui_01E590B021F9B35ABB2C6504B4F0766415EBCB0AF12F5649D534B0AF996AADFD.png" />
     </resources>
 </document>

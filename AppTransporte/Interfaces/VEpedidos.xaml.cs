@@ -1,6 +1,4 @@
 namespace AppTransporte.Interfaces;
-
-using AndroidX.Lifecycle;
 using AppTransporte.model;
 using AppTransporte.viewModel;
 
