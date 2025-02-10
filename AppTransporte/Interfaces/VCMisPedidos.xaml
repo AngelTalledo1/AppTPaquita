@@ -63,7 +63,7 @@
                                                Color="#bc4749"
                                                HorizontalOptions="Center" />
                             <CollectionView x:Name="MisPedidosCollectionView"
-                                            ItemsSource="{Binding Pedidos}"
+                                            ItemsSource="{Binding PedidosFiltrados}"
                                             SelectionMode="None">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
