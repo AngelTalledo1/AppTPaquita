@@ -14,7 +14,7 @@ public partial class VESolicitudes : ContentPage
 
     private void Btn_atrasSolicitudes(object sender, EventArgs e)
     {
-		Navigation.PopAsync();
+		Navigation.PushAsync(new MenuPrincipal());
     }
 
 
@@ -25,8 +25,8 @@ public partial class VESolicitudes : ContentPage
 
         if (solicitud != null)
         {
-            
-            await Navigation.PushAsync(new VEDetalleSolicitud(solicitud));
+            var pedidosViewModel = this.BindingContext as VMPedidos;
+            await Navigation.PushAsync(new VEDetalleSolicitud(solicitud, pedidosViewModel));
         }
     }
 

@@ -34,7 +34,17 @@
             
                 <VerticalStackLayout Margin="10"
                                      Spacing="15">
-                    <Frame Padding="0"
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Buscar: "
+                           FontFamily="Comf-Medium"
+                           VerticalOptions="Center" />
+                    <SearchBar Placeholder="Cliente"
+                               FontFamily="Comf-Bold"
+                               Text="{Binding TextoBusquedaCliente}"
+                               VerticalTextAlignment="Center"
+                               TextColor="Black" />
+                </HorizontalStackLayout>
+                <Frame Padding="0"
                            CornerRadius="10"
                            BackgroundColor="#e1dddb"
                            BorderColor="Transparent">
@@ -46,13 +56,13 @@
                                 ItemsSource="{Binding EstadoSolicitud}"
                                 SelectedItem="{Binding EstadoSeleccionado}" />
                     </Frame>
-                <ScrollView>
+                <ScrollView  Grid.Row="1">
                     <VerticalStackLayout>
                         <ActivityIndicator HorizontalOptions="Center"
                                                Color="#bc4749"
                                                IsRunning="{Binding IsBusy}"
                                                IsVisible="{Binding IsBusy}" />
-                            <CollectionView ItemsSource="{Binding SolicitudesFiltradas}"
+                        <CollectionView ItemsSource="{Binding SolicitudesFiltradas}"
                                             SelectionMode="None">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
@@ -66,28 +76,25 @@
                                                 <Label Text="{Binding IdSolicitud}"
                                                        HorizontalOptions="Center"
                                                        Grid.RowSpan="2"
-                                                       
                                                        FontFamily="Comf-Bold"
                                                        VerticalOptions="Center" />
-                                                <Label Text="{Binding Descripcion}"
-                                                       Grid.Column="1"
-                                                       FontFamily="Comf-Medium"
-                                                       MaxLines="3"
-                                                       VerticalOptions="Center"
-                                                       Margin="0,5" />
-                                                <Label Text="{Binding EstadoSolicitud}"
-                                                       Grid.Column="1"
+                                            <Label Text="{Binding Descripcion}"
+                                                   Grid.Column="1"
+                                                   FontFamily="Comf-Medium"
+                                                   MaxLines="3"
+                                                   VerticalOptions="Center"
+                                                   Margin="0,5" />
+                                            <Label Text="{Binding EstadoSolicitud}"
+                                                       Grid.ColumnSpan="3"
                                                        TextColor="#780000"
                                                        Grid.Row="1"
                                                        Margin="0,5"
                                                        BackgroundColor="#e9c46a"
-                                                       
                                                        HorizontalOptions="End"
                                                        VerticalOptions="Center"
                                                        FontFamily="Comf-Bold" />
                                                 <Button BackgroundColor="Transparent"
                                                         Grid.Column="2"
-                                                        Grid.RowSpan="2"
                                                         Clicked="SolicitudSelected_detalle"
                                                         CommandParameter="{Binding .}" />
                                                 <!--Clicked="btn_DetSolicitud"-->

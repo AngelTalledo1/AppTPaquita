@@ -39,6 +39,7 @@
                            VerticalOptions="Center" />
                     <SearchBar Placeholder="Pozo"
                                FontFamily="Comf-Bold"
+                               Text="{Binding TextoBusqueda}"
                                VerticalTextAlignment="Center"
                                TextColor="Black" />
                 </HorizontalStackLayout>
@@ -49,7 +50,7 @@
                                        IsVisible="{Binding IsBusy}"
                                        Color="#bc4749"
                                        HorizontalOptions="Center" />
-                    <CollectionView ItemsSource="{Binding Ubicaciones}">
+                    <CollectionView ItemsSource="{Binding UbicacionesFiltradas}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Frame Padding="10"
@@ -77,7 +78,7 @@
                                                         Grid.RowSpan="2"
                                                         Clicked="Btn_ModifUbicacion"
                                                         CommandParameter="{Binding .}" />
-                                                <Image Source="siguiente.png"
+                                                <Image Source="edit.png"
                                                        Grid.Column="2"
                                                        Grid.RowSpan="2"
                                                        VerticalOptions="Center"
@@ -99,7 +100,7 @@
                     FontFamily="Comf-Bold"
                     BackgroundColor="#cb4335"
                     HorizontalOptions="Center"
-                    VerticalOptions="Start"
+                    VerticalOptions="Center"    
                     Clicked="Btn_AggUbicacion" Grid.Row="2" />
         </Grid>
     </Grid>

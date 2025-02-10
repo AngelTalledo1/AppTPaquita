@@ -42,6 +42,22 @@
                     }
                 }
             }
+
+        public int TotalBarrilesFinalizados
+        {
+            get => viajesFiltrados
+                .Where(v => v.ultEstado == "Finalizado")
+                .Sum(v => v.Cantidad ?? 0); // Si v.Cantidad es null, tomará 0
+        }
+        public string BarrilesMostrados
+        {
+            get
+            {
+                var totalBarrilesFinalizados = TotalBarrilesFinalizados;
+                var totalBarrilesPedido = viajesFiltrados.Sum(v => v.Cantidad ?? 0); // Total de barriles en todos los viajes
+                return $"{totalBarrilesFinalizados} / {totalBarrilesPedido}";
+            }
+        }
         public VMViajes()
         {
             InicializarViajes();
@@ -85,6 +101,8 @@
             if (viajes == null || !viajes.Any())
             {
                 viajesFiltrados.Clear();
+                OnPropertyChanged(nameof(TotalBarrilesFinalizados));
+                OnPropertyChanged(nameof(BarrilesMostrados));
                 return;
             }
 
@@ -101,6 +119,8 @@
             {
                 viajesFiltrados.Add(viaje);
             }
+            OnPropertyChanged(nameof(TotalBarrilesFinalizados));
+            OnPropertyChanged(nameof(BarrilesMostrados));
         }
 
         protected void OnPropertyChanged(string propertyName)

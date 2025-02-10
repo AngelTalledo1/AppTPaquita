@@ -120,6 +120,8 @@
                     <Button Text="Ir a pedido"
                             IsVisible="{Binding MostrarVerPedido}"
                             FontFamily="Comf-Bold"
+                                Clicked="IrAPedido_Clicked"
+                                CommandParameter="{Binding .}"
                                 BackgroundColor="#cb4335"
                                 Padding="20,0"
                                 Margin="0,10,0,0" />

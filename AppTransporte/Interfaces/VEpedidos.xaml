@@ -68,9 +68,8 @@
                                     <DataTemplate>
                                         <Frame BackgroundColor="#edf2f4"
                                                Opacity="0.8"
-                                               Margin="10,5"
-                                               Padding="15"
-                                               HasShadow="False"
+                                               Margin="5"
+                                               Padding="10"
                                                CornerRadius="10"
                                                BorderColor="Transparent">
                                             <Grid ColumnDefinitions=".15*,.35*,.35*,.15 *">
@@ -81,13 +80,13 @@
                                                         FontFamily="Comf-Bold" />
                                                 <Grid Grid.Column="1"
                                                       RowDefinitions=".5*,.5*">
-                                                    <Label Text="{Binding Destino}"
+                                                    <Label Text="{Binding Origen}"
                                                            TextColor="#003554"
                                                            FontFamily="Comf-Bold"
                                                            HorizontalOptions="Start"
                                                            VerticalOptions="End" Margin="0,5"/>
                                                     <Label Grid.Row="1"
-                                                           Text="{Binding Origen}"
+                                                           Text="{Binding Destino}"
                                                            TextColor="#003554"
                                                            FontFamily="Comf-Bold"
                                                            HorizontalOptions="Start"

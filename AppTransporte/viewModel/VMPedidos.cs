@@ -95,7 +95,43 @@ namespace AppTransporte.viewModel
             CargarPedidos(); // Cargar los pedidos al inicializar el ViewModel
         }
 
-        private async void CargarPedidos()
+        public VMPedidos(int idUsuario)
+        {
+            _pedidos = new List<Pedido>();
+            Estados = new List<string>
+            {
+                "Todos",
+                "Pendiente",
+                "En el punto de Carga",
+                "En camino al destino",
+                "Finalizado"
+            };
+
+            CargarPedidosPorUsuario(idUsuario); // Cargar solo los pedidos del usuario
+        }
+        public async void CargarPedidosPorUsuario(int idUsuario)
+        {
+            IsBusy = true;
+
+            try
+            {
+                // Llamar al método de la capa de datos filtrando por usuario
+                var pedidos = await App.Database.ListarPedidosPorUsuario(idUsuario);
+
+                Pedidos = pedidos;
+                FiltrarPedidos();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al cargar los pedidos: {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public async void CargarPedidos()
         {
             IsBusy = true; // Indicar que los datos están cargando
 

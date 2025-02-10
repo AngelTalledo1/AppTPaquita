@@ -1,5 +1,4 @@
 namespace AppTransporte.Interfaces;
-
 using AppTransporte.model;
 using AppTransporte.viewModel;
 
@@ -21,7 +20,7 @@ public partial class VEpedidos : ContentPage
 
     private void Btn_atrasPedidos(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PushAsync(new MenuPrincipal());
     }
 
     private async void Btn_DetallePedido(object sender, EventArgs e)
