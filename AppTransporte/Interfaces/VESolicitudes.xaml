@@ -56,7 +56,7 @@
                                 ItemsSource="{Binding EstadoSolicitud}"
                                 SelectedItem="{Binding EstadoSeleccionado}" />
                     </Frame>
-                <ScrollView>
+                <ScrollView  Grid.Row="1">
                     <VerticalStackLayout>
                         <ActivityIndicator HorizontalOptions="Center"
                                                Color="#bc4749"

@@ -27,11 +27,11 @@ namespace AppTransporte
                     fonts.AddFont("Comfortaa-VariableFont_wght.ttf", "Comf-Variable");
                 });
 
-#if DEBUG
-    		builder.Logging.AddDebug();
-#endif
+                #if DEBUG
+    		                builder.Logging.AddDebug();
+                #endif
 
-            return builder.Build();
+                            return builder.Build();
         }
     }
 }

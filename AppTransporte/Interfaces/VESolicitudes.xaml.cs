@@ -14,7 +14,7 @@ public partial class VESolicitudes : ContentPage
 
     private void Btn_atrasSolicitudes(object sender, EventArgs e)
     {
-		Navigation.PopAsync();
+		Navigation.PushAsync(new MenuPrincipal());
     }
 
 

@@ -10,6 +10,7 @@ namespace AppTransporte.model
     {
         public int IdPedido { get; set; }
         public int IdSolicitud { get; set; }
+        public int IdUsuario{ get; set; }
         public int Cantidad { get; set; }
         public int Viajes { get; set; }
         public string Origen { get; set; } = string.Empty;

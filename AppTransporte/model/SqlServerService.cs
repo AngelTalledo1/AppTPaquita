@@ -358,6 +358,52 @@ namespace AppTransporte.model
 
             return pedidos;
         }
+        public async Task<List<Pedido>> ListarPedidosPorUsuario(int idUsuario)
+        {
+            var pedidos = new List<Pedido>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                using (var command = new SqlCommand("pa_ListPedidosUsuario", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar el parámetro idUsuario al comando
+                    command.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+                    await connection.OpenAsync();
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            pedidos.Add(new Pedido
+                            {
+                                IdPedido = reader.GetInt32(reader.GetOrdinal("id_pedido")),
+                                Usuario = reader.GetString(reader.GetOrdinal("nombre_usuario")),
+                                Cliente = reader.GetString(reader.GetOrdinal("nombre_cliente")),
+                                Cantidad = reader.GetInt32(reader.GetOrdinal("cantidad")),
+                                Viajes = reader.GetInt32(reader.GetOrdinal("viajes")),
+                                Origen = reader.GetString(reader.GetOrdinal("origen_descripcion")),
+                                OrigSector = reader.GetString(reader.GetOrdinal("origen_sector")),
+                                Servicios = reader.GetString(reader.GetOrdinal("servicios_relacionados")),
+                                Destino = reader.GetString(reader.GetOrdinal("destino_descripcion")),
+                                DestSector = reader.GetString(reader.GetOrdinal("destino_sector")),
+                                IdSolicitud = reader.GetInt32(reader.GetOrdinal("idSolicitud")),
+                                IdUsuario = reader.GetInt32(reader.GetOrdinal("usuarioCliente")),
+                                EstadoPedido = reader["estado_pedido"]?.ToString() ?? "Sin estado",
+                                FechaSolicitud = reader.GetDateTime(reader.GetOrdinal("fecha_solicitud")),
+                                FechaEntrega = reader.IsDBNull(reader.GetOrdinal("fecha_entrega"))
+                                    ? null
+                                    : reader.GetDateTime(reader.GetOrdinal("fecha_entrega"))
+                            });
+                        }
+                    }
+                }
+            }
+
+            return pedidos;
+        }
         public async Task<List<Cliente>> ObtenerClientesAsync()
         {
             var clientes = new List<Cliente>();

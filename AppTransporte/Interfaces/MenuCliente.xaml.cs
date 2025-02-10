@@ -23,7 +23,7 @@ public partial class MenuCliente : ContentPage, IMenuPage
     }
     private void pedidosCliente_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VEpedidos(_idUsuario,_idtipousuario));
+        Navigation.PushAsync(new VCMisPedidos(_idUsuario,_idtipousuario));
     }
 
 }
