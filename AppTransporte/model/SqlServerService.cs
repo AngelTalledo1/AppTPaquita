@@ -645,6 +645,7 @@ namespace AppTransporte.model
                             {
                                 IdSolicitud = reader.GetInt32(reader.GetOrdinal("id_solicitud")),
                                 Descripcion = reader.GetString(reader.GetOrdinal("SolicitudDescripcion")),
+                                FechaSolicitud = reader.GetDateTime(reader.GetOrdinal("fecha")),
                                 IdEstadoSolicitud = reader.GetInt32(reader.GetOrdinal("id_estadoSolicitud")),
                                 EstadoSolicitud = reader.GetString(reader.GetOrdinal("Estado")),
                                 Comentario = reader.IsDBNull(reader.GetOrdinal("SolicitudComentario")) ? null : reader.GetString(reader.GetOrdinal("SolicitudComentario")),

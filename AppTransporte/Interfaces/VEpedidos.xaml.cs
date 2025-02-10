@@ -31,7 +31,7 @@ public partial class VEpedidos : ContentPage
         if (pedido != null)
         {
             // Navegar a la página de VEProcesoPedido, pasando los datos del pedido seleccionado
-            await Navigation.PushAsync(new VEProcesoPedido(pedido));
+            await Navigation.PushAsync(new VEProcesoPedido(pedido, idUsuario, idtipousuario));
         }
     }
 }

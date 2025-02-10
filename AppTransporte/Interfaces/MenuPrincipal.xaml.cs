@@ -39,7 +39,7 @@ public partial class MenuPrincipal : ContentPage
 
     private async void btn_Solicitudes(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VESolicitudes());
+        await Navigation.PushAsync(new VESolicitudes(_idUsuario, _idtipousuario));
     }
 
     private async void Btn_DestinosClicket(object sender, EventArgs e)

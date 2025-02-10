@@ -57,7 +57,7 @@ public partial class VCNuevaSolicitud : ContentPage
                 Descripcion = descripcionEntry.Text,
                 IdEstadoSolicitud = 1,
                 IdCliente = cliente.IdCliente, 
-                Fecha = DateTime.Now
+                FechaSolicitud = DateTime.Now
             };
 
             await App.Database.AgregarSolicitudAsync(nuevaSolicitud);
