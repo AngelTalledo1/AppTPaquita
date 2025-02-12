@@ -7,17 +7,30 @@ namespace AppTransporte.Interfaces;
 
 public partial class VCMisSolicitudes : ContentPage
 {
+    private readonly VMmisSolicitudes _viewModel;
     private Cliente Cliente { get; set; }
     private int idUsuario;
     public VCMisSolicitudes(int idUsuario)
     {
         InitializeComponent();
         this.idUsuario = idUsuario;
-        asignarCliente(idUsuario);
+        InitializeAsync();
 
     }
 
-    private  void Btn_atrasMisSolic(object sender, EventArgs e)
+    private void InitializeAsync()
+    {
+        InitializeAsync(_viewModel);
+    }
+
+    private async void InitializeAsync(VMmisSolicitudes _viewModel)
+    {
+        await asignarCliente(idUsuario);
+        _viewModel = new VMmisSolicitudes(Cliente.IdCliente);
+        BindingContext = _viewModel;
+    }
+
+    private void Btn_atrasMisSolic(object sender, EventArgs e)
     {
 		 Navigation.PopAsync();
     }
@@ -27,9 +40,16 @@ public partial class VCMisSolicitudes : ContentPage
         await Navigation.PushAsync(new VCNuevaSolicitud(Cliente,idUsuario));
     }
 
-    private async void asignarCliente(int idUsuario)
+    private async Task asignarCliente(int idUsuario)
     {
         Cliente = await App.Database.ObtenerClientePorUsuarioAsync(idUsuario);
+
+        // Validación adicional por si no se encuentra el cliente
+        if (Cliente == null)
+        {
+            await DisplayAlert("Error", "Cliente no encontrado", "OK");
+            await Navigation.PopAsync();
+        }
     }
 
     private async void btnModificar_Clicked(object sender, EventArgs e)

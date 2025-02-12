@@ -13,7 +13,7 @@ namespace AppTransporte.viewModel
 {
     public class VMmisSolicitudes : INotifyPropertyChanged
     {
-
+        public int id_cliente { get; set; }
 
         public ObservableCollection<Solicitud> Solicitudes { get; set; } = new ObservableCollection<Solicitud>();
         private bool _isBusy;
@@ -84,7 +84,19 @@ namespace AppTransporte.viewModel
             "Cancelada"
         };
         }
-
+        public VMmisSolicitudes(int id_cliente)
+        {
+            EstadoSeleccionado = "Por revisar";
+            TextoBusquedaCliente = string.Empty; // Inicializa el texto de búsqueda vacío
+            CargarSolicitudes(id_cliente);
+            EstadoSolicitud = new List<string>
+        {
+            "Todos",
+            "Por revisar",
+            "Pedido Creado",
+            "Cancelada"
+        };
+        }
         private async void CargarSolicitudes()
         {
             IsBusy = true;
@@ -102,7 +114,23 @@ namespace AppTransporte.viewModel
 
             IsBusy = false;
         }
+        private async void CargarSolicitudes(int id_cliente)
+        {
+            IsBusy = true;
 
+            var solicitudes = await App.Database.ObtenerSolicitudesAsync(id_cliente);
+
+            // Limpiar las solicitudes previas y agregar las nuevas
+            Solicitudes.Clear();
+
+            foreach (var solicitud in solicitudes)
+            {
+                Solicitudes.Add(solicitud);
+            }
+            Filtrar();
+
+            IsBusy = false;
+        }
 
         private void Filtrar()
         {

@@ -623,7 +623,7 @@ namespace AppTransporte.model
             }
 
         }
-        public async Task<List<Solicitud>> ObtenerSolicitudesAsync()
+        public async Task<List<Solicitud>> ObtenerSolicitudesAsync(int? id_Cliente = null)
         {
             var solicitud = new List<Solicitud>();
 
@@ -637,6 +637,15 @@ namespace AppTransporte.model
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
+                    // Agregamos el parámetro solo si se proporciona un ID de usuario
+                    if (id_Cliente.HasValue)
+                    {
+                        command.Parameters.Add(new SqlParameter("@id_cliente", SqlDbType.Int)
+                        {
+                            Value = id_Cliente.Value
+                        });
+                    }
+
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
@@ -649,8 +658,8 @@ namespace AppTransporte.model
                                 EstadoSolicitud = reader.GetString(reader.GetOrdinal("Estado")),
                                 Comentario = reader.IsDBNull(reader.GetOrdinal("SolicitudComentario")) ? null : reader.GetString(reader.GetOrdinal("SolicitudComentario")),
                                 IdCliente = reader.GetInt32(reader.GetOrdinal("id_cliente")),
-                                Cliente = reader.IsDBNull(reader.GetOrdinal("ClienteNombreCompleto")) ? null : reader.GetString(reader.GetOrdinal("ClienteNombreCompleto"))
-
+                                Cliente = reader.IsDBNull(reader.GetOrdinal("ClienteNombreCompleto")) ? null : reader.GetString(reader.GetOrdinal("ClienteNombreCompleto")),
+                                 Fecha = reader.GetDateTime(reader.GetOrdinal("fecha"))
                             });
                         }
                     }
