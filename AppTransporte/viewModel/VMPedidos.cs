@@ -123,7 +123,7 @@ namespace AppTransporte.viewModel
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al cargar los pedidos: {ex.Message}");
+                Console.WriteLine($"Error al cargar los pedidos: {ex}");
             }
             finally
             {

@@ -7147,3 +7147,5 @@ AppTransporte/bin/Release/net8.0-windows10.0.19041.0/win10-x64/zh-Hant/Microsoft
 AppTransporte/bin/Release/net8.0-windows10.0.19041.0/win10-x64/zh-Hans/Microsoft.Maui.Controls.resources.dll
 /AppTransporte/obj/Debug
 /AppTransporte/bin
+/.vs
+/AppTransporte/obj
