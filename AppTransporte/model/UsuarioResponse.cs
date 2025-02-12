@@ -8,6 +8,12 @@ namespace AppTransporte.model
 {
     public class UsuarioResponse
     {
+        public UsuarioResponse(int idUsuario, int idTipoUsuario)
+        {
+            this.idUsuario = idUsuario;
+            this.idTipoUsuario = idTipoUsuario;
+        }
+
         public int idUsuario { get; set; }
         public int idTipoUsuario { get; set; }
     }

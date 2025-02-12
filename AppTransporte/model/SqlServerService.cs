@@ -198,7 +198,7 @@ namespace AppTransporte.model
                 }
             }
         }
-        public async Task<(int IdUsuario, int IdTipoUsuario)> VerificarCredencialesAsync(string username, string contraseña)
+        public async Task<UsuarioResponse> VerificarCredencialesAsync(string username, string contraseña)
         {
             try
             {
@@ -220,7 +220,7 @@ namespace AppTransporte.model
                             {
                                 int idUsuario = reader.GetInt32(0); // Primera columna: id_usuario
                                 int idTipoUsuario = reader.GetInt32(1); // Segunda columna: id_tipo_usuario
-                                return (idUsuario, idTipoUsuario);
+                                return new UsuarioResponse(idUsuario, idTipoUsuario);
                             }
                         }
                     }
@@ -228,11 +228,12 @@ namespace AppTransporte.model
             }
             catch (Exception ex)
             {
+
                 Console.WriteLine($"Error al verificar credenciales: {ex.Message}");
             }
 
             // Devuelve null si no se encontraron coincidencias
-            return (0, 0);
+            return null;
         }
         public async Task<int> ModificarTrabajadorAsync(
             int id_trabajador,

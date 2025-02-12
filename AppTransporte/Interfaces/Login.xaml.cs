@@ -30,10 +30,10 @@ public partial class Login : ContentPage
         string contraseña = contraseñaEntry.Text;
         Cargando.IsVisible = true;
         await Task.Delay(2000);
-        var resultado = await _authService.VerificarCredencialesAsync(usuario, contraseña);
+        var resultado = await App.Database.VerificarCredencialesAsync(usuario, contraseña);
         if (resultado != null)
         {
-            abrirInterfaz(await _authService.ObtenerTipoUsuarioAsync(resultado.idTipoUsuario), resultado.idUsuario, resultado.idTipoUsuario);
+            abrirInterfaz(await App.Database.obtenerTipoUser(resultado.idTipoUsuario), resultado.idUsuario, resultado.idTipoUsuario);
         }
         else
         {
@@ -41,7 +41,6 @@ public partial class Login : ContentPage
             MensajeError.Text = "Usuario o contraseña incorrectos.";
             MensajeError.IsVisible = true;
         }
-
         MainThread.BeginInvokeOnMainThread(() =>
         {
             Cargando.IsVisible = false;
