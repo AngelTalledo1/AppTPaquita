@@ -1,17 +1,15 @@
-using AppTransporte.Servicios;
+
 using CommunityToolkit.Maui.Views;
 
 namespace AppTransporte.Interfaces;
 
 public partial class Login : ContentPage
 {
-    private readonly AuthService _authService;
     public bool IsLoading { get; set; } = false;
 
     public Login()
     {
         InitializeComponent();
-        _authService = new AuthService();
         BindingContext = this;
     }
 

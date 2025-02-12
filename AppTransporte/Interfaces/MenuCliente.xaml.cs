@@ -3,8 +3,8 @@ namespace AppTransporte.Interfaces;
 
 public partial class MenuCliente : ContentPage, IMenuPage
 {
-    public int _idUsuario;
-    public int _idtipousuario;
+    private int _idUsuario;
+    private int _idtipousuario;
     public MenuCliente()
 	{
         InitializeComponent();
