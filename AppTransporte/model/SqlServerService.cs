@@ -387,11 +387,9 @@ namespace AppTransporte.model
                                 Origen = reader.GetString(reader.GetOrdinal("origen_descripcion")),
                                 OrigSector = reader.GetString(reader.GetOrdinal("origen_sector")),
                                 Servicios = reader.GetString(reader.GetOrdinal("servicios_relacionados")),
-
                                 Destino = reader.GetString(reader.GetOrdinal("destino_descripcion")),
                                 DestSector = reader.GetString(reader.GetOrdinal("destino_sector")),
                                 IdSolicitud = reader.GetInt32(reader.GetOrdinal("idSolicitud")),
-
                                 EstadoPedido = reader["estado_pedido"]?.ToString() ?? "Sin estado",
                                 FechaSolicitud = reader.GetDateTime(reader.GetOrdinal("fecha_solicitud")),
                                 FechaEntrega = reader.IsDBNull(reader.GetOrdinal("fecha_entrega"))
