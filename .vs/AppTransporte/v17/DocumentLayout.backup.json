@@ -1,42 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\",
+  "WorkspaceRootPath": "C:\\Users\\gudal\\OneDrive\\Documentos\\GitHub\\AppTPaquita\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|efa8d135-8022-4e26-ba03-f93c18e38990MSSQL__/SQL8011.site4now.net/db_aaecc9_paquitaappdb/db_aaecc9_paquitaappdb_admin/SqlProcedure/Create dbo.pa_ListPedidosUsuario.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\interfaces\\veagregartransportista.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veagregartransportista.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\viewmodel\\clienteviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\viewmodel\\clienteviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\model\\sqlserverservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\documentos\\github\\apptpaquita\\apptransporte\\model\\sqlserverservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\model\\sqlserverservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\interfaces\\veclientes.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veclientes.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|9777acd2-6975-4539-b42f-dd4cb9c90364MSSQL__/SQL8011.site4now.net/db_aaecc9_paquitaappdb/db_aaecc9_paquitaappdb_admin/SqlProcedure/Create dbo.pa_ListPedidosDet.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\interfaces\\veseguimientoviaje.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veseguimientoviaje.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\documentos\\github\\apptpaquita\\apptransporte\\viewmodel\\vmpedidos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\viewmodel\\vmpedidos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\escritorio\\apis_paquita\\apptpaquita\\apptransporte\\model\\solicitud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\model\\solicitud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\documentos\\github\\apptpaquita\\apptransporte\\interfaces\\menucliente.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\menucliente.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\gudal\\onedrive\\documentos\\github\\apptpaquita\\apptransporte\\interfaces\\menucliente.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\menucliente.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|efa8d135-8022-4e26-ba03-f93c18e38990MSSQL__/SQL8011.site4now.net/db_aaecc9_paquitaappdb/db_aaecc9_paquitaappdb_admin/SqlProcedure/Create dbo.pa_ListPedidosUsuario.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|efa8d135-8022-4e26-ba03-f93c18e38990MSSQL__/SQL8011.site4now.net/db_aaecc9_paquitaappdb/db_aaecc9_paquitaappdb_admin/SqlProcedure/Create dbo.pa_ListPedidosUsuario.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|ResultFrame"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|9777acd2-6975-4539-b42f-dd4cb9c90364MSSQL__/SQL8011.site4now.net/db_aaecc9_paquitaappdb/db_aaecc9_paquitaappdb_admin/SqlProcedure/Create dbo.pa_ListPedidosDet.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,12 +41,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 247,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -59,129 +50,92 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 217,
-          "SelectedChildIndex": 1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\App.xaml.cs",
-              "RelativeDocumentMoniker": "AppTransporte\\App.xaml.cs",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\App.xaml.cs*",
-              "RelativeToolTip": "AppTransporte\\App.xaml.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-07T16:30:08.022Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AppShell.xaml",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\AppShell.xaml",
-              "RelativeDocumentMoniker": "AppTransporte\\AppShell.xaml",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\AppShell.xaml",
-              "RelativeToolTip": "AppTransporte\\AppShell.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-12-07T16:30:03.643Z",
+              "Title": "Create dbo.pa_ListPedidosDet ",
+              "DocumentMoniker": "9777acd2-6975-4539-b42f-dd4cb9c90364MSSQL__/SQL8011.site4now.net/db_aaecc9_paquitaappdb/db_aaecc9_paquitaappdb_admin/SqlProcedure/Create dbo.pa_ListPedidosDet.sql",
+              "ToolTip": "Create dbo.pa_ListPedidosDet ",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-02-12T15:46:27.008Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\App.xaml",
-              "RelativeDocumentMoniker": "AppTransporte\\App.xaml",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\App.xaml",
-              "RelativeToolTip": "AppTransporte\\App.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-12-07T16:29:59.342Z",
+              "Title": "SqlServerService.cs",
+              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Documentos\\GitHub\\AppTPaquita\\AppTransporte\\model\\SqlServerService.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\model\\SqlServerService.cs",
+              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Documentos\\GitHub\\AppTPaquita\\AppTransporte\\model\\SqlServerService.cs",
+              "RelativeToolTip": "AppTransporte\\model\\SqlServerService.cs",
+              "ViewState": "AgIAAGMBAAAAAAAAAAAAAI0BAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-12T15:32:51.961Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Create dbo.pa_ListPedidosUsuario ",
+              "DocumentMoniker": "efa8d135-8022-4e26-ba03-f93c18e38990MSSQL__/SQL8011.site4now.net/db_aaecc9_paquitaappdb/db_aaecc9_paquitaappdb_admin/SqlProcedure/Create dbo.pa_ListPedidosUsuario.sql",
+              "ToolTip": "Create dbo.pa_ListPedidosUsuario *",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-02-12T15:33:45.126Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "VEagregarTransportista.xaml",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarTransportista.xaml",
-              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEagregarTransportista.xaml",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEagregarTransportista.xaml",
-              "RelativeToolTip": "AppTransporte\\Interfaces\\VEagregarTransportista.xaml",
-              "ViewState": "AgIAAIEAAAAAAAAAAAAAwI4AAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-12-07T16:07:27.533Z",
+              "Title": "VMPedidos.cs",
+              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Documentos\\GitHub\\AppTPaquita\\AppTransporte\\viewModel\\VMPedidos.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\viewModel\\VMPedidos.cs",
+              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Documentos\\GitHub\\AppTPaquita\\AppTransporte\\viewModel\\VMPedidos.cs",
+              "RelativeToolTip": "AppTransporte\\viewModel\\VMPedidos.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAAAHYAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-12T15:32:26.32Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "ClienteViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\viewModel\\ClienteViewModel.cs",
-              "RelativeDocumentMoniker": "AppTransporte\\viewModel\\ClienteViewModel.cs",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\viewModel\\ClienteViewModel.cs",
-              "RelativeToolTip": "AppTransporte\\viewModel\\ClienteViewModel.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAACcAAABCAAAAAAAAAA==",
+              "Title": "MenuCliente.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Documentos\\GitHub\\AppTPaquita\\AppTransporte\\Interfaces\\MenuCliente.xaml.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\MenuCliente.xaml.cs",
+              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Documentos\\GitHub\\AppTPaquita\\AppTransporte\\Interfaces\\MenuCliente.xaml.cs",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\MenuCliente.xaml.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-07T08:41:23.172Z",
+              "WhenOpened": "2025-02-12T15:32:00.64Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "VEclientes.xaml",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEclientes.xaml",
-              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEclientes.xaml",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VEclientes.xaml",
-              "RelativeToolTip": "AppTransporte\\Interfaces\\VEclientes.xaml",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAACoAAAA1AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-12-07T08:39:17.883Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "VESeguimientoViaje.xaml",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VESeguimientoViaje.xaml",
-              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VESeguimientoViaje.xaml",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\Interfaces\\VESeguimientoViaje.xaml",
-              "RelativeToolTip": "AppTransporte\\Interfaces\\VESeguimientoViaje.xaml",
-              "ViewState": "AQIAAIcAAAAAAAAAAAAAAGAAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-12-07T07:52:41.48Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Solicitud.cs",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\model\\Solicitud.cs",
-              "RelativeDocumentMoniker": "AppTransporte\\model\\Solicitud.cs",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\model\\Solicitud.cs",
-              "RelativeToolTip": "AppTransporte\\model\\Solicitud.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-07T07:16:16.774Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "SqlServerService.cs",
-              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\model\\SqlServerService.cs",
-              "RelativeDocumentMoniker": "AppTransporte\\model\\SqlServerService.cs",
-              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Escritorio\\apis_paquita\\AppTPaquita\\AppTransporte\\model\\SqlServerService.cs",
-              "RelativeToolTip": "AppTransporte\\model\\SqlServerService.cs",
-              "ViewState": "AQIAABABAAAAAAAAAAAjwCwBAABHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-07T07:14:17.481Z"
+              "Title": "MenuCliente.xaml",
+              "DocumentMoniker": "C:\\Users\\gudal\\OneDrive\\Documentos\\GitHub\\AppTPaquita\\AppTransporte\\Interfaces\\MenuCliente.xaml",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\MenuCliente.xaml",
+              "ToolTip": "C:\\Users\\gudal\\OneDrive\\Documentos\\GitHub\\AppTPaquita\\AppTransporte\\Interfaces\\MenuCliente.xaml",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\MenuCliente.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-12T15:31:57.938Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 247,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
             }
           ]
         }

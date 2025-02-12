@@ -1,3 +1,6 @@
-/AppTransporte/obj
-/.vs
-/AppTransporte/bin
+**/bin
+**/obj
+**/.vs
+AppTransporte/obj/project.assets.json
+AppTransporte/obj
+AppTransporte/bin
