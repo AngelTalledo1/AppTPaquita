@@ -26,6 +26,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+<string>Se necesita acceso a la cámara para tomar fotos</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Se necesita acceso a la galería para guardar fotos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Necesitamos acceso para subir archivos a la nube</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
 </dict>

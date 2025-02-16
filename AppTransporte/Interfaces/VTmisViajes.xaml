@@ -45,7 +45,19 @@
                             ItemsSource="{Binding Pedido.EstadoPedido.Descripcion}"
                             SelectedIndex="1" /> <!--se muestran los viajes donde el pedido siga pendiente-->
                 </Frame>
-                <ScrollView>
+                    <Button 
+        Text="Tomar Foto y Subir"
+        Clicked="OnCaptureAndUploadPhotoClicked"
+        BackgroundColor="Blue"
+        TextColor="White"
+        FontAttributes="Bold"
+        HeightRequest="50"
+        CornerRadius="10"/>
+
+                    <Image x:Name="CapturedImage" WidthRequest="200" HeightRequest="200"/>
+
+                    <Label x:Name="UploadStatus" Text="Esperando captura..." TextColor="Gray"/>
+                    <ScrollView>
                     <VerticalStackLayout>
                         <ActivityIndicator IsRunning="{Binding IsBusy}"
                                                Color="#bc4749"
