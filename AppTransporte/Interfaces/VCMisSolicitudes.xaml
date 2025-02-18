@@ -32,14 +32,37 @@
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1"
-              RowDefinitions=".1*,.08*">
-            <VerticalStackLayout>
-                <ScrollView>
-                <VerticalStackLayout Margin="10">
+              RowDefinitions=".1*,.75*,.08*">
+            <VerticalStackLayout Margin="20">
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Buscar: "
+                           FontFamily="Comf-Medium"
+                           VerticalOptions="Center" />
+                    <SearchBar Placeholder="Pozo"
+                               FontFamily="Comf-Bold"
+                               Text="{Binding TextoBusquedaDescripcion}"
+                               VerticalTextAlignment="Center"
+                               TextColor="Black" />
+                </HorizontalStackLayout>
+                <Frame Padding="0"
+                       CornerRadius="10"
+                       BackgroundColor="#e1dddb"
+                       BorderColor="Transparent">
+                    <Picker Title="Estado"
+                            TextColor="#780000"
+                            TitleColor="White"
+                            HorizontalTextAlignment="Center"
+                            FontFamily="Comf-Bold"
+                            ItemsSource="{Binding EstadoSolicitud}"
+                            SelectedItem="{Binding EstadoSeleccionado}" />
+                </Frame>
+            </VerticalStackLayout>
+            <ScrollView Grid.Row="1">
+                    <VerticalStackLayout Margin="10">
                     <ActivityIndicator IsRunning="{Binding IsBusy}"
                                        IsVisible="{Binding IsBusy}"
                                        HorizontalOptions="Center" />
-                    <CollectionView ItemsSource="{Binding Solicitudes}">
+                    <CollectionView ItemsSource="{Binding SolicitudesFiltradas}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate >
                                 <toolkit:Expander BackgroundColor="AliceBlue"
@@ -101,14 +124,13 @@
                     </CollectionView>
                 </VerticalStackLayout>
             </ScrollView>
-            </VerticalStackLayout>
             <Button Text="Nueva Solicitud"
-                        FontFamily="Comf-Bold"
+                    FontFamily="Comf-Bold"
                     BackgroundColor="#cb4335"
                     HorizontalOptions="Center"
-                    Grid.Row="1"
                     VerticalOptions="Center"
-                    Clicked="btn_NewSolicitud" />
+                    Clicked="btn_NewSolicitud"
+                    Grid.Row="2" />
         </Grid>
     </Grid>
 </ContentPage>

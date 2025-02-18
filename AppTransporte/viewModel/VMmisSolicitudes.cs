@@ -17,7 +17,20 @@ namespace AppTransporte.viewModel
 
         public ObservableCollection<Solicitud> Solicitudes { get; set; } = new ObservableCollection<Solicitud>();
         private bool _isBusy;
-
+        private string _textoBusquedaDescripcion;
+        public string TextoBusquedaDescripcion
+        {
+            get => _textoBusquedaDescripcion;
+            set
+            {
+                if (_textoBusquedaDescripcion != value)
+                {
+                    _textoBusquedaDescripcion = value;
+                    OnPropertyChanged(nameof(TextoBusquedaDescripcion));
+                    Filtrar(); // Llama al método para filtrar las ubicaciones
+                }
+            }
+        }
         private string _textoBusquedaCliente;
 
         public string TextoBusquedaCliente
@@ -121,9 +134,19 @@ namespace AppTransporte.viewModel
                     s.Cliente.Contains(TextoBusquedaCliente, StringComparison.OrdinalIgnoreCase));
             }
 
+            if (!string.IsNullOrWhiteSpace(TextoBusquedaDescripcion))
+            {
+                solicitudesFiltradas = solicitudesFiltradas.Where(s =>
+                    s.Descripcion.Contains(TextoBusquedaDescripcion, StringComparison.OrdinalIgnoreCase));
+            }
+
             // Actualiza las solicitudes filtradas
             SolicitudesFiltradas = new ObservableCollection<Solicitud>(solicitudesFiltradas);
         }
+
+        
+
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
