@@ -19,7 +19,7 @@
                    Margin="20"
                    HeightRequest="20"
                    WidthRequest="20" />
-            <Label Text="Pedidos"
+            <Label Text="Mis Pedidos"
                    FontSize="20"
                    FontFamily="Comf-Medium"
                    Grid.Column="1"
@@ -30,8 +30,7 @@
         </Grid>
         <Grid Grid.Row="1"
               BackgroundColor="White">
-            <ScrollView>
-                <VerticalStackLayout>
+            <VerticalStackLayout>
                     <HorizontalStackLayout  Margin="15,10"
                                             VerticalOptions="Start">
                         <Label Text="Buscar por: "
@@ -119,7 +118,6 @@
                         </VerticalStackLayout>
                     </ScrollView>
                 </VerticalStackLayout>
-            </ScrollView>
         </Grid>
     </Grid>
 </ContentPage>

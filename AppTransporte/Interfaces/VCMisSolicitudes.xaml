@@ -32,7 +32,7 @@
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1"
-              RowDefinitions=".1*,.75*,.08*">
+              RowDefinitions=".14*,.75*,.08*">
             <VerticalStackLayout Margin="20">
                 <HorizontalStackLayout Spacing="5">
                     <Label Text="Buscar: "
@@ -57,8 +57,8 @@
                             SelectedItem="{Binding EstadoSeleccionado}" />
                 </Frame>
             </VerticalStackLayout>
-            <ScrollView Grid.Row="1">
-                    <VerticalStackLayout Margin="10">
+            <ScrollView Grid.Row="1" >
+                <VerticalStackLayout Margin="10">
                     <ActivityIndicator IsRunning="{Binding IsBusy}"
                                        IsVisible="{Binding IsBusy}"
                                        HorizontalOptions="Center" />

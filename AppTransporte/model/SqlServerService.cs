@@ -846,7 +846,50 @@ namespace AppTransporte.model
                 }
             }
         }
+        public async Task<List<Solicitud>> ObtenerSolicitudesAsync(int? id_Cliente = null)
+        {
+            var solicitud = new List<Solicitud>();
 
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_ListSolicitudes", connection))
+
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Agregamos el parámetro solo si se proporciona un ID de usuario
+                    if (id_Cliente.HasValue)
+                    {
+                        command.Parameters.Add(new SqlParameter("@id_cliente", SqlDbType.Int)
+                        {
+                            Value = id_Cliente.Value
+                        });
+                    }
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            solicitud.Add(new Solicitud
+                            {
+                                IdSolicitud = reader.GetInt32(reader.GetOrdinal("id_solicitud")),
+                                Descripcion = reader.GetString(reader.GetOrdinal("SolicitudDescripcion")),
+                                IdEstadoSolicitud = reader.GetInt32(reader.GetOrdinal("id_estadoSolicitud")),
+                                EstadoSolicitud = reader.GetString(reader.GetOrdinal("Estado")),
+                                Comentario = reader.IsDBNull(reader.GetOrdinal("SolicitudComentario")) ? null : reader.GetString(reader.GetOrdinal("SolicitudComentario")),
+                                IdCliente = reader.GetInt32(reader.GetOrdinal("id_cliente")),
+                                Cliente = reader.IsDBNull(reader.GetOrdinal("ClienteNombreCompleto")) ? null : reader.GetString(reader.GetOrdinal("ClienteNombreCompleto")),
+                                Fecha = reader.GetDateTime(reader.GetOrdinal("fecha"))
+                            });
+                        }
+                    }
+                }
+            }
+            return solicitud;
+        }
         public async Task<List<Servicio>> ObtenerServiciosAsync(string filtro = null)
         {
             var servicios = new List<Servicio>();

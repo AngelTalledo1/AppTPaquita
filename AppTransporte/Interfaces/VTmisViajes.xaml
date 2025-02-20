@@ -26,81 +26,92 @@
                    FontFamily="Comf-Medium"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1"
-              >
+        <Grid Grid.Row="1">
             <ScrollView>
-            <VerticalStackLayout Margin="20">
-                
-                <Frame Padding="0"
-                       WidthRequest="200"
-                       HorizontalOptions="Start"
-                       HeightRequest="40"
-                       CornerRadius="10"
-                       BackgroundColor="#669bbc"
-                       BorderColor="Transparent">
-                    <Picker Title="Estado"
-                            TitleColor="White"
-                            HorizontalOptions="Center"
-                            FontFamily="Comf-SemBold"
-                            ItemsSource="{Binding Pedido.EstadoPedido.Descripcion}"
-                            SelectedIndex="1" /> <!--se muestran los viajes donde el pedido siga pendiente-->
-                </Frame>
-                <ScrollView>
-                    <VerticalStackLayout>
-                        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                <VerticalStackLayout Margin="20">
+                    <Frame Padding="0"
+                           WidthRequest="200"
+                           HorizontalOptions="Start"
+                           HeightRequest="40"
+                           CornerRadius="10"
+                           BackgroundColor="#669bbc"
+                           BorderColor="Transparent">
+                        <Picker Title="Estado"
+                                TitleColor="White"
+                                HorizontalOptions="Center"
+                                FontFamily="Comf-SemBold"
+                                ItemsSource="{Binding Pedido.EstadoPedido.Descripcion}"
+                                SelectedIndex="1" />
+                        <!--se muestran los viajes donde el pedido siga pendiente-->
+                    </Frame>
+                    <Button Text="Tomar Foto y Subir"
+                            Clicked="OnCaptureAndUploadPhotoClicked"
+                            BackgroundColor="Blue"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            HeightRequest="50"
+                            CornerRadius="10" />
+                    <Image x:Name="CapturedImage"
+                           WidthRequest="200"
+                           HeightRequest="200" />
+                    <Label x:Name="UploadStatus"
+                           Text="Esperando captura..."
+                           TextColor="Gray" />
+                    <ScrollView>
+                        <VerticalStackLayout>
+                            <ActivityIndicator IsRunning="{Binding IsBusy}"
                                                Color="#bc4749"
                                                IsVisible="{Binding IsBusy}"
-                                           HorizontalOptions="Center" />
-                        <CollectionView ItemsSource="{Binding Solicitudes}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <CollectionView ItemsSource="{Binding Solicitudes}">
-                                        <!--Mostrar las ubicaciones filtrados-->
-                                        <CollectionView.ItemTemplate>
-                                            <DataTemplate>
-                                                <Frame Padding="0"
-                                                       BackgroundColor="#778da9"
-                                                       CornerRadius="10"
-                                                       WidthRequest="430"
-                                                       HeightRequest="110"
-                                                       Margin="3">
-                                                    <toolkit:Expander>
-                                                        <toolkit:Expander.Header>
-                                                            <Grid ColumnDefinitions="1*,.2*"
-                                                                  RowDefinitions="1*,1*">
-                                                                <Label Text="{Binding Descripcion}"
-                                                                       FontFamily="Comf-Bold" />
-                                                                <Label Text="{Binding Sector}"
-                                                                       Grid.Row="1"
+                                               HorizontalOptions="Center" />
+                            <CollectionView ItemsSource="{Binding Solicitudes}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <CollectionView ItemsSource="{Binding Solicitudes}">
+                                            <!--Mostrar las ubicaciones filtrados-->
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Frame Padding="0"
+                                                           BackgroundColor="#778da9"
+                                                           CornerRadius="10"
+                                                           WidthRequest="430"
+                                                           HeightRequest="110"
+                                                           Margin="3">
+                                                        <toolkit:Expander>
+                                                            <toolkit:Expander.Header>
+                                                                <Grid ColumnDefinitions="1*,.2*"
+                                                                      RowDefinitions="1*,1*">
+                                                                    <Label Text="{Binding Descripcion}"
+                                                                           FontFamily="Comf-Bold" />
+                                                                    <Label Text="{Binding Sector}"
+                                                                           Grid.Row="1"
+                                                                           FontFamily="Comf-SemBold" />
+                                                                    <Button BackgroundColor="Transparent"
+                                                                            Grid.Column="2"
+                                                                            Grid.RowSpan="2" />
+                                                                    <Image Source="siguiente.png"
+                                                                           Grid.Column="2"
+                                                                           Grid.RowSpan="2"
+                                                                           VerticalOptions="Center"
+                                                                           WidthRequest="20" />
+                                                                </Grid>
+                                                            </toolkit:Expander.Header>
+                                                            <VerticalStackLayout>
+                                                                <Label Text="{Binding CoordenadasMaps}"
                                                                        FontFamily="Comf-SemBold" />
-                                                                <Button BackgroundColor="Transparent"
-                                                                        Grid.Column="2"
-                                                                        Grid.RowSpan="2" />
-                                                                <Image Source="siguiente.png"
-                                                                       Grid.Column="2"
-                                                                       Grid.RowSpan="2"
-                                                                       VerticalOptions="Center"
-                                                                       WidthRequest="20" />
-                                                            </Grid>
-                                                        </toolkit:Expander.Header>
-                                                        <VerticalStackLayout>
-                                                            <Label Text="{Binding CoordenadasMaps}"
-                                                                   FontFamily="Comf-SemBold" />
-                                                            <Label Text="{Binding Referencias}"
-                                                                   FontFamily="Comf-SemBold" />
-                                                        </VerticalStackLayout>
-                                                    </toolkit:Expander>
-                                                </Frame>
-                                            </DataTemplate>
-                                        </CollectionView.ItemTemplate>
-                                    </CollectionView>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </VerticalStackLayout>
-                </ScrollView>
-                
-            </VerticalStackLayout>
+                                                                <Label Text="{Binding Referencias}"
+                                                                       FontFamily="Comf-SemBold" />
+                                                            </VerticalStackLayout>
+                                                        </toolkit:Expander>
+                                                    </Frame>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </VerticalStackLayout>
             </ScrollView>
         </Grid>
     </Grid>
