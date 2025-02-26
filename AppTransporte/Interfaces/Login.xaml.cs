@@ -73,7 +73,7 @@ public partial class Login : ContentPage
             if (_menuPages.TryGetValue(menuName, out Type pageType))
             {
                 // Crear instancia de la página
-                var page = (Page)Activator.CreateInstance(pageType);
+                var page = (Page)Activator.CreateInstance(pageType, idUsuario, idTipoUsuario);
 
                 // Asignar parámetros si la página implementa una interfaz específica
                 if (page is IMenuPage menuPage)

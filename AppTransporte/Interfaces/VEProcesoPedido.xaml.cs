@@ -7,12 +7,15 @@ public partial class VEProcesoPedido : ContentPage
 {
     private int idUsuario;
     private int idtipousuario;
+    private Pedido _pedido;
+
     public VEProcesoPedido(Pedido pedido, int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
         this.BindingContext = new VMViajes(pedido.IdPedido);
         this.idUsuario = idUsuario;
         this.idtipousuario = idTipoUsuario;
+        this._pedido = pedido;
         TituloPedido.Text = $"Pedido {pedido.IdPedido}";
         Origen.Text = $"{pedido.Origen}";
         Estado.Text = $"{pedido.EstadoPedido}";
@@ -27,8 +30,15 @@ public partial class VEProcesoPedido : ContentPage
     }
 
     private async void Btn_atrasEstado(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new VEpedidos(idUsuario, idtipousuario));
+        {
+        if (idtipousuario == 2) {
+            await Navigation.PushAsync(new VCMisPedidos(idUsuario, idtipousuario));
+        }
+        else if (idtipousuario == 1)
+        {
+            await Navigation.PushAsync(new VEpedidos(idUsuario, idtipousuario));
+
+        }
     }
 
     private void expandir_Clicked(object sender, EventArgs e)
@@ -54,7 +64,7 @@ public partial class VEProcesoPedido : ContentPage
             else
             {
                 // Navegar a la interfaz de seguimiento del viaje
-                await Navigation.PushAsync(new VESeguimientoViaje(viaje));
+                await Navigation.PushAsync(new VESeguimientoViaje(viaje, _pedido, idUsuario, idtipousuario));
             }
         }
     }

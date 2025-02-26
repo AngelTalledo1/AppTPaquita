@@ -5,46 +5,48 @@ namespace AppTransporte.Interfaces;
 public partial class MenuPrincipal : ContentPage
 {
     private int _idUsuario;
-    private int _idtipousuario;
-    public MenuPrincipal()
+    private int _idTipoUsuario;
+    public MenuPrincipal(int idUsuario, int idTipoUsuario)
     {
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
         InitializeComponent();
     }
     public void setUserData(int idUsuario, int idTipoUsuario)
     {
         _idUsuario = idUsuario;
-        _idtipousuario = idTipoUsuario;
+        _idTipoUsuario = idTipoUsuario;
     }
 
     private async void pedidos_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VEpedidos(_idUsuario, _idtipousuario));
+        await Navigation.PushAsync(new VEpedidos(_idUsuario, _idTipoUsuario));
     }
 
     private async void cliente_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VEclientes());
+        await Navigation.PushAsync(new VEclientes(_idUsuario, _idTipoUsuario));
     }
 
 
     private async void transportista_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VEtransportistas());
+        await Navigation.PushAsync(new VEtransportistas(_idUsuario, _idTipoUsuario));
     }
 
     private async void btn_Vehiculos(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VEVehiculos());
+        await Navigation.PushAsync(new VEVehiculos(_idUsuario, _idTipoUsuario));
     }
 
     private async void btn_Solicitudes(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VESolicitudes(_idUsuario, _idtipousuario));
+        await Navigation.PushAsync(new VESolicitudes(_idUsuario, _idTipoUsuario));
     }
 
     private async void Btn_DestinosClicket(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VEUbicacion());
+        await Navigation.PushAsync(new VEUbicacion(_idUsuario, _idTipoUsuario));
     }
 
     private async void btn_cerrar(object sender, EventArgs e)

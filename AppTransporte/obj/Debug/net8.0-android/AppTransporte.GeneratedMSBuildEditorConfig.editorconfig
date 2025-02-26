@@ -29,6 +29,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.AppShell.xam
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/PaquitaOficial/AppTPaquita/AppTransporte/Interfaces/actualizarEstado.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.actualizarEstado.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\actualizarEstado.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\actualizarEstado.xaml
+
 [C:/Users/Javier/Desktop/Proyectos/Xamarin/PaquitaOficial/AppTPaquita/AppTransporte/Interfaces/Login.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.Login.xaml
@@ -53,17 +59,17 @@ build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.M
 build_metadata.AdditionalFiles.TargetPath = Interfaces\MenuTransportista.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\MenuTransportista.xaml
 
-[C:/Users/Javier/Desktop/Proyectos/Xamarin/PaquitaOficial/AppTPaquita/AppTransporte/Interfaces/newMenu.xaml]
-build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.newMenu.xaml
-build_metadata.AdditionalFiles.TargetPath = Interfaces\newMenu.xaml
-build_metadata.AdditionalFiles.RelativePath = Interfaces\newMenu.xaml
-
 [C:/Users/Javier/Desktop/Proyectos/Xamarin/PaquitaOficial/AppTPaquita/AppTransporte/Interfaces/VCambiarContraseña.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VCambiarContraseña.xaml
 build_metadata.AdditionalFiles.TargetPath = Interfaces\VCambiarContraseña.xaml
 build_metadata.AdditionalFiles.RelativePath = Interfaces\VCambiarContraseña.xaml
+
+[C:/Users/Javier/Desktop/Proyectos/Xamarin/PaquitaOficial/AppTPaquita/AppTransporte/Interfaces/VCMisPedidos.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppTransporte.Interfaces.VCMisPedidos.xaml
+build_metadata.AdditionalFiles.TargetPath = Interfaces\VCMisPedidos.xaml
+build_metadata.AdditionalFiles.RelativePath = Interfaces\VCMisPedidos.xaml
 
 [C:/Users/Javier/Desktop/Proyectos/Xamarin/PaquitaOficial/AppTPaquita/AppTransporte/Interfaces/VCMisSolicitudes.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

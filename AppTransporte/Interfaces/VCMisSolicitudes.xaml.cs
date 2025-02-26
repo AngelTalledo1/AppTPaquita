@@ -12,10 +12,11 @@ public partial class VCMisSolicitudes : ContentPage
     private int idUsuario;
     private int idtipousuario;
 
-    public VCMisSolicitudes(int idUsuario)
+    public VCMisSolicitudes(int idUsuario, int idtipoUsuario )
     {
         InitializeComponent();
         this.idUsuario = idUsuario;
+        this.idtipousuario = idtipoUsuario;
         InitializeAsync();
 
     }
@@ -34,12 +35,12 @@ public partial class VCMisSolicitudes : ContentPage
 
     private void Btn_atrasMisSolic(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PushAsync(new MenuCliente(idUsuario,idtipousuario));
     }
 
     private async void btn_NewSolicitud(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VCNuevaSolicitud(Cliente, idUsuario));
+        await Navigation.PushAsync(new VCNuevaSolicitud(Cliente, idUsuario, idtipousuario));
     }
 
     private async Task asignarCliente(int idUsuario)
@@ -61,7 +62,7 @@ public partial class VCMisSolicitudes : ContentPage
 
         if (solicitud != null)
         {
-            await Navigation.PushAsync(new VCNuevaSolicitud(solicitud));
+            await Navigation.PushAsync(new VCNuevaSolicitud(solicitud, idUsuario, idtipousuario));
         }
     }
 

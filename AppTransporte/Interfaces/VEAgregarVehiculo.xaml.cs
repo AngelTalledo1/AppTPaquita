@@ -4,17 +4,23 @@ namespace AppTransporte.Interfaces;
 
 public partial class VEAgregarVehiculo : ContentPage
 {
-    public VEAgregarVehiculo()
+    private int _idUsuario;
+    private int _idTipoUsuario;
+    public VEAgregarVehiculo(int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
         TituloVehiculo.Text = "Agregar Vehiculo";
         AgregarVehiculo.IsVisible = true;
         CancelarVehiculo.IsVisible = true;
     }
     
-    public VEAgregarVehiculo(Vehiculo vehiculo)
+    public VEAgregarVehiculo(Vehiculo vehiculo, int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
         TituloVehiculo.Text = "Modificar Vehiculo";
         ModificarVehiculo.IsVisible = true;
         TipovehiculoPicker.SelectedIndex = 1;
@@ -31,7 +37,7 @@ public partial class VEAgregarVehiculo : ContentPage
     }
     private void Btn_atrasAggVehiculo(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PushAsync(new VEVehiculos(_idUsuario,_idTipoUsuario));
     }
 
     private void PickerIndexChanged(object sender, EventArgs e)

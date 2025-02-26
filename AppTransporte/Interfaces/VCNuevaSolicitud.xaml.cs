@@ -6,22 +6,27 @@ namespace AppTransporte.Interfaces;
 public partial class VCNuevaSolicitud : ContentPage
 {
     public Cliente cliente { get; set; }
+
     public int idUsuario { get; set; }
-    public VCNuevaSolicitud(Cliente cliente,int idUsuario)
+    public int idTipoUsuario { get; set; }
+    public VCNuevaSolicitud(Cliente cliente,int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
         this.cliente = cliente;
         this.idUsuario = idUsuario;
+        this.idTipoUsuario = idTipoUsuario;
         TituloNuev.Text = "Nueva Solicitud";
-        IdClienteLabel.Text = cliente.ApePaterno+" "+cliente.ApeMaterno + ", " + cliente.Nombre;
+        IdClienteLabel.Text = cliente.ApePaterno + " " + cliente.ApeMaterno + ", " + cliente.Nombre;
         Solicitar.IsVisible = true;
         Cancelar.IsVisible = true;
-    
+        this.idTipoUsuario = idTipoUsuario;
     }
 
-    public VCNuevaSolicitud(Solicitud solicitud)
+    public VCNuevaSolicitud(Solicitud solicitud, int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
+        this.idUsuario= idUsuario;
+        this.idTipoUsuario= idTipoUsuario;
         TituloNuev.Text = $"Modificar Solicitud {solicitud.IdSolicitud}";
         IdClienteLabel.Text = $"{solicitud.IdCliente}";
         descripcionEntry.Text = solicitud.Descripcion;
@@ -33,11 +38,12 @@ public partial class VCNuevaSolicitud : ContentPage
 
     private void Btn_atrasSolPedido(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PushAsync(new VCMisSolicitudes(idUsuario, idTipoUsuario));
     }
     private void Btn_cancelar(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PushAsync(new VCMisSolicitudes(idUsuario, idTipoUsuario));
+
     }
 
 
@@ -63,7 +69,7 @@ public partial class VCNuevaSolicitud : ContentPage
             await App.Database.AgregarSolicitudAsync(nuevaSolicitud);
 
             await DisplayAlert("Éxito", "Solicitud creada exitosamente.", "OK");
-            Navigation.PushAsync(new VCMisSolicitudes(idUsuario));
+            Navigation.PushAsync(new VCMisSolicitudes(idUsuario, idTipoUsuario));
 
         }
         catch (Exception ex)

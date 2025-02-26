@@ -5,7 +5,6 @@
              xmlns:viewModel="clr-namespace:AppTransporte.viewModel"
              x:Class="AppTransporte.Interfaces.VCMisSolicitudes"
              NavigationPage.HasNavigationBar="False"
-             Padding="0"
              Title="VCMisSolicitudes">
     <ContentPage.BindingContext>
         <viewModel:VMmisSolicitudes/>
@@ -32,32 +31,33 @@
                    Padding="20,20,0,0" />
         </Grid>
         <Grid Grid.Row="1"
-              RowDefinitions=".14*,.75*,.08*">
-            <VerticalStackLayout Margin="20">
-                <HorizontalStackLayout Spacing="5">
+              RowDefinitions=".95*,.08*">
+            <VerticalStackLayout>
+                <HorizontalStackLayout Margin="15,10"
+                                       VerticalOptions="Start">
                     <Label Text="Buscar: "
                            FontFamily="Comf-Medium"
                            VerticalOptions="Center" />
                     <SearchBar Placeholder="Pozo"
-                               FontFamily="Comf-Bold"
+                               PlaceholderColor="#515a5a"
+                               FontFamily="Comf-SemBold"
                                Text="{Binding TextoBusquedaDescripcion}"
                                VerticalTextAlignment="Center"
                                TextColor="Black" />
                 </HorizontalStackLayout>
                 <Frame Padding="0"
+                       Margin="15,0"
                        CornerRadius="10"
                        BackgroundColor="#e1dddb"
                        BorderColor="Transparent">
                     <Picker Title="Estado"
                             TextColor="#780000"
-                            TitleColor="White"
                             HorizontalTextAlignment="Center"
                             FontFamily="Comf-Bold"
                             ItemsSource="{Binding EstadoSolicitud}"
                             SelectedItem="{Binding EstadoSeleccionado}" />
                 </Frame>
-            </VerticalStackLayout>
-            <ScrollView Grid.Row="1" >
+            <ScrollView Margin="10,15,0,20">
                 <VerticalStackLayout Margin="10">
                     <ActivityIndicator IsRunning="{Binding IsBusy}"
                                        IsVisible="{Binding IsBusy}"
@@ -112,6 +112,7 @@
                                                     x:Name="btnVerPedido"
                                                         IsVisible="{Binding MostrarVerPedido}"
                                                         FontFamily="Comf-Medium"
+                                                    CommandParameter="{Binding .}"
                                                     BackgroundColor="#cb4335"
                                                             Clicked="verMiPedido_Clicked"
                                                     VerticalOptions="Start"
@@ -124,13 +125,14 @@
                     </CollectionView>
                 </VerticalStackLayout>
             </ScrollView>
+            </VerticalStackLayout>
             <Button Text="Nueva Solicitud"
                     FontFamily="Comf-Bold"
                     BackgroundColor="#cb4335"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
                     Clicked="btn_NewSolicitud"
-                    Grid.Row="2" />
+                    Grid.Row="1" />
         </Grid>
     </Grid>
 </ContentPage>

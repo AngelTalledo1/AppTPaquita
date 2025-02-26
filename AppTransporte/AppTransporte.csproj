@@ -112,6 +112,7 @@
 		<None Remove="Resources\Images\usuario.png" />
 		<None Remove="Resources\Images\valido.png" />
 		<None Remove="Resources\raw\highway_and_vehicles.mov" />
+		<None Remove="Resources\Raw\projecto-rocketbot-71a45741c162.json" />
 		<None Remove="Resources\raw\video.mp4" />
 		<None Remove="Resources\Splash\paquita.png" />
 		<None Remove="Resources\Splash\splashpaqui.png" />
@@ -121,12 +122,14 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageReference Include="Dapper" Version="2.1.35" />
+		<PackageReference Include="Google.Cloud.Storage.V1" Version="4.10.0" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.71" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.71" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
 		<PackageReference Include="System.Private.Uri" Version="4.3.2" />
+		<PackageReference Include="Xamarin.Essentials" Version="1.8.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -139,6 +142,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="Interfaces\actualizarEstado.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Interfaces\Login.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -150,9 +156,6 @@
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\MenuTransportista.xaml">
 			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Interfaces\newMenu.xaml">
-		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\VCambiarContraseña.xaml">
 		  <Generator>MSBuild:Compile</Generator>

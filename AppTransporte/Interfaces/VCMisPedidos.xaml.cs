@@ -19,7 +19,7 @@ public partial class VCMisPedidos : ContentPage
     
     private void Btn_atrasMisPedidos(object sender, EventArgs e)
     {
-		Navigation.PopAsync();
+        Navigation.PushAsync(new MenuCliente(idUsuario, idtipousuario));
     }
 
     private async void Btn_DetalleMisPedido(object sender, EventArgs e)

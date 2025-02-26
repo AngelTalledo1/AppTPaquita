@@ -14,7 +14,8 @@
               Padding="20,0,0,0"
               BackgroundColor="#cb4335">
             <Button BackgroundColor="Transparent"
-                    Clicked="Btn_atrasSeguimientoViaje" />
+                    Clicked="Btn_atrasSeguimientoViaje"
+                    CommandParameter="{Binding .}" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
                    VerticalOptions="End"
@@ -31,7 +32,8 @@
                    FontFamily="Comf-Bold"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1" BackgroundColor="White">
+        <Grid Grid.Row="1" BackgroundColor="White"
+              >
             <ScrollView>
             <VerticalStackLayout Margin="20" Spacing="20">
                 <Frame CornerRadius="20" Padding="5,10"
@@ -183,6 +185,14 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
+                            <Button Text="Actualizar Estado"
+                                    x:Name="Btn_Actualizar"
+                                    Clicked="actualizarEstado"
+                                    BackgroundColor="#cb4335"
+                                    TextColor="White"
+                                    FontAttributes="Bold" 
+                                    CommandParameter="{Binding .}"/>
+                            
                         </VerticalStackLayout>
                     </Frame>
             </VerticalStackLayout>

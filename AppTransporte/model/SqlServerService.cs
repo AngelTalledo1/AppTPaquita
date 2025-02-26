@@ -369,7 +369,7 @@ namespace AppTransporte.model
                     command.CommandType = CommandType.StoredProcedure;
 
                     // Agregar el parámetro idUsuario al comando
-                    command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    command.Parameters.AddWithValue("@idUsuarioCliente", idUsuario);
 
                     await connection.OpenAsync();
 
@@ -390,7 +390,6 @@ namespace AppTransporte.model
                                 Destino = reader.GetString(reader.GetOrdinal("destino_descripcion")),
                                 DestSector = reader.GetString(reader.GetOrdinal("destino_sector")),
                                 IdSolicitud = reader.GetInt32(reader.GetOrdinal("idSolicitud")),
-                                IdUsuario = reader.GetInt32(reader.GetOrdinal("usuarioCliente")),
                                 EstadoPedido = reader["estado_pedido"]?.ToString() ?? "Sin estado",
                                 FechaSolicitud = reader.GetDateTime(reader.GetOrdinal("fecha_solicitud")),
                                 FechaEntrega = reader.IsDBNull(reader.GetOrdinal("fecha_entrega"))

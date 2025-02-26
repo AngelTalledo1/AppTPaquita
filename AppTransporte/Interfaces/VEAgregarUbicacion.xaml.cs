@@ -5,19 +5,25 @@ using AppTransporte.viewModel;
 public partial class VEAgregarUbicacion : ContentPage
 {
     public Ubicacion ubicacion { get; set; }
-    public VEAgregarUbicacion()
+    private int _idUsuario;
+    private int _idTipoUsuario;
+    public VEAgregarUbicacion(int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
         TituloAggUbicacion.Text = "Agregar Origen - Destino";
         GuardarUbicacion.IsVisible = true;
         CancelarUbicacion.IsVisible = true;
 
     }
 
-    public VEAgregarUbicacion(Ubicacion ubicacion)
+    public VEAgregarUbicacion(Ubicacion ubicacion, int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
         this.ubicacion = ubicacion;
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
         ActualizarUbicacion.IsVisible = true;
         EliminarUbicacion.IsVisible = true;
         descripcionEntry.Text = ubicacion.Descripcion;
@@ -44,7 +50,7 @@ public partial class VEAgregarUbicacion : ContentPage
             {
 
                 await DisplayAlert("Exito", "Ubicacion agregada correctamente.", "OK");
-                await Navigation.PushAsync(new VEUbicacion());
+                await Navigation.PushAsync(new VEUbicacion(_idUsuario, _idTipoUsuario));
             }
             else
                 await DisplayAlert("Error", "No se pudo agregar la ubicacion.", "OK");
@@ -56,7 +62,7 @@ public partial class VEAgregarUbicacion : ContentPage
 
     private void Btn_atrasAggUbicacion(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PushAsync(new VEUbicacion(_idUsuario, _idTipoUsuario));
     }
 
     private async void ActualizarUbicacion_Clicked(object sender, EventArgs e)
@@ -71,7 +77,7 @@ public partial class VEAgregarUbicacion : ContentPage
         if (resultado > 0)
         {
             await DisplayAlert("Exito", "Ubicacion actualizada correctamente.", "OK");
-            await Navigation.PushAsync(new VEUbicacion());
+            await Navigation.PushAsync(new VEUbicacion(_idUsuario, _idTipoUsuario));
         }
         else
         {
@@ -92,7 +98,7 @@ public partial class VEAgregarUbicacion : ContentPage
             if (resultado > 0)
             {
                 await DisplayAlert("Exito", "Ubicación eliminada Exitosamente", "OK");
-                await Navigation.PushAsync(new VEUbicacion());
+                await Navigation.PushAsync(new VEUbicacion(_idUsuario, _idTipoUsuario));
             }
             else
             {
