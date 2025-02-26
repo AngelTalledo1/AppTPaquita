@@ -160,6 +160,7 @@ namespace AppTransporte.viewModel
         private void FiltrarPedidos()
         {
             var pedidosFiltrados = Pedidos.AsEnumerable();
+
             if (!string.IsNullOrEmpty(EstadoSeleccionado) && EstadoSeleccionado != "Todos")
             {
                 pedidosFiltrados = pedidosFiltrados.Where(p => p.EstadoPedido == EstadoSeleccionado);
@@ -167,8 +168,10 @@ namespace AppTransporte.viewModel
 
             if (!string.IsNullOrEmpty(Numero))
             {
-                pedidosFiltrados = pedidosFiltrados.Where(p => p.IdPedido.ToString()
-                    .Contains(Numero, StringComparison.OrdinalIgnoreCase));
+                pedidosFiltrados = pedidosFiltrados.Where(p =>
+                    p.IdPedido.ToString().Contains(Numero, StringComparison.OrdinalIgnoreCase) ||
+                    p.Destino.ToString().Contains(Numero, StringComparison.OrdinalIgnoreCase) ||
+                    p.Origen.ToString().Contains(Numero, StringComparison.OrdinalIgnoreCase));
             }
 
             // Actualizar la lista filtrada

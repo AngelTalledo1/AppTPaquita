@@ -9,7 +9,8 @@
               Padding="20,0,0,0"
               BackgroundColor="#cb4335">
             <Button BackgroundColor="Transparent"
-                    Clicked="Btn_atrasAsignarViaje" />
+                    Clicked="Btn_atrasAsignarViaje"
+                    CommandParameter="{Binding .}" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
                    VerticalOptions="End"

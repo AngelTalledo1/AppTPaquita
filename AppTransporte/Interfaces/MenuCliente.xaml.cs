@@ -3,27 +3,29 @@ namespace AppTransporte.Interfaces;
 
 public partial class MenuCliente : ContentPage, IMenuPage
 {
-    private int _idUsuario;
-    private int _idtipousuario;
-    public MenuCliente()
+    public int _idUsuario;
+    public int _idTipoUsuario;
+    public MenuCliente(int idUsuario, int idTipoUsuario)
 	{
         InitializeComponent();
-        
+        this._idUsuario = idUsuario;
+        this._idTipoUsuario = idTipoUsuario;
+
     }
 
     public void setUserData(int idUsuario, int idTipoUsuario)
     {
         _idUsuario = idUsuario;
-        _idtipousuario = idTipoUsuario;
+        _idTipoUsuario = idTipoUsuario;
         
     }
     private void NuevoPedido_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VCMisSolicitudes(_idUsuario));
+        Navigation.PushAsync(new VCMisSolicitudes(_idUsuario, _idTipoUsuario));
     }
     private void pedidosCliente_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VCMisPedidos(_idUsuario,_idtipousuario));
+        Navigation.PushAsync(new VCMisPedidos(_idUsuario, _idTipoUsuario));
     }
 
 }

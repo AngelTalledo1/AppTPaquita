@@ -1,47 +1,62 @@
-﻿    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Runtime.CompilerServices;
-    using System.Text;
-    using System.Threading.Tasks;
-    using AppTransporte.model;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using AppTransporte.model;
 
-    namespace AppTransporte.viewModel
+namespace AppTransporte.viewModel
+{
+    public class VMViajes : INotifyPropertyChanged
     {
-        public class VMViajes : INotifyPropertyChanged
+        private bool _isBusy;
+        public ObservableCollection<Viaje> viajes { get; set; } = new();
+        public ObservableCollection<Viaje> viajesFiltrados { get; set; } = new();
+        private int? _idPedidoSeleccionado;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public List<string> Estados { get; set; }
+
+        private string _estadoSeleccionado;
+        public string EstadoSeleccionado
         {
-            private bool _isBusy;
-            public ObservableCollection<Viaje> viajes { get; set; } = new();
-            public ObservableCollection<Viaje> viajesFiltrados { get; set; } = new();
-            private int? _idPedidoSeleccionado;
-
-            public event PropertyChangedEventHandler? PropertyChanged;
-
-            public bool IsBusy
+            get => _estadoSeleccionado;
+            set
             {
-                get => _isBusy;
-                set
+                if (_estadoSeleccionado != value)
                 {
-                    _isBusy = value;
-                    OnPropertyChanged(nameof(IsBusy));
+                    _estadoSeleccionado = value;
+                    FiltrarViajes();
+                    OnPropertyChanged(nameof(EstadoSeleccionado));
                 }
             }
-
-            public int? IdPedidoSeleccionado
+        }
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
             {
-                get => _idPedidoSeleccionado;
-                set
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+
+        public int? IdPedidoSeleccionado
+        {
+            get => _idPedidoSeleccionado;
+            set
+            {
+                if (_idPedidoSeleccionado != value)
                 {
-                    if (_idPedidoSeleccionado != value)
-                    {
-                        _idPedidoSeleccionado = value;
-                        OnPropertyChanged(nameof(IdPedidoSeleccionado));
-                        FiltrarViajes(); // Filtra los viajes automáticamente al cambiar el IdPedido
-                    }
+                    _idPedidoSeleccionado = value;
+                    OnPropertyChanged(nameof(IdPedidoSeleccionado));
+                    FiltrarViajes(); // Filtra los viajes automáticamente al cambiar el IdPedido
                 }
             }
+        }
 
         public int TotalBarrilesFinalizados
         {
@@ -60,6 +75,16 @@
         }
         public VMViajes()
         {
+            InicializarViajes();
+            Estados = new List<string>
+            {
+                "Todos",
+                "Pendiente",
+                "En el punto de Carga",
+                "En camino al destino",
+                "Finalizado"
+            };
+
             InicializarViajes();
         }
         public VMViajes(int idPedido)
@@ -107,6 +132,10 @@
             }
 
             var viajesFiltradosTemp = viajes.AsEnumerable();
+            if (!string.IsNullOrEmpty(EstadoSeleccionado) && EstadoSeleccionado != "Todos")
+            {
+                viajesFiltradosTemp = viajesFiltradosTemp.Where(p => p.ultEstado == EstadoSeleccionado);
+            }
 
             if (IdPedidoSeleccionado.HasValue)
             {
@@ -128,4 +157,4 @@
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-    }
+}

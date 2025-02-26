@@ -6,16 +6,22 @@ namespace AppTransporte.Interfaces;
 public partial class VEagregarCliente : ContentPage
 {
     public int id_cliente { get; set; }
-    public VEagregarCliente()
+    private int _idUsuario;
+    private int _idTipoUsuario;
+    public VEagregarCliente(int idUsuario, int idTipoUsuario)
 	{
 		InitializeComponent();
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
         GuardarCliente.IsVisible = true;
         TituloLabel.Text = "Informacion General";
 	}
-    public VEagregarCliente(Cliente clienteSelect)
+    public VEagregarCliente(Cliente clienteSelect, int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
         id_cliente = clienteSelect.IdCliente;
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
         ActualizarCliente.IsVisible = true;
         tituloInterfaz.Text = "Modificar Cliente";
         TituloLabel.Text = "Informacion General";
@@ -32,7 +38,7 @@ public partial class VEagregarCliente : ContentPage
 
     private void Btn_atras(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PushAsync(new VEclientes(_idUsuario,_idTipoUsuario));
     }
     private async void OnGuardarClienteClicked(object sender, EventArgs e)
     {
@@ -66,7 +72,7 @@ public partial class VEagregarCliente : ContentPage
             if (resultado > 0)
             {
                 await DisplayAlert("Éxito", "Cliente agregado correctamente.", "OK");
-                await Navigation.PushAsync(new VEclientes());
+                await Navigation.PushAsync(new VEclientes(_idUsuario,_idTipoUsuario));
 
             }
             else
@@ -103,12 +109,12 @@ public partial class VEagregarCliente : ContentPage
             if (resultado > 0)
             {
                 await DisplayAlert("Éxito", "Cliente modificado correctamente.", "OK");
-                await Navigation.PushAsync(new VEclientes());
+                await Navigation.PushAsync(new VEclientes(_idUsuario, _idTipoUsuario));
             }
             else
             {
                 await DisplayAlert("Error", "No se pudo modificar el cliente. Verifica los datos.", "OK");
-                await Navigation.PushAsync(new VEclientes());
+                await Navigation.PushAsync(new VEclientes(_idUsuario, _idTipoUsuario));
             }
         }
         catch (Exception ex)

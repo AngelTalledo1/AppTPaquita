@@ -6,15 +6,18 @@ namespace AppTransporte.Interfaces;
 
 public partial class VEDetalleSolicitud : ContentPage
 {
+    private int idUsuario;
+    private int idtipousuario;
     private readonly VMPedidos _pedidosViewModel;
-    public VEDetalleSolicitud(Solicitud solicitud, VMPedidos pedidosViewModel)
+    public VEDetalleSolicitud(Solicitud solicitud, VMPedidos pedidosViewModel, int idUsuario, int idTipoUsuario)
 	{
 		InitializeComponent();
         _pedidosViewModel = pedidosViewModel;
+        this.idUsuario = idUsuario;
+        this.idtipousuario = idTipoUsuario;
         BindingContext = solicitud;
         solicitudid.Text = solicitud.IdSolicitud.ToString();
-        Console.WriteLine(solicitud.Fecha);
-        fechaSolicitud.Text = solicitud.Fecha.ToString();
+        fechaSolicitud.Text = solicitud.FechaSolicitud.ToString();
         clienteSolicitud.Text = solicitud.Cliente;
         descripcionSolicitud.Text = solicitud.Descripcion;
         estadoSolicitud.Text = solicitud.EstadoSolicitud;
@@ -22,7 +25,7 @@ public partial class VEDetalleSolicitud : ContentPage
 
     private void Btn_atrasDetSolicitud(object sender, EventArgs e)
     {
-		Navigation.PopAsync();
+		Navigation.PushAsync(new VESolicitudes(idUsuario, idtipousuario));
     }
 
     private async void Btn_CrearPedido(object sender, EventArgs e)
@@ -33,7 +36,7 @@ public partial class VEDetalleSolicitud : ContentPage
         if (solicitud != null)
         {
 
-            await Navigation.PushAsync(new VECrearPedido(solicitud));
+            await Navigation.PushAsync(new VECrearPedido(solicitud, idUsuario, idtipousuario));
         }
     }
 
@@ -57,7 +60,7 @@ public partial class VEDetalleSolicitud : ContentPage
                     if (pedido != null)
                     {
                         // Navegar a la página de Proceso Pedido
-                        await Navigation.PushAsync(new VEProcesoPedido(pedido));
+                        await Navigation.PushAsync(new VEProcesoPedido(pedido, idUsuario, idtipousuario));
                     }
                     else
                     {

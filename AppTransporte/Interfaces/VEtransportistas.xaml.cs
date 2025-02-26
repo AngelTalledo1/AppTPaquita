@@ -4,20 +4,24 @@ using AppTransporte.viewModel;
 
 public partial class VEtransportistas : ContentPage
 {
-	public VEtransportistas()
+    private int _idUsuario;
+    private int _idTipoUsuario;
+    public VEtransportistas(int idUsuario, int idTipoUsuario)
 	{
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
         BindingContext = new VMTrabajadores();
         InitializeComponent();
 	}
 
     private void btn_agregarTransportista(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VEagregarTransportista());
+        Navigation.PushAsync(new VEagregarTransportista(_idUsuario, _idTipoUsuario));
     }
 
     private void Btn_atrasTransportista(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new MenuPrincipal());
+        Navigation.PushAsync(new MenuPrincipal(_idUsuario, _idTipoUsuario));
     }
 
     private async void Btn_ModificarTrabajador(object sender, EventArgs e)
@@ -27,7 +31,7 @@ public partial class VEtransportistas : ContentPage
 
         if (trabajador != null)
         {
-            await Navigation.PushAsync(new VEagregarTransportista(trabajador));
+            await Navigation.PushAsync(new VEagregarTransportista(trabajador, _idUsuario, _idTipoUsuario));
         }
     }
 
