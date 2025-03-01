@@ -1,4 +1,5 @@
 using AppTransporte.model;
+using AppTransporte.viewModel;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Upload;
 using Google.Cloud.Storage.V1;
@@ -13,6 +14,10 @@ public partial class VTMisViajes : ContentPage
 
     public VTMisViajes(int idUsuario, int idTipoUsuario)
     {
+        var viewModel = new VMViajes(idUsuario : idUsuario);
+    
+        // Asignar el VM como BindingContext
+        this.BindingContext = viewModel;
         InitializeComponent();
         this._idUsuario = idUsuario;
         this._idTipoUsuario = idTipoUsuario;

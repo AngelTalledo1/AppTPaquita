@@ -7,9 +7,6 @@
              Title="VEProcesoPedido"
              Padding="0"
              NavigationPage.HasNavigationBar="False">
-    <ContentPage.BindingContext>
-        <viewModel:VMViajes />
-    </ContentPage.BindingContext>
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
               BackgroundColor="#cb4335"

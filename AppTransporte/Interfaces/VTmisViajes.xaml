@@ -6,9 +6,6 @@
              xmlns:VME="clr-namespace:AppTransporte.viewModel"
              x:Class="AppTransporte.Interfaces.VTMisViajes"
              Title="VTMisViajes">
-    <ContentPage.BindingContext>
-        <VME:VMViajes />
-    </ContentPage.BindingContext>
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0"

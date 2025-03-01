@@ -15,7 +15,6 @@ public partial class VEProcesoPedido : ContentPage
         this.BindingContext = new VMViajes(pedido.IdPedido);
         this.idUsuario = idUsuario;
         this.idtipousuario = idTipoUsuario;
-        this._pedido = pedido;
         TituloPedido.Text = $"Pedido {pedido.IdPedido}";
         Origen.Text = $"{pedido.Origen}";
         Estado.Text = $"{pedido.EstadoPedido}";
