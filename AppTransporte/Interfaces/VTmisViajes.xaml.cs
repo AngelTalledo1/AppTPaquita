@@ -1,5 +1,6 @@
 using AppTransporte.model;
 using Google.Apis.Auth.OAuth2;
+using AppTransporte.viewModel;
 using Google.Apis.Upload;
 using Google.Cloud.Storage.V1;
 
@@ -13,6 +14,10 @@ public partial class VTMisViajes : ContentPage
 
     public VTMisViajes(int idUsuario, int idTipoUsuario)
     {
+        var viewModel = new VMViajes(idUsuario : idUsuario);
+
+        // Asignar el VM como BindingContext
+        this.BindingContext = viewModel;
         InitializeComponent();
         this._idUsuario = idUsuario;
         this._idTipoUsuario = idTipoUsuario;
@@ -36,7 +41,7 @@ public partial class VTMisViajes : ContentPage
                 string.IsNullOrWhiteSpace(viaje.TrabajadoresAsig) || viaje.TrabajadoresAsig == "S/A")
             {
                 // Navegar a la interfaz para asignar el viaje
-                await Navigation.PushAsync(new VEAsignarViaje(viaje, _idUsuario, _idTipoUsuario));
+                await Navigation.PushAsync(new VEAsignarViaje(viaje, _pedido, _idUsuario, _idTipoUsuario));
             }
             else
             {
@@ -46,4 +51,6 @@ public partial class VTMisViajes : ContentPage
         }
 
     }
+
+   
 }

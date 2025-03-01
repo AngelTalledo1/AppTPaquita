@@ -56,7 +56,7 @@
                             </toolkit:Expander.Header>
                         <VerticalStackLayout Margin="20" Spacing="10">
                                 <Grid ColumnDefinitions=".6*,1*"
-                                      RowDefinitions="1*,1*,1*,1*,1*" Padding="0"
+                                      RowDefinitions="1*,1*,1*,1*,1*,1*" Padding="0"
                                      >
                                     <Label Text="Trabajadores: "
                                            FontFamily="Comf-Bold"
@@ -100,6 +100,15 @@
                                            TextColor="#bc4749"
                                            Grid.Row="4"
                                            Grid.Column="1" />
+                                    <Button Text="Ver pedido"
+                                            x:Name="btn_pedido"
+                                            FontFamily="Comf-Bold"
+                                            BackgroundColor="#bc4749"
+                                            CommandParameter="{Binding .}"
+                                            Grid.Row="5"    
+                                            Grid.ColumnSpan="2"
+                                            HorizontalOptions="Center"
+                                            Clicked="btn_verPedidoViaje"/>
                                 </Grid>
                             </VerticalStackLayout>
                     </toolkit:Expander>

@@ -60,7 +60,7 @@ public partial class VEDetalleSolicitud : ContentPage
                     if (pedido != null)
                     {
                         // Navegar a la página de Proceso Pedido
-                        await Navigation.PushAsync(new VEProcesoPedido(pedido, idUsuario, idtipousuario));
+                        await Navigation.PushAsync(new VEProcesoPedido(pedido, idUsuario, idtipousuario, null));
                     }
                     else
                     {

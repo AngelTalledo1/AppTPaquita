@@ -1,7 +1,32 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\interfaces\\veprocesopedido.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veprocesopedido.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\interfaces\\vtmisviajes.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\vtmisviajes.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\interfaces\\vtmisviajes.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\vtmisviajes.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\interfaces\\veseguimientoviaje.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veseguimientoviaje.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\interfaces\\veseguimientoviaje.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\interfaces\\veseguimientoviaje.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|c:\\users\\javier\\desktop\\proyectos\\xamarin\\paquitaoficial\\apptpaquita\\apptransporte\\viewmodel\\vmviajes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AA35E8E-6D44-490D-820D-B522305EEC0F}|AppTransporte\\AppTransporte.csproj|solutionrelative:apptransporte\\viewmodel\\vmviajes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 247,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,6 +71,84 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VTmisViajes.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VTmisViajes.xaml.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VTmisViajes.xaml.cs",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VTmisViajes.xaml.cs",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\VTmisViajes.xaml.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAxwBAAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-01T05:23:45.028Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VTmisViajes.xaml",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VTmisViajes.xaml",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VTmisViajes.xaml",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VTmisViajes.xaml",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\VTmisViajes.xaml",
+              "ViewState": "AQIAACQAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-01T05:23:35.17Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "VMViajes.cs",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\viewModel\\VMViajes.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\viewModel\\VMViajes.cs",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\viewModel\\VMViajes.cs",
+              "RelativeToolTip": "AppTransporte\\viewModel\\VMViajes.cs",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAkwDgAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-01T05:02:59.586Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "VEProcesoPedido.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VEProcesoPedido.xaml.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VEProcesoPedido.xaml.cs",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VEProcesoPedido.xaml.cs",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\VEProcesoPedido.xaml.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAnwBMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-01T04:56:02.928Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "VESeguimientoViaje.xaml",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VESeguimientoViaje.xaml",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VESeguimientoViaje.xaml",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VESeguimientoViaje.xaml",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\VESeguimientoViaje.xaml",
+              "ViewState": "AQIAAFMAAAAAAAAAAAAswGoAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-01T04:46:16.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "VESeguimientoViaje.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VESeguimientoViaje.xaml.cs",
+              "RelativeDocumentMoniker": "AppTransporte\\Interfaces\\VESeguimientoViaje.xaml.cs",
+              "ToolTip": "C:\\Users\\Javier\\Desktop\\Proyectos\\Xamarin\\PaquitaOficial\\AppTPaquita\\AppTransporte\\Interfaces\\VESeguimientoViaje.xaml.cs",
+              "RelativeToolTip": "AppTransporte\\Interfaces\\VESeguimientoViaje.xaml.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAmwA8AAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-01T04:46:07.21Z",
+              "EditorCaption": ""
             }
           ]
         }

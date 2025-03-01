@@ -16,10 +16,9 @@ namespace AppTransporte.viewModel
         public ObservableCollection<Viaje> viajes { get; set; } = new();
         public ObservableCollection<Viaje> viajesFiltrados { get; set; } = new();
         private int? _idPedidoSeleccionado;
-
+        private int? _idUsuario;
         public event PropertyChangedEventHandler? PropertyChanged;
         public List<string> Estados { get; set; }
-
         private string _estadoSeleccionado;
         public string EstadoSeleccionado
         {
@@ -43,7 +42,6 @@ namespace AppTransporte.viewModel
                 OnPropertyChanged(nameof(IsBusy));
             }
         }
-
         public int? IdPedidoSeleccionado
         {
             get => _idPedidoSeleccionado;
@@ -53,7 +51,20 @@ namespace AppTransporte.viewModel
                 {
                     _idPedidoSeleccionado = value;
                     OnPropertyChanged(nameof(IdPedidoSeleccionado));
-                    FiltrarViajes(); // Filtra los viajes automáticamente al cambiar el IdPedido
+                    InicializarViajes();
+                }
+            }
+        }
+        public int? IdUsuario
+        {
+            get => _idUsuario;
+            set
+            {
+                if (_idUsuario != value)
+                {
+                    _idUsuario = value;
+                    OnPropertyChanged(nameof(IdUsuario));
+                    InicializarViajes(); // Recarga datos al cambiar
                 }
             }
         }
@@ -62,20 +73,33 @@ namespace AppTransporte.viewModel
         {
             get => viajesFiltrados
                 .Where(v => v.ultEstado == "Finalizado")
-                .Sum(v => v.Cantidad ?? 0); // Si v.Cantidad es null, tomará 0
+                .Sum(v => v.Cantidad ?? 0); 
         }
         public string BarrilesMostrados
         {
             get
             {
                 var totalBarrilesFinalizados = TotalBarrilesFinalizados;
-                var totalBarrilesPedido = viajesFiltrados.Sum(v => v.Cantidad ?? 0); // Total de barriles en todos los viajes
+                var totalBarrilesPedido = viajesFiltrados.Sum(v => v.Cantidad ?? 0);
                 return $"{totalBarrilesFinalizados} / {totalBarrilesPedido}";
             }
         }
         public VMViajes()
         {
-            InicializarViajes();
+            InicializarPropiedades();
+        }
+        public VMViajes(int idPedido)
+        {
+            this.IdPedidoSeleccionado = idPedido;
+            InicializarPropiedades();
+        }
+        public VMViajes(int? idUsuario)
+        {
+            this.IdUsuario = idUsuario;
+            InicializarPropiedades();
+        }
+        private void InicializarPropiedades()
+        {
             Estados = new List<string>
             {
                 "Todos",
@@ -87,20 +111,13 @@ namespace AppTransporte.viewModel
 
             InicializarViajes();
         }
-        public VMViajes(int idPedido)
-        {
-            this.IdPedidoSeleccionado = idPedido;
-            InicializarViajes(); // Carga los viajes y aplica el filtro automáticamente
-        }
-
-
         private async void InicializarViajes()
         {
             IsBusy = true;
 
             try
             {
-                var viajesDesdeBD = await App.Database.ObtenerViajesAsync();
+                var viajesDesdeBD = await App.Database.ObtenerViajesModAsync(IdPedidoSeleccionado, IdUsuario);
 
                 this.viajes.Clear();
 
@@ -109,7 +126,7 @@ namespace AppTransporte.viewModel
                     this.viajes.Add(viaje);
                 }
 
-                FiltrarViajes(); // Aplica el filtro después de cargar los datos
+                FiltrarViajes(); 
             }
             catch (Exception ex)
             {
@@ -126,8 +143,7 @@ namespace AppTransporte.viewModel
             if (viajes == null || !viajes.Any())
             {
                 viajesFiltrados.Clear();
-                OnPropertyChanged(nameof(TotalBarrilesFinalizados));
-                OnPropertyChanged(nameof(BarrilesMostrados));
+                ActualizarPropiedades();
                 return;
             }
 
@@ -137,10 +153,7 @@ namespace AppTransporte.viewModel
                 viajesFiltradosTemp = viajesFiltradosTemp.Where(p => p.ultEstado == EstadoSeleccionado);
             }
 
-            if (IdPedidoSeleccionado.HasValue)
-            {
-                viajesFiltradosTemp = viajesFiltradosTemp.Where(v => v.IdPedido == IdPedidoSeleccionado.Value);
-            }
+           
 
             viajesFiltrados.Clear();
 
@@ -148,10 +161,13 @@ namespace AppTransporte.viewModel
             {
                 viajesFiltrados.Add(viaje);
             }
+            ActualizarPropiedades();
+        }
+        private void ActualizarPropiedades()
+        {
             OnPropertyChanged(nameof(TotalBarrilesFinalizados));
             OnPropertyChanged(nameof(BarrilesMostrados));
         }
-
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

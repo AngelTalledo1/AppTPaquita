@@ -94,296 +94,296 @@
     <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\OpenSans-Semibold.ttf">
       <PackagePath>OpenSans-Semibold.ttf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLargeTile.scale-400.png">
-      <PackagePath>iconopaquiLargeTile.scale-400.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLargeTile.scale-200.png">
-      <PackagePath>iconopaquiLargeTile.scale-200.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLargeTile.scale-150.png">
-      <PackagePath>iconopaquiLargeTile.scale-150.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLargeTile.scale-125.png">
-      <PackagePath>iconopaquiLargeTile.scale-125.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLargeTile.scale-100.png">
-      <PackagePath>iconopaquiLargeTile.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiWideTile.scale-400.png">
-      <PackagePath>iconopaquiWideTile.scale-400.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiWideTile.scale-200.png">
-      <PackagePath>iconopaquiWideTile.scale-200.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiWideTile.scale-150.png">
-      <PackagePath>iconopaquiWideTile.scale-150.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiWideTile.scale-125.png">
-      <PackagePath>iconopaquiWideTile.scale-125.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiWideTile.scale-100.png">
-      <PackagePath>iconopaquiWideTile.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiMediumTile.scale-400.png">
-      <PackagePath>iconopaquiMediumTile.scale-400.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiMediumTile.scale-200.png">
-      <PackagePath>iconopaquiMediumTile.scale-200.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiMediumTile.scale-150.png">
-      <PackagePath>iconopaquiMediumTile.scale-150.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiMediumTile.scale-125.png">
-      <PackagePath>iconopaquiMediumTile.scale-125.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiMediumTile.scale-100.png">
-      <PackagePath>iconopaquiMediumTile.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiSmallTile.scale-400.png">
-      <PackagePath>iconopaquiSmallTile.scale-400.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiSmallTile.scale-200.png">
-      <PackagePath>iconopaquiSmallTile.scale-200.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiSmallTile.scale-150.png">
-      <PackagePath>iconopaquiSmallTile.scale-150.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiSmallTile.scale-125.png">
-      <PackagePath>iconopaquiSmallTile.scale-125.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiSmallTile.scale-100.png">
-      <PackagePath>iconopaquiSmallTile.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiStoreLogo.scale-400.png">
-      <PackagePath>iconopaquiStoreLogo.scale-400.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiStoreLogo.scale-200.png">
-      <PackagePath>iconopaquiStoreLogo.scale-200.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiStoreLogo.scale-150.png">
-      <PackagePath>iconopaquiStoreLogo.scale-150.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiStoreLogo.scale-125.png">
-      <PackagePath>iconopaquiStoreLogo.scale-125.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiStoreLogo.scale-100.png">
-      <PackagePath>iconopaquiStoreLogo.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-lightunplated_targetsize-256.png">
-      <PackagePath>iconopaquiLogo.altform-lightunplated_targetsize-256.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-lightunplated_targetsize-48.png">
-      <PackagePath>iconopaquiLogo.altform-lightunplated_targetsize-48.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-lightunplated_targetsize-32.png">
-      <PackagePath>iconopaquiLogo.altform-lightunplated_targetsize-32.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-lightunplated_targetsize-24.png">
-      <PackagePath>iconopaquiLogo.altform-lightunplated_targetsize-24.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-lightunplated_targetsize-16.png">
-      <PackagePath>iconopaquiLogo.altform-lightunplated_targetsize-16.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-unplated_targetsize-256.png">
-      <PackagePath>iconopaquiLogo.altform-unplated_targetsize-256.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-unplated_targetsize-48.png">
-      <PackagePath>iconopaquiLogo.altform-unplated_targetsize-48.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-unplated_targetsize-32.png">
-      <PackagePath>iconopaquiLogo.altform-unplated_targetsize-32.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-unplated_targetsize-24.png">
-      <PackagePath>iconopaquiLogo.altform-unplated_targetsize-24.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-unplated_targetsize-16.png">
-      <PackagePath>iconopaquiLogo.altform-unplated_targetsize-16.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.targetsize-256.png">
-      <PackagePath>iconopaquiLogo.targetsize-256.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.targetsize-48.png">
-      <PackagePath>iconopaquiLogo.targetsize-48.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.targetsize-32.png">
-      <PackagePath>iconopaquiLogo.targetsize-32.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.targetsize-24.png">
-      <PackagePath>iconopaquiLogo.targetsize-24.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.targetsize-16.png">
-      <PackagePath>iconopaquiLogo.targetsize-16.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.scale-400.png">
-      <PackagePath>iconopaquiLogo.scale-400.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.scale-200.png">
-      <PackagePath>iconopaquiLogo.scale-200.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.scale-150.png">
-      <PackagePath>iconopaquiLogo.scale-150.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.scale-125.png">
-      <PackagePath>iconopaquiLogo.scale-125.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.scale-100.png">
-      <PackagePath>iconopaquiLogo.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaqui.ico">
-      <PackagePath>iconopaqui.ico</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\ruta.scale-100.png">
-      <PackagePath>ruta.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\rol.scale-100.png">
-      <PackagePath>rol.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\entregado.scale-100.png">
-      <PackagePath>entregado.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\entrega.scale-100.png">
-      <PackagePath>entrega.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\direcciones.scale-100.png">
-      <PackagePath>direcciones.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\cancelado.scale-100.png">
-      <PackagePath>cancelado.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\asignado.scale-100.png">
-      <PackagePath>asignado.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\siguiente.scale-100.png">
-      <PackagePath>siguiente.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\rutamen.scale-100.png">
-      <PackagePath>rutamen.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\nuevopedido.scale-100.png">
-      <PackagePath>nuevopedido.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\mispedidos.scale-100.png">
-      <PackagePath>mispedidos.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\edit.scale-100.png">
-      <PackagePath>edit.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\cargando.scale-100.png">
-      <PackagePath>cargando.scale-100.png</PackagePath>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\abajo.scale-100.png">
       <PackagePath>abajo.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\valido.scale-100.png">
-      <PackagePath>valido.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\usuario.scale-100.png">
-      <PackagePath>usuario.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\redondo.scale-100.png">
-      <PackagePath>redondo.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\petro11.scale-100.png">
-      <PackagePath>petro11.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\intclientes.scale-100.png">
-      <PackagePath>intclientes.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\informe.scale-100.png">
-      <PackagePath>informe.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\direccion.scale-100.png">
-      <PackagePath>direccion.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\cerrar.scale-100.png">
-      <PackagePath>cerrar.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\atras.scale-100.png">
-      <PackagePath>atras.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-400.png">
-      <PackagePath>dotnet_bot.scale-400.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-200.png">
-      <PackagePath>dotnet_bot.scale-200.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-150.png">
-      <PackagePath>dotnet_bot.scale-150.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-125.png">
-      <PackagePath>dotnet_bot.scale-125.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-100.png">
-      <PackagePath>dotnet_bot.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\cisterna.scale-100.png">
-      <PackagePath>cisterna.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\boton.scale-100.png">
-      <PackagePath>boton.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\telefono.scale-100.png">
-      <PackagePath>telefono.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\solicitar.scale-100.png">
-      <PackagePath>solicitar.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\logo.scale-100.png">
-      <PackagePath>logo.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\licencia.scale-100.png">
-      <PackagePath>licencia.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\eliminar.scale-100.png">
-      <PackagePath>eliminar.scale-100.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\cliente2.scale-100.png">
-      <PackagePath>cliente2.scale-100.png</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\agg.scale-100.png">
       <PackagePath>agg.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\transporte.scale-100.png">
-      <PackagePath>transporte.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\arriba.scale-100.png">
+      <PackagePath>arriba.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\tipodoc.scale-100.png">
-      <PackagePath>tipodoc.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\asignado.scale-100.png">
+      <PackagePath>asignado.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\pendiente.scale-100.png">
-      <PackagePath>pendiente.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\atras.scale-100.png">
+      <PackagePath>atras.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\pedido2.scale-100.png">
-      <PackagePath>pedido2.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\barril.scale-100.png">
+      <PackagePath>barril.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\encurso.scale-100.png">
-      <PackagePath>encurso.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\boton.scale-100.png">
+      <PackagePath>boton.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\cancelado.scale-100.png">
+      <PackagePath>cancelado.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\cargando.scale-100.png">
+      <PackagePath>cargando.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\cerrar.scale-100.png">
+      <PackagePath>cerrar.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\cisterna.scale-100.png">
+      <PackagePath>cisterna.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\cliente2.scale-100.png">
+      <PackagePath>cliente2.scale-100.png</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\contra.scale-100.png">
       <PackagePath>contra.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\arriba.scale-100.png">
-      <PackagePath>arriba.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\detalles.scale-100.png">
+      <PackagePath>detalles.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\usu.scale-100.png">
-      <PackagePath>usu.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\direccion.scale-100.png">
+      <PackagePath>direccion.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\tuser.scale-100.png">
-      <PackagePath>tuser.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\direcciones.scale-100.png">
+      <PackagePath>direcciones.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\paquitatext.scale-100.png">
-      <PackagePath>paquitatext.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-100.png">
+      <PackagePath>dotnet_bot.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\paquita.scale-100.png">
-      <PackagePath>paquita.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-125.png">
+      <PackagePath>dotnet_bot.scale-125.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-150.png">
+      <PackagePath>dotnet_bot.scale-150.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-200.png">
+      <PackagePath>dotnet_bot.scale-200.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-400.png">
+      <PackagePath>dotnet_bot.scale-400.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\edit.scale-100.png">
+      <PackagePath>edit.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\eliminar.scale-100.png">
+      <PackagePath>eliminar.scale-100.png</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\email.scale-100.png">
       <PackagePath>email.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\detalles.scale-100.png">
-      <PackagePath>detalles.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\encurso.scale-100.png">
+      <PackagePath>encurso.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\barril.scale-100.png">
-      <PackagePath>barril.scale-100.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\entrega.scale-100.png">
+      <PackagePath>entrega.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\entregado.scale-100.png">
+      <PackagePath>entregado.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaqui.ico">
+      <PackagePath>iconopaqui.ico</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLargeTile.scale-100.png">
+      <PackagePath>iconopaquiLargeTile.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLargeTile.scale-125.png">
+      <PackagePath>iconopaquiLargeTile.scale-125.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLargeTile.scale-150.png">
+      <PackagePath>iconopaquiLargeTile.scale-150.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLargeTile.scale-200.png">
+      <PackagePath>iconopaquiLargeTile.scale-200.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLargeTile.scale-400.png">
+      <PackagePath>iconopaquiLargeTile.scale-400.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-lightunplated_targetsize-16.png">
+      <PackagePath>iconopaquiLogo.altform-lightunplated_targetsize-16.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-lightunplated_targetsize-24.png">
+      <PackagePath>iconopaquiLogo.altform-lightunplated_targetsize-24.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-lightunplated_targetsize-256.png">
+      <PackagePath>iconopaquiLogo.altform-lightunplated_targetsize-256.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-lightunplated_targetsize-32.png">
+      <PackagePath>iconopaquiLogo.altform-lightunplated_targetsize-32.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-lightunplated_targetsize-48.png">
+      <PackagePath>iconopaquiLogo.altform-lightunplated_targetsize-48.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-unplated_targetsize-16.png">
+      <PackagePath>iconopaquiLogo.altform-unplated_targetsize-16.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-unplated_targetsize-24.png">
+      <PackagePath>iconopaquiLogo.altform-unplated_targetsize-24.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-unplated_targetsize-256.png">
+      <PackagePath>iconopaquiLogo.altform-unplated_targetsize-256.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-unplated_targetsize-32.png">
+      <PackagePath>iconopaquiLogo.altform-unplated_targetsize-32.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.altform-unplated_targetsize-48.png">
+      <PackagePath>iconopaquiLogo.altform-unplated_targetsize-48.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.scale-100.png">
+      <PackagePath>iconopaquiLogo.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.scale-125.png">
+      <PackagePath>iconopaquiLogo.scale-125.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.scale-150.png">
+      <PackagePath>iconopaquiLogo.scale-150.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.scale-200.png">
+      <PackagePath>iconopaquiLogo.scale-200.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.scale-400.png">
+      <PackagePath>iconopaquiLogo.scale-400.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.targetsize-16.png">
+      <PackagePath>iconopaquiLogo.targetsize-16.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.targetsize-24.png">
+      <PackagePath>iconopaquiLogo.targetsize-24.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.targetsize-256.png">
+      <PackagePath>iconopaquiLogo.targetsize-256.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.targetsize-32.png">
+      <PackagePath>iconopaquiLogo.targetsize-32.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiLogo.targetsize-48.png">
+      <PackagePath>iconopaquiLogo.targetsize-48.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiMediumTile.scale-100.png">
+      <PackagePath>iconopaquiMediumTile.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiMediumTile.scale-125.png">
+      <PackagePath>iconopaquiMediumTile.scale-125.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiMediumTile.scale-150.png">
+      <PackagePath>iconopaquiMediumTile.scale-150.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiMediumTile.scale-200.png">
+      <PackagePath>iconopaquiMediumTile.scale-200.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiMediumTile.scale-400.png">
+      <PackagePath>iconopaquiMediumTile.scale-400.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiSmallTile.scale-100.png">
+      <PackagePath>iconopaquiSmallTile.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiSmallTile.scale-125.png">
+      <PackagePath>iconopaquiSmallTile.scale-125.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiSmallTile.scale-150.png">
+      <PackagePath>iconopaquiSmallTile.scale-150.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiSmallTile.scale-200.png">
+      <PackagePath>iconopaquiSmallTile.scale-200.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiSmallTile.scale-400.png">
+      <PackagePath>iconopaquiSmallTile.scale-400.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiStoreLogo.scale-100.png">
+      <PackagePath>iconopaquiStoreLogo.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiStoreLogo.scale-125.png">
+      <PackagePath>iconopaquiStoreLogo.scale-125.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiStoreLogo.scale-150.png">
+      <PackagePath>iconopaquiStoreLogo.scale-150.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiStoreLogo.scale-200.png">
+      <PackagePath>iconopaquiStoreLogo.scale-200.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiStoreLogo.scale-400.png">
+      <PackagePath>iconopaquiStoreLogo.scale-400.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiWideTile.scale-100.png">
+      <PackagePath>iconopaquiWideTile.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiWideTile.scale-125.png">
+      <PackagePath>iconopaquiWideTile.scale-125.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiWideTile.scale-150.png">
+      <PackagePath>iconopaquiWideTile.scale-150.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiWideTile.scale-200.png">
+      <PackagePath>iconopaquiWideTile.scale-200.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\iconopaquiWideTile.scale-400.png">
+      <PackagePath>iconopaquiWideTile.scale-400.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\informe.scale-100.png">
+      <PackagePath>informe.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\intclientes.scale-100.png">
+      <PackagePath>intclientes.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\licencia.scale-100.png">
+      <PackagePath>licencia.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\logo.scale-100.png">
+      <PackagePath>logo.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\mispedidos.scale-100.png">
+      <PackagePath>mispedidos.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\nuevopedido.scale-100.png">
+      <PackagePath>nuevopedido.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\paquita.scale-100.png">
+      <PackagePath>paquita.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\paquitatext.scale-100.png">
+      <PackagePath>paquitatext.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\pedido2.scale-100.png">
+      <PackagePath>pedido2.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\pendiente.scale-100.png">
+      <PackagePath>pendiente.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\petro11.scale-100.png">
+      <PackagePath>petro11.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\redondo.scale-100.png">
+      <PackagePath>redondo.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\rol.scale-100.png">
+      <PackagePath>rol.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\ruta.scale-100.png">
+      <PackagePath>ruta.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\rutamen.scale-100.png">
+      <PackagePath>rutamen.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\siguiente.scale-100.png">
+      <PackagePath>siguiente.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\solicitar.scale-100.png">
+      <PackagePath>solicitar.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\telefono.scale-100.png">
+      <PackagePath>telefono.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\tipodoc.scale-100.png">
+      <PackagePath>tipodoc.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\transporte.scale-100.png">
+      <PackagePath>transporte.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\tuser.scale-100.png">
+      <PackagePath>tuser.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\usu.scale-100.png">
+      <PackagePath>usu.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\usuario.scale-100.png">
+      <PackagePath>usuario.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\valido.scale-100.png">
+      <PackagePath>valido.scale-100.png</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Javier\Desktop\Proyectos\Xamarin\PaquitaOficial\AppTPaquita\AppTransporte\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppTransporte.deps.json">
       <PackagePath>AppTransporte.deps.json</PackagePath>
