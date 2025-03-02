@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AppTransporte.viewModel
@@ -12,7 +11,9 @@ namespace AppTransporte.viewModel
     public class VMTrabajadores : INotifyPropertyChanged
     {
         public ObservableCollection<Trabajador> Trabajadores { get; set; } = new();
-        private ObservableCollection<Trabajador> _allTrabajadores = new(); // Lista completa de trabajadores
+        private ObservableCollection<Trabajador> _allTrabajadores = new();
+        public ObservableCollection<Trabajador> Ayudantes { get; set; } = new();
+        public ObservableCollection<Trabajador> Transportistas { get; set; } = new();
 
         private bool _isBusy;
         public bool IsBusy
@@ -35,59 +36,81 @@ namespace AppTransporte.viewModel
                 {
                     _searchText = value;
                     OnPropertyChanged(nameof(SearchText));
-                    FiltrarTrabajadores(); // Aplicar el filtro al cambiar el texto
+                    FiltrarTrabajadores();
+                }
+            }
+        }
+
+        // Nueva propiedad para filtrar por categoría
+        private string _categoriaFiltro;
+        public string CategoriaFiltro
+        {
+            get => _categoriaFiltro;
+            set
+            {
+                if (_categoriaFiltro != value)
+                {
+                    _categoriaFiltro = value?.Length > 20 ? value.Substring(0, 20) : value; // Validación de longitud
+                    OnPropertyChanged(nameof(CategoriaFiltro));
+                    CargarTrabajadores(_categoriaFiltro); // Recargar con filtro
                 }
             }
         }
 
         public VMTrabajadores()
         {
-            CargarTrabajadores();
+            CargarTrabajadores("Ayudante");
+            CargarTrabajadores("Transportista");
         }
 
         public async Task ActualizarDatos()
         {
             _allTrabajadores.Clear();
             Trabajadores.Clear();
-            CargarTrabajadores();
+            await CargarTrabajadores(CategoriaFiltro);
         }
 
-        private async void CargarTrabajadores()
+        private async Task CargarTrabajadores(string categoria = null)
         {
             IsBusy = true;
 
-            var trabajadores = await App.Database.ObtenerTrabajadoresAsync();
-
+            var trabajadores = await App.Database.ObtenerTrabajadoresAsync(categoria);
+            if (categoria == "Ayudante")
+            {
+                Ayudantes.Clear();
+                foreach (var t in trabajadores) Ayudantes.Add(t);
+            }
+            else if (categoria == "Transportista")
+            {
+                Transportistas.Clear();
+                foreach (var t in trabajadores) Transportistas.Add(t);
+            }
             _allTrabajadores.Clear();
             foreach (var trabajador in trabajadores)
             {
-                _allTrabajadores.Add(trabajador); // Guardar en la lista completa
+                _allTrabajadores.Add(trabajador);
             }
-
-            FiltrarTrabajadores(); // Mostrar todos inicialmente
+            OnPropertyChanged(nameof(Ayudantes));
+            OnPropertyChanged(nameof(Transportistas));
+            FiltrarTrabajadores();
             IsBusy = false;
         }
 
         private void FiltrarTrabajadores()
         {
-            if (string.IsNullOrWhiteSpace(SearchText))
-            {
-                // Mostrar todos si no hay texto de búsqueda
-                Trabajadores = new ObservableCollection<Trabajador>(_allTrabajadores);
-            }
-            else
-            {
-                // Filtrar trabajadores por nombre
-                var filtered = _allTrabajadores
-                    .Where(t => t.NombreCompleto.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0);
+            var filtered = _allTrabajadores.AsEnumerable();
 
-                Trabajadores = new ObservableCollection<Trabajador>(filtered);
+            if (!string.IsNullOrWhiteSpace(SearchText))
+            {
+                filtered = filtered.Where(t =>
+                    t.NombreCompleto.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
+            Trabajadores = new ObservableCollection<Trabajador>(filtered);
             OnPropertyChanged(nameof(Trabajadores));
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
         {

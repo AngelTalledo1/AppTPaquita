@@ -519,7 +519,7 @@ namespace AppTransporte.model
 
             return viajes;
         }
-        public async Task<List<Trabajador>> ObtenerTrabajadoresAsync()
+        public async Task<List<Trabajador>> ObtenerTrabajadoresAsync(string categoria = null)
         {
             var trabajadores = new List<Trabajador>();
             using (var connection = new SqlConnection(_connectionString))
@@ -529,6 +529,13 @@ namespace AppTransporte.model
                 using (var command = new SqlCommand("pa_MostrarTrabajadores", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
+                    if (!string.IsNullOrEmpty(categoria))
+                    {
+                        command.Parameters.Add(new SqlParameter("@categoria", SqlDbType.VarChar, 20)
+                        {
+                            Value = categoria
+                        });
+                    }
 
                     using (var reader = await command.ExecuteReaderAsync())
                     {

@@ -9,7 +9,7 @@ public partial class VEAsignarViaje : ContentPage
     public VEAsignarViaje(Viaje viaje, int idUsuario, int idTipoUsuario)
 	{
 		InitializeComponent();
-		BindingContext = viaje;
+		
         this.idUsuario = idUsuario;
         this.idtipousuario = idTipoUsuario;
         Id_Pedido.Text = $"ID Pedido: { viaje.IdPedido.ToString()}";

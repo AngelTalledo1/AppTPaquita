@@ -2,15 +2,19 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTransporte.Interfaces.VEAsignarViaje"
+              xmlns:VME="clr-namespace:AppTransporte.viewModel"
              NavigationPage.HasNavigationBar="False"
              Title="VEAsignarViaje">
-    <Grid RowDefinitions=".1*,.9*">
+    <ContentPage.BindingContext>
+        <VME:VMTrabajadores/>
+    </ContentPage.BindingContext>
+        <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0"
               BackgroundColor="#cb4335">
             <Button BackgroundColor="Transparent"
                     Clicked="Btn_atrasAsignarViaje"
-                    CommandParameter="{Binding .}" />
+                     />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
                    VerticalOptions="End"
@@ -59,12 +63,10 @@
                                     Title="Transportista"
                                     TitleColor="#515a5a"
                                     FontFamily="Comf-Bold"
-                                    TextColor="Black">
-                                <Picker.Items>
-                                    <x:String>Trabajador 1</x:String>
-                                    <x:String>Trabajador 2</x:String>
-                                    <x:String>Trabajador 3</x:String>
-                                </Picker.Items>
+                                    TextColor="Black"
+                                    ItemsSource="{Binding Transportistas}"
+                                    ItemDisplayBinding="{Binding NombreCompleto}"
+                                    SelectedItem="Seleccione un trabajador">
                             </Picker>
                         </Grid>
                     </Grid>
@@ -78,12 +80,10 @@
                                     TitleColor="#515a5a"
                                     Title="Ayudante"
                                     FontFamily="Comf-Bold"
-                                    TextColor="Black">
-                                <Picker.Items>
-                                    <x:String>Ayudante 1</x:String>
-                                    <x:String>Ayudante 2</x:String>
-                                    <x:String>Ayudante 3</x:String>
-                                </Picker.Items>
+                                    TextColor="Black"
+                                    ItemsSource="{Binding Ayudantes}"
+        ItemDisplayBinding="{Binding NombreCompleto}">
+                             
                             </Picker>
                         </Grid>
                     </Grid>
