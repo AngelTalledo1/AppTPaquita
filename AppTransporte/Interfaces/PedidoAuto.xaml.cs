@@ -99,7 +99,7 @@ public partial class PedidoAuto : ContentPage
             await DisplayAlert("Éxito", "Pedido creado exitosamente.", "OK");
 
             // Limpiar los campos después de crear el pedido
-            await Navigation.PushAsync(new VESolicitudes());
+           // await Navigation.PushAsync(new VESolicitudes());
         }
         catch (Exception ex)
         {
