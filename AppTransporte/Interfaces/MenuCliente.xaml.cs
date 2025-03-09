@@ -3,30 +3,33 @@ namespace AppTransporte.Interfaces;
 
 public partial class MenuCliente : ContentPage, IMenuPage
 {
-    private int _idUsuario;
-    private int _idtipousuario;
-    public MenuCliente()
+    public int _idUsuario;
+    public int _idTipoUsuario;
+    public MenuCliente(int idUsuario, int idTipoUsuario)
 	{
-        InitializeComponent();   
+        InitializeComponent();
+        this._idUsuario = idUsuario;
+        this._idTipoUsuario = idTipoUsuario;
+
     }
 
     public void setUserData(int idUsuario, int idTipoUsuario)
     {
         _idUsuario = idUsuario;
-        _idtipousuario = idTipoUsuario;
+        _idTipoUsuario = idTipoUsuario;
         
     }
     private void NuevoPedido_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VCMisSolicitudes(_idUsuario));
+        Navigation.PushAsync(new VCMisSolicitudes(_idUsuario, _idTipoUsuario));
     }
     private void pedidosCliente_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VCMisPedidos(_idUsuario,_idtipousuario));
+        Navigation.PushAsync(new VCMisPedidos(_idUsuario, _idTipoUsuario));
     }
     private async void btn_Cerrar(object sender, EventArgs e)
     {
-        bool respuesta = await DisplayAlert("Cerrar Sesión", "¿Estás seguro de cerrar sesión?", "Aceptar", "Cancelar");
+        bool respuesta = await DisplayAlert("Cerrar Sesiï¿½n", "ï¿½Estï¿½s seguro de cerrar sesiï¿½n?", "Aceptar", "Cancelar");
         if (respuesta)
         {
             Cargandoo.IsVisible = true;
@@ -44,7 +47,7 @@ public partial class MenuCliente : ContentPage, IMenuPage
         
         Device.BeginInvokeOnMainThread(async () =>
         {
-            bool confirmar = await DisplayAlert("Cerrar sesión", "¿Deseas cerrar sesión?", "Sí", "No");
+            bool confirmar = await DisplayAlert("Cerrar sesiï¿½n", "ï¿½Deseas cerrar sesiï¿½n?", "Sï¿½", "No");
 
             if (confirmar)
             {
@@ -55,7 +58,7 @@ public partial class MenuCliente : ContentPage, IMenuPage
             }
         });
 
-        return true; // Bloquea la acción predeterminada del botón atrás
+        return true; // Bloquea la acciï¿½n predeterminada del botï¿½n atrï¿½s
     }
 
 }

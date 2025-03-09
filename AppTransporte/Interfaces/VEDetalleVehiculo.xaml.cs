@@ -4,14 +4,20 @@ namespace AppTransporte.Interfaces;
 
 public partial class VEDetalleVehiculo : ContentPage
 {
+    private int _idUsuario;
+    private int _idTipoUsuario;
     public Vehiculo Vehiculoseleccionado { get; set; } = new();
-    public VEDetalleVehiculo()
+    public VEDetalleVehiculo(int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
     }
-    public VEDetalleVehiculo(Vehiculo vehiculo)
+    public VEDetalleVehiculo(Vehiculo vehiculo, int idUsuario, int idTipoUsuario)
 	{
 		InitializeComponent();
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
         Vehiculoseleccionado = vehiculo;
         BindingContext = new VMVehiculo();
         MostrarPlaca.Text = vehiculo.Placa;
@@ -27,7 +33,7 @@ public partial class VEDetalleVehiculo : ContentPage
 
     private void Btn_atrasDetVehiculo(object sender, EventArgs e)
     {
-		Navigation.PopAsync();
+        Navigation.PushAsync(new VEVehiculos(_idUsuario,_idTipoUsuario));
     }
 
 
@@ -39,7 +45,7 @@ public partial class VEDetalleVehiculo : ContentPage
     private async void Btn_ModificarVehiculo(object sender, EventArgs e)
     {
         var button = (Button)sender;
-        await Navigation.PushAsync(new VEAgregarVehiculo(Vehiculoseleccionado));
+        await Navigation.PushAsync(new VEAgregarVehiculo(Vehiculoseleccionado, _idUsuario, _idTipoUsuario));
        
     }
 }

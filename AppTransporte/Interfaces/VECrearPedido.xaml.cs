@@ -1,4 +1,5 @@
 using AppTransporte.model;
+using AppTransporte.viewModel;
 using System.Collections.ObjectModel;
 
 namespace AppTransporte.Interfaces;
@@ -6,12 +7,15 @@ namespace AppTransporte.Interfaces;
 public partial class VECrearPedido : ContentPage
 {
     private Solicitud Solicitud { get; set; }
-
+    private int idUsuario;
+    private int idtipousuario;
     public int Viajes { get; set; }
-    public VECrearPedido(Solicitud solicitud)
+    public VECrearPedido(Solicitud solicitud, int idUsuario, int idTipoUsuario)
 	{
 		InitializeComponent();
 		BindingContext = solicitud;
+        this.idUsuario = idUsuario;
+        this.idtipousuario = idTipoUsuario;
         Solicitud = solicitud;
         IdSolicitud.Text = solicitud.IdSolicitud.ToString();
         Descripcionlbl.Text = solicitud.Descripcion.ToString();
@@ -48,10 +52,16 @@ public partial class VECrearPedido : ContentPage
         ServiciosCollectionView.ItemsSource = Servicios;
     }
 
-    private void Btn_atrasCrearPedido(object sender, EventArgs e)
+    private async void Btn_atrasCrearPedido(object sender, EventArgs e)
 	{
-		Navigation.PopAsync();
-	}
+        var button = (Button)sender;
+        var solicitud = button.CommandParameter as Solicitud;
+        if (solicitud != null)
+        {
+            var pedidosViewModel = this.BindingContext as VMPedidos;
+            await Navigation.PushAsync(new VEDetalleSolicitud(solicitud, pedidosViewModel, idUsuario, idtipousuario));
+        }
+    }
 
     private async void Btn_crear(object sender, EventArgs e)
     {
@@ -97,16 +107,22 @@ public partial class VECrearPedido : ContentPage
             await DisplayAlert("Éxito", "Pedido creado exitosamente.", "OK");
 
             // Limpiar los campos después de crear el pedido
-            await Navigation.PushAsync(new VESolicitudes());
+            await Navigation.PushAsync(new VESolicitudes(idUsuario, idtipousuario));
         }
         catch (Exception ex)
         {
             await DisplayAlert("Error", $"Ocurrió un error al crear el pedido: {ex.Message}", "OK");
         }
     }
-    private void Btn_cancelar(object sender, EventArgs e)
+    private async void Btn_cancelar(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        var button = (Button)sender;
+        var solicitud = button.CommandParameter as Solicitud;
+        if (solicitud != null)
+        {
+            var pedidosViewModel = this.BindingContext as VMPedidos;
+            await Navigation.PushAsync(new VEDetalleSolicitud(solicitud, pedidosViewModel, idUsuario, idtipousuario));
+        }
     }
 
     private void OnCantidadFluidoChanged(object sender, TextChangedEventArgs e)

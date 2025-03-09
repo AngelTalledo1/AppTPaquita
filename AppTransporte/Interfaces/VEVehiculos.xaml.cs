@@ -3,19 +3,23 @@ using AppTransporte.model;
 
 public partial class VEVehiculos : ContentPage
 {
-	public VEVehiculos()
+    private int _idUsuario;
+    private int _idTipoUsuario;
+    public VEVehiculos(int idUsuario, int idTipoUsuario)
 	{
-		InitializeComponent();
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
+        InitializeComponent();
 	}
 
     private void Btn_atrasVehiculo(object sender, EventArgs e)
     {
-		Navigation.PopAsync();
+        Navigation.PushAsync(new MenuPrincipal(_idUsuario, _idTipoUsuario));
     }
 
     private void btn_agregarVehiculo(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VEAgregarVehiculo());
+        Navigation.PushAsync(new VEAgregarVehiculo(_idUsuario, _idTipoUsuario));
     }
 
 
@@ -27,7 +31,7 @@ public partial class VEVehiculos : ContentPage
 
         if (vehiculo != null)
         {
-            await Navigation.PushAsync(new VEDetalleVehiculo(vehiculo));
+            await Navigation.PushAsync(new VEDetalleVehiculo(vehiculo, _idUsuario, _idTipoUsuario));
         }
     }
 

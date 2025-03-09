@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="AppTransporte.Interfaces.actualizarEstado"
+             Title="actualizarEstado">
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              BackgroundColor="#cb4335"
+              Padding="20,0,0,0">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atrasEvidencias" />
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Evidencias y comentarios"
+                   FontSize="20"
+                   FontFamily="Comf-Medium"
+                   Grid.Column="1"
+                   TextColor="White"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   Padding="20,20,0,0" />
+        </Grid>
+        <Grid Grid.Row="1"
+              BackgroundColor="White">
+            <VerticalStackLayout Margin="20,30" Spacing="10">
+                <Label Text="Agregar Comentario:"
+                       FontFamily="Comf-Bold"
+                       FontSize="Body"
+                       TextColor="Black" />
+                <Editor PlaceholderColor="#515a5a"
+                        Grid.Column="1"
+                        x:Name="descripcionEntry"
+                        Placeholder="Detalles: Barriles, destino, servicio"
+                        FontFamily="Comf-SemBold"
+                        VerticalOptions="CenterAndExpand"
+                        AutoSize="TextChanges"
+                        TextColor="Black" />
+                <Button Text="Agregar Fotos"
+                        Clicked="OnCaptureAndUploadPhotoClicked"
+                        BackgroundColor="#cb4335"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        Margin="10"/>
+                <Image x:Name="CapturedImage"
+                       WidthRequest="200"
+                       HeightRequest="200" />
+                <Label x:Name="UploadStatus"
+                       IsVisible="False"
+                       Text="Esperando captura..."
+                       TextColor="Gray" />
+                <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                    <Button Text="Subir" 
+                            Background="Blue"
+                            Margin="10" />
+                    <Button Text="Omitir"
+                            Margin="10"
+                            Background="#515a5a"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>
