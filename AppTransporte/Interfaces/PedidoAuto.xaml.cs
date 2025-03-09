@@ -3,23 +3,25 @@ using System.Collections.ObjectModel;
 
 namespace AppTransporte.Interfaces;
 
-public partial class VECrearPedido : ContentPage
+public partial class PedidoAuto : ContentPage
 {
     private Solicitud Solicitud { get; set; }
 
     public int Viajes { get; set; }
-    public VECrearPedido(Solicitud solicitud)
-	{
-		InitializeComponent();
-		BindingContext = solicitud;
-        Solicitud = solicitud;
-        IdSolicitud.Text = solicitud.IdSolicitud.ToString();
-        Descripcionlbl.Text = solicitud.Descripcion.ToString();
+    public PedidoAuto()
+    {
+        InitializeComponent();
+        //BindingContext = solicitud;
+        //Solicitud = solicitud;
+        //IdSolicitud.Text = solicitud.IdSolicitud.ToString();
+        //Descripcionlabel.Text = solicitud.Descripcion.ToString();
 
     }
+
+
     public ObservableCollection<ServicioSeleccionable> Servicios { get; set; } = new ObservableCollection<ServicioSeleccionable>();
 
-  
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -49,16 +51,16 @@ public partial class VECrearPedido : ContentPage
     }
 
     private void Btn_atrasCrearPedido(object sender, EventArgs e)
-	{
-		Navigation.PopAsync();
-	}
+    {
+        Navigation.PopAsync();
+    }
 
     private async void Btn_crear(object sender, EventArgs e)
     {
         try
         {
             // Validar datos ingresados
-            if (string.IsNullOrWhiteSpace(CantidadFluidoEntry.Text) || !int.TryParse(CantidadFluidoEntry.Text, out int cantidad) || cantidad <= 0)
+            if (string.IsNullOrWhiteSpace(FluidoEntry.Text) || !int.TryParse(FluidoEntry.Text, out int cantidad) || cantidad <= 0)
             {
                 await DisplayAlert("Error", "Debe ingresar una cantidad válida de barriles.", "OK");
                 return;
@@ -112,18 +114,18 @@ public partial class VECrearPedido : ContentPage
     private void OnCantidadFluidoChanged(object sender, TextChangedEventArgs e)
     {
         const int capacidadMaxima = 200;
-        if (int.TryParse(CantidadFluidoEntry.Text, out int cantidadFluido))
+        if (int.TryParse(FluidoEntry.Text, out int cantidadFluido))
         {
             // Calcula los viajes necesarios y actualiza el Label
             int viajes = (int)Math.Ceiling((double)cantidadFluido / capacidadMaxima);
-            ViajesLabel.Text = $"Viajes: {viajes}";
+            Viajeslbl.Text = $"Viajes: {viajes}";
             Viajes = viajes;
         }
         else
         {
             // Si no es un número válido, resetea el valor
-            ViajesLabel.Text = "Viajes: 0";
+            Viajeslbl.Text = "Viajes: 0";
         }
     }
 
-    }
+}
