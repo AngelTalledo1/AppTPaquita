@@ -27,7 +27,8 @@ public partial class VESeguimientoViaje : ContentPage
         Cisterna.Text = $"{viaje.CisternaAsig}";
         cantidad.Text = $"{viaje.Cantidad}";
         UltEstado.Text = viaje.ultEstado;
-        Btn_Actualizar.IsVisible = mostrarActualizar(idTipoUsuario); 
+        Btn_Actualizar.IsVisible = mostrarActualizar(idTipoUsuario);
+        btn_pedido.IsVisible = mostrarActualizar(idTipoUsuario);
     }
 
     
@@ -39,7 +40,7 @@ public partial class VESeguimientoViaje : ContentPage
             if (_pedido != null)
             {
                 // Navegar a la página de VEProcesoPedido, pasando los datos del pedido seleccionado
-                await Navigation.PushAsync(new VEProcesoPedido(_pedido, _idUsuario, _idTipoUsuario));
+                await Navigation.PushAsync(new VEProcesoPedido(_pedido, _idUsuario, _idTipoUsuario,null));
             }
         }
         else if (_idTipoUsuario == 3)
@@ -69,4 +70,44 @@ public partial class VESeguimientoViaje : ContentPage
         return false;
     }
 
+    private async void btn_verPedidoViaje(object sender, EventArgs e)
+    {
+        var button = (Button)sender;
+        var viaje = button.CommandParameter as VMSeguimientoViaje;
+
+        if (viaje != null)
+        {
+            try
+            {
+                // Cargar la lista de pedidos desde la base de datos
+                var pedidos = await App.Database.ListarPedidosAdminAsync();
+
+                if (pedidos != null && pedidos.Any())
+                {
+                    var pedido = pedidos.FirstOrDefault(p => p.IdPedido == viaje.IdViajeSeleccionado);
+
+                    if (pedido != null)
+                    {
+                        // Navegar a la página de Proceso Pedido
+                        await Navigation.PushAsync(new VEProcesoPedido(pedido, _idUsuario, _idTipoUsuario,viaje));
+                    }
+                    else
+                    {
+                        // Mostrar un mensaje si no se encuentra el pedido
+                        await DisplayAlert("Información", "No se encontró un pedido asociado a esta solicitud.", "OK");
+                    }
+                }
+                else
+                {
+                    // Mostrar un mensaje si la lista de pedidos está vacía
+                    await DisplayAlert("Información", "La lista de pedidos está vacía. Verifica si se cargaron los datos.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores en caso de que algo falle al obtener los pedidos
+                await DisplayAlert("Error", $"Ocurrió un error al cargar los pedidos: {ex.Message}", "OK");
+            }
+        }
+    }
 }

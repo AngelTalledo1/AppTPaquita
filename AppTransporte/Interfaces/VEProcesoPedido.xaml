@@ -138,7 +138,8 @@
                                                 <toolkit:Expander.Header >
                                                     <Grid Margin="10,5,10,0">
                                                         <Button Background="Transparent"
-                                                                Clicked="expandir_Clicked" />
+                                                                Clicked="expandir_Clicked" 
+                                                                CommandParameter="{Binding .}"/>
                                                         <VerticalStackLayout>
                                                             <Label TextColor="#780000"
                                                                    FontFamily="Comf-Bold"
@@ -192,6 +193,7 @@
                                                                                    HorizontalOptions="Start" />
                                                                             <Button Grid.ColumnSpan="3"
                                                                                     Grid.RowSpan="2"
+                                                                                    x:Name="btn_asignarViajes"
                                                                                     BackgroundColor="Transparent"
                                                                                     Clicked="Btn_SeguimientoViajes"
                                                                                     CommandParameter="{Binding .}"/>

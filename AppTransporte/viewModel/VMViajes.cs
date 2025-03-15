@@ -20,7 +20,6 @@ namespace AppTransporte.viewModel
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public List<string> Estados { get; set; }
-
         private string _estadoSeleccionado;
         public string EstadoSeleccionado
         {
@@ -45,7 +44,6 @@ namespace AppTransporte.viewModel
                 OnPropertyChanged(nameof(IsBusy));
             }
         }
-
         public int? IdPedidoSeleccionado
         {
             get => _idPedidoSeleccionado;
@@ -96,7 +94,6 @@ namespace AppTransporte.viewModel
         {
             InicializarPropiedades();
         }
-
         public VMViajes(int idPedido)
         {
             this.IdPedidoSeleccionado = idPedido;
@@ -109,7 +106,6 @@ namespace AppTransporte.viewModel
             this.IdUsuario = idUsuario;
             InicializarPropiedades();
         }
-
         private void InicializarPropiedades()
         {
             Estados = new List<string>
@@ -122,7 +118,6 @@ namespace AppTransporte.viewModel
             };
             InicializarViajes();
         }
-
         private async void InicializarViajes()
         {
             IsBusy = true;
@@ -183,7 +178,6 @@ namespace AppTransporte.viewModel
             OnPropertyChanged(nameof(TotalBarrilesFinalizados));
             OnPropertyChanged(nameof(BarrilesMostrados));
         }
-
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -8,13 +8,24 @@ public partial class VEProcesoPedido : ContentPage
     private int idUsuario;
     private int idtipousuario;
     private Pedido _pedido;
+    private VMSeguimientoViaje _viaje;
 
-    public VEProcesoPedido(Pedido pedido, int idUsuario, int idTipoUsuario)
+    public VEProcesoPedido(Pedido pedido, int idUsuario, int idTipoUsuario,VMSeguimientoViaje? viaje)
     {
         InitializeComponent();
-        this.BindingContext = new VMViajes(pedido.IdPedido);
         this.idUsuario = idUsuario;
         this.idtipousuario = idTipoUsuario;
+        this._pedido = pedido;
+        this._viaje = viaje;
+
+        if(idTipoUsuario == 1 || idTipoUsuario == 2)
+        {
+            this.BindingContext = new VMViajes(pedido.IdPedido);
+        }else if (idTipoUsuario == 3)
+        {
+            this.BindingContext = new VMViajes(idUsuario: idUsuario);
+
+        }
         TituloPedido.Text = $"Pedido {pedido.IdPedido}";
         Origen.Text = $"{pedido.Origen}";
         Estado.Text = $"{pedido.EstadoPedido}";
@@ -38,11 +49,17 @@ public partial class VEProcesoPedido : ContentPage
             await Navigation.PushAsync(new VEpedidos(idUsuario, idtipousuario));
 
         }
+        else if (idtipousuario == 3)
+        {
+            await Navigation.PushAsync(new VTMisViajes(idUsuario,idtipousuario));
+
+        }
     }
 
     private void expandir_Clicked(object sender, EventArgs e)
     {
         ExpanderViajes.IsExpanded = !ExpanderViajes.IsExpanded;
+
     }
 
     private async void Btn_SeguimientoViajes(object sender, EventArgs e)
@@ -51,18 +68,37 @@ public partial class VEProcesoPedido : ContentPage
         var viaje = button.CommandParameter as Viaje;
         if (viaje != null)
         {
-            // Validar si algún campo está sin asignar
-            if (string.IsNullOrWhiteSpace(viaje.TractoAsig) || viaje.TractoAsig == "S/A" ||
+            // Validar si el viaje NO estï¿½ asignado
+            bool noAsignado =
+                string.IsNullOrWhiteSpace(viaje.TractoAsig) || viaje.TractoAsig == "S/A" ||
                 string.IsNullOrWhiteSpace(viaje.CisternaAsig) || viaje.CisternaAsig == "S/A" ||
                 viaje.Cantidad <= 0 ||
-                string.IsNullOrWhiteSpace(viaje.TrabajadoresAsig) || viaje.TrabajadoresAsig == "S/A")
+                string.IsNullOrWhiteSpace(viaje.TrabajadoresAsig) || viaje.TrabajadoresAsig == "S/A";
+
+            // Revisar el tipo de usuario
+            if (noAsignado)
             {
-                // Navegar a la interfaz para asignar el viaje
-                await Navigation.PushAsync(new VEAsignarViaje(viaje, idUsuario, idtipousuario));
+                // Si NO estï¿½ asignado:
+                if (idtipousuario == 1)
+                {
+                    // Admin -> Navega a la interfaz para ASIGNAR
+                    await Navigation.PushAsync(new VEAsignarViaje(viaje,_pedido, idUsuario, idtipousuario));
+                }
+                else if (idtipousuario == 2)
+                {
+                    // Cliente -> Que NO navegue a ningï¿½n lado (no hace nada)
+                    return;
+                }
+                else if (idtipousuario == 3)
+                {
+                    // Transportista -> Teï¿½ricamente ni siquiera deberï¿½a ver viajes no asignados a ï¿½l
+                    // pero si por lï¿½gica extra apareciera, tampoco lo dejes asignar:
+                    return;
+                }
             }
             else
             {
-                // Navegar a la interfaz de seguimiento del viaje
+                // El viaje Sï¿½ estï¿½ asignado, navega al seguimiento
                 await Navigation.PushAsync(new VESeguimientoViaje(viaje, _pedido, idUsuario, idtipousuario));
             }
         }
