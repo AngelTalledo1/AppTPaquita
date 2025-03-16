@@ -1,29 +1,27 @@
 using AppTransporte.model;
-using AppTransporte.viewModel;
 using System.Collections.ObjectModel;
 
 namespace AppTransporte.Interfaces;
 
-public partial class VECrearPedido : ContentPage
+public partial class PedidoAuto : ContentPage
 {
     private Solicitud Solicitud { get; set; }
-    private int idUsuario;
-    private int idtipousuario;
+
     public int Viajes { get; set; }
-    public VECrearPedido(Solicitud solicitud, int idUsuario, int idTipoUsuario)
-	{
-		InitializeComponent();
-		BindingContext = solicitud;
-        this.idUsuario = idUsuario;
-        this.idtipousuario = idTipoUsuario;
-        Solicitud = solicitud;
-        IdSolicitud.Text = solicitud.IdSolicitud.ToString();
-        Descripcionlbl.Text = solicitud.Descripcion.ToString();
+    public PedidoAuto()
+    {
+        InitializeComponent();
+        //BindingContext = solicitud;
+        //Solicitud = solicitud;
+        //IdSolicitud.Text = solicitud.IdSolicitud.ToString();
+        //Descripcionlabel.Text = solicitud.Descripcion.ToString();
 
     }
+
+
     public ObservableCollection<ServicioSeleccionable> Servicios { get; set; } = new ObservableCollection<ServicioSeleccionable>();
 
-  
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -52,15 +50,9 @@ public partial class VECrearPedido : ContentPage
         ServiciosCollectionView.ItemsSource = Servicios;
     }
 
-    private async void Btn_atrasCrearPedido(object sender, EventArgs e)
-	{
-        var button = (Button)sender;
-        var solicitud = button.CommandParameter as Solicitud;
-        if (solicitud != null)
-        {
-            var pedidosViewModel = this.BindingContext as VMPedidos;
-            await Navigation.PushAsync(new VEDetalleSolicitud(solicitud, pedidosViewModel, idUsuario, idtipousuario));
-        }
+    private void Btn_atrasCrearPedido(object sender, EventArgs e)
+    {
+        Navigation.PopAsync();
     }
 
     private async void Btn_crear(object sender, EventArgs e)
@@ -68,7 +60,7 @@ public partial class VECrearPedido : ContentPage
         try
         {
             // Validar datos ingresados
-            if (string.IsNullOrWhiteSpace(CantidadFluidoEntry.Text) || !int.TryParse(CantidadFluidoEntry.Text, out int cantidad) || cantidad <= 0)
+            if (string.IsNullOrWhiteSpace(FluidoEntry.Text) || !int.TryParse(FluidoEntry.Text, out int cantidad) || cantidad <= 0)
             {
                 await DisplayAlert("Error", "Debe ingresar una cantidad válida de barriles.", "OK");
                 return;
@@ -107,39 +99,33 @@ public partial class VECrearPedido : ContentPage
             await DisplayAlert("Éxito", "Pedido creado exitosamente.", "OK");
 
             // Limpiar los campos después de crear el pedido
-            await Navigation.PushAsync(new VESolicitudes(idUsuario, idtipousuario));
+           // await Navigation.PushAsync(new VESolicitudes());
         }
         catch (Exception ex)
         {
             await DisplayAlert("Error", $"Ocurrió un error al crear el pedido: {ex.Message}", "OK");
         }
     }
-    private async void Btn_cancelar(object sender, EventArgs e)
+    private void Btn_cancelar(object sender, EventArgs e)
     {
-        var button = (Button)sender;
-        var solicitud = button.CommandParameter as Solicitud;
-        if (solicitud != null)
-        {
-            var pedidosViewModel = this.BindingContext as VMPedidos;
-            await Navigation.PushAsync(new VEDetalleSolicitud(solicitud, pedidosViewModel, idUsuario, idtipousuario));
-        }
+        Navigation.PopAsync();
     }
 
     private void OnCantidadFluidoChanged(object sender, TextChangedEventArgs e)
     {
         const int capacidadMaxima = 200;
-        if (int.TryParse(CantidadFluidoEntry.Text, out int cantidadFluido))
+        if (int.TryParse(FluidoEntry.Text, out int cantidadFluido))
         {
             // Calcula los viajes necesarios y actualiza el Label
             int viajes = (int)Math.Ceiling((double)cantidadFluido / capacidadMaxima);
-            ViajesLabel.Text = $"Viajes: {viajes}";
+            Viajeslbl.Text = $"Viajes: {viajes}";
             Viajes = viajes;
         }
         else
         {
             // Si no es un número válido, resetea el valor
-            ViajesLabel.Text = "Viajes: 0";
+            Viajeslbl.Text = "Viajes: 0";
         }
     }
 
-    }
+}

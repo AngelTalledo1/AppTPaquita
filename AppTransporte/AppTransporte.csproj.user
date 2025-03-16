@@ -27,6 +27,9 @@
     <MauiXaml Update="Interfaces\MenuTransportista.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Interfaces\PedidoAuto.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Interfaces\VCambiarContraseña.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

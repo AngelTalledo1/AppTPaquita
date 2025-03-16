@@ -22,6 +22,10 @@ public partial class MenuPrincipal : ContentPage
     {
         await Navigation.PushAsync(new VEpedidos(_idUsuario, _idTipoUsuario));
     }
+    private async void btn_Pedidoauto(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new PedidoAuto());
+    }
 
     private async void cliente_Clicked(object sender, EventArgs e)
     {
@@ -63,7 +67,28 @@ public partial class MenuPrincipal : ContentPage
         {
 
         }
+    }
+    protected override bool OnBackButtonPressed()
+    {
 
+        Device.BeginInvokeOnMainThread(async () =>
+        {
+            bool confirmar = await DisplayAlert("Cerrar sesión", "¿Deseas cerrar sesión?", "Sí", "No");
+
+            if (confirmar)
+            {
+                Cargandoo.IsVisible = true;
+                await Task.Delay(2000);
+                Cargandoo.IsVisible = false;
+                await Navigation.PushAsync(new Login()); // Redirigir a la pantalla de Login
+            }
+        });
+
+        return true; // Bloquea la acción predeterminada del botón atrás
+    }
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
 
     }
     private async void OnUserManagementClicked(object sender, EventArgs e)

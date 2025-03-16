@@ -7,171 +7,153 @@
     <Grid>
         <Grid RowDefinitions=".1*,.9*">
             <Grid ColumnDefinitions=".8*,.2*"
-              Padding="0"
-              BackgroundColor="#cb4335">
-                <Label Text="Menu Administrador"
-                   FontSize="20"
-                   FontFamily="Comf-Bold"
-                   HorizontalOptions="Start"
-                   VerticalOptions="Center"
-                   Padding="20,20,0,0"
-                   TextColor="White" />
-                <Button Grid.Column="1" 
-                    BackgroundColor="Transparent"
-                    Clicked="btn_cerrar"/>
-                <Image Source="cerrar.png"
-                   WidthRequest="40"
-                   HeightRequest="40"
-                   HorizontalOptions="End"
-                   Margin="10"
-                   VerticalOptions="End" Grid.Column="1"/>
-            </Grid>
-            <Grid Grid.Row="1"
-              BackgroundColor="#edf2f4">
-                <Grid ColumnDefinitions=".35*,.35*,.35*"
-                  RowDefinitions=".1*,.3*, .3*,.2*">
-                    <Label Text="Selecciona la opcion a gestionar: "
-                       FontFamily="Comf-Medium"
-                       FontSize="Subtitle"
-                       TextColor="Black"
-                       VerticalOptions="Center"
-                       Grid.ColumnSpan="3"
-                       Margin="30,0,0,0" />
-                    <Grid 
-                      Grid.Column="1"
-                      Grid.Row="1"
-                      Margin="10">
-                        <Grid RowDefinitions=".1*,.9*">
-                            <Label Text="Pedidos"
-                               HorizontalOptions="Center"
-                               FontFamily="Comf-Bold"
-                               FontSize="15"
-                               ZIndex="1"/>
-                            <Button ImageSource="cargando.png"
-                                Grid.RowSpan="2"
-                                Clicked="pedidos_Clicked"
-                                BackgroundColor="#b7bdbd" />
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Row="2"
-                      Margin="10">
-                        <Grid RowDefinitions=".1*,.9*">
-                            <Label Text="Trabajador"
-                               HorizontalOptions="Center"
-                               FontFamily="Comf-Bold"
-                               FontSize="15"
-                               ZIndex="1" />
-                            <Button ImageSource="transporte.png"
-                                Grid.RowSpan="2"
-                                BackgroundColor="#b7bdbd"
-                                Clicked="transportista_Clicked"/>
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Column="2"
-                      Grid.Row="1"
-                      Margin="10">
-                        <Grid RowDefinitions=".1*,.9*">
-                            <Label Text="Clientes"
-                               HorizontalOptions="Center"
-                               FontFamily="Comf-Bold"
-                               FontSize="15"
-                               ZIndex="1"/>
-                            <Button ImageSource="cliente2.png"
-                                Grid.RowSpan="2"
-                                Clicked="cliente_Clicked"
-                                BackgroundColor="#b7bdbd" />
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Row="2"
-                      Grid.Column="1"
-                      Margin="10">
-                        <Grid RowDefinitions=".1*,.9*">
-                            <Label Text="Ubicacion"
-                               HorizontalOptions="Center"
-                               FontFamily="Comf-Bold"
-                               FontSize="15"
-                               ZIndex="1"/>
-                            <Button ImageSource="rutamen.png"
-                                Grid.RowSpan="2"
-                                Clicked="Btn_DestinosClicket"
-                                BackgroundColor="#b7bdbd" />
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Row="1"
-                      Margin="10">
-                        <Grid RowDefinitions=".1*,.9*">
-                            <Label Text="Solicitudes"
-                               HorizontalOptions="Center"
-                               FontFamily="Comf-Bold"
-                               FontSize="15"
-                               ZIndex="1"/>
-                            <Button ImageSource="pedido2.png"
-                                Grid.RowSpan="2"
-                                BackgroundColor="#b7bdbd"
-                                Clicked="btn_Solicitudes"/>
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Row="2"
-                      Grid.Column="2"
-                      Margin="10">
-                        <Grid RowDefinitions=".1*,.9*">
-                            <Label Text="Vehiculos"
-                               HorizontalOptions="Center"
-                               FontFamily="Comf-Bold"
-                               FontSize="15"
-                               ZIndex="1"/>
-                            <Button ImageSource="cisterna.png"
-                                Grid.RowSpan="2"
-                                BackgroundColor="#b7bdbd"
-                                Clicked="btn_Vehiculos"/>
-                        </Grid>
-                    </Grid>
-                    <Image Source="paquitatext.png"
-                       Grid.ColumnSpan="3"
-                       Grid.Row="3"
-                       WidthRequest="200"
-                       HorizontalOptions="Center" />
-                    <Frame Margin="15,10" Padding="0" CornerRadius="8" HasShadow="True" BorderColor="#e0e0e0">
-                        <Button Text="Gestión de Usuarios" 
-    BackgroundColor="White"
-    TextColor="#d9342d"
-    FontSize="16"
-    FontAttributes="Bold"
-    HeightRequest="60"
-    Clicked="OnUserManagementClicked"
-    HorizontalOptions="Fill">
-                            <Button.ImageSource>
-                                <FontImageSource FontFamily="FontAwesome"
-                     Glyph="&#xf0c0;"
-                     Color="#d9342d"
-                     Size="24" />
-                            </Button.ImageSource>
-                        </Button>
-                    </Frame>
-                </Grid>
+      BackgroundColor="#cb4335"
+      Padding="0">
 
+                <Label Text="Menu Administrador"
+           FontSize="20"
+           FontFamily="Comf-Bold"
+           HorizontalOptions="Start"
+           VerticalOptions="Center"
+           Margin="20,20,0,0"
+           TextColor="White" />
+                <Button Grid.Column="1"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        VerticalOptions="End"
+                        HorizontalOptions="End"
+                        Margin="10"
+            BackgroundColor="Transparent"
+            Clicked="btn_cerrar"/>
+                <Image Grid.Column="1"        
+                       Source="cerrar.png"
+                       WidthRequest="40"
+                       HeightRequest="40"
+                       HorizontalOptions="End"
+                       Margin="10"
+                       VerticalOptions="End"/>
             </Grid>
+            <ScrollView Grid.Row="1" BackgroundColor="#edf2f4">
+                <VerticalStackLayout Padding="10" Spacing="8">
+                    <Label Text="Selecciona la opción a gestionar: "
+                           FontFamily="Comf-Medium"
+                           FontSize="14"
+                           TextColor="Black"
+                           Margin="5,5,5,10" />
+                    <!-- Opción: Solicitudes -->
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" >
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="btn_Solicitudes"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Solicitudes" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Gestiona las solicitudes pendientes." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                    <!-- Opción: Pedidos -->
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="pedidos_Clicked"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Pedidos" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Revisa los pedidos en curso." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                    <!-- Opción: Clientes -->
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="cliente_Clicked"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Clientes" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Consulta los datos de los clientes." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                    <!-- Opción: Trabajadores -->
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="transportista_Clicked"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Trabajadores" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Administra el personal de transporte." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                    <!-- Opción: Ubicación -->
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Btn_DestinosClicket"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Ubicación" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Revisa y administra las rutas." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                    <!-- Opción: Vehículos -->
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="btn_Vehiculos"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Vehículos" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Gestiona los vehículos disponibles." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+
+                        </Grid>
+                    </Frame>
+                    <!-- Opción: Pedidos Automáticos-->
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="btn_Pedidoauto"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Pedidos Atuomatizados" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Gestión de pedidos automáticos y recurrentes." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+
+                    <Image Source="paquitatext.png"
+                           WidthRequest="150"
+                           HorizontalOptions="Center" 
+                           Margin="15"/>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
-                
+
+        <!-- Cargando -->
         <Grid x:Name="Cargandoo"
-BackgroundColor="Black"
-Opacity="0.9"
-IsVisible="False"
-ZIndex="10"
-VerticalOptions="FillAndExpand"
-HorizontalOptions="FillAndExpand">
+              BackgroundColor="Black"
+              Opacity="0.8"
+              IsVisible="False"
+              ZIndex="10"
+              VerticalOptions="FillAndExpand"
+              HorizontalOptions="FillAndExpand">
             <VerticalStackLayout HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   Spacing="10">
+                                 VerticalOptions="Center"
+                                 Spacing="5">
                 <ActivityIndicator IsRunning="True"
-                     Color="Red"
-                     HeightRequest="50"
-                     WidthRequest="50" />
+                                   Color="Red"
+                                   HeightRequest="40"
+                                   WidthRequest="40" />
                 <Label Text="Cerrando Sesión..."
-         TextColor="White"
-         FontSize="Medium"
-         FontAttributes="Bold"
-         HorizontalOptions="Center" />
+                       TextColor="White"
+                       FontSize="Small"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
             </VerticalStackLayout>
         </Grid>
     </Grid>

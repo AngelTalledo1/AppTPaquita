@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppTransporte.Interfaces.VECrearPedido"
-             NavigationPage.HasNavigationBar="False"
-             Padding="0"
-             Title="VECrearPedido">
+             x:Class="AppTransporte.Interfaces.PedidoAuto"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="PedidoAuto">
     <Grid RowDefinitions=".1*,.8*,.1*">
         <Grid ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0"
               BackgroundColor="#cb4335">
             <Button BackgroundColor="Transparent"
-                    Clicked="Btn_atrasCrearPedido"
-                    CommandParameter="{Binding .}" />
+                     />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
                    VerticalOptions="End"
@@ -32,7 +29,7 @@
               RowDefinitions="1*,.1*">
             <VerticalStackLayout Spacing="30"
                                      Margin="20,20,20,0">
-                    <Frame Padding="0" BorderColor="Transparent" CornerRadius="20" BackgroundColor="Transparent">
+                <Frame Padding="0" BorderColor="Transparent" CornerRadius="20" BackgroundColor="Transparent">
                     <toolkit:Expander BackgroundColor="#edede9" Padding="10">
                         <toolkit:Expander.Header>
                             <Grid ColumnDefinitions=".2*,.6*,.2*">
@@ -54,18 +51,18 @@
                             </Grid>
                         </toolkit:Expander.Header>
                         <Grid ColumnDefinitions=".3*,.6*,.2*">
-                            <Label x:Name="Descripcionlbl"
+                            <Label x:Name="Descripcionlabel"
                                    FontFamily="Comf-Medium"
                                    Grid.Column="1" />
                         </Grid>
                     </toolkit:Expander>
-                    </Frame>
-                    <Grid ColumnDefinitions=".2*,.4*,.4*">
-                        <Image WidthRequest="40"
+                </Frame>
+                <Grid ColumnDefinitions=".2*,.4*,.4*">
+                    <Image WidthRequest="40"
                                HeightRequest="40"
                                Source="cantidad.png"
                                HorizontalOptions="Center"></Image>
-                        <Entry PlaceholderColor="#515a5a"
+                    <Entry PlaceholderColor="#515a5a"
                                Grid.Column="1"
                                TextColor="Black"
                                Placeholder="Barriles"
@@ -73,60 +70,60 @@
                                FontFamily="Comf-Medium"
                                VerticalOptions="Center"
                                MaxLength="8"
-                               x:Name="CantidadFluidoEntry"
-                               TextChanged="OnCantidadFluidoChanged" />
-                        <Label x:Name="ViajesLabel"
+                               x:Name="FluidoEntry"
+                                />
+                    <Label x:Name="Viajeslbl"
                                Margin="10,0"
                                FontFamily="Comf-Bold"
                                TextColor="#cb4335"
                                VerticalOptions="Center"
                                Grid.Column="2" />
-                    </Grid>
+                </Grid>
 
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
+                <Grid ColumnDefinitions=".2*,.8*">
+                    <Image WidthRequest="40"
                                HeightRequest="40"
                                Source="direccion.png"
                                HorizontalOptions="Center"></Image>
-                        <Picker x:Name="OrigenPicker"
+                    <Picker x:Name="OrigenPicker"
                                 Title="Origen Disponibles"
                                 Grid.Column="1"
                                 FontFamily="Comf-Medium"
                                 TextColor="Black">
-                            <Picker.Items>
-                                <x:String>origen</x:String>
-                            </Picker.Items>
-                        </Picker>
-                    </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
+                        <Picker.Items>
+                            <x:String>origen</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Grid>
+                <Grid ColumnDefinitions=".2*,.8*">
+                    <Image WidthRequest="40"
                                HeightRequest="40"
                                Source="direccion.png"
                                HorizontalOptions="Center"></Image>
-                        <Picker x:Name="DestinoPicker"
+                    <Picker x:Name="DestinoPicker"
                                 Title="Destino Disponibles"
                                 Grid.Column="1"
                                 FontFamily="Comf-Medium"
                                 TextColor="Black">
-                            <Picker.Items>
-                                <x:String>Destino</x:String>
-                            </Picker.Items>
-                        </Picker>
-                    </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
+                        <Picker.Items>
+                            <x:String>Destino</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Grid>
+                <Grid ColumnDefinitions=".2*,.8*">
+                    <Image WidthRequest="40"
                                HeightRequest="40"
                                Source="calendario.png"
                                HorizontalOptions="Center"></Image>
-                        <Label Text="Selecciona los servicios"
+                    <Label Text="Selecciona los servicios"
                                Grid.Column="1"
                                TextColor="#cb4335"
                                FontFamily="Comf-Bold"
                                VerticalOptions="Center"/>
-                    </Grid>
-                    <!-- CollectionView para mostrar los servicios -->
+                </Grid>
+                <!-- CollectionView para mostrar los servicios -->
                 <ScrollView>
-                     <CollectionView x:Name="ServiciosCollectionView"
+                    <CollectionView x:Name="ServiciosCollectionView"
                                     SelectionMode="Multiple"
                                     ItemsSource="{Binding Servicios}"
                                     VerticalOptions="Start"
@@ -147,18 +144,17 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </ScrollView>
-                   
 
-                  
-                </VerticalStackLayout>
-            
+
+
+            </VerticalStackLayout>
+
         </Grid>
         <Grid Grid.Row="2">
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
                 <Button Text="Cancelar"
               HeightRequest="50"
-              Clicked="Btn_cancelar"
-              CommandParameter="{Binding .}"
+              
               WidthRequest="150"
               FontFamily="Comf-Bold"
               BackgroundColor="#cb4335"
@@ -168,7 +164,6 @@
                 <Button Text="Crear"
               HeightRequest="50"
               WidthRequest="150"
-              Clicked="Btn_crear"
               FontFamily="Comf-Bold"
               BackgroundColor="#007AFF"
               TextColor="White"
