@@ -66,4 +66,8 @@ public partial class MenuPrincipal : ContentPage
 
 
     }
+    private async void OnUserManagementClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new VEUsuarios(_idUsuario, _idTipoUsuario));
+    }
 }

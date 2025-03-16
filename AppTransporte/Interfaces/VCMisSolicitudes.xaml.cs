@@ -86,7 +86,7 @@ private async void verMiPedido_Clicked(object sender, EventArgs e)
                     if (pedido != null)
                     {
                         // Navegar a la p�gina de Proceso Pedido
-                        await Navigation.PushAsync(new VEProcesoPedido(pedido, idUsuario, idtipousuario));
+                        await Navigation.PushAsync(new VEProcesoPedido(pedido, idUsuario, idtipousuario,null));
                     }
                     else
                     {

@@ -131,10 +131,28 @@
                        Grid.Row="3"
                        WidthRequest="200"
                        HorizontalOptions="Center" />
+                    <Frame Margin="15,10" Padding="0" CornerRadius="8" HasShadow="True" BorderColor="#e0e0e0">
+                        <Button Text="Gestión de Usuarios" 
+    BackgroundColor="White"
+    TextColor="#d9342d"
+    FontSize="16"
+    FontAttributes="Bold"
+    HeightRequest="60"
+    Clicked="OnUserManagementClicked"
+    HorizontalOptions="Fill">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="FontAwesome"
+                     Glyph="&#xf0c0;"
+                     Color="#d9342d"
+                     Size="24" />
+                            </Button.ImageSource>
+                        </Button>
+                    </Frame>
                 </Grid>
+
             </Grid>
-            
         </Grid>
+                
         <Grid x:Name="Cargandoo"
 BackgroundColor="Black"
 Opacity="0.9"

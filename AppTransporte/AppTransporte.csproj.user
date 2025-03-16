@@ -81,6 +81,9 @@
     <MauiXaml Update="Interfaces\VEUbicacion.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Interfaces\VEUsuarios.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Interfaces\VEVehiculos.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

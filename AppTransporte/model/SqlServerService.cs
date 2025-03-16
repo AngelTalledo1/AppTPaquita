@@ -485,48 +485,7 @@ namespace AppTransporte.model
 
             return clientes;
         }
-        public async Task<List<Viaje>> ObtenerViajesModAsync( int? idPedido,int? idUsuario)
-        {
-            var viajes = new List<Viaje>();
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-
-                using (var command = new SqlCommand("pa_ListViajes", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    if (idUsuario.HasValue)
-                    {
-                        command.Parameters.Add(new SqlParameter("@idUsuario", idUsuario.Value));
-                    }
-
-                    if (idPedido.HasValue)
-                    {
-                        command.Parameters.Add(new SqlParameter("@idPedido", idPedido.Value));
-                    }
-
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            viajes.Add(new Viaje
-                            {
-                                IdViaje = reader.GetInt32(reader.GetOrdinal("id_viaje")),
-                                IdPedido = reader.GetInt32(reader.GetOrdinal("id_pedido")),
-                                TractoAsig = reader.IsDBNull(reader.GetOrdinal("placa_tracto")) ? null : reader.GetString(reader.GetOrdinal("placa_tracto")),
-                                CisternaAsig = reader.IsDBNull(reader.GetOrdinal("placa_cisterna")) ? null : reader.GetString(reader.GetOrdinal("placa_cisterna")),
-                                Cantidad = reader.IsDBNull(reader.GetOrdinal("cantidad_viaje")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("cantidad_viaje")),
-                                TrabajadoresAsig = reader.IsDBNull(reader.GetOrdinal("trabajadores")) ? null : reader.GetString(reader.GetOrdinal("trabajadores")),
-                                ultEstado = reader.IsDBNull(reader.GetOrdinal("estado_ultimo_registro")) ? null : reader.GetString(reader.GetOrdinal("estado_ultimo_registro")),
-
-                            });
-                        }
-                    }
-                }
-            }
-
-            return viajes;
-        }
+      
         public async Task<List<Viaje>> ObtenerViajesAsync()
         {
             var viajes = new List<Viaje>();
