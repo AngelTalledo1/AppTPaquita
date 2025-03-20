@@ -120,7 +120,7 @@
                                 <TapGestureRecognizer Tapped="btn_Pedidoauto"/>
                             </Grid.GestureRecognizers>
                             <VerticalStackLayout VerticalOptions="Center">
-                                <Label Text="Pedidos Atuomatizados" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Pedidos Automatizados" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
                                 <Label Text="Gestión de pedidos automáticos y recurrentes." FontSize="12" TextColor="Gray"/>
                             </VerticalStackLayout>
                         </Grid>
