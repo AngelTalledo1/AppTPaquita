@@ -6,7 +6,8 @@
         <Grid ColumnDefinitions=".1*,.9*"
            Padding="20,0,0,0"
            BackgroundColor="#cb4335">
-            <Button BackgroundColor="Transparent"/>
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atras"/>
             <Image Source="atras.png"
                 HorizontalOptions="Center"
                 VerticalOptions="End"

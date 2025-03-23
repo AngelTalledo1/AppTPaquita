@@ -24,7 +24,7 @@ public partial class MenuPrincipal : ContentPage
     }
     private async void btn_Pedidoauto(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new PedidoAuto());
+        await Navigation.PushAsync(new PedidoAuto(_idUsuario, _idTipoUsuario));
     }
 
     private async void cliente_Clicked(object sender, EventArgs e)

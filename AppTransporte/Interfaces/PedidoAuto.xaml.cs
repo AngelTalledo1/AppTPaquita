@@ -3,16 +3,26 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using Microsoft.Maui.Controls;
 using AppTransporte.model;
-
+using AppTransporte.viewModel;
 namespace AppTransporte.Interfaces
 {
     public partial class PedidoAuto : ContentPage
     {
-        public PedidoAuto()
+        
+        private int idUsuario;
+        private int idtipousuario;
+        public PedidoAuto(int idUsuario, int idTipoUsuario)
         {
             InitializeComponent();
+            this.idUsuario = idTipoUsuario;
+            this.idtipousuario = idTipoUsuario;
         }
 
+        private async void Btn_atras(object sender, EventArgs e)
+        {
+           await Navigation.PushAsync(new MenuPrincipal(idUsuario, idtipousuario));
+
+        }
         private void OnFrecuenciaChanged(object sender, EventArgs e)
         {
             DiasSeleccionadosLayout.IsVisible = FrecuenciaPicker.SelectedItem?.ToString() == "Personalizada";
@@ -27,6 +37,7 @@ namespace AppTransporte.Interfaces
         private void FechaFinPicker_DateSelected(object sender, DateChangedEventArgs e)
         {
         }
+        
 
         private async void Btn_crear(object sender, EventArgs e)
         {
