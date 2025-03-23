@@ -30,9 +30,6 @@
     <MauiXaml Update="Interfaces\PedidoAuto.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="Interfaces\PedidosProgramadosPage.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
     <MauiXaml Update="Interfaces\VCambiarContraseña.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
