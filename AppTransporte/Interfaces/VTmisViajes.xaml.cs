@@ -1,5 +1,7 @@
 using AppTransporte.model;
+using AppTransporte.viewModel;
 using Google.Apis.Auth.OAuth2;
+using AppTransporte.viewModel;
 using Google.Apis.Upload;
 using Google.Cloud.Storage.V1;
 
@@ -7,130 +9,48 @@ namespace AppTransporte.Interfaces;
 
 public partial class VTMisViajes : ContentPage
 {
-    private StorageClient _storageClient;
-    private bool _isInitialized = false;
-    private readonly string _bucketName = "pqt_bucket";
-    public VTMisViajes()
-	{
-		InitializeComponent();
-        InitializeStorageAsync();
-    }
-    private async Task InitializeStorageAsync()
+    private int _idUsuario;
+    private int _idTipoUsuario;
+    private Pedido _pedido;
+
+    public VTMisViajes(int idUsuario, int idTipoUsuario)
     {
-        try
-        {
-            string credentialPath = await GoogleCloudAuthHelper.GetCredentialFilePathAsync();
-
-            var credential = GoogleCredential.FromFile(credentialPath);
-            _storageClient = StorageClient.Create(credential);
-
-            _isInitialized = true;
-        }
-        catch (Exception ex)
-        {
-            // Manejar errores de inicialización
-            Console.WriteLine($"Error inicializando Storage: {ex.Message}");
-            _isInitialized = false;
-        }
-
+        var viewModel = new VMViajes(idUsuario : idUsuario);
+        // Asignar el VM como BindingContext
+        this.BindingContext = viewModel;
+        InitializeComponent();
+        this._idUsuario = idUsuario;
+        this._idTipoUsuario = idTipoUsuario;
         
     }
     private void Btn_AtrasMisViajes(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PushAsync(new MenuTransportista(_idUsuario, _idTipoUsuario));
     }
-    private bool isUploading = false; // Para prevenir múltiples ejecuciones
 
-    private async void OnCaptureAndUploadPhotoClicked(object sender, EventArgs e)
+    private async void Btn_SeguimientoViajes(object sender, EventArgs e)
     {
-        if (isUploading) return;
-
-        try
+        var button = (Button)sender;
+        var viaje = button.CommandParameter as Viaje;
+        if (viaje != null)
         {
-            isUploading = true;
-            var status = await Permissions.RequestAsync<Permissions.Camera>();
-            // Verificar permiso de cámara
-            var cameraStatus = await Permissions.CheckStatusAsync<Permissions.Camera>();
-            if (cameraStatus != PermissionStatus.Granted)
+            // Validar si algï¿½n campo estï¿½ sin asignar
+            if (string.IsNullOrWhiteSpace(viaje.TractoAsig) || viaje.TractoAsig == "S/A" ||
+                string.IsNullOrWhiteSpace(viaje.CisternaAsig) || viaje.CisternaAsig == "S/A" ||
+                viaje.Cantidad <= 0 ||
+                string.IsNullOrWhiteSpace(viaje.TrabajadoresAsig) || viaje.TrabajadoresAsig == "S/A")
             {
-                await MainThread.InvokeOnMainThreadAsync(async () =>
-                    UploadStatus.Text = "Se requiere permiso de la cámara");
-                return;
+                // Navegar a la interfaz para asignar el viaje
+                await Navigation.PushAsync(new VEAsignarViaje(viaje, _pedido, _idUsuario, _idTipoUsuario));
             }
-
-            // Capturar foto
-            var photo = await MediaPicker.CapturePhotoAsync();
-            if (photo == null)
+            else
             {
-                await MainThread.InvokeOnMainThreadAsync(() =>
-                    UploadStatus.Text = "No se tomó ninguna foto.");
-                Console.WriteLine("no se tomo foto");
-                return;
+                // Navegar a la interfaz de seguimiento del viaje
+                await Navigation.PushAsync(new VESeguimientoViaje(viaje,_pedido, _idUsuario, _idTipoUsuario));
             }
-
-            // Leer y almacenar en memoria
-            byte[] imageData;
-            using (var sourceStream = await photo.OpenReadAsync())
-            {
-                using var memoryStream = new MemoryStream();
-                await sourceStream.CopyToAsync(memoryStream);
-                imageData = memoryStream.ToArray();
-
-                // Eliminar archivo temporal
-                try { File.Delete(photo.FullPath); }
-                catch (Exception ex) { Console.WriteLine($"Error eliminando archivo: {ex.Message}"); }
-            }
-
-            // Mostrar imagen en UI
-            await MainThread.InvokeOnMainThreadAsync(() =>
-            {
-                CapturedImage.Source = ImageSource.FromStream(() => new MemoryStream(imageData));
-            });
-
-            // Subir a Google Cloud
-            string fileName = $"photo_{DateTime.Now:yyyyMMdd_HHmmss}.jpg";
-            string fileUrl = "";
-
-            using (var uploadStream = new MemoryStream(imageData))
-            {
-                fileUrl = await UploadFileAsync(uploadStream, fileName);
-                Console.WriteLine($"Foto subida: {fileUrl}");
-            }
-
-            await MainThread.InvokeOnMainThreadAsync(() =>
-            {
-                UploadStatus.Text = !string.IsNullOrEmpty(fileUrl)
-                    ? $"Foto subida con éxito: {fileUrl}"
-                    : "Error al subir la foto.";
-            });
         }
-        catch (Exception ex)
-        {
-            await MainThread.InvokeOnMainThreadAsync(() =>
-                UploadStatus.Text = $"Error: {ex.Message}");
-        }
-        finally
-        {
-            isUploading = false;
-        }
+
     }
-    private async Task<string> UploadFileAsync(Stream fileStream, string fileName)
-    {
-        try
-        {
-            var obj = await _storageClient.UploadObjectAsync(
-                _bucketName,
-                $"uploads/{fileName}",
-                null,
-                fileStream);
 
-            string fileUrl = $"https://storage.googleapis.com/{_bucketName}/{obj.Name}";
-            return fileUrl;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error al subir el archivo: {ex.Message}");
-            return null;
-        }
-    }
+   
 }

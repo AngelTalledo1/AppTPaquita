@@ -4,16 +4,28 @@ namespace AppTransporte.Interfaces;
 
 public partial class VEAsignarViaje : ContentPage
 {
-	public VEAsignarViaje(Viaje viaje)
+    private int idUsuario;
+    private int idtipousuario;
+    private Pedido _pedido;
+    public VEAsignarViaje(Viaje viaje,Pedido pedido, int idUsuario, int idTipoUsuario)
 	{
 		InitializeComponent();
-		BindingContext = viaje;
-		Id_Pedido.Text = $"ID Pedido: { viaje.IdPedido.ToString()}";
+		
+        this.idUsuario = idUsuario;
+        this.idtipousuario = idTipoUsuario;
+        this._pedido = pedido;
+        Id_Pedido.Text = $"ID Pedido: { viaje.IdPedido.ToString()}";
         Id_viaje.Text = $"ID Viaje: {viaje.IdViaje.ToString()}";
     }
 
-    private void Btn_atrasAsignarViaje(object sender, EventArgs e)
+    private async void Btn_atrasAsignarViaje(object sender, EventArgs e)
     {
-		Navigation.PopAsync();
+        var button = (Button)sender;
+        var viaje = button.CommandParameter as Viaje;
+
+        if (viaje != null)
+        {
+            await Navigation.PushAsync(new VEProcesoPedido(_pedido, idUsuario, idtipousuario,null));
+        }
     }
 }

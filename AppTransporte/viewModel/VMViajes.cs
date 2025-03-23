@@ -1,81 +1,131 @@
-﻿    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Runtime.CompilerServices;
-    using System.Text;
-    using System.Threading.Tasks;
-    using AppTransporte.model;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using AppTransporte.model;
 
-    namespace AppTransporte.viewModel
+namespace AppTransporte.viewModel
+{
+    public class VMViajes : INotifyPropertyChanged
     {
-        public class VMViajes : INotifyPropertyChanged
+        private bool _isBusy;
+        public ObservableCollection<Viaje> viajes { get; set; } = new();
+        public ObservableCollection<Viaje> viajesFiltrados { get; set; } = new();
+        private int? _idPedidoSeleccionado;
+        private int? _idUsuario; // Nuevo campo para el idUsuario
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public List<string> Estados { get; set; }
+        private string _estadoSeleccionado;
+        public string EstadoSeleccionado
         {
-            private bool _isBusy;
-            public ObservableCollection<Viaje> viajes { get; set; } = new();
-            public ObservableCollection<Viaje> viajesFiltrados { get; set; } = new();
-            private int? _idPedidoSeleccionado;
-
-            public event PropertyChangedEventHandler? PropertyChanged;
-
-            public bool IsBusy
+            get => _estadoSeleccionado;
+            set
             {
-                get => _isBusy;
-                set
+                if (_estadoSeleccionado != value)
                 {
-                    _isBusy = value;
-                    OnPropertyChanged(nameof(IsBusy));
+                    _estadoSeleccionado = value;
+                    FiltrarViajes();
+                    OnPropertyChanged(nameof(EstadoSeleccionado));
                 }
             }
+        }
 
-            public int? IdPedidoSeleccionado
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
             {
-                get => _idPedidoSeleccionado;
-                set
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+        public int? IdPedidoSeleccionado
+        {
+            get => _idPedidoSeleccionado;
+            set
+            {
+                if (_idPedidoSeleccionado != value)
                 {
-                    if (_idPedidoSeleccionado != value)
-                    {
-                        _idPedidoSeleccionado = value;
-                        OnPropertyChanged(nameof(IdPedidoSeleccionado));
-                        FiltrarViajes(); // Filtra los viajes automáticamente al cambiar el IdPedido
-                    }
+                    _idPedidoSeleccionado = value;
+                    OnPropertyChanged(nameof(IdPedidoSeleccionado));
+                    InicializarViajes(); // Ahora recarga desde la base de datos
                 }
             }
+        }
+
+        // Nuevo propiedad para el idUsuario
+        public int? IdUsuario
+        {
+            get => _idUsuario;
+            set
+            {
+                if (_idUsuario != value)
+                {
+                    _idUsuario = value;
+                    OnPropertyChanged(nameof(IdUsuario));
+                    InicializarViajes(); // Recarga datos al cambiar
+                }
+            }
+        }
 
         public int TotalBarrilesFinalizados
         {
             get => viajesFiltrados
                 .Where(v => v.ultEstado == "Finalizado")
-                .Sum(v => v.Cantidad ?? 0); // Si v.Cantidad es null, tomará 0
+                .Sum(v => v.Cantidad ?? 0);
         }
+
         public string BarrilesMostrados
         {
             get
             {
                 var totalBarrilesFinalizados = TotalBarrilesFinalizados;
-                var totalBarrilesPedido = viajesFiltrados.Sum(v => v.Cantidad ?? 0); // Total de barriles en todos los viajes
+                var totalBarrilesPedido = viajesFiltrados.Sum(v => v.Cantidad ?? 0);
                 return $"{totalBarrilesFinalizados} / {totalBarrilesPedido}";
             }
         }
+
         public VMViajes()
         {
-            InicializarViajes();
+            InicializarPropiedades();
         }
         public VMViajes(int idPedido)
         {
             this.IdPedidoSeleccionado = idPedido;
-            InicializarViajes(); // Carga los viajes y aplica el filtro automáticamente
+            InicializarPropiedades();
         }
 
-
+        // Nuevo constructor para recibir idUsuario
+        public VMViajes(int? idUsuario)
+        {
+            this.IdUsuario = idUsuario;
+            InicializarPropiedades();
+        }
+        private void InicializarPropiedades()
+        {
+            Estados = new List<string>
+            {
+                "Todos",
+                "Pendiente",
+                "En el punto de Carga",
+                "En camino al destino",
+                "Finalizado"
+            };
+            InicializarViajes();
+        }
         private async void InicializarViajes()
         {
             IsBusy = true;
 
             try
             {
-                var viajesDesdeBD = await App.Database.ObtenerViajesAsync();
+                // Pasa ambos parámetros al método de la base de datos
+                var viajesDesdeBD = await App.Database.ObtenerViajesModAsync(IdPedidoSeleccionado, IdUsuario);
 
                 this.viajes.Clear();
 
@@ -84,7 +134,7 @@
                     this.viajes.Add(viaje);
                 }
 
-                FiltrarViajes(); // Aplica el filtro después de cargar los datos
+                FiltrarViajes();
             }
             catch (Exception ex)
             {
@@ -101,16 +151,16 @@
             if (viajes == null || !viajes.Any())
             {
                 viajesFiltrados.Clear();
-                OnPropertyChanged(nameof(TotalBarrilesFinalizados));
-                OnPropertyChanged(nameof(BarrilesMostrados));
+                ActualizarPropiedades();
                 return;
             }
 
             var viajesFiltradosTemp = viajes.AsEnumerable();
 
-            if (IdPedidoSeleccionado.HasValue)
+            // Solo filtra por estado (el filtro de pedido y usuario se aplica en la base de datos)
+            if (!string.IsNullOrEmpty(EstadoSeleccionado) && EstadoSeleccionado != "Todos")
             {
-                viajesFiltradosTemp = viajesFiltradosTemp.Where(v => v.IdPedido == IdPedidoSeleccionado.Value);
+                viajesFiltradosTemp = viajesFiltradosTemp.Where(p => p.ultEstado == EstadoSeleccionado);
             }
 
             viajesFiltrados.Clear();
@@ -119,13 +169,18 @@
             {
                 viajesFiltrados.Add(viaje);
             }
+
+            ActualizarPropiedades();
+        }
+
+        private void ActualizarPropiedades()
+        {
             OnPropertyChanged(nameof(TotalBarrilesFinalizados));
             OnPropertyChanged(nameof(BarrilesMostrados));
         }
-
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-    }
+}

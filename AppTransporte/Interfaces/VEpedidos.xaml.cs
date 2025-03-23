@@ -20,7 +20,7 @@ public partial class VEpedidos : ContentPage
 
     private void Btn_atrasPedidos(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new MenuPrincipal());
+        Navigation.PushAsync(new MenuPrincipal(idUsuario,idtipousuario));
     }
 
     private async void Btn_DetallePedido(object sender, EventArgs e)
@@ -31,7 +31,7 @@ public partial class VEpedidos : ContentPage
         if (pedido != null)
         {
             // Navegar a la página de VEProcesoPedido, pasando los datos del pedido seleccionado
-            await Navigation.PushAsync(new VEProcesoPedido(pedido));
+            await Navigation.PushAsync(new VEProcesoPedido(pedido, idUsuario, idtipousuario, null));
         }
     }
 }

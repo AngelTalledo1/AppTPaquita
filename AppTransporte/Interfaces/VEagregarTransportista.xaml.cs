@@ -6,15 +6,21 @@ namespace AppTransporte.Interfaces;
 public partial class VEagregarTransportista : ContentPage
 {
     private Trabajador trabajador;
-    public VEagregarTransportista()
+    private int _idUsuario;
+    private int _idTipoUsuario;
+    public VEagregarTransportista(int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
         tituloLabel.Text = "Agregar  Trabajador";
         GuardarTrabajador.IsVisible = true;
     }
-    public VEagregarTransportista(Trabajador trabajador)
+    public VEagregarTransportista(Trabajador trabajador,int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
+        this._idTipoUsuario = idUsuario;
+        this._idUsuario = idTipoUsuario;
         this.trabajador = trabajador;
         BindingContext = trabajador;
         tituloLabel.Text = "Modificar Trabajador";
@@ -32,7 +38,7 @@ public partial class VEagregarTransportista : ContentPage
     }
     private void Btn_atrasTrab(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PushAsync(new VEtransportistas(_idUsuario, _idTipoUsuario));
     }
 
     private void categoriaPicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,7 +91,7 @@ public partial class VEagregarTransportista : ContentPage
             if (resultado > 0)
             {
                 await DisplayAlert("Éxito", "Trabajador agregado correctamente.", "OK");
-                await Navigation.PushAsync(new VEtransportistas());
+                await Navigation.PushAsync(new VEtransportistas(_idUsuario, _idTipoUsuario));
 
             }
             else
@@ -136,7 +142,7 @@ public partial class VEagregarTransportista : ContentPage
             if (resultado > 0)
             {
                 await DisplayAlert("Éxito", "Trabajador actualizado correctamente.", "OK");
-                await Navigation.PushAsync(new VEtransportistas());
+                await Navigation.PushAsync(new VEtransportistas(_idUsuario, _idTipoUsuario));
             }
             else
             {

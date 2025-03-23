@@ -11,7 +11,8 @@
               Padding="20,0,0,0"
               BackgroundColor="#cb4335">
             <Button BackgroundColor="Transparent"
-                    Clicked="Btn_atrasCrearPedido" />
+                    Clicked="Btn_atrasCrearPedido"
+                    CommandParameter="{Binding .}" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
                    VerticalOptions="End"
@@ -121,7 +122,7 @@
                                Grid.Column="1"
                                TextColor="#cb4335"
                                FontFamily="Comf-Bold"
-                               VerticalOptions="Center" />
+                               VerticalOptions="Center"/>
                     </Grid>
                     <!-- CollectionView para mostrar los servicios -->
                 <ScrollView>
@@ -157,6 +158,7 @@
                 <Button Text="Cancelar"
               HeightRequest="50"
               Clicked="Btn_cancelar"
+              CommandParameter="{Binding .}"
               WidthRequest="150"
               FontFamily="Comf-Bold"
               BackgroundColor="#cb4335"
