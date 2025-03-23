@@ -16,14 +16,16 @@ namespace AppTransporte.Interfaces
         private void OnFrecuenciaChanged(object sender, EventArgs e)
         {
             DiasSeleccionadosLayout.IsVisible = FrecuenciaPicker.SelectedItem?.ToString() == "Personalizada";
+
+            if (!DiasSeleccionadosLayout.IsVisible)
+                foreach (var check in new[] { LunesCheck, MartesCheck, MiercolesCheck, JuevesCheck, ViernesCheck, SabadoCheck })
+                    check.IsChecked = false;
         }
         private void FechaInicioPicker_DateSelected(object sender, DateChangedEventArgs e)
         {
-            FechaInicioLabel.IsVisible = false; 
         }
         private void FechaFinPicker_DateSelected(object sender, DateChangedEventArgs e)
         {
-            FechaFinLabel.IsVisible = false; 
         }
 
         private async void Btn_crear(object sender, EventArgs e)
@@ -34,6 +36,23 @@ namespace AppTransporte.Interfaces
                 var fechaInicio = FechaInicioPicker.Date;
                 var fechaFin = FechaFinPicker.Date;
                 var hora = HoraPicker.Time;
+                var cantidad = cantidadEntry.Text;
+
+                if (string.IsNullOrWhiteSpace(frecuencia) ||
+                    string.IsNullOrWhiteSpace(cantidadEntry.Text) ||
+                    fechaInicio == default ||
+                    fechaFin == default ||
+                    cantidad == default ||
+                    hora == default)
+                {
+                    await DisplayAlert("Error", "Todos los campos deben estar llenos.", "OK");
+                    return;
+                }
+                if (!int.TryParse(cantidadEntry.Text, out int cantidadLbl))
+                {
+                    await DisplayAlert("Error", "Ingrese una cantidad válida en barriles.", "OK");
+                    return;
+                }
 
                 string diasSeleccionados = "";
                 if (frecuencia == "Personalizada")
@@ -47,6 +66,7 @@ namespace AppTransporte.Interfaces
                         SabadoCheck.IsChecked ? "Sábado" : "",
                        // DomingoCheck.IsChecked ? "Domingo" : ""
                     };
+                    
                     diasSeleccionados = string.Join(", ", dias.Where(d => !string.IsNullOrEmpty(d)));
 
                     if (string.IsNullOrWhiteSpace(diasSeleccionados))
@@ -54,6 +74,7 @@ namespace AppTransporte.Interfaces
                         await DisplayAlert("Error", "Debe seleccionar al menos un día.", "OK");
                         return;
                     }
+                    
                 }
 
 
