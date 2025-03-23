@@ -1,131 +1,110 @@
-using AppTransporte.model;
+using System;
+using System.Linq;
 using System.Collections.ObjectModel;
-
-namespace AppTransporte.Interfaces;
-
-public partial class PedidoAuto : ContentPage
+using Microsoft.Maui.Controls;
+using AppTransporte.model;
+using AppTransporte.viewModel;
+namespace AppTransporte.Interfaces
 {
-    private Solicitud Solicitud { get; set; }
-
-    public int Viajes { get; set; }
-    public PedidoAuto()
+    public partial class PedidoAuto : ContentPage
     {
-        InitializeComponent();
-        //BindingContext = solicitud;
-        //Solicitud = solicitud;
-        //IdSolicitud.Text = solicitud.IdSolicitud.ToString();
-        //Descripcionlabel.Text = solicitud.Descripcion.ToString();
-
-    }
-
-
-    public ObservableCollection<ServicioSeleccionable> Servicios { get; set; } = new ObservableCollection<ServicioSeleccionable>();
-
-
-    protected override async void OnAppearing()
-    {
-        base.OnAppearing();
-
-        var origenes = await App.Database.ObtenerUbicacionesAsync();
-        OrigenPicker.ItemsSource = origenes;
-        OrigenPicker.ItemDisplayBinding = new Binding("Descripcion");
-
-        var destinos = await App.Database.ObtenerUbicacionesAsync();
-        DestinoPicker.ItemsSource = destinos;
-        DestinoPicker.ItemDisplayBinding = new Binding("Descripcion");
-        var servicios = await App.Database.ObtenerServiciosAsync();
-        Servicios.Clear();
-
-        foreach (var servicio in servicios)
+        
+        private int idUsuario;
+        private int idtipousuario;
+        public PedidoAuto(int idUsuario, int idTipoUsuario)
         {
-            Servicios.Add(new ServicioSeleccionable
-
-            {
-                IdServicio = servicio.IdServicio,
-                Descripcion = servicio.Descripcion,
-                Estado = servicio.Estado
-            });
+            InitializeComponent();
+            this.idUsuario = idTipoUsuario;
+            this.idtipousuario = idTipoUsuario;
         }
 
-        ServiciosCollectionView.ItemsSource = Servicios;
-    }
-
-    private void Btn_atrasCrearPedido(object sender, EventArgs e)
-    {
-        Navigation.PopAsync();
-    }
-
-    private async void Btn_crear(object sender, EventArgs e)
-    {
-        try
+        private async void Btn_atras(object sender, EventArgs e)
         {
-            // Validar datos ingresados
-            if (string.IsNullOrWhiteSpace(FluidoEntry.Text) || !int.TryParse(FluidoEntry.Text, out int cantidad) || cantidad <= 0)
+           await Navigation.PushAsync(new MenuPrincipal(idUsuario, idtipousuario));
+
+        }
+        private void OnFrecuenciaChanged(object sender, EventArgs e)
+        {
+            DiasSeleccionadosLayout.IsVisible = FrecuenciaPicker.SelectedItem?.ToString() == "Personalizada";
+
+            if (!DiasSeleccionadosLayout.IsVisible)
+                foreach (var check in new[] { LunesCheck, MartesCheck, MiercolesCheck, JuevesCheck, ViernesCheck, SabadoCheck })
+                    check.IsChecked = false;
+        }
+        private void FechaInicioPicker_DateSelected(object sender, DateChangedEventArgs e)
+        {
+        }
+        private void FechaFinPicker_DateSelected(object sender, DateChangedEventArgs e)
+        {
+        }
+        
+
+        private async void Btn_crear(object sender, EventArgs e)
+        {
+            try
             {
-                await DisplayAlert("Error", "Debe ingresar una cantidad válida de barriles.", "OK");
-                return;
+                var frecuencia = FrecuenciaPicker.SelectedItem?.ToString();
+                var fechaInicio = FechaInicioPicker.Date;
+                var fechaFin = FechaFinPicker.Date;
+                var hora = HoraPicker.Time;
+                var cantidad = cantidadEntry.Text;
+
+                if (string.IsNullOrWhiteSpace(frecuencia) ||
+                    string.IsNullOrWhiteSpace(cantidadEntry.Text) ||
+                    fechaInicio == default ||
+                    fechaFin == default ||
+                    cantidad == default ||
+                    hora == default)
+                {
+                    await DisplayAlert("Error", "Todos los campos deben estar llenos.", "OK");
+                    return;
+                }
+                if (!int.TryParse(cantidadEntry.Text, out int cantidadLbl))
+                {
+                    await DisplayAlert("Error", "Ingrese una cantidad válida en barriles.", "OK");
+                    return;
+                }
+
+                string diasSeleccionados = "";
+                if (frecuencia == "Personalizada")
+                {
+                    var dias = new[] {
+                        LunesCheck.IsChecked ? "Lunes" : "",
+                        MartesCheck.IsChecked ? "Martes" : "",
+                        MiercolesCheck.IsChecked ? "Miércoles" : "",
+                        JuevesCheck.IsChecked ? "Jueves" : "",
+                        ViernesCheck.IsChecked ? "Viernes" : "",
+                        SabadoCheck.IsChecked ? "Sábado" : "",
+                       // DomingoCheck.IsChecked ? "Domingo" : ""
+                    };
+                    
+                    diasSeleccionados = string.Join(", ", dias.Where(d => !string.IsNullOrEmpty(d)));
+
+                    if (string.IsNullOrWhiteSpace(diasSeleccionados))
+                    {
+                        await DisplayAlert("Error", "Debe seleccionar al menos un día.", "OK");
+                        return;
+                    }
+                    
+                }
+
+
+                //await App.Database.GuardarPedidoProgramadoAsync(new PedidoProgramado
+                //{
+                 //   Frecuencia = frecuencia,
+                   // FechaInicio = fechaInicio,
+                    //FechaFin = fechaFin,
+                    //Hora = hora,
+                    //Cantidad = int.Parse(FluidoEntry.Text),
+                    //DiasSeleccionados = diasSeleccionados
+                //});
+
+                await DisplayAlert("Éxito", "Pedido programado exitosamente.", "OK");
             }
-
-            if (OrigenPicker.SelectedItem == null || DestinoPicker.SelectedItem == null)
+            catch (Exception ex)
             {
-                await DisplayAlert("Error", "Debe seleccionar un origen y un destino.", "OK");
-                return;
+                await DisplayAlert("Error", ex.Message, "OK");
             }
-
-            // Obtener los servicios seleccionados
-            var serviciosSeleccionados = Servicios.Where(s => s.IsSelected).ToList();
-            if (serviciosSeleccionados.Count == 0)
-            {
-                await DisplayAlert("Error", "Debe seleccionar al menos un servicio.", "OK");
-                return;
-            }
-            var listaServicios = string.Join(",", serviciosSeleccionados.Select(s => s.Descripcion));
-            int idSolicitud = Solicitud.IdSolicitud;
-            int viajes = Viajes;
-            int idOrigen = ((Ubicacion)OrigenPicker.SelectedItem).IdUbicacion;
-            int idDestino = ((Ubicacion)DestinoPicker.SelectedItem).IdUbicacion;
-            int idEstadoPedido = 1;
-
-            // Llamar al servicio para crear el pedido
-            await App.Database.CrearPedidoAsync(
-                idSolicitud,
-                cantidad,
-                viajes,
-                idOrigen,
-                idDestino,
-                idEstadoPedido,
-                listaServicios);
-
-            await DisplayAlert("Éxito", "Pedido creado exitosamente.", "OK");
-
-            // Limpiar los campos después de crear el pedido
-           // await Navigation.PushAsync(new VESolicitudes());
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error", $"Ocurrió un error al crear el pedido: {ex.Message}", "OK");
         }
     }
-    private void Btn_cancelar(object sender, EventArgs e)
-    {
-        Navigation.PopAsync();
-    }
-
-    private void OnCantidadFluidoChanged(object sender, TextChangedEventArgs e)
-    {
-        const int capacidadMaxima = 200;
-        if (int.TryParse(FluidoEntry.Text, out int cantidadFluido))
-        {
-            // Calcula los viajes necesarios y actualiza el Label
-            int viajes = (int)Math.Ceiling((double)cantidadFluido / capacidadMaxima);
-            Viajeslbl.Text = $"Viajes: {viajes}";
-            Viajes = viajes;
-        }
-        else
-        {
-            // Si no es un número válido, resetea el valor
-            Viajeslbl.Text = "Viajes: 0";
-        }
-    }
-
 }

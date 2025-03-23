@@ -157,6 +157,9 @@
 		<MauiXaml Update="Interfaces\MenuTransportista.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Interfaces\PedidosProgramadosPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Interfaces\VCambiarContraseña.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
