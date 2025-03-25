@@ -1,0 +1,23 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.PedidosProgramadosPage">
+    <StackLayout Padding="20">
+        <Label Text="Pedidos Programados" FontSize="24"/>
+        <CollectionView ItemsSource="{Binding PedidosProgramados}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10">
+                        <StackLayout>
+                            <Label Text="{Binding Descripcion}"/>
+                            <Label Text="{Binding Frecuencia}"/>
+                            <Label Text="{Binding FechaInicio, StringFormat='Inicio: {0:dd/MM/yyyy}'}"/>
+                            <Label Text="{Binding FechaFin, StringFormat='Fin: {0:dd/MM/yyyy}'}"/>
+                            <Label Text="{Binding Hora, StringFormat='Hora: {0:hh\\:mm tt}'}"/>
+                            <Button Text="Cancelar" Command="{Binding CancelarPedidoCommand}" />
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

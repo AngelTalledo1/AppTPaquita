@@ -18,8 +18,10 @@ public partial class VEAsignarViaje : ContentPage
 
     private async void Btn_atrasAsignarViaje(object sender, EventArgs e)
     {
+        
         var button = (Button)sender;
         var pedido = button.CommandParameter as Pedido;
+        
 
         if (pedido != null)
         {
