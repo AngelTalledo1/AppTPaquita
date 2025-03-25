@@ -14,8 +14,5 @@ namespace AppTransporte.model
         public int IdTipoUsuario { get; set; }
         public bool Estado { get; set; }
         public int IdPersona { get; set; }
-
-        public Persona Persona { get; set; } = new Persona();  // Relación con Persona
-        public TipoUsuario TipoUsuario { get; set; } = new TipoUsuario(); // Relación con TipoUsuario
     }
 }

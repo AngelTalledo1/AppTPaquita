@@ -521,6 +521,38 @@ namespace AppTransporte.model
 
             return viajes;
         }
+        public async Task<List<Usuario>> ObtenerUsuariosAsync()
+        {
+            var usuarios = new List<Usuario>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_MostrarUsuario", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            usuarios.Add(new Usuario
+                            {
+                                IdUsuario = reader.GetInt32(reader.GetOrdinal("id_usuario")),
+                                Username = reader.GetString(reader.GetOrdinal("Username")),
+                                Contraseña = reader.GetString(reader.GetOrdinal("Contraseña")),
+                                IdTipoUsuario = reader.GetInt32(reader.GetOrdinal("id_tipoUsuario")),
+                                Estado = reader.GetBoolean(reader.GetOrdinal("estado")),
+                                IdPersona = reader.GetInt32(reader.GetOrdinal("id_persona"))
+                            });
+                        }
+                    }
+                }
+            }
+
+            return usuarios;
+        }
         public async Task<List<Trabajador>> ObtenerTrabajadoresAsync(string categoria = null)
         {
             var trabajadores = new List<Trabajador>();
