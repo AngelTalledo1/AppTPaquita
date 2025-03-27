@@ -25,7 +25,7 @@ public partial class VEAsignarViaje : ContentPage
         var pedido = button.CommandParameter as Pedido;
         
 
-        if (viaje != null)
+        if (pedido != null)
         {
             await Navigation.PushAsync(new VEProcesoPedido(_pedido, idUsuario, idtipousuario,null));
         }

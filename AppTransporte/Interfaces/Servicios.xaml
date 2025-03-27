@@ -4,8 +4,11 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              NavigationPage.HasNavigationBar="False"
              x:Class="AppTransporte.Interfaces.Servicios"
+             xmlns:VME="clr-namespace:AppTransporte.viewModel"
              Title="Servicios">
-    
+    <ContentPage.BindingContext>
+        <VME:VMServicio />
+    </ContentPage.BindingContext>
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0"
@@ -44,13 +47,46 @@
             <ScrollView Grid.Row="1">
                 <VerticalStackLayout Margin="10">
                     <ActivityIndicator IsRunning="{Binding IsBusy}"
-                                       IsVisible="{Binding IsBusy}"
-                                       Color="#bc4749"
-                                       HorizontalOptions="Center" />
-                    
-                        
+                           IsVisible="{Binding IsBusy}"
+                           Color="#bc4749"
+                           HorizontalOptions="Center" />
+                    <CollectionView ItemsSource="{Binding Servicios}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="10"
+                           BackgroundColor="#edf2f4"
+                           CornerRadius="10"
+                           BorderColor="Transparent"
+                           Margin="3">
+                                    <toolkit:Expander>
+                                        <toolkit:Expander.Header>
+                                            <Grid ColumnDefinitions="1*,.2*"
+                                      RowDefinitions="1*,1*">
+                                                <Label Text="{Binding Descripcion}"
+                                           FontFamily="Comf-Bold" />
+                                                <Button BackgroundColor="Transparent"
+                                            Grid.Column="2"
+                                            Grid.RowSpan="2"
+                                            CommandParameter="{Binding .}" />
+                                                <Image Source="edit.png"
+                                           Grid.Column="2"
+                                           Grid.RowSpan="2"
+                                           VerticalOptions="Center"
+                                           WidthRequest="20" />
+                                            </Grid>
+                                        </toolkit:Expander.Header>
+                                        <VerticalStackLayout>
+                                            <Label Text="{Binding Estado, Converter={StaticResource BooleanToTextConverter}}"
+                                       FontFamily="Comf-SemBold" />
+                                        </VerticalStackLayout>
+                                    </toolkit:Expander>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </VerticalStackLayout>
             </ScrollView>
+
             <Button Text="Nuevo Serivicio"
                     FontFamily="Comf-Bold"
                     BackgroundColor="#cb4335"

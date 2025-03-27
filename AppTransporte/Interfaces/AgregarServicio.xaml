@@ -43,23 +43,11 @@
                         <Image WidthRequest="40"
                                HeightRequest="40"
                                HorizontalOptions="Center"
-                               Source="descripcion.png" />
-                        <Editor PlaceholderColor="#515a5a"
-                                Grid.Column="1"
-                                Margin="10"
-                                AutoSize="TextChanges"
-                                Placeholder="Nombre del servicio"
-                                FontFamily="Comf-Bold"
-                                TextColor="Black" />
-                    </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="Center"
                                Source=".png" />
                         <Entry PlaceholderColor="#515a5a"
                                Grid.Column="1"
                                Margin="10"
+                                x:Name="descripcion_entry"
                                Placeholder="Descripción"
                                FontFamily="Comf-Bold"
                                TextColor="Black" />
@@ -72,6 +60,7 @@
                     <Button Text="Guardar"
             HeightRequest="50"
             WidthRequest="150"
+            Clicked="btn_guardar"
             FontFamily="Comf-Medium"
             BackgroundColor="#007AFF"
             TextColor="White"

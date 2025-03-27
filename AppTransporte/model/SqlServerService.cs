@@ -52,7 +52,21 @@ namespace AppTransporte.model
                 }
             }
         }
-       
+
+        public async Task<int> InsertarServicioAsync(string descripcion)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                using (SqlCommand command = new SqlCommand("pa_InsertarServicio", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@descripcion", descripcion);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
         public async Task<Cliente?> ObtenerClientePorUsuarioAsync(int idUsuario)
         {
             try
