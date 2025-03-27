@@ -100,6 +100,18 @@
                             </VerticalStackLayout>
                         </Grid>
                     </Frame>
+                    <!-- Opción: Servicios -->
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Btn_AgregarServ"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Servicios" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text=" Agrega, gestiona y visualiza distintos servicios disponibles." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
                     <!-- Opción: Vehículos -->
                     <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">

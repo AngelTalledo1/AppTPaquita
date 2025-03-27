@@ -145,6 +145,9 @@
 		<MauiXaml Update="Interfaces\actualizarEstado.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Interfaces\AgregarServicio.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Interfaces\Login.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -158,6 +161,9 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\PedidosProgramadosPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\Servicios.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\VCambiarContraseña.xaml">
