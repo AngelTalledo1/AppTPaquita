@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="AppTransporte.Interfaces.Servicios"
+             Title="Servicios">
+    
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_Atras" />
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Servicios"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Bold"
+                   Padding="20,20,0,0" />
+        </Grid>
+        <Grid Grid.Row="1"
+              RowDefinitions=".1*,.75*,.08*">
+            <VerticalStackLayout Margin="20">
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Buscar: "
+                           FontFamily="Comf-Medium"
+                           VerticalOptions="Center" />
+                    <SearchBar Placeholder="Servicio"
+                               FontFamily="Comf-Bold"
+                               Text="{Binding TextoBusqueda}"
+                               VerticalTextAlignment="Center"
+                               TextColor="Black" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout Margin="10">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                       IsVisible="{Binding IsBusy}"
+                                       Color="#bc4749"
+                                       HorizontalOptions="Center" />
+                    
+                        
+                </VerticalStackLayout>
+            </ScrollView>
+            <Button Text="Nuevo Serivicio"
+                    FontFamily="Comf-Bold"
+                    BackgroundColor="#cb4335"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"    
+                    Clicked="Btn_aggserv" Grid.Row="2" />
+        </Grid>
+    </Grid>
+</ContentPage>

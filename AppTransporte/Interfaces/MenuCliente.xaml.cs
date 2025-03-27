@@ -29,7 +29,7 @@ public partial class MenuCliente : ContentPage, IMenuPage
     }
     private async void btn_Cerrar(object sender, EventArgs e)
     {
-        bool respuesta = await DisplayAlert("Cerrar Sesi�n", "�Est�s seguro de cerrar sesi�n?", "Aceptar", "Cancelar");
+        bool respuesta = await DisplayAlert("Cerrar Sesión", "¿Estás seguro de cerrar sesión?", "Aceptar", "Cancelar");
         if (respuesta)
         {
             Cargandoo.IsVisible = true;
@@ -47,7 +47,7 @@ public partial class MenuCliente : ContentPage, IMenuPage
         
         Device.BeginInvokeOnMainThread(async () =>
         {
-            bool confirmar = await DisplayAlert("Cerrar sesi�n", "�Deseas cerrar sesi�n?", "S�", "No");
+            bool confirmar = await DisplayAlert("Cerrar sesión", "¿Deseas cerrar sesión?", "Sí", "No");
 
             if (confirmar)
             {

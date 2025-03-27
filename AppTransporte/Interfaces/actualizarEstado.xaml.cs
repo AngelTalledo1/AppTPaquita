@@ -142,7 +142,7 @@ public partial class actualizarEstado : ContentPage
 
     private void Btn_atrasEvidencias(object sender, EventArgs e)
     {
-
+        Navigation.PushAsync(new VTMisViajes(_idTipoUsuario, _idUsuario));
     }
 
     

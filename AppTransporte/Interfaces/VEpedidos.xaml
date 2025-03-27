@@ -33,10 +33,10 @@
                 <VerticalStackLayout>
                     <HorizontalStackLayout  Margin="15,10"
                                             VerticalOptions="Start">
-                        <Label Text="Buscar por: "
+                        <Label Text="Buscar: "
                                FontFamily="Comf-Bold"
                                VerticalOptions="Center" />
-                        <SearchBar Placeholder="Numero de pedido"
+                        <SearchBar Placeholder="Ingrese un pedido (Origen, N°...)"
                                    PlaceholderColor="#515a5a"
                                    HorizontalTextAlignment="Start"
                                    TextColor="Black"

@@ -26,6 +26,11 @@ public partial class MenuPrincipal : ContentPage
     {
         await Navigation.PushAsync(new PedidoAuto(_idUsuario, _idTipoUsuario));
     }
+    private async void Btn_AgregarServ(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new Servicios(_idUsuario, _idTipoUsuario));
+    }
+    
 
     private async void cliente_Clicked(object sender, EventArgs e)
     {

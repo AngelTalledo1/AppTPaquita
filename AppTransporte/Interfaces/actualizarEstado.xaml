@@ -39,7 +39,7 @@
                         FontFamily="Comf-SemBold"
                         VerticalOptions="CenterAndExpand"
                         AutoSize="TextChanges"
-                        TextColor="Black" />
+                        TextColor="Black"/>
                 <Button Text="Agregar Fotos"
                         Clicked="OnCaptureAndUploadPhotoClicked"
                         BackgroundColor="#cb4335"
