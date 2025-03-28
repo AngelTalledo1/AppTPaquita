@@ -17,6 +17,7 @@
                    HeightRequest="20"
                    WidthRequest="20" />
             <Label Text="Agregar nuevo servicio"
+                   x:Name="tituloInterfaz"
                    Grid.Column="1"
                    FontSize="20"
                    TextColor="AliceBlue"
@@ -32,7 +33,8 @@
                        Padding="0,10,0,0"
                        BackgroundColor="AliceBlue"
                        BorderColor="Transparent">
-                    <Label Text="Información General"
+                    <Label Text=""
+                           x:Name="TituloLabel"
                            HorizontalOptions="Center"
                            TextColor="Black"
                            FontFamily="Comf-Bold"
@@ -47,8 +49,8 @@
                         <Entry PlaceholderColor="#515a5a"
                                Grid.Column="1"
                                Margin="10"
-                                x:Name="descripcion_entry"
-                               Placeholder="Descripción"
+                               x:Name="descripcion_entry"
+                               Placeholder="Nombre del Servicio"
                                FontFamily="Comf-Bold"
                                TextColor="Black" />
                     </Grid>
@@ -57,24 +59,28 @@
                 <HorizontalStackLayout Margin="30"
                        Spacing="40"
                        HorizontalOptions="Center">
-                    <Button Text="Guardar"
-            HeightRequest="50"
-            WidthRequest="150"
-            Clicked="btn_guardar"
-            FontFamily="Comf-Medium"
-            BackgroundColor="#007AFF"
-            TextColor="White"
-            CornerRadius="40"
-            HorizontalOptions="Center" />
-                    <Button Text="Cancelar"
-                            Clicked="btn_cancelar"
-            HeightRequest="50"
-            WidthRequest="150"
-            FontFamily="Comf-Medium"
-            BackgroundColor="#cb4335"
-            TextColor="White"
-            CornerRadius="40"
-            HorizontalOptions="Center" />
+                    <Button Text="Guardar Servicio"
+                            IsVisible="False"
+                            x:Name="GuardarServicio"
+                            HeightRequest="50"
+                            WidthRequest="150"
+                            Clicked="btn_guardar"
+                            FontFamily="Comf-Medium"
+                            BackgroundColor="#007AFF"
+                            TextColor="White"
+                            CornerRadius="40"
+                            HorizontalOptions="Center" />
+                    <Button Text="Actualizar Servicio"
+                            IsVisible="False"
+                            x:Name="ActualizarServicio"
+                            HeightRequest="50"
+                            WidthRequest="150"
+                            Clicked="btn_actualizar"
+                            FontFamily="Comf-Medium"
+                            BackgroundColor="#cb4335"
+                            TextColor="White"
+                            CornerRadius="40"
+                            HorizontalOptions="Center"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Grid>

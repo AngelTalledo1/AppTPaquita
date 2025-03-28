@@ -64,19 +64,24 @@
                                       RowDefinitions="1*,1*">
                                                 <Label Text="{Binding Descripcion}"
                                            FontFamily="Comf-Bold" />
-                                                <Button BackgroundColor="Transparent"
-                                            Grid.Column="2"
-                                            Grid.RowSpan="2"
-                                            CommandParameter="{Binding .}" />
-                                                <Image Source="edit.png"
-                                           Grid.Column="2"
-                                           Grid.RowSpan="2"
-                                           VerticalOptions="Center"
-                                           WidthRequest="20" />
+                                                <Button ImageSource="edit.png"
+                                                        WidthRequest="25"
+                                                        Clicked="Editar_servicio"
+                                                        BackgroundColor="Transparent"
+                                                        Padding="0"
+                                                        CommandParameter="{Binding .}"
+                                                        HorizontalOptions="End" />
+                                                <Button ImageSource="eliminar.png"
+                                                        Grid.Column="1"
+                                                        CommandParameter="{Binding .}"
+                                                        BackgroundColor="Transparent"
+                                                        Padding="0"
+                                                        WidthRequest="25"
+                                                        HorizontalOptions="End" />
                                             </Grid>
                                         </toolkit:Expander.Header>
                                         <VerticalStackLayout>
-                                            <Label Text="{Binding Estado, Converter={StaticResource BooleanToTextConverter}}"
+                                            <Label IsVisible="False" Text="{Binding Estado, Converter={StaticResource BooleanToTextConverter}}"
                                        FontFamily="Comf-SemBold" />
                                         </VerticalStackLayout>
                                     </toolkit:Expander>
