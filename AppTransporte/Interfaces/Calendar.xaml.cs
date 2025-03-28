@@ -1,5 +1,6 @@
 ﻿using AppTransporte.model;
 using System.Collections.ObjectModel;
+using Microsoft.Maui.Dispatching;
 
 namespace AppTransporte.Interfaces;
 
@@ -14,6 +15,15 @@ public partial class Calendar : ContentPage
 
     // Diccionario para almacenar los eventos por día
     private Dictionary<DateTime, List<Pedido>> _eventosPorDia = new Dictionary<DateTime, List<Pedido>>();
+
+    // Caché para las vistas de los meses
+    private Dictionary<string, List<Border>> _cacheMeses = new Dictionary<string, List<Border>>();
+
+    // Lista completa de pedidos
+    private List<Pedido> _todosPedidos = new List<Pedido>();
+
+    // Flag para evitar bucle infinito en los cambios de mes/año
+    private bool _isManualPeriodChange = false;
 
     // Colores para los diferentes estados de pedido
     private readonly Dictionary<string, string> _coloresEstadoPedido = new Dictionary<string, string>
@@ -37,14 +47,43 @@ public partial class Calendar : ContentPage
         // Establecer el modo inicial como semanal
         ModoPicker.SelectedIndex = 0;
 
-        // Actualizar la vista del calendario
-        ActualizarVistaPeriodo();
+        // Inicializar los selectores de mes y año
+        ConfigurarSelectoresFecha();
+    }
+
+    private void ConfigurarSelectoresFecha()
+    {
+        // Configurar picker de meses
+        var nombresMeses = new List<string>
+        {
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        };
+
+        foreach (var mes in nombresMeses)
+        {
+            MesPicker.Items.Add(mes);
+        }
+
+        // Configurar picker de años (desde 5 años atrás hasta 5 años adelante)
+        int anioActual = DateTime.Now.Year;
+        for (int anio = anioActual - 5; anio <= anioActual + 5; anio++)
+        {
+            AnioPicker.Items.Add(anio.ToString());
+        }
+
+        // Establecer los valores actuales
+        _isManualPeriodChange = true;
+        MesPicker.SelectedIndex = _periodoActual.Month - 1; // Los meses en C# van de 1-12, pero en el picker de 0-11
+        AnioPicker.SelectedIndex = 5; // El año actual está en medio de la lista (posición 5)
+        _isManualPeriodChange = false;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await CargarPedidos();
+        await CargarTodosPedidos();
+        ActualizarVistaPeriodo();
     }
 
     private async void Btn_atras(object sender, EventArgs e)
@@ -52,7 +91,8 @@ public partial class Calendar : ContentPage
         await Navigation.PopAsync();
     }
 
-    private async Task CargarPedidos()
+    // Carga todos los pedidos una sola vez y los almacena en memoria
+    private async Task CargarTodosPedidos()
     {
         if (_isLoading) return;
         _isLoading = true;
@@ -60,40 +100,13 @@ public partial class Calendar : ContentPage
         try
         {
             // Mostrar indicador de carga
-            IsBusy = true;
+            MostrarIndicadorCarga(true);
 
-            // Obtener los pedidos del usuario actual usando el método existente
-            var pedidos = await App.Database.ListarPedidosAdminAsync();
+            // Obtener los pedidos del usuario actual
+            _todosPedidos = await App.Database.ListarPedidosAdminAsync();
 
-            // Limpiar el diccionario de eventos
-            _eventosPorDia.Clear();
-
-            // Procesar cada pedido y agregarlo al diccionario por fecha
-            foreach (var pedido in pedidos)
-            {
-                // Determinar qué fecha usar para el calendario
-                DateTime fechaEvento;
-
-                // Si la fecha de entrega está establecida, usarla; de lo contrario, usar la fecha de solicitud
-                if (pedido.FechaEntrega.HasValue)
-                {
-                    fechaEvento = pedido.FechaEntrega.Value.Date;
-                }
-                else
-                {
-                    fechaEvento = pedido.FechaSolicitud.Date;
-                }
-
-                // Agregar el pedido al diccionario
-                if (!_eventosPorDia.ContainsKey(fechaEvento))
-                {
-                    _eventosPorDia[fechaEvento] = new List<Pedido>();
-                }
-                _eventosPorDia[fechaEvento].Add(pedido);
-            }
-
-            // Actualizar la vista del calendario con los eventos cargados
-            ActualizarVistaPeriodo();
+            // Procesar los pedidos y organizarlos por fecha
+            ActualizarEventosPorDia();
         }
         catch (Exception ex)
         {
@@ -101,8 +114,49 @@ public partial class Calendar : ContentPage
         }
         finally
         {
-            IsBusy = false;
+            MostrarIndicadorCarga(false);
             _isLoading = false;
+        }
+    }
+
+    // Método para mostrar/ocultar el indicador de carga personalizado
+    private void MostrarIndicadorCarga(bool mostrar)
+    {
+        Dispatcher.Dispatch(() =>
+        {
+            LoadingOverlay.IsVisible = mostrar;
+            // Mantener la compatibilidad con el binding existente
+        });
+    }
+
+    // Organiza los pedidos por fecha para acceso rápido
+    private void ActualizarEventosPorDia()
+    {
+        // Limpiar el diccionario existente
+        _eventosPorDia.Clear();
+
+        // Reorganizar todos los pedidos por fecha
+        foreach (var pedido in _todosPedidos)
+        {
+            // Determinar qué fecha usar para el calendario
+            DateTime fechaEvento;
+
+            // Si la fecha de entrega está establecida, usarla; de lo contrario, usar la fecha de solicitud
+            if (pedido.FechaEntrega.HasValue)
+            {
+                fechaEvento = pedido.FechaEntrega.Value.Date;
+            }
+            else
+            {
+                fechaEvento = pedido.FechaSolicitud.Date;
+            }
+
+            // Agregar el pedido al diccionario
+            if (!_eventosPorDia.ContainsKey(fechaEvento))
+            {
+                _eventosPorDia[fechaEvento] = new List<Pedido>();
+            }
+            _eventosPorDia[fechaEvento].Add(pedido);
         }
     }
 
@@ -117,7 +171,8 @@ public partial class Calendar : ContentPage
             VistaMesCont.IsVisible = true;
             VistaSemanaCont.IsVisible = false;
 
-            ActualizarVistaMes();
+            // Actualizar la vista del mes de manera optimizada
+            ActualizarVistaMesOptimizada();
         }
         else
         {
@@ -134,6 +189,22 @@ public partial class Calendar : ContentPage
 
             ActualizarVistaSemana(inicioSemana);
         }
+
+        // Actualizar los selectores de mes/año sin desencadenar eventos
+        if (!_isManualPeriodChange)
+        {
+            _isManualPeriodChange = true;
+            MesPicker.SelectedIndex = _periodoActual.Month - 1;
+
+            // Calcular el índice del año en el picker
+            int anioActual = DateTime.Now.Year;
+            int indiceAnio = _periodoActual.Year - (anioActual - 5);
+            if (indiceAnio >= 0 && indiceAnio < AnioPicker.Items.Count)
+            {
+                AnioPicker.SelectedIndex = indiceAnio;
+            }
+            _isManualPeriodChange = false;
+        }
     }
 
     private DateTime ObtenerInicioDeSemana(DateTime fecha)
@@ -145,100 +216,104 @@ public partial class Calendar : ContentPage
 
     private void ActualizarVistaSemana(DateTime inicioSemana)
     {
-        // Limpiar eventos previos
-        LimpiarEventosSemana();
+        // Usar Dispatcher para operaciones de UI en el hilo principal
+        Dispatcher.Dispatch(() => {
+            // Limpiar eventos previos
+            LimpiarEventosSemana();
 
-        // Contenedores para cada día de la semana
-        var contenedoresDias = new[]
-        {
-            DiaColumn0,
-            DiaColumn1,
-            DiaColumn2,
-            DiaColumn3,
-            DiaColumn4,
-            DiaColumn5,
-            DiaColumn6
-        };
-
-        // Para cada día de la semana
-        for (int i = 0; i < 7; i++)
-        {
-            DateTime fechaDia = inicioSemana.AddDays(i);
-            var contenedor = contenedoresDias[i];
-
-            // Actualizar la etiqueta con el número del día
-            var labelDia = contenedor.Children.OfType<Label>().FirstOrDefault();
-            if (labelDia != null)
+            // Contenedores para cada día de la semana
+            var contenedoresDias = new[]
             {
-                labelDia.Text = fechaDia.Day.ToString();
+                DiaColumn0,
+                DiaColumn1,
+                DiaColumn2,
+                DiaColumn3,
+                DiaColumn4,
+                DiaColumn5,
+                DiaColumn6
+            };
 
-                // Resaltar el día actual
-                if (fechaDia.Date == DateTime.Today)
-                {
-                    labelDia.FontAttributes = FontAttributes.Bold;
-                    labelDia.TextColor = Color.FromArgb("#cb4335");
-                }
-                else
-                {
-                    labelDia.FontAttributes = FontAttributes.None;
-                    labelDia.TextColor = Colors.Black;
-                }
-            }
-
-            // Agregar eventos para este día
-            if (_eventosPorDia.ContainsKey(fechaDia.Date))
+            // Para cada día de la semana
+            for (int i = 0; i < 7; i++)
             {
-                foreach (var pedido in _eventosPorDia[fechaDia.Date])
+                DateTime fechaDia = inicioSemana.AddDays(i);
+                var contenedor = contenedoresDias[i];
+
+                // Actualizar la etiqueta con el número del día
+                var labelDia = contenedor.Children.OfType<Label>().FirstOrDefault();
+                if (labelDia != null)
                 {
-                    // Determinar el color según el estado del pedido
-                    string colorEvento = "#4285f4"; // Color predeterminado (azul)
-                    if (_coloresEstadoPedido.ContainsKey(pedido.EstadoPedido))
+                    labelDia.Text = fechaDia.Day.ToString();
+
+                    // Resaltar el día actual
+                    if (fechaDia.Date == DateTime.Today)
                     {
-                        colorEvento = _coloresEstadoPedido[pedido.EstadoPedido];
+                        labelDia.FontAttributes = FontAttributes.Bold;
+                        labelDia.TextColor = Color.FromArgb("#cb4335");
                     }
-
-                    // Crear el frame para el evento
-                    var frame = new Frame
+                    else
                     {
-                        Margin = new Thickness(2, 5),
-                        Padding = new Thickness(8, 5),
-                        BackgroundColor = Color.FromArgb(colorEvento),
-                        CornerRadius = 4,
-                        HasShadow = false
-                    };
+                        labelDia.FontAttributes = FontAttributes.None;
+                        labelDia.TextColor = Colors.Black;
+                    }
+                }
 
-                    // Crear el contenido del evento
-                    var stackLayout = new VerticalStackLayout { Spacing = 2 };
-
-                    // Primera línea: Servicio
-                    stackLayout.Add(new Label
+                // Agregar eventos para este día
+                if (_eventosPorDia.ContainsKey(fechaDia.Date))
+                {
+                    foreach (var pedido in _eventosPorDia[fechaDia.Date])
                     {
-                        Text = pedido.Servicios,
-                        TextColor = Colors.White,
-                        FontSize = 12,
-                        FontFamily = "Comf-Medium"
-                    });
+                        // Determinar el color según el estado del pedido
+                        string colorEvento = "#4285f4"; // Color predeterminado (azul)
+                        if (_coloresEstadoPedido.ContainsKey(pedido.EstadoPedido))
+                        {
+                            colorEvento = _coloresEstadoPedido[pedido.EstadoPedido];
+                        }
 
-                    // Segunda línea: Origen - Destino
-                    stackLayout.Add(new Label
-                    {
-                        Text = $"{pedido.Origen} → {pedido.Destino}",
-                        TextColor = Colors.White,
-                        FontSize = 10
-                    });
+                        // Crear el frame para el evento
+                        var frame = new Frame
+                        {
+                            Margin = new Thickness(2, 5),
+                            Padding = new Thickness(8, 5),
+                            BackgroundColor = Color.FromArgb(colorEvento),
+                            CornerRadius = 4,
+                            HasShadow = false
+                        };
 
-                    frame.Content = stackLayout;
+                        // Crear el contenido del evento
+                        var stackLayout = new VerticalStackLayout { Spacing = 2 };
 
-                    // Agregar gesto de tap para ver detalles
-                    var tapGesture = new TapGestureRecognizer();
-                    tapGesture.Tapped += (s, e) => VerDetallesPedido(pedido);
-                    frame.GestureRecognizers.Add(tapGesture);
+                        // Primera línea: Servicio
+                        stackLayout.Add(new Label
+                        {
+                            Text = pedido.Servicios,
+                            TextColor = Colors.White,
+                            FontSize = 12,
+                            FontFamily = "Comf-Medium"
+                        });
 
-                    // Agregar el evento al contenedor del día
-                    contenedor.Add(frame);
+                        // Segunda línea: Origen - Destino
+                        stackLayout.Add(new Label
+                        {
+                            Text = $"{pedido.Origen} → {pedido.Destino}",
+                            TextColor = Colors.White,
+                            FontSize = 10
+                        });
+
+                        frame.Content = stackLayout;
+
+                        // Agregar gesto de tap para ver detalles
+                        var tapGesture = new TapGestureRecognizer();
+                        int idPedidoCapturado = pedido.IdPedido; // Captura local para evitar problemas con closures
+                        tapGesture.Tapped += (s, e) => VerDetallesPedido(_todosPedidos.Find(p => p.IdPedido == idPedidoCapturado));
+                        frame.GestureRecognizers.Add(tapGesture);
+
+                        // Agregar el evento al contenedor del día
+                        contenedor.Add(frame);
+                    }
                 }
             }
-        }
+        });
     }
 
     private void LimpiarEventosSemana()
@@ -254,10 +329,66 @@ public partial class Calendar : ContentPage
         }
     }
 
-    private void ActualizarVistaMes()
+    private void ActualizarVistaMesOptimizada()
     {
-        // Limpiar la cuadrícula del mes
-        MesGrid.Children.Clear();
+        try
+        {
+            // Mostrar el indicador de carga mientras se actualiza el mes
+            MostrarIndicadorCarga(true);
+
+            string mesKey = $"{_periodoActual.Year}-{_periodoActual.Month}";
+
+            // Verificar si este mes ya está en caché
+            if (_cacheMeses.TryGetValue(mesKey, out var diasDelMes))
+            {
+                // Usar la vista en caché para mejor rendimiento
+                Dispatcher.Dispatch(() => {
+                    MesGrid.Children.Clear();
+                    foreach (var borde in diasDelMes)
+                    {
+                        var fila = Grid.GetRow(borde);
+                        var columna = Grid.GetColumn(borde);
+                        MesGrid.Add(borde, columna, fila);
+                    }
+                    // Ocultar indicador de carga al terminar
+                    MostrarIndicadorCarga(false);
+                });
+                return;
+            }
+
+            // Generar la vista del mes en un hilo separado
+            Task.Run(async () => {
+                var bordersGenerados = await GenerarBordesMes();
+
+                // Guardar en caché
+                _cacheMeses[mesKey] = bordersGenerados;
+
+                // Actualizar UI en el hilo principal
+                await Dispatcher.DispatchAsync(() => {
+                    MesGrid.Children.Clear();
+                    foreach (var borde in bordersGenerados)
+                    {
+                        var fila = Grid.GetRow(borde);
+                        var columna = Grid.GetColumn(borde);
+                        MesGrid.Add(borde, columna, fila);
+                    }
+                    // Ocultar indicador de carga al terminar
+                    MostrarIndicadorCarga(false);
+                });
+            });
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        
+    }
+
+    private Task<List<Border>> GenerarBordesMes()
+    {
+        // Lista para almacenar todos los bordes generados
+        var bordes = new List<Border>();
 
         // Obtener el primer día del mes
         DateTime primerDiaMes = new DateTime(_periodoActual.Year, _periodoActual.Month, 1);
@@ -286,8 +417,18 @@ public partial class Calendar : ContentPage
                 BackgroundColor = Colors.Transparent
             };
 
+            // Guardar su posición como propiedades adjuntas
+            Grid.SetRow(border, fila);
+            Grid.SetColumn(border, columna);
+
             // Configurar el grid dentro del borde
-            var gridDia = new Grid { RowDefinitions = new RowDefinitionCollection { new RowDefinition(GridLength.Auto), new RowDefinition(GridLength.Star) } };
+            var gridDia = new Grid
+            {
+                RowDefinitions = new RowDefinitionCollection {
+                    new RowDefinition(GridLength.Auto),
+                    new RowDefinition(GridLength.Star)
+                }
+            };
 
             // Título del día
             var labelDia = new Label
@@ -339,12 +480,14 @@ public partial class Calendar : ContentPage
                     {
                         Text = $"{servicioTexto} ({pedido.Origen}-{pedido.Destino})",
                         TextColor = Colors.White,
-                        FontSize = 10
+                        FontSize = 10,
+                        LineBreakMode = LineBreakMode.TailTruncation
                     };
 
                     // Agregar gesto para ver detalles
                     var tapGesture = new TapGestureRecognizer();
-                    tapGesture.Tapped += (s, e) => VerDetallesPedido(pedido);
+                    int idPedidoCapturado = pedido.IdPedido;
+                    tapGesture.Tapped += (s, e) => VerDetallesPedido(_todosPedidos.Find(p => p.IdPedido == idPedidoCapturado));
                     frame.GestureRecognizers.Add(tapGesture);
 
                     eventosStack.Add(frame);
@@ -357,8 +500,8 @@ public partial class Calendar : ContentPage
             // Asignar el grid como contenido del borde
             border.Content = gridDia;
 
-            // Añadir el borde a la cuadrícula del mes en la posición correspondiente
-            MesGrid.Add(border, columna, fila);
+            // Añadir el borde a la lista
+            bordes.Add(border);
 
             // Actualizar posición
             columna++;
@@ -368,10 +511,14 @@ public partial class Calendar : ContentPage
                 fila++;
             }
         }
+
+        return Task.FromResult(bordes);
     }
 
     private async void VerDetallesPedido(Pedido pedido)
     {
+        if (pedido == null) return;
+
         // Mostrar los detalles del pedido en un diálogo
         string fechaEntrega = pedido.FechaEntrega.HasValue ?
             pedido.FechaEntrega.Value.ToString("dd/MM/yyyy") : "Pendiente";
@@ -386,9 +533,6 @@ public partial class Calendar : ContentPage
             $"Fecha entrega: {fechaEntrega}\n" +
             $"Estado: {pedido.EstadoPedido}",
             "Cerrar");
-
-        // En una implementación real, navegarías a una página de detalles:
-        // await Navigation.PushAsync(new VEProcesoPedido(pedido, _idUsuario, _idTipoUsuario, null));
     }
 
     private void PrevPeriod_Clicked(object sender, EventArgs e)
@@ -429,8 +573,56 @@ public partial class Calendar : ContentPage
 
     private async void OnRefreshing(object sender, EventArgs e)
     {
-        await CargarPedidos();
+        // Limpiar la caché al refrescar
+        _cacheMeses.Clear();
+
+        await CargarTodosPedidos();
+        ActualizarVistaPeriodo();
         refreshView.IsRefreshing = false;
+    }
+
+    // Manejar cambio en selector de mes
+    private void MesPicker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (_isManualPeriodChange || MesPicker.SelectedIndex < 0)
+            return;
+
+        // Construir nueva fecha con el mes seleccionado
+        int nuevoMes = MesPicker.SelectedIndex + 1; // Ajustar índice a número de mes (1-12)
+        try
+        {
+            _periodoActual = new DateTime(_periodoActual.Year, nuevoMes, 1);
+            ActualizarVistaPeriodo();
+        }
+        catch (Exception ex)
+        {
+            // Si hay un error (días inválidos en el mes, etc.), ajustar al último día
+            _periodoActual = new DateTime(_periodoActual.Year, nuevoMes, 1).AddMonths(1).AddDays(-1);
+            ActualizarVistaPeriodo();
+        }
+    }
+
+    // Manejar cambio en selector de año
+    private void AnioPicker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (_isManualPeriodChange || AnioPicker.SelectedIndex < 0)
+            return;
+
+        // Obtener el año seleccionado
+        if (int.TryParse(AnioPicker.Items[AnioPicker.SelectedIndex], out int nuevoAnio))
+        {
+            try
+            {
+                _periodoActual = new DateTime(nuevoAnio, _periodoActual.Month, 1);
+                ActualizarVistaPeriodo();
+            }
+            catch (Exception ex)
+            {
+                // Si hay un error, ajustar al último día del mes en ese año
+                _periodoActual = new DateTime(nuevoAnio, _periodoActual.Month, 1).AddMonths(1).AddDays(-1);
+                ActualizarVistaPeriodo();
+            }
+        }
     }
 
     private async void AgregarPedido_Clicked(object sender, EventArgs e)
@@ -439,4 +631,3 @@ public partial class Calendar : ContentPage
         await Navigation.PushAsync(new PedidoAuto(_idUsuario, _idTipoUsuario));
     }
 }
-	

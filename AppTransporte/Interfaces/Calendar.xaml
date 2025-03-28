@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTransporte.Interfaces.Calendar"
              NavigationPage.HasNavigationBar="False">
-    <Grid RowDefinitions=".1*,.1*,.8*">
+    <Grid RowDefinitions=".1*,.1*,.1*,.7*">
         <!-- Cabecera -->
         <Grid ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0"
@@ -15,7 +15,7 @@
                    Margin="20"
                    HeightRequest="20"
                    WidthRequest="20" />
-            <Label Text="Mis Pedidos Programados"
+            <Label Text="Mis Pedidos"
                    Grid.Column="1"
                    FontSize="20"
                    TextColor="AliceBlue"
@@ -25,8 +25,26 @@
                    Padding="20,20,0,0" />
         </Grid>
 
-        <!-- Control de vista y navegación -->
+        <!-- Selector de mes y año -->
         <Grid Grid.Row="1" 
+              Margin="10,5"
+              ColumnDefinitions="*,*">
+            <Picker x:Name="MesPicker"
+                    Grid.Column="0"
+                    Title="Mes"
+                    FontFamily="Comf-Medium"
+                    SelectedIndexChanged="MesPicker_SelectedIndexChanged"
+                    Margin="5,0"/>
+            <Picker x:Name="AnioPicker"
+                    Grid.Column="1"
+                    Title="Año" 
+                    FontFamily="Comf-Medium"
+                    SelectedIndexChanged="AnioPicker_SelectedIndexChanged"
+                    Margin="5,0"/>
+        </Grid>
+
+        <!-- Control de vista y navegación -->
+        <Grid Grid.Row="2" 
               Margin="10,5" 
               ColumnDefinitions="Auto,*,Auto,Auto">
 
@@ -76,7 +94,7 @@
         </Grid>
 
         <!-- Contenedor principal para el calendario -->
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="3">
             <RefreshView x:Name="refreshView"
                          RefreshColor="#cb4335"
                          Refreshing="OnRefreshing">
@@ -129,26 +147,6 @@
                                     <VerticalStackLayout Grid.Column="4" x:Name="DiaColumn4" Spacing="0">
                                         <Label Text="27" FontSize="14" FontFamily="Comf-Medium" HorizontalTextAlignment="Center" Padding="0,5" />
                                         <BoxView Color="#e0e0e0" HeightRequest="1" HorizontalOptions="Fill" />
-                                        <!-- Ejemplo de evento -->
-                                        <Frame Margin="2,5" 
-                                              Padding="8,5" 
-                                              BackgroundColor="#4285f4" 
-                                              CornerRadius="4"
-                                              HasShadow="False">
-                                            <VerticalStackLayout Spacing="2">
-                                                <Label Text="Regado" 
-                                                       TextColor="White" 
-                                                       FontSize="12" 
-                                                       FontFamily="Comf-Medium"/>
-                                                <Label Text="9:00 AM" 
-                                                       TextColor="White" 
-                                                       FontSize="10"/>
-                                            </VerticalStackLayout>
-                                            <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding VerPedidoCommand}" 
-                                                                     CommandParameter="{Binding .}" />
-                                            </Frame.GestureRecognizers>
-                                        </Frame>
                                     </VerticalStackLayout>
 
                                     <VerticalStackLayout Grid.Column="5" x:Name="DiaColumn5" Spacing="0">
@@ -187,54 +185,6 @@
                                     <Grid Grid.Row="1" x:Name="MesGrid"
                                           ColumnDefinitions="*,*,*,*,*,*,*"
                                           RowDefinitions="*,*,*,*,*,*">
-
-                                        <!-- Ejemplo de un día con eventos -->
-                                        <Border Grid.Row="3" Grid.Column="4"
-                                                Stroke="#e0e0e0"
-                                                StrokeThickness="0.5"
-                                                Padding="2"
-                                                BackgroundColor="Transparent">
-                                            <Grid RowDefinitions="Auto,*">
-                                                <Label Text="27" 
-                                                      FontSize="12" 
-                                                      Margin="5,2"
-                                                      FontAttributes="Bold"/>
-
-                                                <ScrollView Grid.Row="1" MaximumHeightRequest="80">
-                                                    <VerticalStackLayout>
-                                                        <Frame BackgroundColor="#4285f4" 
-                                                              Padding="5,2" 
-                                                              Margin="2"
-                                                              CornerRadius="2"
-                                                              HasShadow="False">
-                                                            <Label Text="Regado 9:00 AM" 
-                                                                 TextColor="White" 
-                                                                 FontSize="10"/>
-                                                            <Frame.GestureRecognizers>
-                                                                <TapGestureRecognizer Command="{Binding VerPedidoCommand}" 
-                                                                                     CommandParameter="{Binding .}" />
-                                                            </Frame.GestureRecognizers>
-                                                        </Frame>
-
-                                                        <Frame BackgroundColor="#0f9d58" 
-                                                              Padding="5,2" 
-                                                              Margin="2"
-                                                              CornerRadius="2"
-                                                              HasShadow="False">
-                                                            <Label Text="Transporte 2:30 PM" 
-                                                                 TextColor="White" 
-                                                                 FontSize="10"/>
-                                                            <Frame.GestureRecognizers>
-                                                                <TapGestureRecognizer Command="{Binding VerPedidoCommand}" 
-                                                                                     CommandParameter="{Binding .}" />
-                                                            </Frame.GestureRecognizers>
-                                                        </Frame>
-                                                    </VerticalStackLayout>
-                                                </ScrollView>
-                                            </Grid>
-                                        </Border>
-
-                                        <!-- El resto de días serían generados dinámicamente en el code-behind -->
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -243,12 +193,26 @@
                 </Grid>
             </RefreshView>
 
-            <!-- Indicador de carga -->
-            <ActivityIndicator IsRunning="{Binding IsBusy}" 
-                              IsVisible="{Binding IsBusy}"
-                              HorizontalOptions="Center" 
-                              VerticalOptions="Center" 
-                              Color="#cb4335"/>
+            <!-- Indicador de carga mejorado -->
+            <Grid x:Name="LoadingOverlay" IsVisible="False" BackgroundColor="#80000000">
+                <Frame CornerRadius="10" 
+                       BackgroundColor="White" 
+                       WidthRequest="180" 
+                       HeightRequest="120"
+                       BorderColor="#cb4335"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                        <ActivityIndicator IsRunning="True" 
+                                          HeightRequest="40" 
+                                          WidthRequest="40" 
+                                          Color="#cb4335"/>
+                        <Label Text="Cargando datos..." 
+                               FontFamily="Comf-Medium"
+                               TextColor="#333333"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
 
             <!-- Botón flotante para agregar pedidos -->
             <Button Text="+" 
