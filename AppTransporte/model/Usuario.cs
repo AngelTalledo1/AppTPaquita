@@ -14,5 +14,11 @@ namespace AppTransporte.model
         public int IdTipoUsuario { get; set; }
         public bool Estado { get; set; }
         public int IdPersona { get; set; }
+        public string TipoUsuario { get; set; } = string.Empty;
+        public string Nombres { get; set; } = string.Empty;
+        public string Apellidos { get; set; } = string.Empty;
+        public string Correo { get; set; } = string.Empty;
+        public string Telefono { get; set; } = string.Empty;
     }
+
 }

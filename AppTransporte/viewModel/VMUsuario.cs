@@ -42,7 +42,11 @@ namespace AppTransporte.viewModel
 
             IsBusy = false;
         }
-
+        public async Task ActualizarDatos()
+        {
+            Usuarios.Clear();
+            CargarUsuarios();
+        }
 
         protected void OnPropertyChanged(string propertyName)
         {

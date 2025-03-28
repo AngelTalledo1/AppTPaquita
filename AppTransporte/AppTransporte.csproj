@@ -211,6 +211,9 @@
 		<MauiXaml Update="Interfaces\VEDetalleVehiculo.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEModificarUsuario.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Interfaces\VEpedidos.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

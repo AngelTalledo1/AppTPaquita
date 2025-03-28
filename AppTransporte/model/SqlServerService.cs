@@ -53,6 +53,45 @@ namespace AppTransporte.model
             }
         }
 
+        public async Task<int> ActualizarUsuarioAsync(int idUsuario, string username, string contraseña, int idTipoUsuario, bool estado, int idPersona, int? idEmpresa = null)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("PA_ActualizarUsuario", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id_usuario", idUsuario);
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@contraseña", contraseña);
+                    command.Parameters.AddWithValue("@id_tipoUsuario", idTipoUsuario);
+                    command.Parameters.AddWithValue("@estado", estado);
+                    command.Parameters.AddWithValue("@id_persona", idPersona);
+                    command.Parameters.AddWithValue("@id_empresa", (object)idEmpresa ?? DBNull.Value);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public async Task<int> EliminarUsuarioAsync(int idUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("PA_EliminarUsuario", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id_usuario", idUsuario);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+
         public async Task<int> InsertarServicioAsync(string descripcion)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -653,7 +692,7 @@ namespace AppTransporte.model
 
             return viajes;
         }
-        public async Task<List<Usuario>> ObtenerUsuariosAsync()
+        public async Task<List<Usuario>> ObtenerUsuariosAsync(bool? estadoFiltro = null)
         {
             var usuarios = new List<Usuario>();
 
@@ -661,7 +700,7 @@ namespace AppTransporte.model
             {
                 await connection.OpenAsync();
 
-                using (var command = new SqlCommand("pa_MostrarUsuario", connection))
+                using (var command = new SqlCommand("sp_ObtenerUsuarios", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -672,11 +711,16 @@ namespace AppTransporte.model
                             usuarios.Add(new Usuario
                             {
                                 IdUsuario = reader.GetInt32(reader.GetOrdinal("id_usuario")),
-                                Username = reader.GetString(reader.GetOrdinal("Username")),
-                                Contraseña = reader.GetString(reader.GetOrdinal("Contraseña")),
+                                Username = reader.GetString(reader.GetOrdinal("username")),
+                                Contraseña = reader.GetString(reader.GetOrdinal("contraseña")),
                                 IdTipoUsuario = reader.GetInt32(reader.GetOrdinal("id_tipoUsuario")),
                                 Estado = reader.GetBoolean(reader.GetOrdinal("estado")),
-                                IdPersona = reader.GetInt32(reader.GetOrdinal("id_persona"))
+                                IdPersona = reader.GetInt32(reader.GetOrdinal("id_persona")),
+                                TipoUsuario = reader.GetString(reader.GetOrdinal("TipoUsuario")),
+                                Nombres = reader.GetString(reader.GetOrdinal("Nombre")),
+                                Apellidos = reader.GetString(reader.GetOrdinal("apePaterno")),
+                                Correo = reader.GetString(reader.GetOrdinal("email")),
+                                Telefono = reader.GetString(reader.GetOrdinal("telefono"))
                             });
                         }
                     }
@@ -685,6 +729,8 @@ namespace AppTransporte.model
 
             return usuarios;
         }
+
+
         public async Task<List<Trabajador>> ObtenerTrabajadoresAsync(string categoria = null)
         {
             var trabajadores = new List<Trabajador>();
