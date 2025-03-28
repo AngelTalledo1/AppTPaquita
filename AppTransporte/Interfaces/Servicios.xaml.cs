@@ -19,5 +19,15 @@ public partial class Servicios : ContentPage
     {
         Navigation.PushAsync(new AgregarServicio(_idUsuario, _idTipoUsuario));
     }
-    
+    private async void Editar_servicio(object sender, EventArgs e)
+    {
+        var button = (Button)sender;
+        var servicioSelect = button.CommandParameter as Servicio;
+
+        if (servicioSelect != null)
+        {
+            await Navigation.PushAsync(new AgregarServicio(servicioSelect, _idUsuario, _idTipoUsuario));
+        }
+    }
+
 }
