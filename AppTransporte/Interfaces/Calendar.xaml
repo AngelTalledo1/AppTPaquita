@@ -1,0 +1,267 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.Calendar"
+             NavigationPage.HasNavigationBar="False">
+    <Grid RowDefinitions=".1*,.1*,.8*">
+        <!-- Cabecera -->
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atras"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Mis Pedidos Programados"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+
+        <!-- Control de vista y navegación -->
+        <Grid Grid.Row="1" 
+              Margin="10,5" 
+              ColumnDefinitions="Auto,*,Auto,Auto">
+
+            <!-- Botones para navegación de meses -->
+            <Button Grid.Column="0" 
+                    Text="&lt;" 
+                    FontSize="18"
+                    WidthRequest="40"
+                    HeightRequest="40" 
+                    CornerRadius="20"
+                    BackgroundColor="#f0f0f0"
+                    TextColor="#333333"
+                    Clicked="PrevPeriod_Clicked"
+                    Margin="5,0" />
+
+            <!-- Etiqueta del mes/semana actual -->
+            <Label Grid.Column="1" 
+                   x:Name="PeriodoActualLabel"
+                   Text="Marzo 2025" 
+                   FontSize="18" 
+                   FontFamily="Comf-Medium"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+
+            <Button Grid.Column="2" 
+                    Text="&gt;" 
+                    FontSize="18"
+                    WidthRequest="40"
+                    HeightRequest="40" 
+                    CornerRadius="20"
+                    BackgroundColor="#f0f0f0"
+                    TextColor="#333333"
+                    Clicked="NextPeriod_Clicked"
+                    Margin="5,0" />
+
+            <!-- Selector de vista (semana/mes) -->
+            <Picker Grid.Column="3" 
+                    x:Name="ModoPicker"
+                    WidthRequest="120"
+                    FontFamily="Comf-Medium"
+                    SelectedIndexChanged="OnModoChanged">
+                <Picker.Items>
+                    <x:String>Semana</x:String>
+                    <x:String>Mes</x:String>
+                </Picker.Items>
+            </Picker>
+        </Grid>
+
+        <!-- Contenedor principal para el calendario -->
+        <Grid Grid.Row="2">
+            <RefreshView x:Name="refreshView"
+                         RefreshColor="#cb4335"
+                         Refreshing="OnRefreshing">
+
+                <!-- Vista de Calendario -->
+                <Grid x:Name="CalendarioContainer">
+                    <!-- Vista de Semana -->
+                    <Grid x:Name="VistaSemanaCont" IsVisible="True">
+                        <ScrollView>
+                            <Grid RowDefinitions="Auto,*">
+                                <!-- Cabecera de días de la semana -->
+                                <Grid ColumnDefinitions="*,*,*,*,*,*,*" 
+                                      Padding="0,10"
+                                      BackgroundColor="#f8f9fa">
+                                    <Label Grid.Column="0" Text="DOM" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                    <Label Grid.Column="1" Text="LUN" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                    <Label Grid.Column="2" Text="MAR" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                    <Label Grid.Column="3" Text="MIÉ" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                    <Label Grid.Column="4" Text="JUE" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                    <Label Grid.Column="5" Text="VIE" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                    <Label Grid.Column="6" Text="SÁB" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                </Grid>
+
+                                <!-- Contenedor de la cuadrícula de la semana -->
+                                <Grid Grid.Row="1"
+                                      ColumnDefinitions="*,*,*,*,*,*,*" 
+                                      x:Name="SemanaGrid">
+
+                                    <!-- Cada columna representa un día de la semana -->
+                                    <VerticalStackLayout Grid.Column="0" x:Name="DiaColumn0" Spacing="0">
+                                        <Label Text="23" FontSize="14" FontFamily="Comf-Medium" HorizontalTextAlignment="Center" Padding="0,5" />
+                                        <BoxView Color="#e0e0e0" HeightRequest="1" HorizontalOptions="Fill" />
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="1" x:Name="DiaColumn1" Spacing="0">
+                                        <Label Text="24" FontSize="14" FontFamily="Comf-Medium" HorizontalTextAlignment="Center" Padding="0,5" />
+                                        <BoxView Color="#e0e0e0" HeightRequest="1" HorizontalOptions="Fill" />
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="2" x:Name="DiaColumn2" Spacing="0">
+                                        <Label Text="25" FontSize="14" FontFamily="Comf-Medium" HorizontalTextAlignment="Center" Padding="0,5" />
+                                        <BoxView Color="#e0e0e0" HeightRequest="1" HorizontalOptions="Fill" />
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="3" x:Name="DiaColumn3" Spacing="0">
+                                        <Label Text="26" FontSize="14" FontFamily="Comf-Medium" HorizontalTextAlignment="Center" Padding="0,5" />
+                                        <BoxView Color="#e0e0e0" HeightRequest="1" HorizontalOptions="Fill" />
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="4" x:Name="DiaColumn4" Spacing="0">
+                                        <Label Text="27" FontSize="14" FontFamily="Comf-Medium" HorizontalTextAlignment="Center" Padding="0,5" />
+                                        <BoxView Color="#e0e0e0" HeightRequest="1" HorizontalOptions="Fill" />
+                                        <!-- Ejemplo de evento -->
+                                        <Frame Margin="2,5" 
+                                              Padding="8,5" 
+                                              BackgroundColor="#4285f4" 
+                                              CornerRadius="4"
+                                              HasShadow="False">
+                                            <VerticalStackLayout Spacing="2">
+                                                <Label Text="Regado" 
+                                                       TextColor="White" 
+                                                       FontSize="12" 
+                                                       FontFamily="Comf-Medium"/>
+                                                <Label Text="9:00 AM" 
+                                                       TextColor="White" 
+                                                       FontSize="10"/>
+                                            </VerticalStackLayout>
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding VerPedidoCommand}" 
+                                                                     CommandParameter="{Binding .}" />
+                                            </Frame.GestureRecognizers>
+                                        </Frame>
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="5" x:Name="DiaColumn5" Spacing="0">
+                                        <Label Text="28" FontSize="14" FontFamily="Comf-Medium" HorizontalTextAlignment="Center" Padding="0,5" />
+                                        <BoxView Color="#e0e0e0" HeightRequest="1" HorizontalOptions="Fill" />
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="6" x:Name="DiaColumn6" Spacing="0">
+                                        <Label Text="29" FontSize="14" FontFamily="Comf-Medium" HorizontalTextAlignment="Center" Padding="0,5" />
+                                        <BoxView Color="#e0e0e0" HeightRequest="1" HorizontalOptions="Fill" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Grid>
+                        </ScrollView>
+                    </Grid>
+
+                    <!-- Vista de Mes -->
+                    <Grid x:Name="VistaMesCont" IsVisible="False">
+                        <ScrollView>
+                            <Grid>
+                                <!-- Cabecera de días de la semana -->
+                                <Grid RowDefinitions="Auto,*">
+                                    <Grid ColumnDefinitions="*,*,*,*,*,*,*" 
+                                          Padding="0,5"
+                                          BackgroundColor="#f8f9fa">
+                                        <Label Grid.Column="0" Text="D" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                        <Label Grid.Column="1" Text="L" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                        <Label Grid.Column="2" Text="M" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                        <Label Grid.Column="3" Text="X" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                        <Label Grid.Column="4" Text="J" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                        <Label Grid.Column="5" Text="V" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                        <Label Grid.Column="6" Text="S" FontFamily="Comf-Medium" HorizontalOptions="Center" />
+                                    </Grid>
+
+                                    <!-- Cuadrícula de días del mes -->
+                                    <Grid Grid.Row="1" x:Name="MesGrid"
+                                          ColumnDefinitions="*,*,*,*,*,*,*"
+                                          RowDefinitions="*,*,*,*,*,*">
+
+                                        <!-- Ejemplo de un día con eventos -->
+                                        <Border Grid.Row="3" Grid.Column="4"
+                                                Stroke="#e0e0e0"
+                                                StrokeThickness="0.5"
+                                                Padding="2"
+                                                BackgroundColor="Transparent">
+                                            <Grid RowDefinitions="Auto,*">
+                                                <Label Text="27" 
+                                                      FontSize="12" 
+                                                      Margin="5,2"
+                                                      FontAttributes="Bold"/>
+
+                                                <ScrollView Grid.Row="1" MaximumHeightRequest="80">
+                                                    <VerticalStackLayout>
+                                                        <Frame BackgroundColor="#4285f4" 
+                                                              Padding="5,2" 
+                                                              Margin="2"
+                                                              CornerRadius="2"
+                                                              HasShadow="False">
+                                                            <Label Text="Regado 9:00 AM" 
+                                                                 TextColor="White" 
+                                                                 FontSize="10"/>
+                                                            <Frame.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding VerPedidoCommand}" 
+                                                                                     CommandParameter="{Binding .}" />
+                                                            </Frame.GestureRecognizers>
+                                                        </Frame>
+
+                                                        <Frame BackgroundColor="#0f9d58" 
+                                                              Padding="5,2" 
+                                                              Margin="2"
+                                                              CornerRadius="2"
+                                                              HasShadow="False">
+                                                            <Label Text="Transporte 2:30 PM" 
+                                                                 TextColor="White" 
+                                                                 FontSize="10"/>
+                                                            <Frame.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding VerPedidoCommand}" 
+                                                                                     CommandParameter="{Binding .}" />
+                                                            </Frame.GestureRecognizers>
+                                                        </Frame>
+                                                    </VerticalStackLayout>
+                                                </ScrollView>
+                                            </Grid>
+                                        </Border>
+
+                                        <!-- El resto de días serían generados dinámicamente en el code-behind -->
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </ScrollView>
+                    </Grid>
+                </Grid>
+            </RefreshView>
+
+            <!-- Indicador de carga -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                              IsVisible="{Binding IsBusy}"
+                              HorizontalOptions="Center" 
+                              VerticalOptions="Center" 
+                              Color="#cb4335"/>
+
+            <!-- Botón flotante para agregar pedidos -->
+            <Button Text="+" 
+                   FontSize="30" 
+                   HeightRequest="60" 
+                   WidthRequest="60" 
+                   CornerRadius="30" 
+                   BackgroundColor="#cb4335" 
+                   TextColor="White"
+                   HorizontalOptions="End" 
+                   VerticalOptions="End" 
+                   Margin="20"
+                   Clicked="AgregarPedido_Clicked"/>
+        </Grid>
+    </Grid>
+</ContentPage>

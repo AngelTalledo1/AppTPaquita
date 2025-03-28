@@ -36,7 +36,10 @@ public partial class MenuPrincipal : ContentPage
     {
         await Navigation.PushAsync(new VEclientes(_idUsuario, _idTipoUsuario));
     }
-
+    private async void calendario_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new Calendar(_idUsuario, _idTipoUsuario));
+    }
 
     private async void transportista_Clicked(object sender, EventArgs e)
     {

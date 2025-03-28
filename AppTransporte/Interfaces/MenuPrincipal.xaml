@@ -112,6 +112,23 @@
                             </VerticalStackLayout>
                         </Grid>
                     </Frame>
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="calendario_Clicked"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Calendario" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Visualiza y gestiona pedidos programados en formato calendario." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                            <Image Grid.Column="1" 
+               Source="calendar.png" 
+               HeightRequest="35" 
+               WidthRequest="35" 
+               HorizontalOptions="End"
+               VerticalOptions="Center"/>
+                        </Grid>
+                    </Frame>
                     <!-- Opción: Vehículos -->
                     <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
