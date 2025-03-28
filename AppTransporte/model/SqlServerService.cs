@@ -75,6 +75,7 @@ namespace AppTransporte.model
             }
         }
 
+
         public async Task<int> EliminarUsuarioAsync(int idUsuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -692,7 +693,7 @@ namespace AppTransporte.model
 
             return viajes;
         }
-        public async Task<List<Usuario>> ObtenerUsuariosAsync(bool? estadoFiltro = null)
+        public async Task<List<Usuario>> ObtenerUsuariosAsync(bool? estadoFiltro = true)
         {
             var usuarios = new List<Usuario>();
 
@@ -703,6 +704,12 @@ namespace AppTransporte.model
                 using (var command = new SqlCommand("sp_ObtenerUsuarios", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
+
+                    // Añadir el parámetro de filtro por estado
+                    if (estadoFiltro.HasValue)
+                        command.Parameters.AddWithValue("@estadoFiltro", estadoFiltro.Value);
+                    else
+                        command.Parameters.AddWithValue("@estadoFiltro", DBNull.Value);
 
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -716,6 +723,8 @@ namespace AppTransporte.model
                                 IdTipoUsuario = reader.GetInt32(reader.GetOrdinal("id_tipoUsuario")),
                                 Estado = reader.GetBoolean(reader.GetOrdinal("estado")),
                                 IdPersona = reader.GetInt32(reader.GetOrdinal("id_persona")),
+                                IdEmpresa = reader.IsDBNull(reader.GetOrdinal("id_empresa")) ?
+                                    null : reader.GetInt32(reader.GetOrdinal("id_empresa")),
                                 TipoUsuario = reader.GetString(reader.GetOrdinal("TipoUsuario")),
                                 Nombres = reader.GetString(reader.GetOrdinal("Nombre")),
                                 Apellidos = reader.GetString(reader.GetOrdinal("apePaterno")),
@@ -729,6 +738,8 @@ namespace AppTransporte.model
 
             return usuarios;
         }
+
+
 
 
         public async Task<List<Trabajador>> ObtenerTrabajadoresAsync(string categoria = null)

@@ -26,14 +26,12 @@ public partial class VEModificarUsuario : ContentPage
             estado_label.Text = estado_switch.IsToggled ? "Activo" : "Inactivo";
         };
         ConfigurarTipoUsuario(usuario.IdTipoUsuario);
-        CargarEmpresas();
+        CargarEmpresas(usuario.IdEmpresa);
 
     }
     private void ConfigurarTipoUsuario(int idTipoUsuario)
     {
-        // Configurar selector de tipo de usuario (basado en IdTipoUsuario)
-        // Esto asume que los índices del picker coinciden con los IDs - ajusta según sea necesario
-        switch (idTipoUsuario)
+            switch (idTipoUsuario)
         {
             case 1:
                 tipoUsuario_picker.SelectedIndex = 0; // Administrador
@@ -49,7 +47,7 @@ public partial class VEModificarUsuario : ContentPage
                 break;
         }
     }
-    private async void CargarEmpresas()
+    private async void CargarEmpresas(int? idEmpresaUsuario = null)
     {
         try
         {
@@ -69,18 +67,14 @@ public partial class VEModificarUsuario : ContentPage
             }
 
             // Si el usuario ya tenía una empresa asignada, seleccionarla
-            // Nota: Necesitarías agregar un campo IdEmpresa al modelo Usuario si no lo tiene
-            // y pasarlo en el constructor, o cargarlo de alguna manera
-
-            // Ejemplo (comentado porque el modelo Usuario actual no tiene este campo):
-            // if (userContext.IdEmpresa.HasValue)
-            // {
-            //     var empresaIndex = vmEmpresas.Empresas.ToList().FindIndex(e => e.id_empresa == userContext.IdEmpresa.Value);
-            //     if (empresaIndex >= 0)
-            //     {
-            //         empresa_picker.SelectedIndex = empresaIndex;
-            //     }
-            // }
+            if (idEmpresaUsuario.HasValue)
+            {
+                var empresaIndex = vmEmpresas.Empresas.ToList().FindIndex(e => e.id_empresa == idEmpresaUsuario.Value);
+                if (empresaIndex >= 0)
+                {
+                    empresa_picker.SelectedIndex = empresaIndex;
+                }
+            }
         }
         catch (Exception ex)
         {
