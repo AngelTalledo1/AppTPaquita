@@ -1,37 +1,35 @@
-using AppTransporte.model;
+ï»¿using AppTransporte.model;
 using System.Collections.ObjectModel;
 
 namespace AppTransporte.Interfaces;
 
 public partial class Calendar : ContentPage
 {
-	
-
     private int _idUsuario;
     private int _idTipoUsuario;
     private DateTime _periodoActual;
     private bool _esModoMes = false;
-    private ObservableCollection<Pedido1> _pedidosProgramados;
+    private ObservableCollection<Pedido> _pedidos;
     private bool _isLoading = false;
 
-    // Diccionario para almacenar los eventos por día
-    private Dictionary<DateTime, List<Pedido1>> _eventosPorDia = new Dictionary<DateTime, List<Pedido1>>();
+    // Diccionario para almacenar los eventos por dÃ­a
+    private Dictionary<DateTime, List<Pedido>> _eventosPorDia = new Dictionary<DateTime, List<Pedido>>();
 
-    // Colores para los diferentes tipos de servicio
-    private readonly Dictionary<string, string> _coloresTipoServicio = new Dictionary<string, string>
-        {
-            { "Regado", "#4285f4" },            // Azul de Google
-            { "Transporte de Fluido", "#0f9d58" }, // Verde de Google
-            { "Suministro de Agua", "#f4b400" },   // Amarillo de Google
-            { "Transporte de Agua", "#db4437" }    // Rojo de Google
-        };
+    // Colores para los diferentes estados de pedido
+    private readonly Dictionary<string, string> _coloresEstadoPedido = new Dictionary<string, string>
+    {
+        { "Pendiente", "#4285f4" },            // Azul
+        { "En el punto de Carga", "#f4b400" }, // Amarillo
+        { "En camino al destino", "#0f9d58" }, // Verde
+        { "Finalizado", "#db4437" }            // Rojo
+    };
 
     public Calendar(int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
         _idUsuario = idUsuario;
         _idTipoUsuario = idTipoUsuario;
-        _pedidosProgramados = new ObservableCollection<Pedido1>();
+        _pedidos = new ObservableCollection<Pedido>();
 
         // Inicializar con la fecha actual
         _periodoActual = DateTime.Today;
@@ -46,7 +44,7 @@ public partial class Calendar : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await CargarPedidosProgramados();
+        await CargarPedidos();
     }
 
     private async void Btn_atras(object sender, EventArgs e)
@@ -54,7 +52,7 @@ public partial class Calendar : ContentPage
         await Navigation.PopAsync();
     }
 
-    private async Task CargarPedidosProgramados()
+    private async Task CargarPedidos()
     {
         if (_isLoading) return;
         _isLoading = true;
@@ -64,26 +62,42 @@ public partial class Calendar : ContentPage
             // Mostrar indicador de carga
             IsBusy = true;
 
-            // En una implementación real, cargarías los pedidos programados desde tu base de datos
-            // Aquí usaría App.Database para obtener los pedidos, algo como:
-            // var pedidos = await App.Database.ObtenerPedidosProgramadosAsync(_idUsuario);
+            // Obtener los pedidos del usuario actual usando el mÃ©todo existente
+            var pedidos = await App.Database.ListarPedidosAdminAsync();
 
-            // Por ahora, simularemos algunos datos
-            await Task.Delay(500); // Simular tiempo de carga
-
-            // Limpiamos el diccionario de eventos
+            // Limpiar el diccionario de eventos
             _eventosPorDia.Clear();
 
-            // En una implementación real, llenarías el diccionario con los datos obtenidos de la BD
-            // Por ahora, añadimos algunos datos de ejemplo
-            AgregarPedidosEjemplo();
+            // Procesar cada pedido y agregarlo al diccionario por fecha
+            foreach (var pedido in pedidos)
+            {
+                // Determinar quÃ© fecha usar para el calendario
+                DateTime fechaEvento;
+
+                // Si la fecha de entrega estÃ¡ establecida, usarla; de lo contrario, usar la fecha de solicitud
+                if (pedido.FechaEntrega.HasValue)
+                {
+                    fechaEvento = pedido.FechaEntrega.Value.Date;
+                }
+                else
+                {
+                    fechaEvento = pedido.FechaSolicitud.Date;
+                }
+
+                // Agregar el pedido al diccionario
+                if (!_eventosPorDia.ContainsKey(fechaEvento))
+                {
+                    _eventosPorDia[fechaEvento] = new List<Pedido>();
+                }
+                _eventosPorDia[fechaEvento].Add(pedido);
+            }
 
             // Actualizar la vista del calendario con los eventos cargados
             ActualizarVistaPeriodo();
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"No se pudieron cargar los pedidos programados: {ex.Message}", "Aceptar");
+            await DisplayAlert("Error", $"No se pudieron cargar los pedidos: {ex.Message}", "Aceptar");
         }
         finally
         {
@@ -92,70 +106,11 @@ public partial class Calendar : ContentPage
         }
     }
 
-    // Método para añadir pedidos de ejemplo (en implementación real, esto vendría de la base de datos)
-    private void AgregarPedidosEjemplo()
-    {
-        // Ejemplo: Agregar algunos pedidos programados para este mes
-        var hoy = DateTime.Today;
-        var primerDiaMes = new DateTime(hoy.Year, hoy.Month, 1);
-        var ultimoDiaMes = primerDiaMes.AddMonths(1).AddDays(-1);
-
-        // Ejemplo 1: Pedido de regado para hoy
-        var pedido1 = new Pedido1
-        {
-            IdPedido = 1,
-            EstadoPedido = "Pendiente",
-            FechaProgramada = hoy,
-            HoraProgramada = new TimeSpan(9, 0, 0),
-            Descripcion = "Regado",
-            Detalle = "9:00 AM"
-        };
-
-        // Ejemplo 2: Pedido de transporte para mañana
-        var pedido2 = new Pedido1
-        {
-            IdPedido = 2,
-            EstadoPedido = "Pendiente",
-            FechaProgramada = hoy.AddDays(1),
-            HoraProgramada = new TimeSpan(14, 30, 0),
-            Descripcion = "Transporte de Fluido",
-            Detalle = "2:30 PM"
-        };
-
-        // Ejemplo 3: Pedido para el día 15 del mes
-        var pedido3 = new Pedido1
-        {
-            IdPedido = 3,
-            EstadoPedido = "Pendiente",
-            FechaProgramada = new DateTime(hoy.Year, hoy.Month, 15),
-            HoraProgramada = new TimeSpan(11, 0, 0),
-            Descripcion = "Suministro de Agua",
-            Detalle = "11:00 AM"
-        };
-
-        // Añadir los pedidos al diccionario agrupados por fecha
-        AgregarEventoAlDiccionario(pedido1);
-        AgregarEventoAlDiccionario(pedido2);
-        AgregarEventoAlDiccionario(pedido3);
-    }
-
-    private void AgregarEventoAlDiccionario(Pedido1 pedido)
-    {
-        var fecha = pedido.FechaProgramada.Date;
-
-        if (!_eventosPorDia.ContainsKey(fecha))
-        {
-            _eventosPorDia[fecha] = new List<Pedido1>();
-        }
-
-        _eventosPorDia[fecha].Add(pedido);
-    }
-
     private void ActualizarVistaPeriodo()
     {
         if (_esModoMes)
         {
-            // Actualizar etiqueta con el mes y año
+            // Actualizar etiqueta con el mes y aÃ±o
             PeriodoActualLabel.Text = _periodoActual.ToString("MMMM yyyy");
 
             // Mostrar vista de mes
@@ -193,31 +148,31 @@ public partial class Calendar : ContentPage
         // Limpiar eventos previos
         LimpiarEventosSemana();
 
-        // Contenedores para cada día de la semana
+        // Contenedores para cada dÃ­a de la semana
         var contenedoresDias = new[]
         {
-                DiaColumn0,
-                DiaColumn1,
-                DiaColumn2,
-                DiaColumn3,
-                DiaColumn4,
-                DiaColumn5,
-                DiaColumn6
-            };
+            DiaColumn0,
+            DiaColumn1,
+            DiaColumn2,
+            DiaColumn3,
+            DiaColumn4,
+            DiaColumn5,
+            DiaColumn6
+        };
 
-        // Para cada día de la semana
+        // Para cada dÃ­a de la semana
         for (int i = 0; i < 7; i++)
         {
             DateTime fechaDia = inicioSemana.AddDays(i);
             var contenedor = contenedoresDias[i];
 
-            // Actualizar la etiqueta con el número del día
+            // Actualizar la etiqueta con el nÃºmero del dÃ­a
             var labelDia = contenedor.Children.OfType<Label>().FirstOrDefault();
             if (labelDia != null)
             {
                 labelDia.Text = fechaDia.Day.ToString();
 
-                // Resaltar el día actual
+                // Resaltar el dÃ­a actual
                 if (fechaDia.Date == DateTime.Today)
                 {
                     labelDia.FontAttributes = FontAttributes.Bold;
@@ -230,16 +185,16 @@ public partial class Calendar : ContentPage
                 }
             }
 
-            // Agregar eventos para este día
+            // Agregar eventos para este dÃ­a
             if (_eventosPorDia.ContainsKey(fechaDia.Date))
             {
                 foreach (var pedido in _eventosPorDia[fechaDia.Date])
                 {
-                    // Determinar el color según el tipo de servicio
-                    string colorEvento = "#4285f4"; // Color predeterminado
-                    if (_coloresTipoServicio.ContainsKey(pedido.Descripcion))
+                    // Determinar el color segÃºn el estado del pedido
+                    string colorEvento = "#4285f4"; // Color predeterminado (azul)
+                    if (_coloresEstadoPedido.ContainsKey(pedido.EstadoPedido))
                     {
-                        colorEvento = _coloresTipoServicio[pedido.Descripcion];
+                        colorEvento = _coloresEstadoPedido[pedido.EstadoPedido];
                     }
 
                     // Crear el frame para el evento
@@ -254,16 +209,20 @@ public partial class Calendar : ContentPage
 
                     // Crear el contenido del evento
                     var stackLayout = new VerticalStackLayout { Spacing = 2 };
+
+                    // Primera lÃ­nea: Servicio
                     stackLayout.Add(new Label
                     {
-                        Text = pedido.Descripcion,
+                        Text = pedido.Servicios,
                         TextColor = Colors.White,
                         FontSize = 12,
                         FontFamily = "Comf-Medium"
                     });
+
+                    // Segunda lÃ­nea: Origen - Destino
                     stackLayout.Add(new Label
                     {
-                        Text = pedido.Detalle,
+                        Text = $"{pedido.Origen} â†’ {pedido.Destino}",
                         TextColor = Colors.White,
                         FontSize = 10
                     });
@@ -275,7 +234,7 @@ public partial class Calendar : ContentPage
                     tapGesture.Tapped += (s, e) => VerDetallesPedido(pedido);
                     frame.GestureRecognizers.Add(tapGesture);
 
-                    // Agregar el evento al contenedor del día
+                    // Agregar el evento al contenedor del dÃ­a
                     contenedor.Add(frame);
                 }
             }
@@ -284,10 +243,10 @@ public partial class Calendar : ContentPage
 
     private void LimpiarEventosSemana()
     {
-        // Limpiar los eventos pero preservar las etiquetas de los días y líneas separadoras
+        // Limpiar los eventos pero preservar las etiquetas de los dÃ­as y lÃ­neas separadoras
         foreach (var columna in new[] { DiaColumn0, DiaColumn1, DiaColumn2, DiaColumn3, DiaColumn4, DiaColumn5, DiaColumn6 })
         {
-            // Mantener solo los primeros dos elementos (título del día y línea separadora)
+            // Mantener solo los primeros dos elementos (tÃ­tulo del dÃ­a y lÃ­nea separadora)
             while (columna.Children.Count > 2)
             {
                 columna.RemoveAt(columna.Children.Count - 1);
@@ -297,28 +256,28 @@ public partial class Calendar : ContentPage
 
     private void ActualizarVistaMes()
     {
-        // Limpiar la cuadrícula del mes
+        // Limpiar la cuadrÃ­cula del mes
         MesGrid.Children.Clear();
 
-        // Obtener el primer día del mes
+        // Obtener el primer dÃ­a del mes
         DateTime primerDiaMes = new DateTime(_periodoActual.Year, _periodoActual.Month, 1);
 
-        // Determinar en qué día de la semana cae el primer día del mes
+        // Determinar en quÃ© dÃ­a de la semana cae el primer dÃ­a del mes
         int diaSemana = (int)primerDiaMes.DayOfWeek; // 0 = Domingo, 1 = Lunes, etc.
 
-        // Determinar el número de días del mes
+        // Determinar el nÃºmero de dÃ­as del mes
         int diasEnMes = DateTime.DaysInMonth(primerDiaMes.Year, primerDiaMes.Month);
 
-        // Variables para seguimiento de posición
+        // Variables para seguimiento de posiciÃ³n
         int fila = 0;
         int columna = diaSemana;
 
-        // Para cada día del mes
+        // Para cada dÃ­a del mes
         for (int dia = 1; dia <= diasEnMes; dia++)
         {
             DateTime fecha = new DateTime(primerDiaMes.Year, primerDiaMes.Month, dia);
 
-            // Crear un borde para este día
+            // Crear un borde para este dÃ­a
             var border = new Border
             {
                 Stroke = Color.FromArgb("#e0e0e0"),
@@ -330,7 +289,7 @@ public partial class Calendar : ContentPage
             // Configurar el grid dentro del borde
             var gridDia = new Grid { RowDefinitions = new RowDefinitionCollection { new RowDefinition(GridLength.Auto), new RowDefinition(GridLength.Star) } };
 
-            // Título del día
+            // TÃ­tulo del dÃ­a
             var labelDia = new Label
             {
                 Text = dia.ToString(),
@@ -342,20 +301,21 @@ public partial class Calendar : ContentPage
             gridDia.Add(labelDia);
 
             // Contenedor para eventos
-            var scrollView = new ScrollView { MaximumHeightRequest = 80};
+            var scrollView = new ScrollView { MaximumHeightRequest = 80 };
+            Grid.SetRow(scrollView, 1);
             var eventosStack = new VerticalStackLayout();
             scrollView.Content = eventosStack;
 
-            // Agregar eventos para este día
+            // Agregar eventos para este dÃ­a
             if (_eventosPorDia.ContainsKey(fecha.Date))
             {
                 foreach (var pedido in _eventosPorDia[fecha.Date])
                 {
-                    // Determinar color
+                    // Determinar color segÃºn el estado del pedido
                     string colorEvento = "#4285f4"; // Color predeterminado
-                    if (_coloresTipoServicio.ContainsKey(pedido.Descripcion))
+                    if (_coloresEstadoPedido.ContainsKey(pedido.EstadoPedido))
                     {
-                        colorEvento = _coloresTipoServicio[pedido.Descripcion];
+                        colorEvento = _coloresEstadoPedido[pedido.EstadoPedido];
                     }
 
                     // Crear frame para el evento
@@ -368,14 +328,16 @@ public partial class Calendar : ContentPage
                         HasShadow = false
                     };
 
-                    // Texto del evento
-                    var horaFormatted = pedido.HoraProgramada.Hours >= 12
-                        ? $"{(pedido.HoraProgramada.Hours == 12 ? 12 : pedido.HoraProgramada.Hours - 12)}:{pedido.HoraProgramada.Minutes:D2} PM"
-                        : $"{pedido.HoraProgramada.Hours}:{pedido.HoraProgramada.Minutes:D2} AM";
+                    // Texto del evento: Servicio principal (primer servicio de la lista si hay varios)
+                    string servicioTexto = pedido.Servicios;
+                    if (servicioTexto.Contains(","))
+                    {
+                        servicioTexto = servicioTexto.Split(',')[0].Trim();
+                    }
 
                     frame.Content = new Label
                     {
-                        Text = $"{pedido.Descripcion} {horaFormatted}",
+                        Text = $"{servicioTexto} ({pedido.Origen}-{pedido.Destino})",
                         TextColor = Colors.White,
                         FontSize = 10
                     };
@@ -389,16 +351,16 @@ public partial class Calendar : ContentPage
                 }
             }
 
-            // Añadir el scrollview al grid del día
+            // AÃ±adir el scrollview al grid del dÃ­a
             gridDia.Add(scrollView);
 
             // Asignar el grid como contenido del borde
             border.Content = gridDia;
 
-            // Añadir el borde a la cuadrícula del mes en la posición correspondiente
+            // AÃ±adir el borde a la cuadrÃ­cula del mes en la posiciÃ³n correspondiente
             MesGrid.Add(border, columna, fila);
 
-            // Actualizar posición
+            // Actualizar posiciÃ³n
             columna++;
             if (columna > 6)
             {
@@ -408,19 +370,25 @@ public partial class Calendar : ContentPage
         }
     }
 
-    private async void VerDetallesPedido(Pedido1 pedido)
+    private async void VerDetallesPedido(Pedido pedido)
     {
-        // Aquí implementarías la navegación a la página de detalles del pedido
+        // Mostrar los detalles del pedido en un diÃ¡logo
+        string fechaEntrega = pedido.FechaEntrega.HasValue ?
+            pedido.FechaEntrega.Value.ToString("dd/MM/yyyy") : "Pendiente";
+
         await DisplayAlert("Detalles del Pedido",
             $"Pedido #{pedido.IdPedido}\n" +
-            $"Tipo: {pedido.Descripcion}\n" +
-            $"Fecha: {pedido.FechaProgramada:dd/MM/yyyy}\n" +
-            $"Hora: {pedido.HoraProgramada:hh\\:mm tt}\n" +
+            $"Servicios: {pedido.Servicios}\n" +
+            $"Origen: {pedido.Origen} ({pedido.OrigSector})\n" +
+            $"Destino: {pedido.Destino} ({pedido.DestSector})\n" +
+            $"Cantidad: {pedido.Cantidad} barriles\n" +
+            $"Fecha solicitud: {pedido.FechaSolicitud:dd/MM/yyyy}\n" +
+            $"Fecha entrega: {fechaEntrega}\n" +
             $"Estado: {pedido.EstadoPedido}",
             "Cerrar");
 
-        // En una implementación real, navegarías a una página de detalles:
-        // await Navigation.PushAsync(new DetallePedidoProgramadoPage(pedido));
+        // En una implementaciÃ³n real, navegarÃ­as a una pÃ¡gina de detalles:
+        // await Navigation.PushAsync(new VEProcesoPedido(pedido, _idUsuario, _idTipoUsuario, null));
     }
 
     private void PrevPeriod_Clicked(object sender, EventArgs e)
@@ -461,13 +429,13 @@ public partial class Calendar : ContentPage
 
     private async void OnRefreshing(object sender, EventArgs e)
     {
-        await CargarPedidosProgramados();
+        await CargarPedidos();
         refreshView.IsRefreshing = false;
     }
 
     private async void AgregarPedido_Clicked(object sender, EventArgs e)
     {
-        // Navegar a la página para crear un nuevo pedido programado
+        // Navegar a la pÃ¡gina para crear un nuevo pedido
         await Navigation.PushAsync(new PedidoAuto(_idUsuario, _idTipoUsuario));
     }
 }

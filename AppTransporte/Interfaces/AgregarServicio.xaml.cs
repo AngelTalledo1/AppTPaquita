@@ -13,7 +13,7 @@ public partial class AgregarServicio : ContentPage
         this._idTipoUsuario = idUsuario;
         this._idUsuario = idTipoUsuario;
         GuardarServicio.IsVisible = true;
-        TituloLabel.Text = "Informacion General";
+        TituloLabel.Text = "Información General";
     }
     public AgregarServicio(Servicio servicioSelect, int idUsuario, int idTipoUsuario)
     {

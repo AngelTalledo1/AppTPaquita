@@ -14,7 +14,7 @@ public partial class VEagregarCliente : ContentPage
         this._idTipoUsuario = idUsuario;
         this._idUsuario = idTipoUsuario;
         GuardarCliente.IsVisible = true;
-        TituloLabel.Text = "Informacion General";
+        TituloLabel.Text = "Información General";
 	}
     public VEagregarCliente(Cliente clienteSelect, int idUsuario, int idTipoUsuario)
     {
@@ -24,7 +24,7 @@ public partial class VEagregarCliente : ContentPage
         this._idUsuario = idTipoUsuario;
         ActualizarCliente.IsVisible = true;
         tituloInterfaz.Text = "Modificar Cliente";
-        TituloLabel.Text = "Informacion General";
+        TituloLabel.Text = "Información General";
         NombreEntry.Text = clienteSelect.Nombre;
         ApellidoEntry.Text = $"{clienteSelect.ApePaterno} {clienteSelect.ApeMaterno} ";
         TipoDocumentoPicker.SelectedIndex = clienteSelect.Persona.IdTipoDoc;
