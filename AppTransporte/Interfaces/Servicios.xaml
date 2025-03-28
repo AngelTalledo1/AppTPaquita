@@ -53,17 +53,20 @@
                     <CollectionView ItemsSource="{Binding Servicios}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Frame Padding="10"
-                           BackgroundColor="#edf2f4"
-                           CornerRadius="10"
-                           BorderColor="Transparent"
-                           Margin="3">
+                                <Frame BackgroundColor="#edf2f4"
+                                       Opacity="0.85"
+                                       Margin="0,3"
+                                       Padding="10"
+                                       HasShadow="False"
+                                       CornerRadius="15">
                                     <toolkit:Expander>
                                         <toolkit:Expander.Header>
                                             <Grid ColumnDefinitions="1*,.2*"
                                       RowDefinitions="1*,1*">
                                                 <Label Text="{Binding Descripcion}"
-                                           FontFamily="Comf-Bold" />
+                                           FontFamily="Comf-Bold" 
+                                                       TextColor="Black"
+                                                       VerticalOptions="Center"/>
                                                 <Button ImageSource="edit.png"
                                                         WidthRequest="25"
                                                         Clicked="Editar_servicio"
@@ -93,7 +96,7 @@
                 </VerticalStackLayout>
             </ScrollView>
 
-            <Button Text="Nuevo Serivicio"
+            <Button Text="Nuevo Servicio"
                     FontFamily="Comf-Bold"
                     BackgroundColor="#cb4335"
                     HorizontalOptions="Center"

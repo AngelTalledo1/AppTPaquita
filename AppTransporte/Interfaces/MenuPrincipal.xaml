@@ -40,15 +40,27 @@
                            FontSize="14"
                            TextColor="Black"
                            Margin="5,5,5,10" />
-                    <!-- Opción: Solicitudes -->
+                    <!-- Opción: Clientes -->
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="cliente_Clicked"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Clientes" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Consulta los datos de los clientes." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                    <!-- Opción: Empresa -->
                     <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" >
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="btn_Solicitudes"/>
+                                <TapGestureRecognizer Tapped="btn_Empresa"/>
                             </Grid.GestureRecognizers>
                             <VerticalStackLayout VerticalOptions="Center">
-                                <Label Text="Solicitudes" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
-                                <Label Text="Gestiona las solicitudes pendientes." FontSize="12" TextColor="Gray"/>
+                                <Label Text="Empresa" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Agrega, gestiona y visualiza distintas empresas." FontSize="12" TextColor="Gray"/>
                             </VerticalStackLayout>
                         </Grid>
                     </Frame>
@@ -64,15 +76,39 @@
                             </VerticalStackLayout>
                         </Grid>
                     </Frame>
-                    <!-- Opción: Clientes -->
+                    <!-- Opción: Pedidos Automáticos-->
                     <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="cliente_Clicked"/>
+                                <TapGestureRecognizer Tapped="btn_Pedidoauto"/>
                             </Grid.GestureRecognizers>
                             <VerticalStackLayout VerticalOptions="Center">
-                                <Label Text="Clientes" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
-                                <Label Text="Consulta los datos de los clientes." FontSize="12" TextColor="Gray"/>
+                                <Label Text="Pedidos Automatizados" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Gestión de pedidos automáticos y recurrentes." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                    <!-- Opción: Servicios -->
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Btn_AgregarServ"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Servicios" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Agrega, gestiona y visualiza distintos servicios disponibles." FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                    <!-- Opción: Solicitudes -->
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                        <Grid ColumnDefinitions="3*, 1*" Padding="10" >
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="btn_Solicitudes"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Solicitudes" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Gestiona las solicitudes pendientes." FontSize="12" TextColor="Gray"/>
                             </VerticalStackLayout>
                         </Grid>
                     </Frame>
@@ -100,16 +136,17 @@
                             </VerticalStackLayout>
                         </Grid>
                     </Frame>
-                    <!-- Opción: Servicios -->
+                    <!-- Opción: Usuarios -->
                     <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Btn_AgregarServ"/>
+                                <TapGestureRecognizer Tapped="OnUserManagementClicked"/>
                             </Grid.GestureRecognizers>
                             <VerticalStackLayout VerticalOptions="Center">
-                                <Label Text="Servicios" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
-                                <Label Text=" Agrega, gestiona y visualiza distintos servicios disponibles." FontSize="12" TextColor="Gray"/>
+                                <Label Text="Usuarios" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
+                                <Label Text="Gestiona los usuarios que ingresan al sistema." FontSize="12" TextColor="Gray"/>
                             </VerticalStackLayout>
+
                         </Grid>
                     </Frame>
                     <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
@@ -142,30 +179,7 @@
 
                         </Grid>
                     </Frame>
-                    <!-- Opción: Pedidos Automáticos-->
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
-                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="btn_Pedidoauto"/>
-                            </Grid.GestureRecognizers>
-                            <VerticalStackLayout VerticalOptions="Center">
-                                <Label Text="Pedidos Automatizados" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
-                                <Label Text="Gestión de pedidos automáticos y recurrentes." FontSize="12" TextColor="Gray"/>
-                            </VerticalStackLayout>
-                        </Grid>
-                    </Frame>
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
-                        <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnUserManagementClicked"/>
-                            </Grid.GestureRecognizers>
-                            <VerticalStackLayout VerticalOptions="Center">
-                                <Label Text="Usuarios" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>
-                                <Label Text="Gestiona los usuarios que ingresan al sistema." FontSize="12" TextColor="Gray"/>
-                            </VerticalStackLayout>
-
-                        </Grid>
-                    </Frame>
+                    
                     <Image Source="paquitatext.png"
                            WidthRequest="150"
                            HorizontalOptions="Center" 

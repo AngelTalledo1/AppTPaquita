@@ -55,6 +55,10 @@ public partial class MenuPrincipal : ContentPage
     {
         await Navigation.PushAsync(new VESolicitudes(_idUsuario, _idTipoUsuario));
     }
+    private async void btn_Empresa(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new Empresas(_idUsuario, _idTipoUsuario));
+    }
 
     private async void Btn_DestinosClicket(object sender, EventArgs e)
     {
