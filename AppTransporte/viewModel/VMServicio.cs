@@ -39,6 +39,12 @@ namespace AppTransporte.viewModel
         {
             CargarServicios();
         }
+        public async Task ActualizarDatos()
+        {
+            
+            Servicios.Clear();
+            CargarServicios();
+        }
 
         private async void CargarServicios(string filtro = null)
         {

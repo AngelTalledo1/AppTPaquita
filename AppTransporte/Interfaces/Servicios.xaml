@@ -76,6 +76,7 @@
                                                         CommandParameter="{Binding .}"
                                                         BackgroundColor="Transparent"
                                                         Padding="0"
+                                                        Clicked="Eliminar_servicio"
                                                         WidthRequest="25"
                                                         HorizontalOptions="End" />
                                             </Grid>

@@ -67,6 +67,37 @@ namespace AppTransporte.model
                 }
             }
         }
+        public async Task<int> ActualizarServicioAsync(int idServicio, string descripcion)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_ActualizarServicio", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id_servicio", idServicio);
+                    command.Parameters.AddWithValue("@descripcion", descripcion);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+        public async Task<int> EliminarServicioAsync(int idServicio)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_EliminarServicio", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id_servicio", idServicio);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
         public async Task<Cliente?> ObtenerClientePorUsuarioAsync(int idUsuario)
         {
             try

@@ -37,9 +37,7 @@ public partial class AgregarServicio : ContentPage
     {
         try
         {
-            int resultado = await App.Database.InsertarServicioAsync(
-                descripcion_entry.Text
-                );
+            int resultado = await App.Database.ActualizarServicioAsync(id_servicio, descripcion_entry.Text);
             if (resultado > 0)
             {
                 await DisplayAlert("Éxito", "Servicio modificado correctamente.", "OK");
