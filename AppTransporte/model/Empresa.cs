@@ -8,11 +8,9 @@ namespace AppTransporte.model
 {
     public class Empresa
     {
-        public required string NombreEmpresa { get; set; }
-        public int IdEmpresa { get; set; }
-        public required string Ruc { get; set; }
-        public string Razon { get; set; } = string.Empty;
-        public string Direccion { get; set; }
-        public bool Estado { get; set; }
+        public int id_empresa { get; set; }
+        public string razonSocial { get; set; }
+        public string RUC { get; set; } = string.Empty;
+        public string Direccion { get; set; } = string.Empty;
     }
 }

@@ -45,7 +45,7 @@ public partial class AgregarServicio : ContentPage
             }
             else
             {
-                await DisplayAlert("Error", "No se pudo modificar el cliente. Verifica los datos.", "OK");
+                await DisplayAlert("Error", "No se pudo modificar el servicio. Verifica los datos.", "OK");
                 await Navigation.PushAsync(new Servicios(_idUsuario, _idTipoUsuario));
             }
         }

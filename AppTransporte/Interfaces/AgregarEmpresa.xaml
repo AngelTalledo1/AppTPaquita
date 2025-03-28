@@ -49,19 +49,6 @@
                         <Entry PlaceholderColor="#515a5a"
                                Grid.Column="1"
                                Margin="10"
-                               x:Name="empresaEntry"
-                               Placeholder="Nombre de la Empresa"
-                               FontFamily="Comf-Bold"
-                               TextColor="Black" />
-                    </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="Center"
-                               Source=".png" />
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               Margin="10"
                                x:Name="razonEntry"
                                Placeholder="Razón Social"
                                FontFamily="Comf-Bold"

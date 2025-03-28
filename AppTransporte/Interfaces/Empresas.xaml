@@ -7,7 +7,7 @@
              xmlns:VME="clr-namespace:AppTransporte.viewModel"
              Title="Empresas">
     <ContentPage.BindingContext>
-        <VME:VMServicio />
+        <VME:VMEmpresas />
     </ContentPage.BindingContext>
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
@@ -45,7 +45,55 @@
                 </HorizontalStackLayout>
             </VerticalStackLayout>
             <ScrollView Grid.Row="1">
-                
+                <VerticalStackLayout Margin="10">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}"
+               IsVisible="{Binding IsBusy}"
+               Color="#bc4749"
+               HorizontalOptions="Center" />
+                    <CollectionView ItemsSource="{Binding Empresas}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="#edf2f4"
+                           Opacity="0.85"
+                           Margin="0,3"
+                           Padding="10"
+                           HasShadow="False"
+                           CornerRadius="15">
+                                    <toolkit:Expander>
+                                        <toolkit:Expander.Header>
+                                            <Grid ColumnDefinitions="1*,.2*"
+                          RowDefinitions="1*,1*">
+                                                <Label Text="{Binding razonSocial}"
+                               FontFamily="Comf-Bold" 
+                                           TextColor="Black"
+                                           VerticalOptions="Center"/>
+                                                <Button ImageSource="edit.png"
+                                            WidthRequest="25"
+                                            Clicked="Editar_empresa"
+                                            BackgroundColor="Transparent"
+                                            Padding="0"
+                                            CommandParameter="{Binding .}"
+                                            HorizontalOptions="End" />
+                                                <Button ImageSource="eliminar.png"
+                                            Grid.Column="1"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="Transparent"
+                                            Padding="0"
+                                            Clicked="Eliminar_empresa"
+                                            WidthRequest="25"
+                                            HorizontalOptions="End" />
+                                            </Grid>
+                                        </toolkit:Expander.Header>
+                                        <VerticalStackLayout>
+                                            <Label IsVisible="False" Text="{Binding Estado, Converter={StaticResource BooleanToTextConverter}}"
+                           FontFamily="Comf-SemBold" />
+                                        </VerticalStackLayout>
+                                    </toolkit:Expander>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
             </ScrollView>
 
             <Button Text="Nueva Empresa"

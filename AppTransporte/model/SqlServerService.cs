@@ -67,6 +67,93 @@ namespace AppTransporte.model
                 }
             }
         }
+        public async Task<int> AgregarEmpresaAsync(string razonSocial, string ruc, string direccion = null)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_AgregarEmpresa", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@razonSocial", razonSocial);
+                    command.Parameters.AddWithValue("@ruc", ruc);
+                    command.Parameters.AddWithValue("@direccion", (object)direccion ?? DBNull.Value);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+
+
+        public async Task<List<Empresa>> ObtenerEmpresasAsync(string? filtro = null)
+        {
+            var empresas = new List<Empresa>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_ObtenerEmpresas", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@filtro", (object?)filtro ?? DBNull.Value);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            empresas.Add(new Empresa
+                            {
+                                id_empresa = reader.GetInt32(reader.GetOrdinal("id_empresa")),
+                                razonSocial = reader.GetString(reader.GetOrdinal("razonSocial")),
+                                RUC = reader.GetString(reader.GetOrdinal("ruc")),
+                                Direccion = reader.IsDBNull(reader.GetOrdinal("direccion")) ? null : reader.GetString(reader.GetOrdinal("direccion"))
+                            });
+                        }
+                    }
+                }
+            }
+
+            return empresas;
+        }
+        public async Task<int> ActualizarEmpresaAsync(int idEmpresa, string razonSocial, string ruc, string direccion = null)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("PA_ActualizarEmpresa", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id_empresa", idEmpresa);
+                    command.Parameters.AddWithValue("@razonSocial", razonSocial);
+                    command.Parameters.AddWithValue("@ruc", ruc);
+                    command.Parameters.AddWithValue("@direccion", (object)direccion ?? DBNull.Value);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public async Task<int> EliminarEmpresaAsync(int idEmpresa)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("PA_eliminarEmpresa", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id_empresa", idEmpresa);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+
         public async Task<int> ActualizarServicioAsync(int idServicio, string descripcion)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
