@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.AgregarEmpresa"
+             NavigationPage.HasNavigationBar="False"
+             Title="AgregarServicio">
+    <Grid RowDefinitions=".1*,.9*">
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_Atras"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Agregar nueva empresa"
+                   x:Name="tituloInterfaz"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+        <Grid Grid.Row="1 ">
+            <VerticalStackLayout>
+                <Frame WidthRequest="500"
+                       HeightRequest="60"
+                       Padding="0,10,0,0"
+                       BackgroundColor="AliceBlue"
+                       BorderColor="Transparent">
+                    <Label Text=""
+                           x:Name="TituloLabel"
+                           HorizontalOptions="Center"
+                           TextColor="Black"
+                           FontFamily="Comf-Bold"
+                           FontSize="Medium" />
+                </Frame>
+                <VerticalStackLayout Margin="0,10,20,0">
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center"
+                               Source=".png" />
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               Margin="10"
+                               x:Name="empresaEntry"
+                               Placeholder="Nombre de la Empresa"
+                               FontFamily="Comf-Bold"
+                               TextColor="Black" />
+                    </Grid>
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center"
+                               Source=".png" />
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               Margin="10"
+                               x:Name="razonEntry"
+                               Placeholder="Razón Social"
+                               FontFamily="Comf-Bold"
+                               TextColor="Black" />
+                    </Grid>
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center"
+                               Source=".png" />
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               Margin="10"
+                               x:Name="rucEntry"
+                               Placeholder="N° de RUC de la Empresa"
+                               FontFamily="Comf-Bold"
+                               TextColor="Black" />
+                    </Grid>
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center"
+                               Source=".png" />
+                        <Entry PlaceholderColor="#515a5a"
+                               Grid.Column="1"
+                               Margin="10"
+                               x:Name="direccionEntry"
+                               Placeholder="Dirección de la Empresa"
+                               FontFamily="Comf-Bold"
+                               TextColor="Black"/>
+                    </Grid>
+
+
+                </VerticalStackLayout>
+                <HorizontalStackLayout Margin="30"
+                       Spacing="40"
+                       HorizontalOptions="Center">
+                    <Button Text="Guardar Empresa"
+                            IsVisible="False"
+                            x:Name="GuardarEmpresa"
+                            HeightRequest="50"
+                            WidthRequest="150"
+                            Clicked="btn_guardar"
+                            FontFamily="Comf-Medium"
+                            BackgroundColor="#007AFF"
+                            TextColor="White"
+                            CornerRadius="40"
+                            HorizontalOptions="Center" />
+                    <Button Text="Actualizar Empresa"
+                            IsVisible="False"
+                            x:Name="ActualizarEmpresa"
+                            HeightRequest="50"
+                            WidthRequest="150"
+                            Clicked="btn_actualizar"
+                            FontFamily="Comf-Medium"
+                            BackgroundColor="#cb4335"
+                            TextColor="White"
+                            CornerRadius="40"
+                            HorizontalOptions="Center"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>
