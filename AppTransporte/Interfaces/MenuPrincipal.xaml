@@ -34,14 +34,27 @@
                        VerticalOptions="End"/>
             </Grid>
             <ScrollView Grid.Row="1" BackgroundColor="#edf2f4">
-                <VerticalStackLayout Padding="10" Spacing="8">
+                
+                <VerticalStackLayout Padding="10" Spacing="8" x:Name="Principal">
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="Buscar :"
+                               FontFamily="Comf-Medium"
+                               VerticalOptions="Center"
+                               Padding="5"/>
+                        <SearchBar  Placeholder=""
+                                FontFamily="Comf-Bold"
+                                TextChanged="OnSearchTextChanged"
+                                x:Name="searchBar"
+                                VerticalTextAlignment="Center"
+                                TextColor="Black" />
+                    </HorizontalStackLayout>
                     <Label Text="Selecciona la opción a gestionar: "
                            FontFamily="Comf-Medium"
                            FontSize="14"
                            TextColor="Black"
                            Margin="5,5,5,10" />
                     <!-- Opción: Clientes -->
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                    <Frame x:Name="clientesFrame" CornerRadius="20" Padding="10" BackgroundColor="White" >
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="cliente_Clicked"/>
@@ -53,7 +66,7 @@
                         </Grid>
                     </Frame>
                     <!-- Opción: Empresa -->
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White" x:Name="frameEmpresa">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" >
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="btn_Empresa"/>
@@ -65,7 +78,7 @@
                         </Grid>
                     </Frame>
                     <!-- Opción: Pedidos -->
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White" x:Name="framePedidos">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="pedidos_Clicked"/>
@@ -77,7 +90,7 @@
                         </Grid>
                     </Frame>
                     <!-- Opción: Pedidos Automáticos-->
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White" x:Name="framePedidosAuto">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="btn_Pedidoauto"/>
@@ -89,7 +102,7 @@
                         </Grid>
                     </Frame>
                     <!-- Opción: Servicios -->
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White" x:Name="frameServicios">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Btn_AgregarServ"/>
@@ -101,7 +114,7 @@
                         </Grid>
                     </Frame>
                     <!-- Opción: Solicitudes -->
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White" x:Name="frameSolicitudes">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" >
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="btn_Solicitudes"/>
@@ -113,7 +126,7 @@
                         </Grid>
                     </Frame>
                     <!-- Opción: Trabajadores -->
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White" x:Name="frameTrabajadores">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="transportista_Clicked"/>
@@ -125,7 +138,7 @@
                         </Grid>
                     </Frame>
                     <!-- Opción: Ubicación -->
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White" x:Name="frameUbicacion">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Btn_DestinosClicket"/>
@@ -137,7 +150,7 @@
                         </Grid>
                     </Frame>
                     <!-- Opción: Usuarios -->
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White" x:Name="frameUsuarios">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnUserManagementClicked"/>
@@ -149,7 +162,7 @@
 
                         </Grid>
                     </Frame>
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White" x:Name="frameCalendario">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="calendario_Clicked"/>
@@ -159,15 +172,15 @@
                                 <Label Text="Visualiza y gestiona pedidos programados en formato calendario." FontSize="12" TextColor="Gray"/>
                             </VerticalStackLayout>
                             <Image Grid.Column="1" 
-               Source="calendar.png" 
-               HeightRequest="35" 
-               WidthRequest="35" 
-               HorizontalOptions="End"
-               VerticalOptions="Center"/>
+                                   Source="calendar.png" 
+                                   HeightRequest="35" 
+                                   WidthRequest="35" 
+                                   HorizontalOptions="End"
+                                   VerticalOptions="Center"/>
                         </Grid>
                     </Frame>
                     <!-- Opción: Vehículos -->
-                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
+                    <Frame CornerRadius="20" Padding="10" BackgroundColor="White" x:Name="frameVehiculos">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="btn_Vehiculos"/>

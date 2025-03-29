@@ -1,17 +1,54 @@
 using AppTransporte.viewModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Maui.Controls;
+using AppTransporte.Interfaces;
+using AppTransporte.model;
+using System.Collections.ObjectModel;
+
+
 
 namespace AppTransporte.Interfaces;
 
 public partial class MenuPrincipal : ContentPage
 {
+    private List<Frame> opcionesFrames;
     private int _idUsuario;
     private int _idTipoUsuario;
+
     public MenuPrincipal(int idUsuario, int idTipoUsuario)
     {
         this._idTipoUsuario = idUsuario;
         this._idUsuario = idTipoUsuario;
         InitializeComponent();
+        CargarFrames();
     }
+        private void CargarFrames()
+    {
+        opcionesFrames = new List<Frame>
+            {
+                clientesFrame, frameEmpresa, framePedidos, framePedidosAuto,
+                frameServicios, frameSolicitudes, frameTrabajadores,
+                frameUbicacion, frameUsuarios, frameCalendario, frameVehiculos
+            };
+    }
+    private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+    {
+        string textoBusqueda = e.NewTextValue.ToLower();
+
+        foreach (var frame in opcionesFrames)
+        {
+            bool esVisible = frame.Content is Grid grid &&
+                             grid.Children.OfType<VerticalStackLayout>()
+                                 .FirstOrDefault()?.Children.OfType<Label>()
+                                 .FirstOrDefault()?.Text.ToLower().Contains(textoBusqueda) == true;
+
+            frame.IsVisible = esVisible;
+        }
+    }
+
+
     public void setUserData(int idUsuario, int idTipoUsuario)
     {
         _idUsuario = idUsuario;
@@ -99,12 +136,11 @@ public partial class MenuPrincipal : ContentPage
         return true; // Bloquea la acción predeterminada del botón atrás
     }
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {
-
-    }
+   
     private async void OnUserManagementClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new VEUsuarios(_idUsuario, _idTipoUsuario));
     }
+
+    
 }
