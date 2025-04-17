@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppTransporte.Interfaces.AgregarEmpresa"
+             x:Class="AppTransporte.Interfaces.TareasAdicionales"
              NavigationPage.HasNavigationBar="False"
-             Title="AgregarEmpresa">
+             Title="AgregarServicio">
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0"
@@ -16,7 +16,7 @@
                    Margin="20"
                    HeightRequest="20"
                    WidthRequest="20" />
-            <Label Text="Agregar nueva empresa"
+            <Label Text="Tareas Adicionales"
                    x:Name="tituloInterfaz"
                    Grid.Column="1"
                    FontSize="20"
@@ -33,7 +33,7 @@
                        Padding="0,10,0,0"
                        BackgroundColor="AliceBlue"
                        BorderColor="Transparent">
-                    <Label Text=""
+                    <Label Text="Información General"
                            x:Name="TituloLabel"
                            HorizontalOptions="Center"
                            TextColor="Black"
@@ -44,39 +44,39 @@
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
-                               HorizontalOptions="End"
-                               Source="tuser.png" />
+                               HorizontalOptions="Center"
+                               Source=".png" />
                         <Entry PlaceholderColor="#515a5a"
                                Grid.Column="1"
                                Margin="10"
-                               x:Name="razonEntry"
-                               Placeholder="Razón Social"
+                               x:Name="descripcionEntry"
+                               Placeholder="Descripcion"
                                FontFamily="Comf-Bold"
                                TextColor="Black" />
                     </Grid>
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
-                               HorizontalOptions="End"
-                               Source="tipodoc.png" />
+                               HorizontalOptions="Center"
+                               Source=".png" />
                         <Entry PlaceholderColor="#515a5a"
                                Grid.Column="1"
                                Margin="10"
                                x:Name="rucEntry"
-                               Placeholder="N° de RUC de la Empresa"
+                               Placeholder=""
                                FontFamily="Comf-Bold"
                                TextColor="Black" />
                     </Grid>
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
-                               HorizontalOptions="End"
-                               Source="direccion.png" />
+                               HorizontalOptions="Center"
+                               Source=".png" />
                         <Entry PlaceholderColor="#515a5a"
                                Grid.Column="1"
                                Margin="10"
                                x:Name="direccionEntry"
-                               Placeholder="Dirección de la Empresa"
+                               Placeholder=""
                                FontFamily="Comf-Bold"
                                TextColor="Black"/>
                     </Grid>
@@ -86,28 +86,15 @@
                 <HorizontalStackLayout Margin="30"
                        Spacing="40"
                        HorizontalOptions="Center">
-                    <Button Text="Guardar Empresa"
-                            IsVisible="False"
+                    <Button Text="Guardar"
                             x:Name="GuardarEmpresa"
                             HeightRequest="50"
                             WidthRequest="150"
-                            Clicked="btn_guardar"
                             FontFamily="Comf-Medium"
                             BackgroundColor="#007AFF"
                             TextColor="White"
                             CornerRadius="40"
                             HorizontalOptions="Center" />
-                    <Button Text="Actualizar Empresa"
-                            IsVisible="False"
-                            x:Name="ActualizarEmpresa"
-                            HeightRequest="50"
-                            WidthRequest="150"
-                            Clicked="btn_actualizar"
-                            FontFamily="Comf-Medium"
-                            BackgroundColor="#cb4335"
-                            TextColor="White"
-                            CornerRadius="40"
-                            HorizontalOptions="Center"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Grid>

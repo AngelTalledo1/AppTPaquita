@@ -16,6 +16,11 @@ public partial class MenuTransportista : ContentPage,IMenuPage
         _idUsuario = idUsuario;
         _idTipoUsuario = idTipoUsuario;
     }
+    private async void btn_ta(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new TareasAdicionales(_idUsuario, _idTipoUsuario));
+    }
+    
 
     private async void btn_misViajes(object sender, EventArgs e)
     {

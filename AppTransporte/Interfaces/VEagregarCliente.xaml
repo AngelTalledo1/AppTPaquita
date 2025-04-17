@@ -38,7 +38,7 @@
                        x:Name="TituloLabel"
                        HorizontalOptions="Center"
                        FontFamily="Comf-Bold"
-                       FontSize="Medium" />
+                       FontSize="Medium"/>
             </Frame>
                 <VerticalStackLayout Spacing="30"
                                      Margin="0,20,20,0">

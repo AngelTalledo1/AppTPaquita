@@ -49,7 +49,7 @@
                             <Image WidthRequest="40"
                                    HeightRequest="40"
                                    HorizontalOptions="Center"
-                                   Source="user.png" />
+                                   Source="usuario.png" />
                             <Entry PlaceholderColor="#515a5a"
                                    Grid.Column="1"
                                    Margin="10"
@@ -59,29 +59,29 @@
                                    TextColor="Black" />
                         </Grid>
 
-                        <!-- Campo Contraseña -->
+    
                         <!-- Campo Contraseña -->
                         <Grid ColumnDefinitions=".2*,.8*">
                             <Image WidthRequest="40"
-           HeightRequest="40"
-           HorizontalOptions="Center"
-           Source="lock.png" />
+                                   HeightRequest="40"
+                                   HorizontalOptions="Center"
+                                   Source="contrasena.png" />
                             <Grid Grid.Column="1" ColumnDefinitions="*,Auto">
                                 <Entry PlaceholderColor="#515a5a"
-               Margin="10,10,0,10"
-               x:Name="password_entry"
-               Placeholder="Contraseña"
-               IsPassword="True"
-               FontFamily="Comf-Bold"
-               TextColor="Black" />
+                                       Margin="10,10,0,10"
+                                       x:Name="password_entry"
+                                       Placeholder="Contraseña"
+                                       IsPassword="True"
+                                       FontFamily="Comf-Bold"
+                                       TextColor="Black" />
                                 <Button Grid.Column="1"
-                x:Name="togglePassword"
-                WidthRequest="40"
-                HeightRequest="40"
-                Margin="0,0,10,0"
-                BackgroundColor="Transparent"
-                ImageSource="eye.png"
-                Clicked="TogglePasswordVisibility"/>
+                                        x:Name="togglePassword"
+                                        WidthRequest="40"
+                                        HeightRequest="40"
+                                        Margin="0,0,10,0"
+                                        BackgroundColor="Transparent"
+                                        ImageSource="oculto.png"
+                                        Clicked="TogglePasswordVisibility"/>
                             </Grid>
                         </Grid>
 
@@ -91,7 +91,7 @@
                             <Image WidthRequest="40"
                                    HeightRequest="40"
                                    HorizontalOptions="Center"
-                                   Source="usertype.png" />
+                                   Source="tuser.png" />
                             <Picker Grid.Column="1"
                                     Margin="10"
                                     x:Name="tipoUsuario_picker"
@@ -132,7 +132,7 @@
                             <Image WidthRequest="40"
                                    HeightRequest="40"
                                    HorizontalOptions="Center"
-                                   Source="id.png" />
+                                   Source="iduser.png" />
                             <Label Grid.Column="1"
                                     Margin="10"
                                     x:Name="persona_label"
@@ -147,7 +147,7 @@
                             <Image WidthRequest="40"
                                    HeightRequest="40"
                                    HorizontalOptions="Center"
-                                   Source="company.png" />
+                                   Source="cliente2.png" />
                             <Picker Grid.Column="1"
                                     Margin="10"
                                     x:Name="empresa_picker"

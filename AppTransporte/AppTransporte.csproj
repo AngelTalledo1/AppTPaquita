@@ -181,6 +181,9 @@
 		<MauiXaml Update="Interfaces\Servicios.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Interfaces\TareasAdicionales.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Interfaces\VCambiarContraseña.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

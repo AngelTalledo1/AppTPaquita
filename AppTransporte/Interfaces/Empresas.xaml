@@ -54,39 +54,39 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Frame BackgroundColor="#edf2f4"
-                           Opacity="0.85"
-                           Margin="0,3"
-                           Padding="10"
-                           HasShadow="False"
-                           CornerRadius="15">
+                                       Opacity="0.85"
+                                       Margin="0,3"
+                                       Padding="10"
+                                       HasShadow="False"
+                                       CornerRadius="15">
                                     <toolkit:Expander>
                                         <toolkit:Expander.Header>
                                             <Grid ColumnDefinitions="1*,.2*"
-                          RowDefinitions="1*,1*">
+                                                   RowDefinitions="1*,1*">
                                                 <Label Text="{Binding razonSocial}"
-                               FontFamily="Comf-Bold" 
-                                           TextColor="Black"
-                                           VerticalOptions="Center"/>
+                                                       FontFamily="Comf-Bold" 
+                                                       TextColor="Black"
+                                                       VerticalOptions="Center"/>
                                                 <Button ImageSource="edit.png"
-                                            WidthRequest="25"
-                                            Clicked="Editar_empresa"
-                                            BackgroundColor="Transparent"
-                                            Padding="0"
-                                            CommandParameter="{Binding .}"
-                                            HorizontalOptions="End" />
+                                                        WidthRequest="25"
+                                                        Clicked="Editar_empresa"
+                                                        BackgroundColor="Transparent"
+                                                        Padding="0"
+                                                        CommandParameter="{Binding .}"
+                                                        HorizontalOptions="End" />
                                                 <Button ImageSource="eliminar.png"
-                                            Grid.Column="1"
-                                            CommandParameter="{Binding .}"
-                                            BackgroundColor="Transparent"
-                                            Padding="0"
-                                            Clicked="Eliminar_empresa"
-                                            WidthRequest="25"
-                                            HorizontalOptions="End" />
+                                                        Grid.Column="1"
+                                                        CommandParameter="{Binding .}"
+                                                        BackgroundColor="Transparent"
+                                                        Padding="0"
+                                                        Clicked="Eliminar_empresa"
+                                                        WidthRequest="25"
+                                                        HorizontalOptions="End" />
                                             </Grid>
                                         </toolkit:Expander.Header>
                                         <VerticalStackLayout>
                                             <Label IsVisible="False" Text="{Binding Estado, Converter={StaticResource BooleanToTextConverter}}"
-                           FontFamily="Comf-SemBold" />
+                                                   FontFamily="Comf-SemBold" />
                                         </VerticalStackLayout>
                                     </toolkit:Expander>
                                 </Frame>

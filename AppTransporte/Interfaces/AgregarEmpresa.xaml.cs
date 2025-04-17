@@ -23,7 +23,7 @@ public partial class AgregarEmpresa : ContentPage
         this._idTipoUsuario = idUsuario;
         this._idUsuario = idTipoUsuario;
         ActualizarEmpresa.IsVisible = true;
-        tituloInterfaz.Text = "Modificar Servicio";
+        tituloInterfaz.Text = "Modificar Empresa";
         TituloLabel.Text = "Información General";
         razonEntry.Text = empresaSelect.razonSocial;
         rucEntry.Text = empresaSelect.RUC;

@@ -2,116 +2,176 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTransporte.Interfaces.PedidoAuto"
              NavigationPage.HasNavigationBar="False">
+
     <Grid RowDefinitions=".1*,.9*">
+        <!-- Encabezado -->
         <Grid ColumnDefinitions=".1*,.9*"
-           Padding="20,0,0,0"
-           BackgroundColor="#cb4335">
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
             <Button BackgroundColor="Transparent"
                     Clicked="Btn_atras"/>
             <Image Source="atras.png"
-                HorizontalOptions="Center"
-                VerticalOptions="End"
-                Margin="20"
-                HeightRequest="20"
-                WidthRequest="20" />
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
             <Label Text="Programar Pedido"
-                Grid.Column="1"
-                FontSize="20"
-                TextColor="AliceBlue"
-                HorizontalOptions="Start"
-                VerticalOptions="Center"
-                FontFamily="Comf-Medium"
-                Padding="20,20,0,0" />
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
         </Grid>
+
+        <!-- Contenido -->
         <Grid Grid.Row="1">
             <ScrollView>
-                <VerticalStackLayout Margin="20">
-                    <StackLayout Padding="20" Spacing="15">
-                        <Picker x:Name="TipoServicioPicker" Title="Tipo de Servicio" FontFamily="Comf-Medium">
-                            <Picker.Items>
-                                <x:String>Regado</x:String>
-                                <x:String>Transporte de Fluido</x:String>
-                                <x:String>Suministro de Agua</x:String>
-                                <x:String>Transporte de Agua</x:String>
-                            </Picker.Items>
-                        </Picker>
+                <VerticalStackLayout>
+                    <VerticalStackLayout Spacing="30" Margin="30,20,20,0">
 
-                        <Picker x:Name="FrecuenciaPicker" Title="Selecciona la Frecuencia" FontAttributes="Bold"  FontFamily="Comf-Medium" SelectedIndexChanged="OnFrecuenciaChanged">
-                            <Picker.Items>
-                                <x:String>Diaria</x:String>
-                                <x:String>Semanal</x:String>
-                                <x:String>Mensual</x:String>
-                                <x:String>Personalizada</x:String>
-                            </Picker.Items>
-                        </Picker>
-                        
+                        <!-- Tipo de Servicio -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Image WidthRequest="30" HeightRequest="30" Source="tiposervicio.png" VerticalOptions="Center" />
+                            <Picker x:Name="TipoServicioPicker"
+                                    Title="Tipo de Servicio"
+                                    FontFamily="Comf-Medium"
+                                    HorizontalOptions="FillAndExpand">
+                                <Picker.Items>
+                                    <x:String>Regado</x:String>
+                                    <x:String>Transporte de Fluido</x:String>
+                                    <x:String>Suministro de Agua</x:String>
+                                    <x:String>Transporte de Agua</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </HorizontalStackLayout>
+
+                        <!-- Frecuencia -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Image WidthRequest="30" HeightRequest="30" Source="frecuencia.png" VerticalOptions="End" />
+                            <Picker x:Name="FrecuenciaPicker"
+                                    Title="Selecciona la Frecuencia"
+                                    FontAttributes="Bold"
+                                    FontFamily="Comf-Medium"
+                                    SelectedIndexChanged="OnFrecuenciaChanged"
+                                    HorizontalOptions="FillAndExpand">
+                                <Picker.Items>
+                                    <x:String>Diaria</x:String>
+                                    <x:String>Semanal</x:String>
+                                    <x:String>Mensual</x:String>
+                                    <x:String>Personalizada</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </HorizontalStackLayout>
+
+                        <!-- Días personalizados -->
                         <StackLayout x:Name="DiasSeleccionadosLayout" Padding="10" IsVisible="False">
                             <Label Text="Seleccione los días:" FontFamily="Comf-Medium" Padding="10" HorizontalOptions="Center"/>
-                        <Grid>
-                            <Grid ColumnDefinitions="auto, auto, auto" RowDefinitions="auto, auto, auto">
-                                <Label FontFamily="Comf-Medium" Grid.Row="0" Grid.Column="0" Text="Lunes" VerticalOptions="Center"/>
-                                <CheckBox Color="Red" Grid.Row="0" Grid.Column="1" x:Name="LunesCheck" HorizontalOptions="Start"/>
-                                <Label  FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="1" Grid.Column="0" Text="Martes"/>
-                                <CheckBox Color="Red" Grid.Row="1" Grid.Column="1" x:Name="MartesCheck"/>
-                                <Label  FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="2" Grid.Column="0" Text="Miércoles"/>
-                                <CheckBox Color="Red" Grid.Row="2" Grid.Column="1" x:Name="MiercolesCheck"/>
-                                
-                            </Grid>
-                            <Grid ColumnDefinitions="1*, 5*, 2*,3*" RowDefinitions="auto,auto,auto">
-                                <Label FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="0" Grid.Column="2" Text="Jueves"/>
-                                <CheckBox Color="Red" Grid.Row="0" Grid.Column="3" x:Name="JuevesCheck"/>
-                                <Label Padding="-2" FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="1" Grid.Column="2" Text="Viernes"/>
-                                <CheckBox Color="Red" Grid.Row="1" Grid.Column="3" x:Name="ViernesCheck"/>
-                                <Label Padding="-2" FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="2" Grid.Column="2" Text="Sábado"/>
-                                <CheckBox Color="Red" Grid.Row="2" Grid.Column="3" x:Name="SabadoCheck"/>
-                                 
-
+                            <Grid>
+                                <Grid ColumnDefinitions="auto, auto, auto" RowDefinitions="auto, auto, auto">
+                                    <Label FontFamily="Comf-Medium" Grid.Row="0" Grid.Column="0" Text="Lunes" VerticalOptions="Center"/>
+                                    <CheckBox Color="Red" Grid.Row="0" Grid.Column="1" x:Name="LunesCheck" HorizontalOptions="Start"/>
+                                    <Label FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="1" Grid.Column="0" Text="Martes"/>
+                                    <CheckBox Color="Red" Grid.Row="1" Grid.Column="1" x:Name="MartesCheck"/>
+                                    <Label FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="2" Grid.Column="0" Text="Miércoles"/>
+                                    <CheckBox Color="Red" Grid.Row="2" Grid.Column="1" x:Name="MiercolesCheck"/>
                                 </Grid>
-                        </Grid>
-                            
-                        </StackLayout>
-                        
-
-                        <StackLayout Spacing="-5">
-                            <Label x:Name="FechaInicioLabel" FontAttributes="Italic" FontFamily="Comf-Medium" Text="Seleccionar Fecha de Inicio: " TextColor="Red"/>
-                            <DatePicker FontFamily="Comf-Medium"  HeightRequest="50" x:Name="FechaInicioPicker" Format="dd/MM/yyyy" DateSelected="FechaInicioPicker_DateSelected"/>
-                        </StackLayout>
-                        <StackLayout Spacing="-5">
-                            <Label x:Name="FechaFinLabel" Text="Seleccionar Fecha de Finalización: " FontFamily="Comf-Medium" FontAttributes="Italic" TextColor="Red"/>
-                            <DatePicker x:Name="FechaFinPicker" Format="dd/MM/yyyy" DateSelected="FechaFinPicker_DateSelected" />
-                        </StackLayout>
-                        <StackLayout Spacing="-5">
-                            <Label Text="Seleccionar Hora: " FontAttributes="Italic" FontFamily="Comf-Medium" TextColor="Red"/>
-                            <TimePicker x:Name="HoraPicker" FontFamily="Comf-Medium"/>
-                        </StackLayout>
-
-                        <Entry x:Name="cantidadEntry" Placeholder="Cantidad en barriles" FontFamily="Comf-Medium" Keyboard="Numeric"/>
-                        <Label x:Name="Viajeslbl"/>
-                        <Grid Grid.Row="2" Padding="30">
-                                <VerticalStackLayout HorizontalOptions="Center" Spacing="30">
-                                    <Button Text="Programar Pedido"
-                                   HeightRequest="50"
-                                   WidthRequest="250"
-                                   Clicked="Btn_crear"
-                                   FontFamily="Comf-Bold"
-                                   BackgroundColor="#cb4335"
-                                   TextColor="White"
-                                   CornerRadius="40"
-                                   HorizontalOptions="Center" />
-                                    <Button Text="Ver Pedidos Programados "
-                                   HeightRequest="50"
-                                   WidthRequest="250"
-                                   FontFamily="Comf-Bold"
-                                   BackgroundColor="#007AFF"
-                                   TextColor="White"
-                                   CornerRadius="40"
-                                   HorizontalOptions="End" />
-                                </VerticalStackLayout>
+                                <Grid ColumnDefinitions="1*, 5*, 2*,3*" RowDefinitions="auto,auto,auto">
+                                    <Label FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="0" Grid.Column="2" Text="Jueves"/>
+                                    <CheckBox Color="Red" Grid.Row="0" Grid.Column="3" x:Name="JuevesCheck"/>
+                                    <Label Padding="-2" FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="1" Grid.Column="2" Text="Viernes"/>
+                                    <CheckBox Color="Red" Grid.Row="1" Grid.Column="3" x:Name="ViernesCheck"/>
+                                    <Label Padding="-2" FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="2" Grid.Column="2" Text="Sábado"/>
+                                    <CheckBox Color="Red" Grid.Row="2" Grid.Column="3" x:Name="SabadoCheck"/>
+                                </Grid>
                             </Grid>
-                    </StackLayout>
+                        </StackLayout>
+
+                        <!-- Fecha inicio -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Image WidthRequest="30" HeightRequest="30" Source="calendario.png" VerticalOptions="Center"/>
+                            <VerticalStackLayout Spacing="-5" HorizontalOptions="FillAndExpand">
+                                <Label x:Name="FechaInicioLabel"
+                                       FontAttributes="Italic"
+                                       FontFamily="Comf-Medium"
+                                       Text="Seleccionar Fecha de Inicio:"
+                                       TextColor="Red"/>
+                                <DatePicker FontFamily="Comf-Medium"
+                                            HeightRequest="50"
+                                            x:Name="FechaInicioPicker"
+                                            Format="dd/MM/yyyy"
+                                            DateSelected="FechaInicioPicker_DateSelected"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <!-- Fecha fin -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Image WidthRequest="30" HeightRequest="30" Source="calendario.png" VerticalOptions="Center"/>
+                            <VerticalStackLayout Spacing="-5" HorizontalOptions="FillAndExpand">
+                                <Label x:Name="FechaFinLabel"
+                                       Text="Seleccionar Fecha de Finalización:"
+                                       FontFamily="Comf-Medium"
+                                       FontAttributes="Italic"
+                                       TextColor="Red"/>
+                                <DatePicker x:Name="FechaFinPicker"
+                                            Format="dd/MM/yyyy"
+                                            DateSelected="FechaFinPicker_DateSelected"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <!-- Hora -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Image WidthRequest="30" HeightRequest="30" Source="reloj.png" VerticalOptions="Center"/>
+                            <VerticalStackLayout Spacing="-5" HorizontalOptions="FillAndExpand">
+                                <Label Text="Seleccionar Hora:"
+                                       FontAttributes="Italic"
+                                       FontFamily="Comf-Medium"
+                                       TextColor="Red"/>
+                                <TimePicker x:Name="HoraPicker" FontFamily="Comf-Medium"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <!-- Cantidad -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            
+                            <Entry x:Name="cantidadEntry"
+                                   Placeholder="Cantidad en barriles"
+                                   FontFamily="Comf-Medium"
+                                   Keyboard="Numeric"
+                                   HorizontalOptions="FillAndExpand"/>
+                        </HorizontalStackLayout>
+
+                        <!-- Label de viajes -->
+                        <Label x:Name="Viajeslbl"/>
+
+                        <!-- Botones -->
+                        <Grid Grid.Row="2" Padding="30">
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="30">
+                                <Button Text="Programar Pedido"
+                                        HeightRequest="50"
+                                        WidthRequest="250"
+                                        Clicked="Btn_crear"
+                                        FontFamily="Comf-Bold"
+                                        BackgroundColor="#cb4335"
+                                        TextColor="White"
+                                        CornerRadius="40"
+                                        HorizontalOptions="Center" />
+                                <Button Text="Ver Pedidos Programados "
+                                        HeightRequest="50"
+                                        WidthRequest="250"
+                                        FontFamily="Comf-Bold"
+                                        BackgroundColor="#007AFF"
+                                        TextColor="White"
+                                        CornerRadius="40"
+                                        HorizontalOptions="End" />
+                            </VerticalStackLayout>
+                        </Grid>
+
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
             </ScrollView>
         </Grid>
     </Grid>
-    
 </ContentPage>

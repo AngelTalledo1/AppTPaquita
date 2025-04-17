@@ -43,8 +43,8 @@
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
-                               HorizontalOptions="Center"
-                               Source="descripcion.png" />
+                               HorizontalOptions="End"
+                               Source="direcciones.png" />
                         <Editor PlaceholderColor="#515a5a"
                                 Grid.Column="1"
                                 Margin="10"
@@ -57,8 +57,8 @@
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
-                               HorizontalOptions="Center"
-                               Source=".png" />
+                               HorizontalOptions="End"
+                               Source="direccion.png" />
                         <Entry PlaceholderColor="#515a5a"
                                Grid.Column="1"
                                Margin="10"
@@ -84,7 +84,7 @@
                         <Image WidthRequest="40"
                                HeightRequest="40"
                                HorizontalOptions="Center"
-                               Source=".png" />
+                               Source="localizacion.png" />
                         <Entry PlaceholderColor="#515a5a"
                                Grid.Column="1"
                                Margin="10"
