@@ -44,8 +44,8 @@
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
-                               HorizontalOptions="Center"
-                               Source=".png" />
+                               HorizontalOptions="End"
+                               Source="tiposervicio.png" />
                         <Entry PlaceholderColor="#515a5a"
                                Grid.Column="1"
                                Margin="10"
