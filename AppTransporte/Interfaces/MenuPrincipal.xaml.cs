@@ -30,7 +30,11 @@ public partial class MenuPrincipal : ContentPage
     {
         await Navigation.PushAsync(new Servicios(_idUsuario, _idTipoUsuario));
     }
-    
+
+    private void reportes_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new VEReportes(_idUsuario, _idTipoUsuario));
+    }
 
     private async void cliente_Clicked(object sender, EventArgs e)
     {

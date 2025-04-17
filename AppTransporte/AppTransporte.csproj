@@ -133,6 +133,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="Interfaces\VEReportes.xaml.cs">
+		  <DependentUpon>VEReportes.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="Interfaces\VCNuevaSolicitud.xaml.cs">
 			<DependentUpon>VCNuevaSolicitud.xaml</DependentUpon>
 		</Compile>
@@ -168,6 +171,9 @@
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\MenuTransportista.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VEReportes.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\PedidosProgramadosPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>

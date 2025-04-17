@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VEReportes"
+             NavigationPage.HasNavigationBar="False"
+             Title="Reportes">
+    <Grid RowDefinitions=".1*,.9*">
+        <!-- Cabecera -->
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atras"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Reportes del Sistema"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="1" BackgroundColor="#edf2f4">
+            <VerticalStackLayout Padding="15" Spacing="15">
+                <Label Text="Seleccione el tipo de reporte:" 
+                       FontSize="18" 
+                       TextColor="#333333"
+                       FontFamily="Comf-Medium"
+                       Margin="0,0,0,10" />
+
+                <!-- Reporte por Trabajador -->
+                <Frame CornerRadius="15" Padding="15" BackgroundColor="White" HasShadow="False">
+                    <Grid RowDefinitions="Auto,Auto,Auto">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <VerticalStackLayout>
+                                <Label Text="Reporte por Trabajador" 
+                                       FontSize="16" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333" />
+                                <Label Text="Rendimiento y actividad por trabajador" 
+                                       FontSize="13" 
+                                       TextColor="Gray" />
+                            </VerticalStackLayout>
+                            <Button Grid.Column="1" 
+                                    Text="Generar" 
+                                    HeightRequest="40"
+                                    WidthRequest="100"
+                                    CornerRadius="20"
+                                    BackgroundColor="#cb4335"
+                                    TextColor="White"
+                                    FontFamily="Comf-Medium"
+                                    Clicked="ReporteTrabajador_Clicked"/>
+                        </Grid>
+
+                        <!-- Filtros expandibles para reporte por trabajador -->
+                        <BoxView Grid.Row="1" HeightRequest="1" Color="#e0e0e0" Margin="0,10" />
+                        <Grid Grid.Row="2" ColumnDefinitions="*, *, *">
+                            <RadioButton Content="Diario" 
+                                         FontFamily="Comf-Medium"
+                                         GroupName="PeriodoTrabajador"
+                                         IsChecked="True"/>
+                            <RadioButton Grid.Column="1" 
+                                         Content="Semanal" 
+                                         FontFamily="Comf-Medium"
+                                         GroupName="PeriodoTrabajador"/>
+                            <RadioButton Grid.Column="2" 
+                                         Content="Mensual" 
+                                         FontFamily="Comf-Medium"
+                                         GroupName="PeriodoTrabajador"/>
+                        </Grid>
+                    </Grid>
+                </Frame>
+
+                <!-- Reporte de Servicios -->
+                <Frame CornerRadius="15" Padding="15" BackgroundColor="White" HasShadow="False">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <VerticalStackLayout>
+                            <Label Text="Reporte de Servicios" 
+                                   FontSize="16" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333" />
+                            <Label Text="Volumen transportado por tipo de servicio" 
+                                   FontSize="13" 
+                                   TextColor="Gray" />
+                        </VerticalStackLayout>
+                        <Button Grid.Column="1" 
+                                Text="Generar" 
+                                HeightRequest="40"
+                                WidthRequest="100"
+                                CornerRadius="20"
+                                BackgroundColor="#cb4335"
+                                TextColor="White"
+                                FontFamily="Comf-Medium"
+                                Clicked="ReporteServicios_Clicked"/>
+                    </Grid>
+                </Frame>
+
+                <!-- Reporte de Desvíos -->
+                <Frame CornerRadius="15" Padding="15" BackgroundColor="White" HasShadow="False">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <VerticalStackLayout>
+                            <Label Text="Reporte de Desvíos" 
+                                   FontSize="16" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333" />
+                            <Label Text="Análisis de desvíos y excepciones en rutas" 
+                                   FontSize="13" 
+                                   TextColor="Gray" />
+                        </VerticalStackLayout>
+                        <Button Grid.Column="1" 
+                                Text="Generar" 
+                                HeightRequest="40"
+                                WidthRequest="100"
+                                CornerRadius="20"
+                                BackgroundColor="#cb4335"
+                                TextColor="White"
+                                FontFamily="Comf-Medium"
+                                Clicked="ReporteDesvios_Clicked"/>
+                    </Grid>
+                </Frame>
+
+                <!-- Reporte de Pedidos -->
+                <Frame CornerRadius="15" Padding="15" BackgroundColor="White" HasShadow="False">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <VerticalStackLayout>
+                            <Label Text="Reporte de Pedidos" 
+                                   FontSize="16" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333" />
+                            <Label Text="Pedidos agrupados por estado" 
+                                   FontSize="13" 
+                                   TextColor="Gray" />
+                        </VerticalStackLayout>
+                        <Button Grid.Column="1" 
+                                Text="Generar" 
+                                HeightRequest="40"
+                                WidthRequest="100"
+                                CornerRadius="20"
+                                BackgroundColor="#cb4335"
+                                TextColor="White"
+                                FontFamily="Comf-Medium"
+                                Clicked="ReportePedidos_Clicked"/>
+                    </Grid>
+                </Frame>
+
+                <!-- Reporte de Atención de Solicitudes -->
+                <Frame CornerRadius="15" Padding="15" BackgroundColor="White" HasShadow="False">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <VerticalStackLayout>
+                            <Label Text="Reporte de Atención de Solicitudes" 
+                                   FontSize="16" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333" />
+                            <Label Text="Tiempo promedio de atención a solicitudes (TP)" 
+                                   FontSize="13" 
+                                   TextColor="Gray" />
+                        </VerticalStackLayout>
+                        <Button Grid.Column="1" 
+                                Text="Generar" 
+                                HeightRequest="40"
+                                WidthRequest="100"
+                                CornerRadius="20"
+                                BackgroundColor="#cb4335"
+                                TextColor="White"
+                                FontFamily="Comf-Medium"
+                                Clicked="ReporteSolicitudes_Clicked"/>
+                    </Grid>
+                </Frame>
+
+                <!-- Indicador de carga -->
+                <Grid x:Name="LoadingOverlay" IsVisible="False" BackgroundColor="#80000000"
+                      HeightRequest="100" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Frame CornerRadius="10" 
+                           BackgroundColor="White" 
+                           WidthRequest="180" 
+                           HeightRequest="120"
+                           BorderColor="#cb4335"
+                           HasShadow="True">
+                        <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                            <ActivityIndicator IsRunning="True" 
+                                              HeightRequest="40" 
+                                              WidthRequest="40" 
+                                              Color="#cb4335"/>
+                            <Label Text="Generando reporte..." 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#333333"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
