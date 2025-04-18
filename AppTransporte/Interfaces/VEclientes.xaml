@@ -125,18 +125,18 @@
                                         <VerticalStackLayout Margin="20">
                                             <HorizontalStackLayout Spacing="5">
                                                 <Label Text="Usuario: " 
-                                                       TextColor="White"
+                                                       TextColor="Black"
                                                        FontFamily="Comf-Bold" />
                                                 <Label Text="{Binding Username}"
-                                                       TextColor="White"
+                                                       TextColor="Black"
                                                        FontFamily="Comf-SemBold" />
                                             </HorizontalStackLayout>
                                             <HorizontalStackLayout Spacing="5">
                                                 <Label Text="Contraseña: "
-                                                       TextColor="White"
+                                                       TextColor="Black"
                                                        FontFamily="Comf-Bold" />
                                             <Label Text="{Binding Contraseña}"
-                                                       TextColor="White"
+                                                       TextColor="Black"
                                                        FontFamily="Comf-SemBold" />
                                             </HorizontalStackLayout>
                                         </VerticalStackLayout>
