@@ -247,6 +247,9 @@
 		<MauiXaml Update="Interfaces\VEVehiculos.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Interfaces\VistaPreviaReporte.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Interfaces\VTMisViajes.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

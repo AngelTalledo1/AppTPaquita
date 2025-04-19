@@ -693,6 +693,50 @@ namespace AppTransporte.model
 
             return viajes;
         }
+    public async Task<List<ReporteTrabajador>> ObtenerReporteTrabajadorAsync(
+    int? idTrabajador,
+    DateTime fechaInicio,
+    DateTime fechaFin,
+    string tipoReporte)
+        {
+            var reportes = new List<ReporteTrabajador>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("pa_ReporteTrabajador", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@IdTrabajador", (object)idTrabajador ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                    command.Parameters.AddWithValue("@FechaFin", fechaFin);
+                    command.Parameters.AddWithValue("@TipoReporte", tipoReporte);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            reportes.Add(new ReporteTrabajador
+                            {
+                                IdTrabajador = reader.GetInt32(reader.GetOrdinal("id_trabajador")),
+                                NombreCompleto = reader.GetString(reader.GetOrdinal("NombreCompleto")),
+                                Categoria = reader.GetString(reader.GetOrdinal("Categoria")),
+                                TotalViajes = reader.GetInt32(reader.GetOrdinal("TotalViajes")),
+                                TotalSeguimientos = reader.GetInt32(reader.GetOrdinal("TotalSeguimientos")),
+                                VolumenTransportado = reader.GetInt32(reader.GetOrdinal("VolumenTransportado")),
+                                Periodo = reader.GetString(reader.GetOrdinal("Periodo"))
+                            });
+                        }
+                    }
+                }
+            }
+
+            return reportes;
+        }
+
         public async Task<List<Usuario>> ObtenerUsuariosAsync(bool? estadoFiltro = true)
         {
             var usuarios = new List<Usuario>();
