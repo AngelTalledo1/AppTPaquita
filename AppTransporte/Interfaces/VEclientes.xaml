@@ -51,7 +51,7 @@
                                         ItemsSource="{Binding Clientes}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                <Frame BackgroundColor="#2e4053"
+                                <Frame BackgroundColor="#edf2f4"
                                        Opacity="0.85"
                                        Margin="0,3"
                                        Padding="10"
@@ -69,12 +69,12 @@
                                                            Margin="10"
                                                            HorizontalOptions="Start"
                                                            VerticalOptions="Start"
-                                                           TextColor="White" />
+                                                           TextColor="Black"/>
                                                     <Grid Grid.Row="1"
                                                           ColumnDefinitions=".2*,.4*,.1*,.3*"
                                                           Margin="10,2">
                                                         <Label Text="DNI/RUC: "
-                                                               TextColor="White"
+                                                               TextColor="Black"
                                                                HorizontalOptions="End"
                                                                FontFamily="Comf-SemBold"
                                                                FontSize="12" />
@@ -84,9 +84,9 @@
                                                                Grid.Column="1"
                                                                VerticalOptions="Center"
                                                                HorizontalOptions="Start"
-                                                               TextColor="White" />
+                                                               TextColor="Black" />
                                                         <Label Text="Telf: "
-                                                               TextColor="White"
+                                                               TextColor="Black"
                                                                Grid.Column="2"
                                                                HorizontalTextAlignment="End"
                                                                VerticalOptions="Center"
@@ -98,7 +98,7 @@
                                                                FontFamily="Comf-SemBold"
                                                                HorizontalOptions="Start"
                                                                Grid.Column="3"
-                                                               TextColor="White" />
+                                                               TextColor="Black" />
                                                     </Grid>
                                                 </Grid>
                                                 <Grid Grid.Column="3"
@@ -125,18 +125,18 @@
                                         <VerticalStackLayout Margin="20">
                                             <HorizontalStackLayout Spacing="5">
                                                 <Label Text="Usuario: " 
-                                                       TextColor="White"
+                                                       TextColor="Black"
                                                        FontFamily="Comf-Bold" />
                                                 <Label Text="{Binding Username}"
-                                                       TextColor="White"
+                                                       TextColor="Black"
                                                        FontFamily="Comf-SemBold" />
                                             </HorizontalStackLayout>
                                             <HorizontalStackLayout Spacing="5">
                                                 <Label Text="Contraseña: "
-                                                       TextColor="White"
+                                                       TextColor="Black"
                                                        FontFamily="Comf-Bold" />
                                             <Label Text="{Binding Contraseña}"
-                                                       TextColor="White"
+                                                       TextColor="Black"
                                                        FontFamily="Comf-SemBold" />
                                             </HorizontalStackLayout>
                                         </VerticalStackLayout>

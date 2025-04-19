@@ -117,8 +117,8 @@
                                        TextColor="Black" />
                             </Grid>
                             <Grid ColumnDefinitions=".2*,.8*">
-                                <Image WidthRequest="40"
-                                       HeightRequest="40"
+                                <Image WidthRequest="30"
+                                       HeightRequest="30"
                                        Source="vencimiento.png"
                                        HorizontalOptions="Center"></Image>
                                 <Entry PlaceholderColor="#515a5a"
@@ -143,8 +143,8 @@
                                        TextColor="Black" />
                             </Grid>
                             <Grid ColumnDefinitions=".2*,.8*">
-                                <Image WidthRequest="40"
-                                       HeightRequest="40"
+                                <Image WidthRequest="30"
+                                       HeightRequest="30"
                                        HorizontalOptions="Center"
                                        Source="vencimiento.png" />
                                 <Entry PlaceholderColor="#515a5a"
@@ -175,8 +175,8 @@
                                        Placeholder="Fecha de emision de cubicacion"
                                        FontFamily="Comf-Medium"
                                        TextColor="Black" />
-                                <Image WidthRequest="40"
-                                       HeightRequest="40"
+                                <Image WidthRequest="30"
+                                       HeightRequest="30"
                                        Grid.Row="1"
                                        Source="vencimiento.png"
                                        HorizontalOptions="Center"></Image>
