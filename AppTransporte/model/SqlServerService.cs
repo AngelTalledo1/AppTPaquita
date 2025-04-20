@@ -1,13 +1,9 @@
 ﻿
 using Microsoft.Data.SqlClient;
-using Microsoft.Maui.Controls;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection.Metadata;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 
 namespace AppTransporte.model
 {
@@ -693,6 +689,199 @@ namespace AppTransporte.model
 
             return viajes;
         }
+
+
+
+// Añade este método a la clase SqlServerService
+
+        public byte[] GenerarReporteTrabajadorPDF(List<ReporteTrabajador> reporteData, DateTime fechaInicio,
+            DateTime fechaFin, string tipoReporte)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                // Crear documento PDF con iTextSharp
+                iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
+                PdfWriter writer = PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                // Título del documento
+                iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA,
+                                                                          18,
+                                                                          iTextSharp.text.Font.BOLD);
+                Paragraph titulo = new Paragraph("Reporte de Trabajador", titleFont);
+                titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                titulo.SpacingAfter = 20;
+                document.Add(titulo);
+
+                // Información del reporte
+                iTextSharp.text.Font normalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12);
+                Paragraph info = new Paragraph($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}", normalFont);
+                info.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                info.SpacingAfter = 5;
+                document.Add(info);
+
+                Paragraph infoTipo = new Paragraph($"Tipo de reporte: {tipoReporte}", normalFont);
+                infoTipo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                infoTipo.SpacingAfter = 20;
+                document.Add(infoTipo);
+
+                // Tabla de resumen
+                iTextSharp.text.Font subtitleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
+                Paragraph resumenTitulo = new Paragraph("Resumen", subtitleFont);
+                resumenTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                resumenTitulo.SpacingAfter = 10;
+                document.Add(resumenTitulo);
+
+                PdfPTable resumenTable = new PdfPTable(2);
+                resumenTable.WidthPercentage = 100;
+                resumenTable.SpacingAfter = 20;
+
+                // Cabecera de la tabla resumen
+                PdfPCell headerCell1 = new PdfPCell(new Phrase("Descripción", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)));
+                headerCell1.BackgroundColor = new BaseColor(220, 220, 220); // Light gray
+                headerCell1.Padding = 5;
+
+                PdfPCell headerCell2 = new PdfPCell(new Phrase("Valor", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)));
+                headerCell2.BackgroundColor = new BaseColor(220, 220, 220); // Light gray
+                headerCell2.Padding = 5;
+
+                resumenTable.AddCell(headerCell1);
+                resumenTable.AddCell(headerCell2);
+
+                // Datos del resumen
+                int totalTrabajadores = reporteData.Select(r => r.IdTrabajador).Distinct().Count();
+                int totalViajes = reporteData.Sum(r => r.TotalViajes);
+                int volumenTotal = reporteData.Sum(r => r.VolumenTransportado);
+
+                PdfPCell cellDesc1 = new PdfPCell(new Phrase("Total de Trabajadores", normalFont));
+                cellDesc1.Padding = 5;
+                PdfPCell cellVal1 = new PdfPCell(new Phrase(totalTrabajadores.ToString(), normalFont));
+                cellVal1.Padding = 5;
+
+                PdfPCell cellDesc2 = new PdfPCell(new Phrase("Total de Viajes", normalFont));
+                cellDesc2.Padding = 5;
+                PdfPCell cellVal2 = new PdfPCell(new Phrase(totalViajes.ToString(), normalFont));
+                cellVal2.Padding = 5;
+
+                PdfPCell cellDesc3 = new PdfPCell(new Phrase("Volumen Total Transportado", normalFont));
+                cellDesc3.Padding = 5;
+                PdfPCell cellVal3 = new PdfPCell(new Phrase($"{volumenTotal:N2} L", normalFont));
+                cellVal3.Padding = 5;
+
+                resumenTable.AddCell(cellDesc1);
+                resumenTable.AddCell(cellVal1);
+                resumenTable.AddCell(cellDesc2);
+                resumenTable.AddCell(cellVal2);
+                resumenTable.AddCell(cellDesc3);
+                resumenTable.AddCell(cellVal3);
+
+                document.Add(resumenTable);
+
+                // Tabla de detalle
+                Paragraph detalleTitulo = new Paragraph("Detalle por Trabajador", subtitleFont);
+                detalleTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                detalleTitulo.SpacingAfter = 10;
+                document.Add(detalleTitulo);
+
+                PdfPTable table = new PdfPTable(6);
+                table.WidthPercentage = 100;
+
+                // Cabecera de la tabla de detalle
+                iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
+                BaseColor headerColor = new BaseColor(220, 220, 220); // Light gray
+
+                PdfPCell headerTrabajador = new PdfPCell(new Phrase("Trabajador", headerFont));
+                headerTrabajador.BackgroundColor = headerColor;
+                headerTrabajador.Padding = 5;
+
+                PdfPCell headerCategoria = new PdfPCell(new Phrase("Categoría", headerFont));
+                headerCategoria.BackgroundColor = headerColor;
+                headerCategoria.Padding = 5;
+
+                PdfPCell headerViajes = new PdfPCell(new Phrase("Viajes", headerFont));
+                headerViajes.BackgroundColor = headerColor;
+                headerViajes.Padding = 5;
+
+                PdfPCell headerSeguimientos = new PdfPCell(new Phrase("Seguimientos", headerFont));
+                headerSeguimientos.BackgroundColor = headerColor;
+                headerSeguimientos.Padding = 5;
+
+                PdfPCell headerVolumen = new PdfPCell(new Phrase("Volumen", headerFont));
+                headerVolumen.BackgroundColor = headerColor;
+                headerVolumen.Padding = 5;
+
+                PdfPCell headerPeriodo = new PdfPCell(new Phrase("Periodo", headerFont));
+                headerPeriodo.BackgroundColor = headerColor;
+                headerPeriodo.Padding = 5;
+
+                table.AddCell(headerTrabajador);
+                table.AddCell(headerCategoria);
+                table.AddCell(headerViajes);
+                table.AddCell(headerSeguimientos);
+                table.AddCell(headerVolumen);
+                table.AddCell(headerPeriodo);
+
+                // Filas de datos
+                bool colorAlternado = false;
+                foreach (var item in reporteData)
+                {
+                    BaseColor bgColor = colorAlternado
+                        ? BaseColor.WHITE
+                        : new BaseColor(245, 245, 245); // Very light gray
+
+                    colorAlternado = !colorAlternado;
+
+                    PdfPCell cellNombre = new PdfPCell(new Phrase(item.NombreCompleto, normalFont));
+                    cellNombre.BackgroundColor = bgColor;
+                    cellNombre.Padding = 5;
+
+                    PdfPCell cellCategoria = new PdfPCell(new Phrase(item.Categoria, normalFont));
+                    cellCategoria.BackgroundColor = bgColor;
+                    cellCategoria.Padding = 5;
+
+                    PdfPCell cellViajes = new PdfPCell(new Phrase(item.TotalViajes.ToString(), normalFont));
+                    cellViajes.BackgroundColor = bgColor;
+                    cellViajes.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
+                    cellViajes.Padding = 5;
+
+                    PdfPCell cellSeguimientos = new PdfPCell(new Phrase(item.TotalSeguimientos.ToString(), normalFont));
+                    cellSeguimientos.BackgroundColor = bgColor;
+                    cellSeguimientos.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
+                    cellSeguimientos.Padding = 5;
+
+                    PdfPCell cellVolumen = new PdfPCell(new Phrase($"{item.VolumenTransportado:N2}", normalFont));
+                    cellVolumen.BackgroundColor = bgColor;
+                    cellVolumen.HorizontalAlignment = iTextSharp.text.Element.ALIGN_RIGHT;
+                    cellVolumen.Padding = 5;
+
+                    PdfPCell cellPeriodo = new PdfPCell(new Phrase(item.Periodo, normalFont));
+                    cellPeriodo.BackgroundColor = bgColor;
+                    cellPeriodo.Padding = 5;
+
+                    table.AddCell(cellNombre);
+                    table.AddCell(cellCategoria);
+                    table.AddCell(cellViajes);
+                    table.AddCell(cellSeguimientos);
+                    table.AddCell(cellVolumen);
+                    table.AddCell(cellPeriodo);
+                }
+
+                document.Add(table);
+
+                // Añadir pie de página
+                iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
+                footerFont.Color = BaseColor.GRAY;
+
+                Paragraph footer = new Paragraph($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}", footerFont);
+                footer.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
+                footer.SpacingBefore = 20;
+                document.Add(footer);
+
+                document.Close();
+                return ms.ToArray();
+            }
+        }
+
     public async Task<List<ReporteTrabajador>> ObtenerReporteTrabajadorAsync(
     int? idTrabajador,
     DateTime fechaInicio,
