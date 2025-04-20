@@ -81,12 +81,69 @@ public partial class VistaPreviaReporte : ContentPage
 
     private async void ExportarPDF_Clicked(object sender, EventArgs e)
     {
-        await DisplayAlert("Exportar", "Funcionalidad de exportación a PDF en desarrollo", "OK");
+        try
+        {
+            // Mostrar indicador de carga
+            LoadingOverlay.IsVisible = true;
+
+            // Generar el PDF
+            byte[] pdfBytes = await Task.Run(() => App.Database.GenerarReporteTrabajadorPDF(
+                reporteData, fechaInicio, fechaFin, tipoReporte));
+
+            // Nombre del archivo
+            string fileName = $"Reporte_Trabajador_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+            // En .NET MAUI, guardamos primero a un archivo temporal
+            string tempPath = Path.Combine(FileSystem.CacheDirectory, fileName);
+            File.WriteAllBytes(tempPath, pdfBytes);
+
+            // Luego utilizamos el Share para que el usuario pueda guardarlo donde desee
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = "Guardar reporte PDF",
+                File = new ShareFile(tempPath)
+            });
+
+            LoadingOverlay.IsVisible = false;
+        }
+        catch (Exception ex)
+        {
+            LoadingOverlay.IsVisible = false;
+            await DisplayAlert("Error", $"No se pudo exportar el PDF: {ex.Message}", "OK");
+        }
     }
 
     private async void Compartir_Clicked(object sender, EventArgs e)
     {
-        await DisplayAlert("Compartir", "Funcionalidad para compartir reporte en desarrollo", "OK");
+        try
+        {
+            LoadingOverlay.IsVisible = true;
+
+            // Generar el PDF para compartir
+            byte[] pdfBytes = await Task.Run(() => App.Database.GenerarReporteTrabajadorPDF(
+                reporteData, fechaInicio, fechaFin, tipoReporte));
+
+            // Nombre del archivo
+            string fileName = $"Reporte_Trabajador_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+            // Guardar en archivo temporal
+            string tempPath = Path.Combine(FileSystem.CacheDirectory, fileName);
+            File.WriteAllBytes(tempPath, pdfBytes);
+
+            // Compartir el archivo
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = "Compartir reporte PDF",
+                File = new ShareFile(tempPath)
+            });
+
+            LoadingOverlay.IsVisible = false;
+        }
+        catch (Exception ex)
+        {
+            LoadingOverlay.IsVisible = false;
+            await DisplayAlert("Error", $"No se pudo compartir el reporte: {ex.Message}", "OK");
+        }
     }
 }
 

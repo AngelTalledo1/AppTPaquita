@@ -190,5 +190,27 @@
                         Clicked="Compartir_Clicked"/>
             </Grid>
         </Grid>
+        <Grid x:Name="LoadingOverlay" 
+   IsVisible="False" 
+   BackgroundColor="#80000000"
+   Grid.RowSpan="3">
+            <Frame CornerRadius="10" 
+        BackgroundColor="White" 
+        WidthRequest="180" 
+        HeightRequest="120"
+        BorderColor="#cb4335"
+        HasShadow="True">
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="True" 
+                           HeightRequest="40" 
+                           WidthRequest="40" 
+                           Color="#cb4335"/>
+                    <Label Text="Procesando PDF..." 
+                FontFamily="Comf-Medium"
+                TextColor="#333333"
+                HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
     </Grid>
 </ContentPage>
