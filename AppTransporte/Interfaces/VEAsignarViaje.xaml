@@ -37,13 +37,13 @@
                            FontFamily="Comf-Bold"
                            />
                     <Label x:Name="Id_viaje"
-                           FontFamily="Comf-Bold" />
+                           FontFamily="Comf-Bold"/>
                 </HorizontalStackLayout>
                 <VerticalStackLayout Margin="20,20,30,0"
                                      Spacing="40">
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
-                               HeightRequest="40"
+                               HeightRequest="30"
                                HorizontalOptions="Center"
                                Source="cantidad.png"></Image>
                         <Entry PlaceholderColor="#515a5a"
@@ -55,8 +55,8 @@
                     </Grid>
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
-                               HeightRequest="40"
-                               Source="conductor.png"
+                               HeightRequest="30"
+                               Source="usuario.png"
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
                             <Picker x:Name="transportistaPicker"
@@ -72,7 +72,7 @@
                     </Grid>
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
-                               HeightRequest="40"
+                               HeightRequest="30"
                                Source="cliente2.png"
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
@@ -90,7 +90,7 @@
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
-                               Source="vehiculo.png"
+                               Source="cisterna.png"
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
                             <Picker x:Name="cisternaPicker"
@@ -109,7 +109,7 @@
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
-                               Source="modelo.png"
+                               Source="cisterna.png"
                                HorizontalOptions="Center"></Image>
                         <Grid Grid.Column="1">
                             <Picker x:Name="tractoPicker"

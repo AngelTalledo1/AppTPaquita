@@ -19,8 +19,11 @@
                    TextColor="White" />
             <Button Grid.Column="1"
                     BackgroundColor="Transparent"
-                    WidthRequest="30"
-                    HeightRequest="30"
+                    WidthRequest="40"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"
+                    HeightRequest="40"
+                    Margin="10"
                     Clicked="btn_Cerrar"/>
             <Image Source="cerrar.png"
                    WidthRequest="40"

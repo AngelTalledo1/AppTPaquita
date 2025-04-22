@@ -39,6 +39,52 @@ public partial class VEDetalleSolicitud : ContentPage
             await Navigation.PushAsync(new VECrearPedido(solicitud, idUsuario, idtipousuario));
         }
     }
+    private async void Btn_rechazarPedido(object sender, EventArgs e)
+    {
+        // Solicitar confirmación antes de rechazar
+        bool confirmar = await DisplayAlert("Confirmar", "¿Está seguro que desea rechazar esta solicitud?", "Sí", "No");
+
+        if (confirmar)
+        {
+            try
+            {
+                // Obtener la solicitud actual del BindingContext
+                var solicitud = BindingContext as Solicitud;
+
+                if (solicitud != null)
+                {
+                    // Guardar el comentario de rechazo si existe
+                    string comentario = ComentarioEntry.Text;
+
+                    // Actualizar estado a "Rechazado"
+                    solicitud.EstadoSolicitud = "Rechazado";
+
+                    if (!string.IsNullOrEmpty(comentario))
+                    {
+                        solicitud.Comentario = comentario;
+                    }
+
+                   
+                  //  await App.Database.UpdateAsync(solicitud);
+
+                    
+                    if (_pedidosViewModel != null)
+                    {
+                        _pedidosViewModel.CargarPedidos();
+                    }
+
+                    await DisplayAlert("Éxito", "La solicitud ha sido rechazada correctamente.", "OK");
+
+                    // Regresar a la página anterior
+                    await Navigation.PopAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"No se pudo rechazar la solicitud: {ex.Message}", "OK");
+            }
+        }
+    }
 
     private async void IrAPedido_Clicked(object sender, EventArgs e)
     {
