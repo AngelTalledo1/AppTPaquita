@@ -689,22 +689,68 @@ namespace AppTransporte.model
 
             return viajes;
         }
+        public DataTable ObtenerReporteServicios(DateTime fechaInicio, DateTime fechaFin)
+        {
+            DataTable resultado = new DataTable();
 
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
 
+                using (SqlCommand cmd = new SqlCommand("sp_ReporteServicios", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-// Añade este método a la clase SqlServerService
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                    cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
 
+                    // Llenar el DataTable con los resultados
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(resultado);
+                    }
+                }
+            }
+
+            return resultado;
+        }
+        // Método para agregar a tu clase SqlServerService existente
+        public (DataTable Resumen, DataTable Detalle) GetReportePedidos(DateTime fechaInicio, DateTime fechaFin)
+        {
+            DataTable resumenTable = new DataTable();
+            DataTable detalleTable = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("sp_ReportePedidos", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                    cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumenTable.Load(reader);
+                        if (reader.NextResult())
+                        {
+                            detalleTable.Load(reader);
+                        }
+                    }
+                }
+            }
+
+            return (resumenTable, detalleTable);
+        }
         public byte[] GenerarReporteTrabajadorPDF(List<ReporteTrabajador> reporteData, DateTime fechaInicio,
             DateTime fechaFin, string tipoReporte)
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                // Crear documento PDF con iTextSharp
                 iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
                 PdfWriter writer = PdfWriter.GetInstance(document, ms);
                 document.Open();
-
-                // Título del documento
                 iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA,
                                                                           18,
                                                                           iTextSharp.text.Font.BOLD);
@@ -712,57 +758,42 @@ namespace AppTransporte.model
                 titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
                 titulo.SpacingAfter = 20;
                 document.Add(titulo);
-
-                // Información del reporte
                 iTextSharp.text.Font normalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12);
                 Paragraph info = new Paragraph($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}", normalFont);
                 info.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
                 info.SpacingAfter = 5;
                 document.Add(info);
-
                 Paragraph infoTipo = new Paragraph($"Tipo de reporte: {tipoReporte}", normalFont);
                 infoTipo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
                 infoTipo.SpacingAfter = 20;
                 document.Add(infoTipo);
-
-                // Tabla de resumen
                 iTextSharp.text.Font subtitleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
                 Paragraph resumenTitulo = new Paragraph("Resumen", subtitleFont);
                 resumenTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
                 resumenTitulo.SpacingAfter = 10;
                 document.Add(resumenTitulo);
-
                 PdfPTable resumenTable = new PdfPTable(2);
                 resumenTable.WidthPercentage = 100;
                 resumenTable.SpacingAfter = 20;
-
-                // Cabecera de la tabla resumen
                 PdfPCell headerCell1 = new PdfPCell(new Phrase("Descripción", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)));
                 headerCell1.BackgroundColor = new BaseColor(220, 220, 220); // Light gray
                 headerCell1.Padding = 5;
-
                 PdfPCell headerCell2 = new PdfPCell(new Phrase("Valor", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)));
                 headerCell2.BackgroundColor = new BaseColor(220, 220, 220); // Light gray
                 headerCell2.Padding = 5;
-
                 resumenTable.AddCell(headerCell1);
                 resumenTable.AddCell(headerCell2);
-
-                // Datos del resumen
                 int totalTrabajadores = reporteData.Select(r => r.IdTrabajador).Distinct().Count();
                 int totalViajes = reporteData.Sum(r => r.TotalViajes);
                 int volumenTotal = reporteData.Sum(r => r.VolumenTransportado);
-
                 PdfPCell cellDesc1 = new PdfPCell(new Phrase("Total de Trabajadores", normalFont));
                 cellDesc1.Padding = 5;
                 PdfPCell cellVal1 = new PdfPCell(new Phrase(totalTrabajadores.ToString(), normalFont));
                 cellVal1.Padding = 5;
-
                 PdfPCell cellDesc2 = new PdfPCell(new Phrase("Total de Viajes", normalFont));
                 cellDesc2.Padding = 5;
                 PdfPCell cellVal2 = new PdfPCell(new Phrase(totalViajes.ToString(), normalFont));
                 cellVal2.Padding = 5;
-
                 PdfPCell cellDesc3 = new PdfPCell(new Phrase("Volumen Total Transportado", normalFont));
                 cellDesc3.Padding = 5;
                 PdfPCell cellVal3 = new PdfPCell(new Phrase($"{volumenTotal:N2} L", normalFont));

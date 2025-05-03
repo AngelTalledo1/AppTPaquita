@@ -251,6 +251,12 @@
 		<MauiXaml Update="Interfaces\VistaPreviaReporte.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Interfaces\VistaReportePedidos.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VistaReporteServicios.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Interfaces\VTMisViajes.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
