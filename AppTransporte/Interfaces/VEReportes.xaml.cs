@@ -160,7 +160,7 @@ public partial class VEReportes : ContentPage
     // Otros métodos para los demás tipos de reportes
     private async void ReporteServicios_Clicked(object sender, EventArgs e)
     {
-        await DisplayAlert("En desarrollo", "Esta funcionalidad estará disponible próximamente.", "OK");
+        await Navigation.PushAsync(new VistaReporteServicios());
     }
 
     private async void ReporteDesvios_Clicked(object sender, EventArgs e)
@@ -170,7 +170,7 @@ public partial class VEReportes : ContentPage
 
     private async void ReportePedidos_Clicked(object sender, EventArgs e)
     {
-        await DisplayAlert("En desarrollo", "Esta funcionalidad estará disponible próximamente.", "OK");
+        await Navigation.PushAsync(new VistaReportePedidos());
     }
 
     private async void ReporteSolicitudes_Clicked(object sender, EventArgs e)
