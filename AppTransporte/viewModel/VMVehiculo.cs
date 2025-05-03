@@ -8,8 +8,8 @@
     using System.Threading.Tasks;
     using AppTransporte.Interfaces;
     using System.Windows.Input;
-
-    namespace AppTransporte.viewModel
+#pragma warning disable CS0612, CS8612, CS8602, CS8618
+namespace AppTransporte.viewModel
     {
         public class VMVehiculo : INotifyPropertyChanged
         {

@@ -1,6 +1,7 @@
 namespace AppTransporte.Interfaces;
 using AppTransporte.model;
 using AppTransporte.viewModel;
+#pragma warning disable CS8602
 public partial class AgregarServicio : ContentPage
 {
     public int id_servicio { get; set; }
@@ -76,3 +77,4 @@ public partial class AgregarServicio : ContentPage
         }
     }
 }
+#pragma warning restore 8602

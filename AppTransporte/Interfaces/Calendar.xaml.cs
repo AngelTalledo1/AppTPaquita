@@ -1,8 +1,8 @@
 ﻿using AppTransporte.model;
 using System.Collections.ObjectModel;
 using Microsoft.Maui.Dispatching;
-
 namespace AppTransporte.Interfaces;
+#pragma warning disable CS0168, CS8604, CS1998, CS8612, CS8602
 
 public partial class Calendar : ContentPage
 {

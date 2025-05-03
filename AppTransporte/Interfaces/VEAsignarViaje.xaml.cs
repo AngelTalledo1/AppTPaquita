@@ -17,17 +17,23 @@ public partial class VEAsignarViaje : ContentPage
         Id_Pedido.Text = $"ID Pedido: { viaje.IdPedido.ToString()}";
         Id_viaje.Text = $"ID Viaje: {viaje.IdViaje.ToString()}";
     }
+    private async void Cancelar_btn(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
 
     private async void Btn_atrasAsignarViaje(object sender, EventArgs e)
     {
-        
-        var button = (Button)sender;
-        var pedido = button.CommandParameter as Pedido;
-        
-
-        if (pedido != null)
+        try
         {
-            await Navigation.PushAsync(new VEProcesoPedido(_pedido, idUsuario, idtipousuario,null));
+           
+            await Navigation.PopAsync();
+            
+        }
+        catch (Exception ex)
+        {
+            // Mostrar el error para ayudar a diagnosticar el problema
+            await DisplayAlert("Error", $"Error al navegar: {ex.Message}", "OK");
         }
     }
 }

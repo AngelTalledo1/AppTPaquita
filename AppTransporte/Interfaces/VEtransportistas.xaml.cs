@@ -1,7 +1,7 @@
 namespace AppTransporte.Interfaces;
 using AppTransporte.model;
 using AppTransporte.viewModel;
-
+#pragma warning disable CS8602, NU1701
 public partial class VEtransportistas : ContentPage
 {
     private int _idUsuario;

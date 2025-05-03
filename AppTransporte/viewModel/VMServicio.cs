@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+#pragma warning disable CS8602, CS8625, CS1998, CS8618
 
 
 namespace AppTransporte.viewModel

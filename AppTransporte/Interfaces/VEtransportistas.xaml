@@ -51,12 +51,12 @@
                         Padding="0"
                         BackgroundColor="#b7bdbd">
                     <Picker Title="Categoria"
-                            TitleColor="Black"
-                            HorizontalTextAlignment="Center"
-                            FontSize="11"
-                            FontFamily="Comf-Reg"
-                            ItemsSource="{Binding Categoria}"
-                            SelectedItem="{Binding CategoriaSeleccionada}" />
+        TitleColor="Black"
+        HorizontalTextAlignment="Center"
+        FontSize="11"
+        FontFamily="Comf-Reg"
+        ItemsSource="{Binding Categorias}"
+        SelectedItem="{Binding CategoriaSeleccionada}" />
                 </Frame>
             </VerticalStackLayout>
             

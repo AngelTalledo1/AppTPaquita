@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AppTransporte.model;
+#pragma warning disable CS8602, CS1998, CS8618
 
 namespace AppTransporte.viewModel
 {

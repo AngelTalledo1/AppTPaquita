@@ -52,7 +52,7 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                 <Frame BackgroundColor="#edf2f4"
-                                       Opacity="0.85"
+                                         Opacity="0.85"
                                        Margin="0,3"
                                        Padding="10"
                                        HasShadow="False"

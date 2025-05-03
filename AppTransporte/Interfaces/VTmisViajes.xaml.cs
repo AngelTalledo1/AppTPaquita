@@ -1,10 +1,9 @@
 using AppTransporte.model;
 using AppTransporte.viewModel;
 using Google.Apis.Auth.OAuth2;
-using AppTransporte.viewModel;
 using Google.Apis.Upload;
 using Google.Cloud.Storage.V1;
-
+#pragma warning disable CS0414, CS8618, CS0649, CS0105
 namespace AppTransporte.Interfaces;
 
 public partial class VTMisViajes : ContentPage
