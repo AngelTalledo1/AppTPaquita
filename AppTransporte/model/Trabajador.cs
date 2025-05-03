@@ -8,6 +8,8 @@ namespace AppTransporte.model
 {
     public class Trabajador
     {
+        internal string Categoria;
+
         public int IdTrabajador { get; set; }
         public string Nombre { get; set; } = string.Empty;
         public string? apePaterno { get; set; }

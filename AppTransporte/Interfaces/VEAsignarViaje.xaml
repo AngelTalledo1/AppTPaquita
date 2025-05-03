@@ -138,6 +138,7 @@
                         <Button Text="Cancelar"
                                 FontFamily="Comf-Bold"
                                 Padding="40,0"
+                                Clicked="Cancelar_btn"
                                 BackgroundColor="#cb4335"
                                 TextColor="White"
                                 CornerRadius="20" />

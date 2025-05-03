@@ -6,6 +6,7 @@ using Microsoft.Maui.Controls;
 using AppTransporte.Interfaces;
 using AppTransporte.model;
 using System.Collections.ObjectModel;
+#pragma warning disable CS8602, CS0612, CS0618, CS8618
 
 
 

@@ -1,6 +1,6 @@
 using AppTransporte.model;
 using Microsoft.Maui.Graphics.Text;
-
+#pragma warning disable CS4014, CS8602, CS8618
 namespace AppTransporte.Interfaces;
 
 public partial class VCNuevaSolicitud : ContentPage

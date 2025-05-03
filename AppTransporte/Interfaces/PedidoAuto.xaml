@@ -147,7 +147,7 @@
                         </HorizontalStackLayout>
 
                         <!-- Cantidad -->
-                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <HorizontalStackLayout VerticalOptions="Center">
                             
                             <Entry x:Name="cantidadEntry"
                                    Placeholder="Cantidad en barriles"
@@ -160,8 +160,8 @@
                         <Label x:Name="Viajeslbl"/>
 
                         <!-- Botones -->
-                        <Grid Grid.Row="2" Padding="30">
-                            <VerticalStackLayout HorizontalOptions="Center" Spacing="30">
+                        <Grid Grid.Row="2" Padding="0">
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="20">
                                 <Button Text="Programar Pedido"
                                         HeightRequest="50"
                                         WidthRequest="250"

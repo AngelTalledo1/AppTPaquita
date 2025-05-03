@@ -1,5 +1,5 @@
 namespace AppTransporte.Interfaces;
-
+#pragma warning disable CS0612, CS0618
 public partial class MenuTransportista : ContentPage,IMenuPage
 {
     private int _idUsuario;

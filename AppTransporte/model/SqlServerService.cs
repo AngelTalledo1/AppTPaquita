@@ -4,6 +4,7 @@ using System.Data;
 using System.Reflection.Metadata;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+#pragma warning disable CS8603, CS1998, CS8625, CS8601, CS8600, CS8612, CS0612
 
 namespace AppTransporte.model
 {

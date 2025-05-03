@@ -5,8 +5,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace AppTransporte.viewModel
+#pragma warning disable CS8612, CS8602, CS8604, CS8601, CS4014, CS8625, CS8616, CS8618
 {
     public class VMTrabajadores : INotifyPropertyChanged
     {
@@ -14,6 +14,26 @@ namespace AppTransporte.viewModel
         private ObservableCollection<Trabajador> _allTrabajadores = new();
         public ObservableCollection<Trabajador> Ayudantes { get; set; } = new();
         public ObservableCollection<Trabajador> Transportistas { get; set; } = new();
+
+        // Lista de categorías para el Picker
+        public ObservableCollection<string> Categorias { get; set; } = new ObservableCollection<string>();
+
+        // Propiedad para la categoría seleccionada en el Picker
+        private string _categoriaSeleccionada;
+        public string CategoriaSeleccionada
+        {
+            get => _categoriaSeleccionada;
+            set
+            {
+                if (_categoriaSeleccionada != value)
+                {
+                    _categoriaSeleccionada = value;
+                    OnPropertyChanged(nameof(CategoriaSeleccionada));
+                    // Actualizar el filtro cuando cambia la selección
+                    CategoriaFiltro = value;
+                }
+            }
+        }
 
         private bool _isBusy;
         public bool IsBusy
@@ -25,7 +45,6 @@ namespace AppTransporte.viewModel
                 OnPropertyChanged(nameof(IsBusy));
             }
         }
-
         private string _searchText;
         public string SearchText
         {
@@ -40,7 +59,6 @@ namespace AppTransporte.viewModel
                 }
             }
         }
-
         // Nueva propiedad para filtrar por categoría
         private string _categoriaFiltro;
         public string CategoriaFiltro
@@ -59,8 +77,25 @@ namespace AppTransporte.viewModel
 
         public VMTrabajadores()
         {
+            // Inicializar las categorías
+            CargarCategorias();
             CargarTrabajadores("Ayudante");
             CargarTrabajadores("Transportista");
+        }
+
+        private void CargarCategorias()
+        {
+            // Añadir las categorías disponibles
+            Categorias.Clear();
+            // Añadir una opción para mostrar todos
+            Categorias.Add("Todos");
+            Categorias.Add("Ayudante");
+            Categorias.Add("Transportista");
+            // Añade más categorías según necesites
+
+            // Establecer un valor predeterminado
+            CategoriaSeleccionada = "Todos";
+            OnPropertyChanged(nameof(Categorias));
         }
 
         public async Task ActualizarDatos()
@@ -73,8 +108,8 @@ namespace AppTransporte.viewModel
         private async Task CargarTrabajadores(string categoria = null)
         {
             IsBusy = true;
+            var trabajadores = await App.Database.ObtenerTrabajadoresAsync(categoria == "Todos" ? null : categoria);
 
-            var trabajadores = await App.Database.ObtenerTrabajadoresAsync(categoria);
             if (categoria == "Ayudante")
             {
                 Ayudantes.Clear();
@@ -85,11 +120,25 @@ namespace AppTransporte.viewModel
                 Transportistas.Clear();
                 foreach (var t in trabajadores) Transportistas.Add(t);
             }
+            else if (categoria == "Todos" || string.IsNullOrEmpty(categoria))
+            {
+                // Si es "Todos" o null, cargar ambas categorías
+                var ayudantes = await App.Database.ObtenerTrabajadoresAsync("Ayudante");
+                var transportistas = await App.Database.ObtenerTrabajadoresAsync("Transportista");
+
+                Ayudantes.Clear();
+                foreach (var t in ayudantes) Ayudantes.Add(t);
+
+                Transportistas.Clear();
+                foreach (var t in transportistas) Transportistas.Add(t);
+            }
+
             _allTrabajadores.Clear();
             foreach (var trabajador in trabajadores)
             {
                 _allTrabajadores.Add(trabajador);
             }
+
             OnPropertyChanged(nameof(Ayudantes));
             OnPropertyChanged(nameof(Transportistas));
             FiltrarTrabajadores();
@@ -106,12 +155,17 @@ namespace AppTransporte.viewModel
                     t.NombreCompleto.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
+            // Filtrar por categoría si hay una seleccionada que no sea "Todos"
+            if (!string.IsNullOrWhiteSpace(CategoriaFiltro) && CategoriaFiltro != "Todos")
+            {
+                filtered = filtered.Where(t => t.Categoria == CategoriaFiltro);
+            }
+
             Trabajadores = new ObservableCollection<Trabajador>(filtered);
             OnPropertyChanged(nameof(Trabajadores));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -17,6 +17,10 @@ public partial class VEAsignarViaje : ContentPage
         Id_Pedido.Text = $"ID Pedido: { viaje.IdPedido.ToString()}";
         Id_viaje.Text = $"ID Viaje: {viaje.IdViaje.ToString()}";
     }
+    private async void Cancelar_btn(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
 
     private async void Btn_atrasAsignarViaje(object sender, EventArgs e)
     {

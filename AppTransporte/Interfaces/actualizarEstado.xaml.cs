@@ -5,14 +5,15 @@ using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
 using Google.Cloud.Storage.V1;
 using Google.Apis.Auth.OAuth2;
-
 namespace AppTransporte.Interfaces;
+#pragma warning disable CS8603, CS1998, CS4014, CS8618
+
 
 public partial class actualizarEstado : ContentPage
 {
     private StorageClient _storageClient;
     private bool _isInitialized = false;
-    private readonly string _bucketName = "pqt_bucket";
+    private readonly string bucketName = "pqt_bucket";
     private int _idUsuario;
     private int _idTipoUsuario;
     private bool isUploading = false; // Para prevenir múltiples ejecuciones
@@ -125,12 +126,12 @@ public partial class actualizarEstado : ContentPage
         try
         {
             var obj = await _storageClient.UploadObjectAsync(
-                _bucketName,
+                bucketName,
                 $"uploads/{fileName}",
                 null,
                 fileStream);
 
-            string fileUrl = $"https://storage.googleapis.com/{_bucketName}/{obj.Name}";
+            string fileUrl = $"https://storage.googleapis.com/{bucketName}/{obj.Name}";
             return fileUrl;
         }
         catch (Exception ex)
@@ -147,3 +148,4 @@ public partial class actualizarEstado : ContentPage
 
     
 }
+#pragma warning restore CS8603, CS1998, CS4014, CS8618

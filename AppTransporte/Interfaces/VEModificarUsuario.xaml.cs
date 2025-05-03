@@ -90,11 +90,11 @@ public partial class VEModificarUsuario : ContentPage
         // Cambiar el ícono del botón según el estado
         if (passwordVisible)
         {
-            ((Button)sender).ImageSource = "eyeclosed.png"; // Icono para ocultar contraseña
+            ((Button)sender).ImageSource = "oculto.png"; // Icono para ocultar contraseña
         }
         else
         {
-            ((Button)sender).ImageSource = "eye.png"; // Icono para mostrar contraseña
+            ((Button)sender).ImageSource = "mostrarcontra.png"; // Icono para mostrar contraseña
         }
     }
 

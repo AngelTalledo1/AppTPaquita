@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using Microsoft.Maui.Controls;
 using AppTransporte.model;
+#pragma warning disable CS1998
 
 namespace AppTransporte.Interfaces
 {

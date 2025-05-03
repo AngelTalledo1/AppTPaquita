@@ -29,7 +29,7 @@
                    FontFamily="Comf-Bold"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1"
+        <ScrollView Grid.Row="1"
               BackgroundColor="White">
             
                 <VerticalStackLayout Margin="10"
@@ -112,6 +112,6 @@
                 </ScrollView>
             </VerticalStackLayout>
             
-        </Grid>
+        </ScrollView>
     </Grid>
 </ContentPage>

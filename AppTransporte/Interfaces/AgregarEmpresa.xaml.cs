@@ -2,6 +2,7 @@ namespace AppTransporte.Interfaces;
 using AppTransporte.model;
 using AppTransporte.viewModel;
 using System.Threading.Tasks;
+#pragma warning disable 
 
 public partial class AgregarEmpresa : ContentPage
 {

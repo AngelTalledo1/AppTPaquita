@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+#pragma warning disable CS1998, CS8602, CS8625, CS8618
 namespace AppTransporte.viewModel
 {
     public class VMEmpresas : INotifyPropertyChanged
