@@ -254,6 +254,9 @@
 		<MauiXaml Update="Interfaces\VistaPreviaReporte.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Interfaces\VistaReporteAtencionSolicitudes.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Interfaces\VistaReportePedidos.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

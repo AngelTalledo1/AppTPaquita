@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VistaReporteAtencionSolicitudes"
+             NavigationPage.HasNavigationBar="False"
+             Title="Reporte de Atención de Solicitudes">
+    <Grid RowDefinitions=".1*,.9*">
+        <!-- Cabecera -->
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atras"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Reporte de Atención de Solicitudes"
+                   Grid.Column="1"
+                   x:Name="TituloReporte"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+
+        <!-- Contenido principal -->
+        <Grid Grid.Row="1" RowDefinitions="Auto,*,Auto">
+            <!-- Encabezado del reporte -->
+            <StackLayout Padding="15" BackgroundColor="#f8f9fa">
+                <Label x:Name="FechasReporte" 
+                       Text="Periodo: 01/03/2025 - 31/03/2025" 
+                       FontFamily="Comf-Medium"
+                       FontSize="16"/>
+                <Grid ColumnDefinitions="*,*" Margin="0,10,0,0">
+                    <DatePicker x:Name="FechaInicio" 
+                               Format="dd/MM/yyyy"
+                               DateSelected="OnFechaSeleccionada" 
+                               FontFamily="Comf-Medium"/>
+                    <DatePicker x:Name="FechaFin" 
+                               Grid.Column="1"
+                               Format="dd/MM/yyyy"
+                               DateSelected="OnFechaSeleccionada" 
+                               FontFamily="Comf-Medium"/>
+                </Grid>
+                <Button Text="Actualizar Reporte"
+                        Clicked="ActualizarReporte_Clicked"
+                        CornerRadius="20"
+                        BackgroundColor="#cb4335"
+                        TextColor="White"
+                        FontFamily="Comf-Medium"
+                        HeightRequest="40"
+                        Margin="0,10,0,0"/>
+            </StackLayout>
+
+            <!-- Datos del reporte -->
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout Padding="10" Spacing="15">
+                    <!-- Sección de métricas generales -->
+                    <Frame BorderColor="#e0e0e0" BackgroundColor="White" Padding="15" CornerRadius="10">
+                        <StackLayout Spacing="10">
+                            <Label Text="Métricas de Atención" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333" 
+                                   FontSize="16"/>
+                            <BoxView HeightRequest="1" Color="#e0e0e0" Margin="0,5"/>
+
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                                <Label Text="Tiempo promedio solicitud a pedido:" 
+                                       FontFamily="Comf-Medium" 
+                                       TextColor="#555555"/>
+                                <Label Grid.Column="1" 
+                                       x:Name="TiempoPromSolPedLabel" 
+                                       Text="0 h" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+
+                                <Label Grid.Row="1" 
+                                       Text="Tiempo promedio pedido a entrega:" 
+                                       FontFamily="Comf-Medium" 
+                                       TextColor="#555555"/>
+                                <Label Grid.Row="1" 
+                                       Grid.Column="1" 
+                                       x:Name="TiempoPromPedEntLabel" 
+                                       Text="0 h" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+
+                                <Label Grid.Row="2" 
+                                       Text="Tiempo promedio total (completados):" 
+                                       FontFamily="Comf-Medium" 
+                                       TextColor="#555555"/>
+                                <Label Grid.Row="2" 
+                                       Grid.Column="1" 
+                                       x:Name="TiempoPromTotalCompLabel" 
+                                       Text="0 h" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+
+                                <Label Grid.Row="3" 
+                                       Text="Porcentaje de solicitudes completadas:" 
+                                       FontFamily="Comf-Medium" 
+                                       TextColor="#555555"/>
+                                <Label Grid.Row="3" 
+                                       Grid.Column="1" 
+                                       x:Name="PorcentajeCompletadasLabel" 
+                                       Text="0%" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
+
+                    <!-- Gráfico de tiempos -->
+                    <Frame BorderColor="#e0e0e0" BackgroundColor="White" Padding="15" CornerRadius="10">
+                        <StackLayout>
+                            <Label Text="Tiempos de Atención (Horas)" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333"
+                                   FontSize="16"/>
+                            <BoxView HeightRequest="1" Color="#e0e0e0" Margin="0,5,0,10"/>
+                            <GraphicsView x:Name="graficoView" 
+                                         HeightRequest="200"
+                                         WidthRequest="300"
+                                         HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <!-- Tabla de atención por cliente -->
+                    <Frame BorderColor="#e0e0e0" BackgroundColor="White" Padding="0" CornerRadius="10">
+                        <VerticalStackLayout>
+                            <!-- Título -->
+                            <Label Text="Atención por Cliente" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333"
+                                   FontSize="16"
+                                   Margin="15,10,0,0"/>
+
+                            <!-- Encabezados de tabla -->
+                            <Grid BackgroundColor="#f0f0f0" Padding="10" Margin="0,10,0,0" ColumnDefinitions="2*,1*,1*,1*,1*">
+                                <Label Text="Cliente" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="1" 
+                                       Text="Solicitudes" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"
+                                       HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="2" 
+                                       Text="Completadas" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"
+                                       HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="3" 
+                                       Text="Hrs Pedido" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"
+                                       HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="4" 
+                                       Text="Hrs Total" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"
+                                       HorizontalTextAlignment="Center"/>
+                            </Grid>
+
+                            <!-- Contenido dinámico de datos de clientes -->
+                            <CollectionView x:Name="clientesCollectionView" 
+                                            EmptyView="No hay datos disponibles para el periodo seleccionado"
+                                            HeightRequest="180">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="10" ColumnDefinitions="2*,1*,1*,1*,1*">
+                                            <Label Text="{Binding Cliente}" 
+                                                   TextColor="#333333" 
+                                                   FontFamily="Comf-Medium"/>
+                                            <Label Grid.Column="1" 
+                                                   Text="{Binding TotalSolicitudes}" 
+                                                   TextColor="#333333"
+                                                   HorizontalTextAlignment="Center"/>
+                                            <Label Grid.Column="2" 
+       Text="{Binding CompletadasFormateado}" />
+                                            <Label Grid.Column="3" 
+                                                   Text="{Binding PromedioHorasSolicitudPedido, StringFormat='{0:N1}'}" 
+                                                   TextColor="#333333"
+                                                   HorizontalTextAlignment="Center"/>
+                                            <Label Grid.Column="4" 
+                                                   Text="{Binding PromedioHorasTotales, StringFormat='{0:N1}'}" 
+                                                   TextColor="#333333"
+                                                   HorizontalTextAlignment="Center"/>
+                                            <Grid.Triggers>
+                                                <DataTrigger TargetType="Grid" 
+                                                             Binding="{Binding Row}" 
+                                                             Value="True">
+                                                    <Setter Property="BackgroundColor" Value="#f5f5f5"/>
+                                                </DataTrigger>
+                                            </Grid.Triggers>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Título de la sección de detalle -->
+                    <Label Text="Detalle de Solicitudes" 
+                           FontFamily="Comf-Bold" 
+                           TextColor="#333333"
+                           FontSize="16"
+                           Margin="10,0,0,0"/>
+
+                    <!-- Tabla de detalle de solicitudes -->
+                    <Frame BorderColor="#e0e0e0" BackgroundColor="White" Padding="0" CornerRadius="10">
+                        <VerticalStackLayout>
+                            <!-- Encabezados de tabla -->
+                            <Grid BackgroundColor="#f0f0f0" Padding="10" ColumnDefinitions="Auto,1.5*,1.5*,1*,1*,1*,1*">
+                                <Label Text="#" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="1" 
+                                       Text="Cliente" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="2" 
+                                       Text="Descripción" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="3" 
+                                       Text="Estado" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="4" 
+                                       Text="Hrs Pedido" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"
+                                       HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="5" 
+                                       Text="Hrs Total" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"
+                                       HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="6" 
+                                       Text="Completada" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"
+                                       HorizontalTextAlignment="Center"/>
+                            </Grid>
+
+                            <!-- Contenido dinámico de datos de detalle -->
+                            <CollectionView x:Name="detalleCollectionView" 
+                                            EmptyView="No hay datos disponibles para el periodo seleccionado">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="10" ColumnDefinitions="Auto,1.5*,1.5*,1*,1*,1*,1*">
+                                            <Label Text="{Binding IdSolicitud}" 
+                                                   TextColor="#333333"/>
+                                            <Label Grid.Column="1" 
+                                                   Text="{Binding Cliente}" 
+                                                   TextColor="#333333"/>
+                                            <Label Grid.Column="2" 
+                                                   Text="{Binding DescripcionSolicitud}" 
+                                                   TextColor="#333333"
+                                                   LineBreakMode="TailTruncation"/>
+                                            <Label Grid.Column="3" 
+                                                   Text="{Binding Estado}" 
+                                                   TextColor="#333333"/>
+                                            <Label Grid.Column="4" 
+                                                   Text="{Binding HorasHastaPedido, StringFormat='{0:N1}'}" 
+                                                   TextColor="#333333"
+                                                   HorizontalTextAlignment="Center"/>
+                                            <Label Grid.Column="5" 
+                                                   Text="{Binding HorasTotales, StringFormat='{0:N1}'}" 
+                                                   TextColor="#333333"
+                                                   HorizontalTextAlignment="Center"/>
+                                            <Label Grid.Column="6" 
+                                                   Text="{Binding Completado}" 
+                                                   TextColor="#333333"
+                                                   HorizontalTextAlignment="Center"/>
+                                            <Grid.Triggers>
+                                                <DataTrigger TargetType="Grid" 
+                                                             Binding="{Binding Row}" 
+                                                             Value="True">
+                                                    <Setter Property="BackgroundColor" Value="#f5f5f5"/>
+                                                </DataTrigger>
+                                            </Grid.Triggers>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </Frame>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <!-- Botones de acción -->
+            <Grid Grid.Row="2" 
+                  BackgroundColor="#f8f9fa" 
+                  Padding="15" 
+                  ColumnDefinitions="*,*">
+                <Button Text="Exportar PDF" 
+                        CornerRadius="20" 
+                        BackgroundColor="#007AFF" 
+                        TextColor="White" 
+                        FontFamily="Comf-Medium" 
+                        HeightRequest="45" 
+                        Margin="5,0" 
+                        Clicked="ExportarPDF_Clicked"/>
+                <Button Grid.Column="1" 
+                        Text="Compartir" 
+                        CornerRadius="20" 
+                        BackgroundColor="#34C759" 
+                        TextColor="White" 
+                        FontFamily="Comf-Medium" 
+                        HeightRequest="45" 
+                        Margin="5,0" 
+                        Clicked="Compartir_Clicked"/>
+            </Grid>
+        </Grid>
+
+        <!-- Overlay de carga -->
+        <Grid x:Name="LoadingOverlay" 
+              IsVisible="False" 
+              BackgroundColor="#80000000"
+              Grid.RowSpan="2">
+            <Frame CornerRadius="10" 
+                   BackgroundColor="White" 
+                   WidthRequest="180" 
+                   HeightRequest="120"
+                   BorderColor="#cb4335"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="True" 
+                                      HeightRequest="40" 
+                                      WidthRequest="40" 
+                                      Color="#cb4335"/>
+                    <Label Text="Procesando..." 
+                           FontFamily="Comf-Medium"
+                           TextColor="#333333"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>

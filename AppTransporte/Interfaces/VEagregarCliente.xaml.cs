@@ -52,6 +52,7 @@ public partial class VEagregarCliente : ContentPage
             await DisplayAlert("Error", "Todos los campos obligatorios deben llenarse.", "OK");
             return;
         }
+        
         int idTipoDoc = TipoDocumentoPicker.SelectedIndex + 1;
         try
         {

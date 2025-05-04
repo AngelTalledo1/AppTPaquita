@@ -175,6 +175,6 @@ public partial class VEReportes : ContentPage
 
     private async void ReporteSolicitudes_Clicked(object sender, EventArgs e)
     {
-        await DisplayAlert("En desarrollo", "Esta funcionalidad estará disponible próximamente.", "OK");
+        await Navigation.PushAsync(new VistaReporteAtencionSolicitudes());
     }
 }
