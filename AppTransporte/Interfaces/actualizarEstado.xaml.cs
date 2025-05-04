@@ -6,7 +6,7 @@ using CommunityToolkit.Maui.Core;
 using Google.Cloud.Storage.V1;
 using Google.Apis.Auth.OAuth2;
 namespace AppTransporte.Interfaces;
-#pragma warning disable CS8603, CS1998, CS4014, CS8618
+#pragma warning disable CS8603, CS1998, CS4014, CS8618, CS0414
 
 
 public partial class actualizarEstado : ContentPage
