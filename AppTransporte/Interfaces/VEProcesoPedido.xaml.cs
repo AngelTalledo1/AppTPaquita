@@ -40,18 +40,19 @@ public partial class VEProcesoPedido : ContentPage
     }
 
     private async void Btn_atrasEstado(object sender, EventArgs e)
-        {
-        if (idtipousuario == 1) {
-            await Navigation.PushAsync(new VEpedidos(idUsuario, idtipousuario));
-        }
-        else if (idtipousuario == 2)
+    {
+        if (idtipousuario == 2)
         {
             await Navigation.PushAsync(new VCMisPedidos(idUsuario, idtipousuario));
+        }
+        else if (idtipousuario == 1)
+        {
+            await Navigation.PushAsync(new VEpedidos(idUsuario, idtipousuario));
 
         }
         else if (idtipousuario == 3)
         {
-            await Navigation.PushAsync(new VTMisViajes(idUsuario,idtipousuario));
+            await Navigation.PushAsync(new VTMisViajes(idUsuario, idtipousuario));
 
         }
     }
