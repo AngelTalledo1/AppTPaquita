@@ -74,7 +74,7 @@
                                        Grid.Column="2"
                                        HorizontalOptions="CenterAndExpand"
                                        VerticalOptions="Center"
-                                       FontFamily="Comf-Bold" />    
+                                       FontFamily="Comf-Bold" />
                             </Grid>
                             <Grid Grid.Row="1"
                                   Margin="0,10,0,0">
@@ -82,16 +82,16 @@
                                            CornerRadius="20"
                                            BackgroundColor="White"
                                            Padding="0">
-                                        <VerticalStackLayout Margin="25"
+                                    <VerticalStackLayout Margin="25"
                                                              Spacing="7">
-                                            <Frame Padding="5"
+                                        <Frame Padding="5"
                                                    BorderColor="Transparent"
                                                BackgroundColor="#edf2f4"
                                                    CornerRadius="10">
                                             <Grid>
                                                 <VerticalStackLayout Margin="10"
                                                                          Spacing="7">
-                                                        <Label Text="Detalle del pedido"
+                                                    <Label Text="Detalle del pedido"
                                                                FontFamily="Comf-Bold"
                                                                FontSize="Small"
                                                                TextColor="#780000"
@@ -103,34 +103,34 @@
                                                              HorizontalOptions="FillAndExpand" />
                                                     <VerticalStackLayout Spacing="7"
                                                                              Margin="15,0,0,0">
-                                                            <Label Text="Cliente: "
+                                                        <Label Text="Cliente: "
                                                                    x:Name="NombreCliente"
                                                                    FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
-                                                            <Label Text="Cantidad: "
+                                                        <Label Text="Cantidad: "
                                                                    x:Name="cantidadTotalPedido"
                                                                FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
-                                                            <Label Text="Viajes: "
+                                                        <Label Text="Viajes: "
                                                                    x:Name="cantidadViajes"
                                                                FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
-                                                            <Label Text="Creado por: "
+                                                        <Label Text="Creado por: "
                                                                    x:Name="creadorAdmin"
                                                                FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
-                                                            <Label Text="Fecha Creacion:  "
+                                                        <Label Text="Fecha Creacion:  "
                                                                    x:Name="creacionPedido"
                                                                FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
-                                                            <Label Text="Servicios:  "
+                                                        <Label Text="Servicios:  "
                                                                    x:Name="ServiciosPedido"
                                                                FontFamily="Comf-Reg"
                                                                    TextColor="#003049" />
-                                                        </VerticalStackLayout>
                                                     </VerticalStackLayout>
-                                                </Grid>
-                                            </Frame>
+                                                </VerticalStackLayout>
+                                            </Grid>
+                                        </Frame>
                                         <Frame Padding="5"
                                                BorderColor="Transparent"
                                                BackgroundColor="#edf2f4"
@@ -201,13 +201,13 @@
                                                                     </Frame>
                                                                 </DataTemplate>
                                                             </CollectionView.ItemTemplate>
-                                                            </CollectionView>
+                                                        </CollectionView>
                                                     </VerticalStackLayout>
                                                 </ScrollView>
                                             </toolkit:Expander>
                                         </Frame>
                                     </VerticalStackLayout>
-                                    </Frame>
+                                </Frame>
                             </Grid>
                         </Grid>
                     </Frame>

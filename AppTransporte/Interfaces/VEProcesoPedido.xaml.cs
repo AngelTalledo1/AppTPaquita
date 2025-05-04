@@ -10,7 +10,7 @@ public partial class VEProcesoPedido : ContentPage
     private Pedido _pedido;
     private VMSeguimientoViaje _viaje;
 
-    public VEProcesoPedido(Pedido pedido, int idUsuario, int idTipoUsuario,VMSeguimientoViaje? viaje)
+    public VEProcesoPedido(Pedido pedido, int idUsuario, int idTipoUsuario, VMSeguimientoViaje? viaje)
     {
         InitializeComponent();
         this.idUsuario = idUsuario;
@@ -18,10 +18,11 @@ public partial class VEProcesoPedido : ContentPage
         this._pedido = pedido;
         this._viaje = viaje;
 
-        if(idTipoUsuario == 1 || idTipoUsuario == 2)
+        if (idTipoUsuario == 1 || idTipoUsuario == 2)
         {
             this.BindingContext = new VMViajes(pedido.IdPedido);
-        }else if (idTipoUsuario == 3)
+        }
+        else if (idTipoUsuario == 3)
         {
             this.BindingContext = new VMViajes(idUsuario: idUsuario);
 
@@ -83,7 +84,7 @@ public partial class VEProcesoPedido : ContentPage
                 if (idtipousuario == 1)
                 {
                     // Admin -> Navega a la interfaz para ASIGNAR
-                    await Navigation.PushAsync(new VEAsignarViaje(viaje,_pedido, idUsuario, idtipousuario));
+                    await Navigation.PushAsync(new VEAsignarViaje(viaje, _pedido, idUsuario, idtipousuario));
                 }
                 else if (idtipousuario == 2)
                 {

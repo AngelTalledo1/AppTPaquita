@@ -16,7 +16,7 @@ public partial class VEagregarCliente : ContentPage
         this._idTipoUsuario = idUsuario;
         this._idUsuario = idTipoUsuario;
         GuardarCliente.IsVisible = true;
-        TituloLabel.Text = "Información General";
+        TituloLabel.Text = "Informaciï¿½n General";
 
         // Establecer DNI como valor predeterminado
         TipoDocumentoPicker.SelectedIndex = 0;
@@ -33,7 +33,7 @@ public partial class VEagregarCliente : ContentPage
         this._idUsuario = idTipoUsuario;
         ActualizarCliente.IsVisible = true;
         tituloInterfaz.Text = "Modificar Cliente";
-        TituloLabel.Text = "Información General";
+        TituloLabel.Text = "Informaciï¿½n General";
         NombreEntry.Text = clienteSelect.Nombre;
         ApellidoEntry.Text = $"{clienteSelect.ApePaterno} {clienteSelect.ApeMaterno} ";
         TipoDocumentoPicker.SelectedIndex = clienteSelect.Persona.IdTipoDoc;
@@ -45,7 +45,7 @@ public partial class VEagregarCliente : ContentPage
         // Configurar el evento para el cambio en el picker de tipo de documento
         TipoDocumentoPicker.SelectedIndexChanged += TipoDocumentoPicker_SelectedIndexChanged;
 
-        // Aplicar la lógica de visibilidad según el tipo de documento seleccionado
+        // Aplicar la lï¿½gica de visibilidad segï¿½n el tipo de documento seleccionado
         AjustarCamposPorTipoDocumento();
 
         BindingContext = clienteSelect;
@@ -58,7 +58,7 @@ public partial class VEagregarCliente : ContentPage
 
     private void AjustarCamposPorTipoDocumento()
     {
-        // El picker tiene "DNI" en posición 0 y "RUC" en posición 1
+        // El picker tiene "DNI" en posiciï¿½n 0 y "RUC" en posiciï¿½n 1
         string tipoDocumento = TipoDocumentoPicker.SelectedItem?.ToString();
 
         // Obtener la Grid que contiene el campo de apellidos (segunda Grid en VerticalStackLayout)
@@ -102,14 +102,14 @@ public partial class VEagregarCliente : ContentPage
             return;
         }
 
-        // Validación específica según tipo de documento
+        // Validaciï¿½n especï¿½fica segï¿½n tipo de documento
         string tipoDocumento = TipoDocumentoPicker.SelectedItem?.ToString();
         if (tipoDocumento == "RUC")
         {
             // Validar longitud de RUC
             if (NumeroDocEntry.Text.Length != RUC_LENGTH)
             {
-                await DisplayAlert("Error", "Verifique su número de RUC. Debe tener 11 dígitos.", "OK");
+                await DisplayAlert("Error", "Verifique su nï¿½mero de RUC. Debe tener 11 dï¿½gitos.", "OK");
                 return;
             }
         }
@@ -118,18 +118,18 @@ public partial class VEagregarCliente : ContentPage
             // Validar longitud de DNI
             if (NumeroDocEntry.Text.Length != DNI_LENGTH)
             {
-                await DisplayAlert("Error", "Verifique su número de DNI. Debe tener 8 dígitos.", "OK");
+                await DisplayAlert("Error", "Verifique su nï¿½mero de DNI. Debe tener 8 dï¿½gitos.", "OK");
                 return;
             }
 
-            // Validar si el campo de apellidos está vacío
+            // Validar si el campo de apellidos estï¿½ vacï¿½o
             if (string.IsNullOrWhiteSpace(ApellidoEntry.Text))
             {
                 await DisplayAlert("Error", "El campo de apellidos es obligatorio para DNI.", "OK");
                 return;
             }
 
-            // Validar que ambos apellidos estén presentes
+            // Validar que ambos apellidos estï¿½n presentes
             string[] apellidos = ApellidoEntry.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             if (apellidos.Length < 2)
             {
@@ -169,7 +169,7 @@ public partial class VEagregarCliente : ContentPage
 
             if (resultado > 0)
             {
-                await DisplayAlert("Éxito", "Cliente agregado correctamente.", "OK");
+                await DisplayAlert("ï¿½xito", "Cliente agregado correctamente.", "OK");
                 await Navigation.PushAsync(new VEclientes(_idUsuario, _idTipoUsuario));
             }
             else
@@ -179,7 +179,7 @@ public partial class VEagregarCliente : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Ocurrió un problema: {ex.Message}", "OK");
+            await DisplayAlert("Error", $"Ocurriï¿½ un problema: {ex.Message}", "OK");
         }
     }
 
@@ -195,14 +195,14 @@ public partial class VEagregarCliente : ContentPage
             return;
         }
 
-        // Validación específica según tipo de documento
+        // Validaciï¿½n especï¿½fica segï¿½n tipo de documento
         string tipoDocumento = TipoDocumentoPicker.SelectedItem?.ToString();
         if (tipoDocumento == "RUC")
         {
             // Validar longitud de RUC
             if (NumeroDocEntry.Text.Length != RUC_LENGTH)
             {
-                await DisplayAlert("Error", "Verifique su número de RUC. Debe tener 11 dígitos.", "OK");
+                await DisplayAlert("Error", "Verifique su nï¿½mero de RUC. Debe tener 11 dï¿½gitos.", "OK");
                 return;
             }
         }
@@ -211,18 +211,18 @@ public partial class VEagregarCliente : ContentPage
             // Validar longitud de DNI
             if (NumeroDocEntry.Text.Length != DNI_LENGTH)
             {
-                await DisplayAlert("Error", "Verifique su número de DNI. Debe tener 8 dígitos.", "OK");
+                await DisplayAlert("Error", "Verifique su nï¿½mero de DNI. Debe tener 8 dï¿½gitos.", "OK");
                 return;
             }
 
-            // Validar si el campo de apellidos está vacío
+            // Validar si el campo de apellidos estï¿½ vacï¿½o
             if (string.IsNullOrWhiteSpace(ApellidoEntry.Text))
             {
                 await DisplayAlert("Error", "El campo de apellidos es obligatorio para DNI.", "OK");
                 return;
             }
 
-            // Validar que ambos apellidos estén presentes
+            // Validar que ambos apellidos estï¿½n presentes
             string[] apellidos = ApellidoEntry.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             if (apellidos.Length < 2)
             {
@@ -263,7 +263,7 @@ public partial class VEagregarCliente : ContentPage
 
             if (resultado > 0)
             {
-                await DisplayAlert("Éxito", "Cliente modificado correctamente.", "OK");
+                await DisplayAlert("ï¿½xito", "Cliente modificado correctamente.", "OK");
                 await Navigation.PushAsync(new VEclientes(_idUsuario, _idTipoUsuario));
             }
             else
@@ -274,7 +274,7 @@ public partial class VEagregarCliente : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Ocurrió un problema: {ex.Message}", "OK");
+            await DisplayAlert("Error", $"Ocurriï¿½ un problema: {ex.Message}", "OK");
         }
     }
 }

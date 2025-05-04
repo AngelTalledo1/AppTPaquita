@@ -19,8 +19,8 @@ namespace AppTransporte.model
 
         public async Task<int> AgregarClienteAsync(
             string nombre,
-            string apePaterno,
-            string apeMaterno,
+            string? apePaterno,
+            string? apeMaterno,
             int idTipoDoc,
             string numDoc,
             string telefono,
@@ -49,7 +49,54 @@ namespace AppTransporte.model
                 }
             }
         }
+        // Método para agregar a tu clase SqlServerService existente
+        public (DataTable MetricasGenerales, DataTable PorCliente, DataTable DetalleSolicitudes) ObtenerReporteAtencionSolicitudes(DateTime fechaInicio, DateTime fechaFin)
+        {
+            DataTable metricasGenerales = new DataTable();
+            DataTable porCliente = new DataTable();
+            DataTable detalleSolicitudes = new DataTable();
 
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    conn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("sp_ReporteAtencionSolicitudes", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandTimeout = 180; // Aumentamos el timeout a 3 minutos para asegurar
+
+                        // Parámetros
+                        cmd.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                        cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
+
+                        // Ejecutar el procedimiento y manejar los múltiples resultados
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds);
+
+                        // Verificar que tenemos todos los conjuntos de resultados esperados
+                        if (ds.Tables.Count >= 1)
+                            metricasGenerales = ds.Tables[0];
+
+                        if (ds.Tables.Count >= 2)
+                            porCliente = ds.Tables[1];
+
+                        if (ds.Tables.Count >= 3)
+                            detalleSolicitudes = ds.Tables[2];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Registrar el error para su posterior análisis
+                Console.WriteLine($"Error en GetReporteAtencionSolicitudes: {ex.Message}");
+                throw; // Re-lanzar la excepción para que sea manejada en capas superiores
+            }
+
+            return (metricasGenerales, porCliente, detalleSolicitudes);
+        }
         public async Task<int> ActualizarUsuarioAsync(int idUsuario, string username, string contraseña, int idTipoUsuario, bool estado, int idPersona, int? idEmpresa = null)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -375,7 +422,6 @@ namespace AppTransporte.model
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-                    Console.WriteLine("que");
                     using (var command = new SqlCommand("pa_verificarCredenciales", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
