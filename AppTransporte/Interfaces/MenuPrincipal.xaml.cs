@@ -20,8 +20,8 @@ public partial class MenuPrincipal : ContentPage
 
     public MenuPrincipal(int idUsuario, int idTipoUsuario)
     {
-        this._idTipoUsuario = idUsuario;
-        this._idUsuario = idTipoUsuario;
+        this._idTipoUsuario = idTipoUsuario;
+        this._idUsuario = idUsuario;
         InitializeComponent();
         CargarFrames();
     }

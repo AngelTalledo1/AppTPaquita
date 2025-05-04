@@ -422,7 +422,6 @@ namespace AppTransporte.model
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-                    Console.WriteLine("que");
                     using (var command = new SqlCommand("pa_verificarCredenciales", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
