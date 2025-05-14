@@ -17,7 +17,7 @@ namespace AppTransporte
 
             MainPage = new NavigationPage(new Login());
 
-            // Verificar la conexión a internet después de inicializar MainPage
+            // Verificar la conexión a internet después de inicializar MainPagew
             // (necesitamos MainPage inicializado para mostrar el DisplayAlert)
             MainThread.BeginInvokeOnMainThread(async () => {
                 await Task.Delay(100); // Pequeño retraso para asegurar que la UI esté lista

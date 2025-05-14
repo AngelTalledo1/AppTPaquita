@@ -33,7 +33,7 @@ public partial class VTMisViajes : ContentPage
         var viaje = button.CommandParameter as Viaje;
         if (viaje != null)
         {
-            // Validar si alg�n campo est� sin asignar
+            // Validar si algun campo esta sin asignar
             if (string.IsNullOrWhiteSpace(viaje.TractoAsig) || viaje.TractoAsig == "S/A" ||
                 string.IsNullOrWhiteSpace(viaje.CisternaAsig) || viaje.CisternaAsig == "S/A" ||
                 viaje.Cantidad <= 0 ||

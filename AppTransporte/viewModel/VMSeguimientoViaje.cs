@@ -7,7 +7,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using AppTransporte.Interfaces;
 using AppTransporte.model;
+using Google.Cloud.Storage.V1;
 
 
 namespace AppTransporte.viewModel
@@ -67,10 +69,19 @@ namespace AppTransporte.viewModel
 
                 this.seguimiento.Clear();
 
-                foreach (var segui in seguimientoBD)
-                {
-                    this.seguimiento.Add(segui);
-                }
+                // Validar que MainPage no sea null y que sea del tipo correcto
+               
+                    foreach (var segui in seguimientoBD)
+                    {
+                        // Validar que la URL no sea null antes de pasarla al método
+                        if (!string.IsNullOrEmpty(segui.Evidencia))
+                        {
+                            segui.Evidencia = await GetSignedUrlForImageAsync(segui.Evidencia);
+                        }
+                        this.seguimiento.Add(segui);
+                    }
+                
+                
 
                 FiltrarViajes(); // Aplica el filtro después de cargar los datos
             }
@@ -84,6 +95,38 @@ namespace AppTransporte.viewModel
             }
         }
 
+        private static Dictionary<string, (string Url, DateTime Expiration)> _signedUrlCache = new();
+
+        // Este método recibe la URL no firmada (almacenada en la BD)
+        // y devuelve, de forma asíncrona, la URL firmada usando Google Cloud Storage.
+        // Se utiliza un caché de 30 minutos para evitar regenerarla si ya existe.
+        public async Task<string> GetSignedUrlForImageAsync(string unsignedUrl)
+        {
+            if (string.IsNullOrWhiteSpace(unsignedUrl))
+                return unsignedUrl;
+
+            if (_signedUrlCache.TryGetValue(unsignedUrl, out var cacheEntry) && DateTime.UtcNow < cacheEntry.Expiration)
+            {
+                return cacheEntry.Url;
+            }
+
+            string prefix = $"https://storage.googleapis.com/pqt_bucket/";
+            string objectName = unsignedUrl.StartsWith(prefix)
+                ? unsignedUrl.Substring(prefix.Length)
+                : unsignedUrl;
+
+            string signedUrl = await GenerateSignedUrlAsync(objectName);
+            _signedUrlCache[unsignedUrl] = (signedUrl, DateTime.UtcNow.AddMinutes(30));
+            return signedUrl;
+        }
+
+        private async Task<string> GenerateSignedUrlAsync(string objectName)
+        {
+            string credentialPath = await GoogleCloudAuthHelper.GetCredentialFilePathAsync();
+            var urlSigner = UrlSigner.FromServiceAccountPath(credentialPath);
+            string signedUrl = urlSigner.Sign("pqt_bucket", objectName, TimeSpan.FromMinutes(30), System.Net.Http.HttpMethod.Get);
+            return signedUrl;
+        }
         private void FiltrarViajes()
         {
             if (seguimiento == null || !seguimiento.Any())

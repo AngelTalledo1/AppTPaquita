@@ -57,8 +57,8 @@ namespace AppTransporte.viewModel
         private async void CargarClientes()
         {
             IsBusy = true;
-
-            var clientes = await App.Database.ObtenerClientesAsync();
+           
+                var clientes = await App.Database.ObtenerClientesAsync();
 
             _allClientes.Clear();
             foreach (var cliente in clientes)

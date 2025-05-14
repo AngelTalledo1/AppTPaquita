@@ -5,6 +5,7 @@ using Microsoft.Maui.Controls;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
 
+
 public partial class VESeguimientoViaje : ContentPage
 {
     private int _idUsuario;
@@ -15,12 +16,13 @@ public partial class VESeguimientoViaje : ContentPage
 
     public VESeguimientoViaje(Viaje viaje,Pedido pedido, int idUsuario, int idTipoUsuario)
 	{
-		InitializeComponent();
-
+		
+        InitializeComponent();
         this._idTipoUsuario = idTipoUsuario;
         this._idUsuario = idUsuario;
         this._pedido = pedido;
         this._viaje = viaje;
+      
         this.BindingContext = new VMSeguimientoViaje(viaje.IdViaje);
         Trabajadores.Text = $"{viaje.TrabajadoresAsig}";
         tracto.Text = $"{viaje.TractoAsig}";
@@ -29,6 +31,7 @@ public partial class VESeguimientoViaje : ContentPage
         UltEstado.Text = viaje.ultEstado;
         Btn_Actualizar.IsVisible = mostrarActualizar(idTipoUsuario);
         btn_pedido.IsVisible = mostrarActualizar(idTipoUsuario);
+        
     }
 
     
@@ -58,12 +61,12 @@ public partial class VESeguimientoViaje : ContentPage
             // Navegar a la página de VEProcesoPedido, pasando los datos del pedido seleccionado
             await Navigation.PushAsync(new actualizarEstado(_viaje,_idUsuario, _idTipoUsuario));
         }
-
+      
     }
 
     private bool mostrarActualizar(int _idTipoUsuario) { 
     
-        if (_idTipoUsuario == 3)
+        if (_idTipoUsuario == 3 && _viaje.ultEstado != "Finalizado")
         {
             return true;
         } 

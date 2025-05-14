@@ -415,6 +415,40 @@ namespace AppTransporte.model
                 }
             }
         }
+        // Modifica el método en la clase SqlServerService
+
+        public async Task<int> ActualizarEstadoSeguimientoAsync(
+            int idViaje,
+            string comentario = null,
+            string evidenciaUrl = null)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_ActualizarEstadoSeguimiento", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@id_viaje", idViaje);
+                    command.Parameters.AddWithValue("@comentario", string.IsNullOrWhiteSpace(comentario) ? (object)DBNull.Value : comentario);
+                    command.Parameters.AddWithValue("@evidenciaUrl", string.IsNullOrWhiteSpace(evidenciaUrl) ? (object)DBNull.Value : evidenciaUrl);
+
+                    // Parámetro de retorno para obtener el resultado del procedimiento
+                    SqlParameter returnValue = new SqlParameter("@ReturnValue", SqlDbType.Int);
+                    returnValue.Direction = ParameterDirection.ReturnValue;
+                    command.Parameters.Add(returnValue);
+
+                    // Ejecutar el procedimiento almacenado
+                    await command.ExecuteNonQueryAsync();
+
+                    // Obtener y devolver el valor de retorno del procedimiento
+                    return (int)returnValue.Value;
+                }
+            }
+        }
+
         public async Task<UsuarioResponse> VerificarCredencialesAsync(string username, string contraseña)
         {
             try
@@ -679,13 +713,14 @@ namespace AppTransporte.model
                     {
                         while (await reader.ReadAsync())
                         {
+
                             clientes.Add(new Cliente
                             {
                                 IdPersona = reader.GetInt32(reader.GetOrdinal("id_persona")),
                                 IdCliente = reader.GetInt32(reader.GetOrdinal("id_cliente")),
                                 Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
-                                ApePaterno = reader.GetString(reader.GetOrdinal("apePaterno")),
-                                ApeMaterno = reader.GetString(reader.GetOrdinal("apeMaterno")),
+                                ApePaterno = reader.IsDBNull(reader.GetOrdinal("apePaterno")) ? null : reader.GetString(reader.GetOrdinal("apePaterno")),
+                                ApeMaterno = reader.IsDBNull(reader.GetOrdinal("apeMaterno")) ? null : reader.GetString(reader.GetOrdinal("apeMaterno")),
                                 NumDoc = reader.GetString(reader.GetOrdinal("numDoc")),
                                 Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
                                 Direccion = reader.GetString(reader.GetOrdinal("direccion")),
@@ -693,13 +728,15 @@ namespace AppTransporte.model
                                 Username = reader.GetString(reader.GetOrdinal("Username")),
                                 Contraseña = reader.GetString(reader.GetOrdinal("Contraseña"))
                             });
-                        }
+                        
                     }
                 }
             }
+        }
 
             return clientes;
-        }
+    }
+        
       
         public async Task<List<Viaje>> ObtenerViajesAsync()
         {
@@ -1126,7 +1163,7 @@ namespace AppTransporte.model
                                 FechaHora = reader.GetDateTime(reader.GetOrdinal("fechaHora")),
                                 EstadoViaje = reader.GetString(reader.GetOrdinal("estadoViajeDescripcion")),
                                 Comentario = reader.IsDBNull(reader.GetOrdinal("Comentario")) ? null : reader.GetString(reader.GetOrdinal("Comentario")),
-                                Evidencia = reader.IsDBNull(reader.GetOrdinal("evidencia")) ? null : reader.GetSqlBinary(reader.GetOrdinal("evidencia")).Value,
+                                Evidencia = reader.IsDBNull(reader.GetOrdinal("evidencia")) ? null : reader.GetString(reader.GetOrdinal("evidencia")),
 
 
                             });

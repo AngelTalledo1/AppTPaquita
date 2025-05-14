@@ -16,7 +16,7 @@
                    Margin="20"
                    HeightRequest="20"
                    WidthRequest="20" />
-            <Label Text="Evidencias y comentarios"
+            <Label Text="Actualizar Estado del Viaje"
                    FontSize="20"
                    FontFamily="Comf-Medium"
                    Grid.Column="1"
@@ -27,41 +27,109 @@
         </Grid>
         <Grid Grid.Row="1"
               BackgroundColor="White">
-            <VerticalStackLayout Margin="20,30" Spacing="10">
-                <Label Text="Agregar Comentario:"
-                       FontFamily="Comf-Bold"
-                       FontSize="Body"
-                       TextColor="Black" />
-                <Editor PlaceholderColor="#515a5a"
-                        Grid.Column="1"
-                        x:Name="descripcionEntry"
-                        Placeholder="Detalles: Barriles, destino, servicio"
-                        FontFamily="Comf-SemBold"
-                        VerticalOptions="CenterAndExpand"
-                        AutoSize="TextChanges"
-                        TextColor="Black"/>
-                <Button Text="Agregar Fotos"
-                        Clicked="OnCaptureAndUploadPhotoClicked"
-                        BackgroundColor="#cb4335"
-                        TextColor="White"
-                        FontAttributes="Bold"
-                        Margin="10"/>
-                <Image x:Name="CapturedImage"
-                       WidthRequest="200"
-                       HeightRequest="200" />
-                <Label x:Name="UploadStatus"
-                       IsVisible="False"
-                       Text="Esperando captura..."
-                       TextColor="Gray" />
-                <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
-                    <Button Text="Subir" 
-                            Background="Blue"
-                            Margin="10" />
-                    <Button Text="Omitir"
-                            Margin="10"
-                            Background="#515a5a"/>
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
+            <ScrollView>
+                <VerticalStackLayout Margin="20,20" Spacing="15">
+                    <!-- Estado Actual -->
+                    <Frame BorderColor="#e0e0e0" 
+                           CornerRadius="5" 
+                           Padding="10">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Estado Actual:"
+                                   FontFamily="Comf-Bold"
+                                   FontSize="Body"
+                                   TextColor="Black" />
+                            <Label x:Name="EstadoActualLabel"
+                                   FontFamily="Comf-SemBold"
+                                   TextColor="#424242"
+                                   FontSize="16" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Siguiente Estado -->
+                    <Frame BorderColor="#e0e0e0" 
+                           CornerRadius="5" 
+                           Padding="10"
+                           BackgroundColor="#f5f5f5">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Próximo Estado:"
+                                   FontFamily="Comf-Bold"
+                                   FontSize="Body"
+                                   TextColor="Black" />
+                            <Label x:Name="SiguienteEstadoLabel"
+                                   FontFamily="Comf-SemBold"
+                                   TextColor="#1565c0"
+                                   FontSize="16" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Comentario -->
+                    <Label Text="Agregar Comentario:"
+                           FontFamily="Comf-Bold"
+                           FontSize="Body"
+                           TextColor="Black" />
+                    <Editor PlaceholderColor="#515a5a"
+                            x:Name="descripcionEntry"
+                            Placeholder="Detalles: Barriles, destino, servicio"
+                            FontFamily="Comf-SemBold"
+                            VerticalOptions="Start"
+                            AutoSize="TextChanges"
+                            HeightRequest="100"
+                            TextColor="Black"/>
+
+                    <!-- Sección de Evidencia -->
+                    <Label Text="Evidencia Fotográfica:"
+                           FontFamily="Comf-Bold"
+                           FontSize="Body" 
+                           TextColor="Black"/>
+
+                    <Button Text="Tomar Foto"
+                            Clicked="OnCaptureAndUploadPhotoClicked"
+                            BackgroundColor="#cb4335"
+                            TextColor="White"
+                            FontAttributes="Bold"/>
+
+                    <!-- Imagen capturada -->
+                    <Grid x:Name="ImageContainer" IsVisible="False">
+                        <Frame BorderColor="#e0e0e0" 
+                               CornerRadius="10" 
+                               Padding="5" 
+                               HeightRequest="250"
+                               HorizontalOptions="Fill">
+                            <Image x:Name="CapturedImage"
+                                   Aspect="AspectFit"/>
+                        </Frame>
+                    </Grid>
+
+                    <!-- Estado de la subida -->
+                    <Frame x:Name="StatusContainer"
+                           BorderColor="#e0e0e0" 
+                           CornerRadius="5" 
+                           Padding="10" 
+                           IsVisible="False">
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <Label x:Name="UploadStatus"
+                                   TextColor="#424242"
+                                   FontSize="14"
+                                   VerticalOptions="Center"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <!-- Botón de guardar -->
+                    <Button Text="Guardar Actualización"
+                            x:Name="GuardarButton"
+                            Clicked="GuardarButton_Clicked"
+                            BackgroundColor="#2e86c1"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            Margin="0,15,0,0"/>
+
+                    <ActivityIndicator x:Name="LoadingIndicator" 
+                                       IsRunning="False" 
+                                       IsVisible="False"
+                                       Color="#2e86c1"
+                                       HeightRequest="50"/>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </ContentPage>
