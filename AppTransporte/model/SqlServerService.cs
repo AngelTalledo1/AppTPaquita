@@ -330,7 +330,7 @@ namespace AppTransporte.model
                     command.Parameters.AddWithValue("@descripcion", solicitud.Descripcion);
                     command.Parameters.AddWithValue("@comentario", (object)solicitud.Comentario ?? DBNull.Value);
                     command.Parameters.AddWithValue("@id_cliente", solicitud.IdCliente);
-
+                    command.Parameters.AddWithValue("@id_servicio", solicitud.IdServicio);
                     // Ejecutar el procedimiento
                     await command.ExecuteNonQueryAsync();
                 }
@@ -485,6 +485,27 @@ namespace AppTransporte.model
             // Devuelve null si no se encontraron coincidencias
             return null;
         }
+        public async Task<int> ActualizarSolicitudAsync(Solicitud solicitud)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_ActualizarSolicitud", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@id_solicitud", solicitud.IdSolicitud);
+                    command.Parameters.AddWithValue("@descripcion", solicitud.Descripcion);
+                    command.Parameters.AddWithValue("@id_estadoSolicitud", solicitud.IdEstadoSolicitud);
+                    command.Parameters.AddWithValue("@comentario", (object)solicitud.Comentario ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@id_servicio", solicitud.IdServicio);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
         public async Task<int> ModificarTrabajadorAsync(
             int id_trabajador,
             string nombre,
@@ -508,8 +529,6 @@ namespace AppTransporte.model
                 using (SqlCommand command = new SqlCommand("pa_ModificarTrabajador", connection))
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    // Agregar parámetros
                     command.Parameters.AddWithValue("@id_trabajador", id_trabajador);
                     command.Parameters.AddWithValue("@Nombre", nombre);
                     command.Parameters.AddWithValue("@apePaterno", string.IsNullOrWhiteSpace(apePaterno) ? (object)DBNull.Value : apePaterno);
@@ -762,7 +781,6 @@ namespace AppTransporte.model
                                 CisternaAsig = reader.IsDBNull(reader.GetOrdinal("placa_cisterna")) ? null : reader.GetString(reader.GetOrdinal("placa_cisterna")),
                                 Cantidad = reader.IsDBNull(reader.GetOrdinal("cantidad_viaje")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("cantidad_viaje")),
                                 TrabajadoresAsig = reader.IsDBNull(reader.GetOrdinal("trabajadores")) ? null : reader.GetString(reader.GetOrdinal("trabajadores")),
-
                                 ultEstado = reader.IsDBNull(reader.GetOrdinal("estado_ultimo_registro")) ? null : reader.GetString(reader.GetOrdinal("estado_ultimo_registro")),
 
                             });
