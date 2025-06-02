@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:AppTransporte.viewModel"
              x:Class="AppTransporte.Interfaces.TareasAdicionales"
              NavigationPage.HasNavigationBar="False"
-             Title="AgregarServicio">
+             Title="TareasAdicionales">
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0"
               BackgroundColor="#cb4335">
             <Button BackgroundColor="Transparent"
-                    Clicked="Btn_Atras"/>
+                    Clicked="Btn_Atras" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
                    VerticalOptions="End"
@@ -17,86 +19,88 @@
                    HeightRequest="20"
                    WidthRequest="20" />
             <Label Text="Tareas Adicionales"
-                   x:Name="tituloInterfaz"
                    Grid.Column="1"
                    FontSize="20"
-                   TextColor="AliceBlue"
+                   TextColor="White"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
                    FontFamily="Comf-Medium"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1 ">
+        <Grid Grid.Row="1"
+              RowDefinitions=".95*,.08*">
             <VerticalStackLayout>
-                <Frame WidthRequest="500"
-                       HeightRequest="60"
-                       Padding="0,10,0,0"
-                       BackgroundColor="AliceBlue"
-                       BorderColor="Transparent">
-                    <Label Text="Información General"
-                           x:Name="TituloLabel"
-                           HorizontalOptions="Center"
-                           TextColor="Black"
-                           FontFamily="Comf-Bold"
-                           FontSize="Medium" />
-                </Frame>
-                <VerticalStackLayout Margin="0,10,20,0">
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="Center"
-                               Source=".png" />
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               Margin="10"
-                               x:Name="descripcionEntry"
-                               Placeholder="Descripcion"
-                               FontFamily="Comf-Bold"
-                               TextColor="Black" />
-                    </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="Center"
-                               Source=".png" />
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               Margin="10"
-                               x:Name="rucEntry"
-                               Placeholder=""
-                               FontFamily="Comf-Bold"
-                               TextColor="Black" />
-                    </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="Center"
-                               Source=".png" />
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               Margin="10"
-                               x:Name="direccionEntry"
-                               Placeholder=""
-                               FontFamily="Comf-Bold"
-                               TextColor="Black"/>
-                    </Grid>
 
-
-                </VerticalStackLayout>
-                <HorizontalStackLayout Margin="30"
-                       Spacing="40"
-                       HorizontalOptions="Center">
-                    <Button Text="Guardar"
-                            x:Name="GuardarEmpresa"
-                            HeightRequest="50"
-                            WidthRequest="150"
+                <!-- Filtro por fecha solamente -->
+                <HorizontalStackLayout Margin="15,10"
+                                       VerticalOptions="Start">
+                    <Label Text="Fecha: "
+                           FontFamily="Comf-Medium"
+                           VerticalOptions="Center"
+                           WidthRequest="60" />
+                    <DatePicker x:Name="DatePickerFiltro"
+                                BackgroundColor="#e1dddb"
+                                TextColor="#780000"
+                                FontFamily="Comf-Bold"
+                                HorizontalOptions="FillAndExpand"
+                                Format="dd/MM/yyyy"
+                                DateSelected="DatePickerFiltro_DateSelected" />
+                    <Button Text="Hoy"
                             FontFamily="Comf-Medium"
-                            BackgroundColor="#007AFF"
+                            BackgroundColor="#95a5a6"
                             TextColor="White"
-                            CornerRadius="40"
-                            HorizontalOptions="Center" />
+                            FontSize="12"
+                            CornerRadius="15"
+                            WidthRequest="70"
+                            HeightRequest="40"
+                            Margin="5,0"
+                            Clicked="Btn_FiltrarHoy" />
+                    <Button Text="Todos"
+                            FontFamily="Comf-Medium"
+                            BackgroundColor="#95a5a6"
+                            TextColor="White"
+                            FontSize="12"
+                            CornerRadius="15"
+                            WidthRequest="70"
+                            HeightRequest="40"
+                            Clicked="Btn_MostrarTodas" />
                 </HorizontalStackLayout>
+
+                <!-- Lista de tareas -->
+                <ScrollView Margin="10,15,0,20">
+                    <VerticalStackLayout Margin="10">
+                        <ActivityIndicator x:Name="LoadingIndicator"
+                                           IsRunning="False"
+                                           IsVisible="False"
+                                           HorizontalOptions="Center" />
+
+                        <!-- Mensaje cuando no hay tareas -->
+                        <Label x:Name="LabelSinTareas"
+                               Text="No hay tareas para la fecha seleccionada"
+                               FontFamily="Comf-Medium"
+                               FontSize="14"
+                               TextColor="#95a5a6"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Margin="0,50"
+                               IsVisible="False" />
+
+                        <!-- Lista de tareas -->
+                        <VerticalStackLayout x:Name="StackTareas">
+                            <!-- Las tareas se agregarán dinámicamente aquí -->
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </ScrollView>
             </VerticalStackLayout>
+
+            <!-- Botón Nueva Tarea -->
+            <Button Text="Nueva Tarea"
+                    FontFamily="Comf-Bold"
+                    BackgroundColor="#cb4335"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Clicked="Btn_NuevaTarea"
+                    Grid.Row="1" />
         </Grid>
     </Grid>
 </ContentPage>

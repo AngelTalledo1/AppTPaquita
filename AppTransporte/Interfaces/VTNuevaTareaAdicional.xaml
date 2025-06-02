@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="AppTransporte.Interfaces.VTNuevaTareaAdicional"
+             Title="VTNuevaTareaAdicional">
+    <Grid RowDefinitions=".1*,.9*">
+        <!-- Header -->
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_AtrasTareas"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Nueva Tarea"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+
+        <!-- Content Area -->
+        <Grid Grid.Row="1">
+            <ScrollView>
+                <VerticalStackLayout Margin="20" Spacing="15">
+
+                    <!-- Sección de Tareas Adicionales -->
+                    <Frame BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="True"
+                           Padding="20">
+                        <VerticalStackLayout Spacing="15">
+
+                            <!-- Título de la sección -->
+                            <Label Text="Información General"
+                                   FontSize="18"
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#cb4335"
+                                   HorizontalOptions="Center"
+                                   Margin="0,0,0,10" />
+
+                            <!-- Selección de Fecha -->
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Fecha de la tarea"
+                                       FontSize="14"
+                                       FontFamily="Comf-Medium"
+                                       TextColor="#2c3e50" />
+                                <DatePicker x:Name="DatePickerTarea"
+                                            BackgroundColor="#f8f9fa"
+                                            TextColor="#2c3e50"
+                                            FontFamily="Comf-Regular"
+                                            Format="dd/MM/yyyy" />
+                            </VerticalStackLayout>
+
+                            <!-- Hora de Inicio -->
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Hora de inicio"
+                                       FontSize="14"
+                                       FontFamily="Comf-Medium"
+                                       TextColor="#2c3e50" />
+                                <TimePicker x:Name="TimePickerInicio"
+                                            BackgroundColor="#f8f9fa"
+                                            TextColor="#2c3e50"
+                                            FontFamily="Comf-Regular"
+                                            Format="HH:mm" />
+                            </VerticalStackLayout>
+
+                            <!-- Hora de Finalización -->
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Hora de finalización"
+                                       FontSize="14"
+                                       FontFamily="Comf-Medium"
+                                       TextColor="#2c3e50" />
+                                <TimePicker x:Name="TimePickerFin"
+                                            BackgroundColor="#f8f9fa"
+                                            TextColor="#2c3e50"
+                                            FontFamily="Comf-Regular"
+                                            Format="HH:mm" />
+                            </VerticalStackLayout>
+
+                            <!-- Descripción -->
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Descripción de la tarea"
+                                       FontSize="14"
+                                       FontFamily="Comf-Medium"
+                                       TextColor="#2c3e50" />
+                                <Editor x:Name="EditorDescripcion"
+                                        Placeholder="Describe tu tarea..."
+                                        PlaceholderColor="#95a5a6"
+                                        BackgroundColor="#f8f9fa"
+                                        TextColor="#2c3e50"
+                                        FontFamily="Comf-Regular"
+                                        HeightRequest="100"
+                                        AutoSize="TextChanges" />
+                            </VerticalStackLayout>
+
+                            <!-- Botones de acción -->
+                            <Grid ColumnDefinitions="*,*" 
+                                  ColumnSpacing="10"
+                                  Margin="0,15,0,0">
+
+                                <Button Text="Limpiar"
+                                        Grid.Column="0"
+                                        BackgroundColor="#95a5a6"
+                                        TextColor="White"
+                                        FontFamily="Comf-Medium"
+                                        CornerRadius="8"
+                                        HeightRequest="45"
+                                        Clicked="Btn_LimpiarTarea"/>
+
+                                <Button x:Name="BtnGuardar"
+                                        Text="Guardar Tarea"
+                                        Grid.Column="1"
+                                        BackgroundColor="#cb4335"
+                                        TextColor="White"
+                                        FontFamily="Comf-Medium"
+                                        CornerRadius="8"
+                                        HeightRequest="45"
+                                        Clicked="Btn_GuardarTarea"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -700,7 +700,7 @@ namespace AppTransporte.model
 
             return clientes;
         }
-      
+
         public async Task<List<Viaje>> ObtenerViajesAsync()
         {
             var viajes = new List<Viaje>();
@@ -960,11 +960,11 @@ namespace AppTransporte.model
             }
         }
 
-    public async Task<List<ReporteTrabajador>> ObtenerReporteTrabajadorAsync(
-    int? idTrabajador,
-    DateTime fechaInicio,
-    DateTime fechaFin,
-    string tipoReporte)
+        public async Task<List<ReporteTrabajador>> ObtenerReporteTrabajadorAsync(
+        int? idTrabajador,
+        DateTime fechaInicio,
+        DateTime fechaFin,
+        string tipoReporte)
         {
             var reportes = new List<ReporteTrabajador>();
 
@@ -1339,11 +1339,11 @@ namespace AppTransporte.model
                 }
             }
         }
-    public async Task<int> AgregarUbicacionAsync(
-    string descripcion,
-    string sector,
-    string referencias,
-    string coordenadas)
+        public async Task<int> AgregarUbicacionAsync(
+        string descripcion,
+        string sector,
+        string referencias,
+        string coordenadas)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -1363,7 +1363,7 @@ namespace AppTransporte.model
                 }
             }
         }
-    public async Task<List<Vehiculo>> ObtenerCisternaAsync(string placa = null, string ordenarPor = null)
+        public async Task<List<Vehiculo>> ObtenerCisternaAsync(string placa = null, string ordenarPor = null)
         {
             var cisterna = new List<Vehiculo>();
 
@@ -1408,14 +1408,14 @@ namespace AppTransporte.model
             }
             return cisterna;
         }
-    public async Task CrearPedidoAsync(
-    int idSolicitud,
-    int cantidad,
-    int viajes,
-    int idOrigen,
-    int idDestino,
-    int idEstadoPedido,
-    string listaServicios)
+        public async Task CrearPedidoAsync(
+        int idSolicitud,
+        int cantidad,
+        int viajes,
+        int idOrigen,
+        int idDestino,
+        int idEstadoPedido,
+        string listaServicios)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -1524,5 +1524,191 @@ namespace AppTransporte.model
         {
             return null;
         }
+        
+            public async Task<List<TareaAdicional>> ObtenerTareasUsuarioAsync(int idUsuario)
+            {
+                var tareas = new List<TareaAdicional>();
+
+                try
+                {
+                    using var connection = new SqlConnection(_connectionString);
+                    using var command = new SqlCommand("SP_ObtenerTareasUsuario", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    command.Parameters.AddWithValue("@id_usuario", idUsuario);
+
+                    await connection.OpenAsync();
+                    using var reader = await command.ExecuteReaderAsync();
+
+                    while (await reader.ReadAsync())
+                    {
+                        tareas.Add(new TareaAdicional
+                        {
+                            id_tareaAdicional = reader.GetInt32("id_tareaAdicional"),
+                            fecha_tarea = reader.GetDateTime("fecha_tarea"),
+                            hora_inicio = TimeSpan.Parse(reader["hora_inicio"].ToString()),
+                            hora_fin = TimeSpan.Parse(reader["hora_fin"].ToString()),
+                            descripcion = reader.GetString("descripcion"),
+                            fecha_creacion = reader.GetDateTime("fecha_creacion"),
+                            fecha_modificacion = reader.GetDateTime("fecha_modificacion"),
+                            duracion_minutos = reader.GetInt32("duracion_minutos"),
+                            nombre_usuario = reader.GetString("nombre_usuario"),
+                            id_usuario = idUsuario,
+                            estado = true
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al obtener tareas: {ex.Message}");
+                    throw;
+                }
+
+                return tareas;
+            }
+
+            public async Task<List<TareaAdicional>> ObtenerTareasPorFechaAsync(DateTime fecha, int idUsuario)
+            {
+                var tareas = new List<TareaAdicional>();
+
+                try
+                {
+                    using var connection = new SqlConnection(_connectionString);
+                    using var command = new SqlCommand("SP_ObtenerTareasPorFecha", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    command.Parameters.AddWithValue("@fecha_tarea", fecha.Date);
+                    command.Parameters.AddWithValue("@id_usuario", idUsuario);
+
+                    await connection.OpenAsync();
+                    using var reader = await command.ExecuteReaderAsync();
+
+                    while (await reader.ReadAsync())
+                    {
+                        tareas.Add(new TareaAdicional
+                        {
+                            id_tareaAdicional = reader.GetInt32("id_tareaAdicional"),
+                            fecha_tarea = reader.GetDateTime("fecha_tarea"),
+                            hora_inicio = TimeSpan.Parse(reader["hora_inicio"].ToString()),
+                            hora_fin = TimeSpan.Parse(reader["hora_fin"].ToString()),
+                            descripcion = reader.GetString("descripcion"),
+                            fecha_creacion = reader.GetDateTime("fecha_creacion"),
+                            fecha_modificacion = reader.GetDateTime("fecha_modificacion"),
+                            duracion_minutos = reader.GetInt32("duracion_minutos"),
+                            nombre_usuario = reader.GetString("nombre_usuario"),
+                            id_usuario = idUsuario,
+                            estado = true
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al obtener tareas por fecha: {ex.Message}");
+                    throw;
+                }
+
+                return tareas;
+            }
+
+            public async Task<RespuestaProcedimiento> InsertarTareaAsync(TareaAdicional tarea)
+            {
+                try
+                {
+                    using var connection = new SqlConnection(_connectionString);
+                    using var command = new SqlCommand("SP_InsertarTareaAdicional", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    command.Parameters.AddWithValue("@fecha_tarea", tarea.fecha_tarea.Date);
+                    command.Parameters.AddWithValue("@hora_inicio", tarea.hora_inicio);
+                    command.Parameters.AddWithValue("@hora_fin", tarea.hora_fin);
+                    command.Parameters.AddWithValue("@descripcion", tarea.descripcion);
+                    command.Parameters.AddWithValue("@id_usuario", tarea.id_usuario);
+
+                    await connection.OpenAsync();
+                    using var reader = await command.ExecuteReaderAsync();
+
+                    if (await reader.ReadAsync())
+                    {
+                        return new RespuestaProcedimiento
+                        {
+                            id_tareaAdicional = reader.IsDBNull("id_tareaAdicional") ? null : reader.GetInt32("id_tareaAdicional"),
+                            Mensaje = reader.GetString("Mensaje"),
+                            FilasAfectadas = 1
+                        };
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return new RespuestaProcedimiento
+                    {
+                        FilasAfectadas = 0,
+                        Mensaje = ex.Message
+                    };
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al insertar tarea: {ex.Message}");
+                    return new RespuestaProcedimiento
+                    {
+                        FilasAfectadas = 0,
+                        Mensaje = $"Error inesperado: {ex.Message}"
+                    };
+                }
+
+                return new RespuestaProcedimiento { FilasAfectadas = 0, Mensaje = "Error desconocido" };
+            }
+
+            public async Task<RespuestaProcedimiento> EliminarTareaAsync(int idTarea)
+            {
+                try
+                {
+                    using var connection = new SqlConnection(_connectionString);
+                    using var command = new SqlCommand("SP_EliminarTareaAdicional", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    command.Parameters.AddWithValue("@id_tareaAdicional", idTarea);
+
+                    await connection.OpenAsync();
+                    using var reader = await command.ExecuteReaderAsync();
+
+                    if (await reader.ReadAsync())
+                    {
+                        return new RespuestaProcedimiento
+                        {
+                            FilasAfectadas = reader.GetInt32("FilasAfectadas"),
+                            Mensaje = reader.GetString("Mensaje")
+                        };
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return new RespuestaProcedimiento
+                    {
+                        FilasAfectadas = 0,
+                        Mensaje = ex.Message
+                    };
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al eliminar tarea: {ex.Message}");
+                    return new RespuestaProcedimiento
+                    {
+                        FilasAfectadas = 0,
+                        Mensaje = $"Error inesperado: {ex.Message}"
+                    };
+                }
+
+                return new RespuestaProcedimiento { FilasAfectadas = 0, Mensaje = "Error desconocido" };
+            }
+        }
     }
-}
+
+
