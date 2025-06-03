@@ -9,6 +9,7 @@ namespace AppTransporte.model
     public class Solicitud
     {
         public int IdSolicitud { get; set; }
+        public int IdServicio { get; set; }
         public string Descripcion { get; set; } = string.Empty;
         public DateTime FechaSolicitud { get; set; }
         public DateTime Fecha { get; set; }

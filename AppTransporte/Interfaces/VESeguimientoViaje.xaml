@@ -35,8 +35,8 @@
         <Grid Grid.Row="1" BackgroundColor="White"
               >
             <ScrollView>
-            <VerticalStackLayout Margin="20" Spacing="20">
-                <Frame CornerRadius="20" Padding="5,10"
+                <VerticalStackLayout Margin="20" Spacing="20">
+                    <Frame CornerRadius="20" Padding="5,10"
                        BorderColor="Transparent"
                            BackgroundColor="#edf2f4">
                         <toolkit:Expander >
@@ -54,7 +54,7 @@
                                              HorizontalOptions="FillAndExpand" />
                                 </VerticalStackLayout>
                             </toolkit:Expander.Header>
-                        <VerticalStackLayout Margin="20" Spacing="10">
+                            <VerticalStackLayout Margin="20" Spacing="10">
                                 <Grid ColumnDefinitions=".6*,1*"
                                       RowDefinitions="1*,1*,1*,1*,1*,1*" Padding="0"
                                      >
@@ -111,22 +111,22 @@
                                             Clicked="btn_verPedidoViaje"/>
                                 </Grid>
                             </VerticalStackLayout>
-                    </toolkit:Expander>
-                </Frame>
+                        </toolkit:Expander>
+                    </Frame>
                     <Frame  CornerRadius="20"
                             Padding="5,10"
                             BorderColor="Transparent"
                             BackgroundColor="#edf2f4">
                         <VerticalStackLayout >
-                        <Grid ColumnDefinitions=".8*,.4*"
+                            <Grid ColumnDefinitions=".8*,.4*"
                                       Padding="0">
-                                    <Label Text="Historial de envio"
+                                <Label Text="Historial de envio"
                                            FontFamily="Comf-Bold"
                                            VerticalOptions="Start"
                                            TextColor="#003049"
                                            FontSize="17"
                                            Margin="20,10,0,15" />
-                                    <Label Text=""
+                                <Label Text=""
                                            x:Name="EstadoDetalle"
                                            FontFamily="Comf-SemBold"
                                            HorizontalOptions="End"
@@ -134,7 +134,7 @@
                                            TextColor="#c1121f"
                                            Margin="0,10,10,0"
                                            Grid.Column="1" />
-                                </Grid>
+                            </Grid>
                             <BoxView HeightRequest="1"
                                      Margin="0,5,0,7"
                                      BackgroundColor="#003049"
@@ -144,10 +144,10 @@
                                                IsRunning="{Binding IsBusy}"
                                                IsVisible="{Binding IsBusy}" />
                             <CollectionView ItemsSource="{Binding seguimientoFiltrados}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <VerticalStackLayout Margin="30,10,10,10" Spacing="10">
-                                        <Label Text="{Binding FechaHora, StringFormat='{0:dddd dd, De MMMM Del yyyy}'}"
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <VerticalStackLayout Margin="30,10,10,10" Spacing="10">
+                                            <Label Text="{Binding FechaHora, StringFormat='{0:dddd dd, De MMMM Del yyyy}'}"
                                                IsEnabled="False"
                                                TextColor="#bc4749"
                                                FontFamily="Comf-Bold"
@@ -156,44 +156,66 @@
                                                      BackgroundColor="#bc4749"
                                                      HorizontalOptions="FillAndExpand" />
                                             <Grid ColumnDefinitions=".2*,1*">
-                                            <Image Source="valido.png"
+                                                <Image Source="valido.png"
                                                    HorizontalOptions="Center"
                                                    VerticalOptions="Center"
                                                    WidthRequest="30"
                                                    HeightRequest="30" />
-                                            <Frame Grid.Column="1"
+                                                <Frame Grid.Column="1"
                                                    Padding="15"
                                                    BorderColor="Transparent"
                                                    CornerRadius="10"
                                                    BackgroundColor="#e0e1dd">
-                                                <toolkit:Expander>
-                                                    <toolkit:Expander.Header>
-                                                        <Grid ColumnDefinitions=".8*,.3*">
-                                                            <Label Text="{Binding EstadoViaje}"
+                                                    <toolkit:Expander>
+                                                        <toolkit:Expander.Header>
+                                                            <Grid ColumnDefinitions=".8*,.3*">
+                                                                <Label Text="{Binding EstadoViaje}"
                                                                    FontFamily="Comf-Medium"
                                                                    TextColor="#0077b6" />
-                                                            <Label Text="{Binding FechaHora, StringFormat='{0:HH:mm}'}"
+                                                                <Label Text="{Binding FechaHora, StringFormat='{0:HH:mm}'}"
                                                                    HorizontalOptions="End"
                                                                    Grid.Column="1"
                                                                    FontFamily="Comf-Medium"
                                                                    TextColor="#457b9d" />
-                                                        </Grid>
-                                                    </toolkit:Expander.Header>
-                                                    <Grid ColumnDefinitions=".6*,.4*">
-                                                        <Label Text="{Binding Comentario}"
+                                                            </Grid>
+                                                        </toolkit:Expander.Header>
+                                                        <Grid ColumnDefinitions=".6*,.4*">
+                                                            <Label Text="{Binding Comentario}"
                                                                FontFamily="Comf-SemBold"
                                                                Margin="0,5,5,0" />
-                                                        <Image Source="{Binding Evidencia}"
-                                                               WidthRequest="50"
-                                                               Grid.Column="1" />
-                                                    </Grid>
-                                                </toolkit:Expander>
-                                            </Frame>
-                                        </Grid>
-                                    </VerticalStackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+
+                                                            <!-- Evidencia: mostrar mensaje o imagen según corresponda -->
+                                                            <StackLayout Grid.Column="1">
+                                                                <!-- Mostrar mensaje cuando no hay evidencia -->
+                                                                <Label Text="No hay evidencia que mostrar" 
+                                                                  FontFamily="Comf-Reg"
+                                                                  TextColor="#6c757d"
+                                                                  HorizontalOptions="Center"
+                                                                  VerticalOptions="Center"
+                                                                  IsVisible="{Binding Evidencia, Converter={StaticResource IsNullConverter}}"/>
+
+                                                                <!-- Mostrar imagen cuando hay URL -->
+                                                                <Image Source="{Binding Evidencia}"
+                                                                   Aspect="AspectFit"
+                                                                   HeightRequest="120"
+                                                                   WidthRequest="120"
+                                                                   HorizontalOptions="Center"
+                                                                   IsVisible="{Binding Evidencia, Converter={StaticResource IsNotNullConverter}}"
+                                                                   VerticalOptions="Center">
+                                                                    <Image.GestureRecognizers>
+                                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:VMSeguimientoViaje}}, Path=VerImagenCommand}" 
+                                                                                          CommandParameter="{Binding Evidencia}"/>
+                                                                    </Image.GestureRecognizers>
+                                                                </Image>
+                                                            </StackLayout>
+                                                        </Grid>
+                                                    </toolkit:Expander>
+                                                </Frame>
+                                            </Grid>
+                                        </VerticalStackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
                             <Button Text="Actualizar Estado"
                                     x:Name="Btn_Actualizar"
                                     Clicked="actualizarEstado"
@@ -201,11 +223,19 @@
                                     TextColor="White"
                                     FontAttributes="Bold" 
                                     CommandParameter="{Binding .}"/>
-                            
+
                         </VerticalStackLayout>
                     </Frame>
-            </VerticalStackLayout>
+                </VerticalStackLayout>
             </ScrollView>
         </Grid>
     </Grid>
+
+    <!-- Convertidores para controlar la visibilidad -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsNullConverter x:Key="IsNullConverter" />
+            <toolkit:IsNotNullConverter x:Key="IsNotNullConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 </ContentPage>

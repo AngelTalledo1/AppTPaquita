@@ -13,10 +13,8 @@ namespace AppTransporte.model
         public int IdViaje { get; set; }
         public string EstadoViaje { get; set; } = string.Empty;
         public DateTime FechaHora { get; set; }
-        
-
-        // La columna "evidencia" es de tipo VARBINARY(MAX), se representa como byte[]
-        public byte[]? Evidencia { get; set; }
+ 
+        public string? Evidencia { get; set; }
 
         // Comentario asociado al seguimiento
         public string? Comentario { get; set; }

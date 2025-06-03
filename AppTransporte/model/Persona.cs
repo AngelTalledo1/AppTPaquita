@@ -13,9 +13,9 @@ namespace AppTransporte.model
         public string? ApePaterno { get; set; }
         public string? ApeMaterno { get; set; }
         public int IdTipoDoc { get; set; }
-        public string NumDoc { get; set; } = string.Empty;
-        public string Telefono { get; set; } = string.Empty;
-        public string Direccion { get; set; } = string.Empty;
+        public string? NumDoc { get; set; } = string.Empty;
+        public string?   Telefono { get; set; } = string.Empty;
+        public string? Direccion { get; set; } = string.Empty;
         public string? Email { get; set; }
 
         public TipoDocumento TipoDocumento { get; set; } = new TipoDocumento();// Relación con TipoDocumento

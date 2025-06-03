@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Reflection.Metadata;
@@ -330,7 +330,7 @@ namespace AppTransporte.model
                     command.Parameters.AddWithValue("@descripcion", solicitud.Descripcion);
                     command.Parameters.AddWithValue("@comentario", (object)solicitud.Comentario ?? DBNull.Value);
                     command.Parameters.AddWithValue("@id_cliente", solicitud.IdCliente);
-
+                    command.Parameters.AddWithValue("@id_servicio", solicitud.IdServicio);
                     // Ejecutar el procedimiento
                     await command.ExecuteNonQueryAsync();
                 }
@@ -415,6 +415,40 @@ namespace AppTransporte.model
                 }
             }
         }
+        // Modifica el método en la clase SqlServerService
+
+        public async Task<int> ActualizarEstadoSeguimientoAsync(
+            int idViaje,
+            string comentario = null,
+            string evidenciaUrl = null)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_ActualizarEstadoSeguimiento", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@id_viaje", idViaje);
+                    command.Parameters.AddWithValue("@comentario", string.IsNullOrWhiteSpace(comentario) ? (object)DBNull.Value : comentario);
+                    command.Parameters.AddWithValue("@evidenciaUrl", string.IsNullOrWhiteSpace(evidenciaUrl) ? (object)DBNull.Value : evidenciaUrl);
+
+                    // Parámetro de retorno para obtener el resultado del procedimiento
+                    SqlParameter returnValue = new SqlParameter("@ReturnValue", SqlDbType.Int);
+                    returnValue.Direction = ParameterDirection.ReturnValue;
+                    command.Parameters.Add(returnValue);
+
+                    // Ejecutar el procedimiento almacenado
+                    await command.ExecuteNonQueryAsync();
+
+                    // Obtener y devolver el valor de retorno del procedimiento
+                    return (int)returnValue.Value;
+                }
+            }
+        }
+
         public async Task<UsuarioResponse> VerificarCredencialesAsync(string username, string contraseña)
         {
             try
@@ -451,6 +485,27 @@ namespace AppTransporte.model
             // Devuelve null si no se encontraron coincidencias
             return null;
         }
+        public async Task<int> ActualizarSolicitudAsync(Solicitud solicitud)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_ActualizarSolicitud", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@id_solicitud", solicitud.IdSolicitud);
+                    command.Parameters.AddWithValue("@descripcion", solicitud.Descripcion);
+                    command.Parameters.AddWithValue("@id_estadoSolicitud", solicitud.IdEstadoSolicitud);
+                    command.Parameters.AddWithValue("@comentario", (object)solicitud.Comentario ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@id_servicio", solicitud.IdServicio);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
         public async Task<int> ModificarTrabajadorAsync(
             int id_trabajador,
             string nombre,
@@ -474,8 +529,6 @@ namespace AppTransporte.model
                 using (SqlCommand command = new SqlCommand("pa_ModificarTrabajador", connection))
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    // Agregar parámetros
                     command.Parameters.AddWithValue("@id_trabajador", id_trabajador);
                     command.Parameters.AddWithValue("@Nombre", nombre);
                     command.Parameters.AddWithValue("@apePaterno", string.IsNullOrWhiteSpace(apePaterno) ? (object)DBNull.Value : apePaterno);
@@ -694,11 +747,11 @@ namespace AppTransporte.model
                                 Username = reader.GetString(reader.GetOrdinal("Username")),
                                 Contraseña = reader.GetString(reader.GetOrdinal("Contraseña"))
                             });
-
-                        }
+                        
                     }
                 }
             }
+        }
 
             return clientes;
         }
@@ -727,7 +780,6 @@ namespace AppTransporte.model
                                 CisternaAsig = reader.IsDBNull(reader.GetOrdinal("placa_cisterna")) ? null : reader.GetString(reader.GetOrdinal("placa_cisterna")),
                                 Cantidad = reader.IsDBNull(reader.GetOrdinal("cantidad_viaje")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("cantidad_viaje")),
                                 TrabajadoresAsig = reader.IsDBNull(reader.GetOrdinal("trabajadores")) ? null : reader.GetString(reader.GetOrdinal("trabajadores")),
-
                                 ultEstado = reader.IsDBNull(reader.GetOrdinal("estado_ultimo_registro")) ? null : reader.GetString(reader.GetOrdinal("estado_ultimo_registro")),
 
                             });
@@ -1131,7 +1183,7 @@ namespace AppTransporte.model
                                 FechaHora = reader.GetDateTime(reader.GetOrdinal("fechaHora")),
                                 EstadoViaje = reader.GetString(reader.GetOrdinal("estadoViajeDescripcion")),
                                 Comentario = reader.IsDBNull(reader.GetOrdinal("Comentario")) ? null : reader.GetString(reader.GetOrdinal("Comentario")),
-                                Evidencia = reader.IsDBNull(reader.GetOrdinal("evidencia")) ? null : reader.GetSqlBinary(reader.GetOrdinal("evidencia")).Value,
+                                Evidencia = reader.IsDBNull(reader.GetOrdinal("evidencia")) ? null : reader.GetString(reader.GetOrdinal("evidencia")),
 
 
                             });

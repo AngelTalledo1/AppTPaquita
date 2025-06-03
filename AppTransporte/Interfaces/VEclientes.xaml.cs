@@ -13,7 +13,16 @@ public partial class VEclientes : ContentPage
         this._idTipoUsuario = idUsuario;
         this._idUsuario = idTipoUsuario;
         InitializeComponent();
-        BindingContext = new ClienteViewModel();
+        try
+        {
+            BindingContext = new ClienteViewModel();
+        }
+        catch (Exception ex)
+        {
+
+            DisplayAlert("Error", $"Ocurrió un error al cargar los pedidos: {ex.Message}", "OK"); ;
+        }
+        
     }
 
     private void btn_agregarCliente(object sender, EventArgs e) 

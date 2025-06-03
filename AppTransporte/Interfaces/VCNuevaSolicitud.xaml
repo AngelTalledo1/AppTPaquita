@@ -62,12 +62,33 @@
                                HorizontalOptions="Start"
                                VerticalOptions="Center" />
                     </Grid>
+
+                    <!-- Nuevo selector de servicio -->
+                    <Grid ColumnDefinitions=".2*,.3*,.8*" Margin="0,10,0,0">
+                        <Image WidthRequest="40"
+                               HeightRequest="40"
+                               Source="servicio.png"
+                               HorizontalOptions="Center" />
+                        <Label TextColor="Black"
+                               Text="Servicio:"
+                               Grid.Column="1"
+                               Margin="10,0,0,0"
+                               FontFamily="Comf-SemBold"
+                               VerticalOptions="Center"/>
+                        <Picker Grid.Column="2"
+                                x:Name="ServicioPicker"
+                                Title="Seleccione un servicio"
+                                FontFamily="Comf-Medium"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Center" />
+                    </Grid>
+
                     <Label Text="Describe tu solicitud: "
                            TextColor="Black"
                            Margin="40,20,40,0"
                            FontFamily="Comf-Medium"/>
                     <Grid Margin="40,0">
-                        
+
                         <Editor PlaceholderColor="#515a5a"
                                 Grid.Column="1"
                                 x:Name="descripcionEntry"
