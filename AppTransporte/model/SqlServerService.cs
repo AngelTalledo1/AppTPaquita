@@ -679,13 +679,14 @@ namespace AppTransporte.model
                     {
                         while (await reader.ReadAsync())
                         {
+
                             clientes.Add(new Cliente
                             {
                                 IdPersona = reader.GetInt32(reader.GetOrdinal("id_persona")),
                                 IdCliente = reader.GetInt32(reader.GetOrdinal("id_cliente")),
                                 Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
-                                ApePaterno = reader.GetString(reader.GetOrdinal("apePaterno")),
-                                ApeMaterno = reader.GetString(reader.GetOrdinal("apeMaterno")),
+                                ApePaterno = reader.IsDBNull(reader.GetOrdinal("apePaterno")) ? null : reader.GetString(reader.GetOrdinal("apePaterno")),
+                                ApeMaterno = reader.IsDBNull(reader.GetOrdinal("apeMaterno")) ? null : reader.GetString(reader.GetOrdinal("apeMaterno")),
                                 NumDoc = reader.GetString(reader.GetOrdinal("numDoc")),
                                 Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
                                 Direccion = reader.GetString(reader.GetOrdinal("direccion")),
@@ -693,6 +694,7 @@ namespace AppTransporte.model
                                 Username = reader.GetString(reader.GetOrdinal("Username")),
                                 Contraseña = reader.GetString(reader.GetOrdinal("Contraseña"))
                             });
+
                         }
                     }
                 }
@@ -1007,15 +1009,12 @@ namespace AppTransporte.model
         public async Task<List<Usuario>> ObtenerUsuariosAsync(bool? estadoFiltro = true)
         {
             var usuarios = new List<Usuario>();
-
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-
                 using (var command = new SqlCommand("sp_ObtenerUsuarios", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-
                     // Añadir el parámetro de filtro por estado
                     if (estadoFiltro.HasValue)
                         command.Parameters.AddWithValue("@estadoFiltro", estadoFiltro.Value);
@@ -1029,27 +1028,33 @@ namespace AppTransporte.model
                             usuarios.Add(new Usuario
                             {
                                 IdUsuario = reader.GetInt32(reader.GetOrdinal("id_usuario")),
-                                Username = reader.GetString(reader.GetOrdinal("username")),
-                                Contraseña = reader.GetString(reader.GetOrdinal("contraseña")),
+                                Username = reader.IsDBNull(reader.GetOrdinal("username")) ?
+                                    null : reader.GetString(reader.GetOrdinal("username")),
+                                Contraseña = reader.IsDBNull(reader.GetOrdinal("contraseña")) ?
+                                    null : reader.GetString(reader.GetOrdinal("contraseña")),
                                 IdTipoUsuario = reader.GetInt32(reader.GetOrdinal("id_tipoUsuario")),
                                 Estado = reader.GetBoolean(reader.GetOrdinal("estado")),
-                                IdPersona = reader.GetInt32(reader.GetOrdinal("id_persona")),
+                                IdPersona = (int)(reader.IsDBNull(reader.GetOrdinal("id_persona")) ?
+                                    (int?)null : reader.GetInt32(reader.GetOrdinal("id_persona"))),
                                 IdEmpresa = reader.IsDBNull(reader.GetOrdinal("id_empresa")) ?
                                     null : reader.GetInt32(reader.GetOrdinal("id_empresa")),
-                                TipoUsuario = reader.GetString(reader.GetOrdinal("TipoUsuario")),
-                                Nombres = reader.GetString(reader.GetOrdinal("Nombre")),
-                                Apellidos = reader.GetString(reader.GetOrdinal("apePaterno")),
-                                Correo = reader.GetString(reader.GetOrdinal("email")),
-                                Telefono = reader.GetString(reader.GetOrdinal("telefono"))
+                                TipoUsuario = reader.IsDBNull(reader.GetOrdinal("TipoUsuario")) ?
+                                    null : reader.GetString(reader.GetOrdinal("TipoUsuario")),
+                                Nombres = reader.IsDBNull(reader.GetOrdinal("Nombre")) ?
+                                    null : reader.GetString(reader.GetOrdinal("Nombre")),
+                                Apellidos = reader.IsDBNull(reader.GetOrdinal("apePaterno")) ?
+                                    null : reader.GetString(reader.GetOrdinal("apePaterno")),
+                                Correo = reader.IsDBNull(reader.GetOrdinal("email")) ?
+                                    null : reader.GetString(reader.GetOrdinal("email")),
+                                Telefono = reader.IsDBNull(reader.GetOrdinal("telefono")) ?
+                                    null : reader.GetString(reader.GetOrdinal("telefono"))
                             });
                         }
                     }
                 }
             }
-
             return usuarios;
         }
-
 
 
 
