@@ -42,15 +42,15 @@
                            FontFamily="Comf-Reg" />
             </VerticalStackLayout>
             <ScrollView Grid.Row="1">
-                    <VerticalStackLayout Margin="10,2">
-                        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                <VerticalStackLayout Margin="10,2">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}"
                                            Color="#bc4749"
                                            IsVisible="{Binding IsBusy}"
                                            HorizontalOptions="Center" />
-                        <CollectionView x:Name="clienteCollectionView"
+                    <CollectionView x:Name="clienteCollectionView"
                                         ItemsSource="{Binding Clientes}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
                                 <Frame BackgroundColor="#edf2f4"
                                          Opacity="0.85"
                                        Margin="0,3"
@@ -135,19 +135,19 @@
                                                 <Label Text="Contraseña: "
                                                        TextColor="Black"
                                                        FontFamily="Comf-Bold" />
-                                            <Label Text="{Binding Contraseña}"
+                                                <Label Text="{Binding Contraseña}"
                                                        TextColor="Black"
                                                        FontFamily="Comf-SemBold" />
                                             </HorizontalStackLayout>
                                         </VerticalStackLayout>
                                     </toolkit:Expander>
                                 </Frame>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                        
-                    </VerticalStackLayout>
-                </ScrollView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </ScrollView>
             <Button Text="Nuevo Cliente"
                     TextColor="White"
                     FontFamily="Comf-Bold"
@@ -158,7 +158,7 @@
                     HorizontalOptions="Center"
                     BackgroundColor="#cb4335"
                     Clicked="btn_agregarCliente" />
-            
+
         </Grid>
     </Grid>
 </ContentPage>

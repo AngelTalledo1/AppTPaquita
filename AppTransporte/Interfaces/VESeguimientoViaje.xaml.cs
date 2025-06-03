@@ -51,6 +51,10 @@ public partial class VESeguimientoViaje : ContentPage
             await Navigation.PushAsync(new VTMisViajes(_idUsuario, _idTipoUsuario));
 
         }
+       if (_idTipoUsuario == 2)
+        {
+            await Navigation.PushAsync(new VCMisPedidos(_idUsuario, _idTipoUsuario));
+        }
     }
 
     private async void actualizarEstado(object sender, EventArgs e)

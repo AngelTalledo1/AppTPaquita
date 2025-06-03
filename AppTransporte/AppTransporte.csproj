@@ -177,6 +177,9 @@
 		<MauiXaml Update="Interfaces\MenuTransportista.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Interfaces\TareasAdicionales.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Interfaces\VEReportes.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -184,9 +187,6 @@
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\Servicios.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Interfaces\TareasAdicionales.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\VCambiarContraseña.xaml">
@@ -266,6 +266,9 @@
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\VTMisViajes.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Interfaces\VTNuevaTareaAdicional.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>
 

@@ -5,21 +5,39 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+
 namespace AppTransporte.viewModel
-#pragma warning disable CS8612, CS8602, CS8604, CS8601, CS4014, CS8625, CS8616, CS8618
 {
     public class VMTrabajadores : INotifyPropertyChanged
     {
-        public ObservableCollection<Trabajador> Trabajadores { get; set; } = new();
-        private ObservableCollection<Trabajador> _allTrabajadores = new();
-        public ObservableCollection<Trabajador> Ayudantes { get; set; } = new();
-        public ObservableCollection<Trabajador> Transportistas { get; set; } = new();
+        private ObservableCollection<Trabajador> _trabajadores = new();
+        private ObservableCollection<Trabajador> _todosTrabajadores = new();
+        private ObservableCollection<string> _categorias = new();
+        private string _categoriaSeleccionada = "Todos";
+        private string _searchText = "";
+        private bool _isBusy = false;
 
-        // Lista de categorías para el Picker
-        public ObservableCollection<string> Categorias { get; set; } = new ObservableCollection<string>();
+        // Propiedades públicas
+        public ObservableCollection<Trabajador> Trabajadores
+        {
+            get => _trabajadores;
+            set
+            {
+                _trabajadores = value;
+                OnPropertyChanged(nameof(Trabajadores));
+            }
+        }
 
-        // Propiedad para la categoría seleccionada en el Picker
-        private string _categoriaSeleccionada;
+        public ObservableCollection<string> Categorias
+        {
+            get => _categorias;
+            set
+            {
+                _categorias = value;
+                OnPropertyChanged(nameof(Categorias));
+            }
+        }
+
         public string CategoriaSeleccionada
         {
             get => _categoriaSeleccionada;
@@ -29,23 +47,11 @@ namespace AppTransporte.viewModel
                 {
                     _categoriaSeleccionada = value;
                     OnPropertyChanged(nameof(CategoriaSeleccionada));
-                    // Actualizar el filtro cuando cambia la selección
-                    CategoriaFiltro = value;
+                    FiltrarTrabajadores();
                 }
             }
         }
 
-        private bool _isBusy;
-        public bool IsBusy
-        {
-            get => _isBusy;
-            set
-            {
-                _isBusy = value;
-                OnPropertyChanged(nameof(IsBusy));
-            }
-        }
-        private string _searchText;
         public string SearchText
         {
             get => _searchText;
@@ -59,113 +65,179 @@ namespace AppTransporte.viewModel
                 }
             }
         }
-        // Nueva propiedad para filtrar por categoría
-        private string _categoriaFiltro;
-        public string CategoriaFiltro
+
+        public bool IsBusy
         {
-            get => _categoriaFiltro;
+            get => _isBusy;
             set
             {
-                if (_categoriaFiltro != value)
-                {
-                    _categoriaFiltro = value?.Length > 20 ? value.Substring(0, 20) : value; // Validación de longitud
-                    OnPropertyChanged(nameof(CategoriaFiltro));
-                    CargarTrabajadores(_categoriaFiltro); // Recargar con filtro
-                }
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
             }
         }
 
+        // Constructor
         public VMTrabajadores()
         {
-            // Inicializar las categorías
-            CargarCategorias();
-            CargarTrabajadores("Ayudante");
-            CargarTrabajadores("Transportista");
+            _ = CargarTodosLosTrabajadoresAsync();
         }
 
-        private void CargarCategorias()
+        public async Task CargarTodosLosTrabajadoresAsync()
         {
-            // Añadir las categorías disponibles
-            Categorias.Clear();
-            // Añadir una opción para mostrar todos
-            Categorias.Add("Todos");
-            Categorias.Add("Ayudante");
-            Categorias.Add("Transportista");
-            // Añade más categorías según necesites
+            try
+            {
+                IsBusy = true;
 
-            // Establecer un valor predeterminado
-            CategoriaSeleccionada = "Todos";
-            OnPropertyChanged(nameof(Categorias));
+                // Cargar todos los trabajadores sin filtro
+                var todosTrabajadores = await App.Database.ObtenerTrabajadoresAsync();
+
+                _todosTrabajadores.Clear();
+                foreach (var trabajador in todosTrabajadores)
+                {
+                    _todosTrabajadores.Add(trabajador);
+                }
+
+                // Cargar categorías dinámicamente desde los datos
+                CargarCategoriasDesdeBaseDatos();
+
+                FiltrarTrabajadores();
+
+                // DEBUG: Mostrar qué categorías encontramos
+                System.Diagnostics.Debug.WriteLine("=== CATEGORÍAS ENCONTRADAS ===");
+                foreach (var cat in Categorias)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Categoría: {cat}");
+                }
+
+                // DEBUG: Mostrar algunos trabajadores y sus categorías
+                System.Diagnostics.Debug.WriteLine("=== TRABAJADORES Y SUS CATEGORÍAS ===");
+                foreach (var trabajador in _todosTrabajadores.Take(5))
+                {
+                    System.Diagnostics.Debug.WriteLine($"Trabajador: {trabajador.NombreTrabajador} - Categoría: '{trabajador.categoria}'");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cargar trabajadores: {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        public async Task ActualizarDatos()
+        private void CargarCategoriasDesdeBaseDatos()
         {
-            _allTrabajadores.Clear();
-            Trabajadores.Clear();
-            await CargarTrabajadores(CategoriaFiltro);
-        }
-
-        private async Task CargarTrabajadores(string categoria = null)
-        {
-            IsBusy = true;
-            var trabajadores = await App.Database.ObtenerTrabajadoresAsync(categoria == "Todos" ? null : categoria);
-
-            if (categoria == "Ayudante")
+            try
             {
-                Ayudantes.Clear();
-                foreach (var t in trabajadores) Ayudantes.Add(t);
+                Categorias.Clear();
+                Categorias.Add("Todos");
+
+                // Obtener categorías únicas de los trabajadores cargados
+                var categoriasUnicas = _todosTrabajadores
+                    .Where(t => !string.IsNullOrWhiteSpace(t.categoria))
+                    .Select(t => t.categoria.Trim())
+                    .Distinct()
+                    .OrderBy(c => c)
+                    .ToList();
+
+                foreach (var categoria in categoriasUnicas)
+                {
+                    Categorias.Add(categoria);
+                }
+
+                // Si no hay categorías, agregar las por defecto
+                if (Categorias.Count == 1) // Solo "Todos"
+                {
+                    Categorias.Add("Administrador");
+                    Categorias.Add("Transportista");
+                    Categorias.Add("Ayudante");
+                }
+
+                CategoriaSeleccionada = "Todos";
             }
-            else if (categoria == "Transportista")
+            catch (Exception ex)
             {
-                Transportistas.Clear();
-                foreach (var t in trabajadores) Transportistas.Add(t);
+                System.Diagnostics.Debug.WriteLine($"Error al cargar categorías: {ex.Message}");
             }
-            else if (categoria == "Todos" || string.IsNullOrEmpty(categoria))
-            {
-                // Si es "Todos" o null, cargar ambas categorías
-                var ayudantes = await App.Database.ObtenerTrabajadoresAsync("Ayudante");
-                var transportistas = await App.Database.ObtenerTrabajadoresAsync("Transportista");
-
-                Ayudantes.Clear();
-                foreach (var t in ayudantes) Ayudantes.Add(t);
-
-                Transportistas.Clear();
-                foreach (var t in transportistas) Transportistas.Add(t);
-            }
-
-            _allTrabajadores.Clear();
-            foreach (var trabajador in trabajadores)
-            {
-                _allTrabajadores.Add(trabajador);
-            }
-
-            OnPropertyChanged(nameof(Ayudantes));
-            OnPropertyChanged(nameof(Transportistas));
-            FiltrarTrabajadores();
-            IsBusy = false;
         }
 
         private void FiltrarTrabajadores()
         {
-            var filtered = _allTrabajadores.AsEnumerable();
-
-            if (!string.IsNullOrWhiteSpace(SearchText))
+            try
             {
-                filtered = filtered.Where(t =>
-                    t.NombreCompleto.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0);
-            }
+                var trabajadoresFiltrados = _todosTrabajadores.AsEnumerable();
 
-            // Filtrar por categoría si hay una seleccionada que no sea "Todos"
-            if (!string.IsNullOrWhiteSpace(CategoriaFiltro) && CategoriaFiltro != "Todos")
+                // DEBUG: Mostrar qué estamos filtrando
+                System.Diagnostics.Debug.WriteLine($"=== FILTRANDO ===");
+                System.Diagnostics.Debug.WriteLine($"Categoría seleccionada: '{CategoriaSeleccionada}'");
+                System.Diagnostics.Debug.WriteLine($"Total trabajadores antes del filtro: {_todosTrabajadores.Count}");
+
+                // Filtrar por categoría
+                if (!string.IsNullOrEmpty(CategoriaSeleccionada) && CategoriaSeleccionada != "Todos")
+                {
+                    trabajadoresFiltrados = trabajadoresFiltrados.Where(t =>
+                    {
+                        bool coincide = string.Equals(t.categoria?.Trim(), CategoriaSeleccionada.Trim(), StringComparison.OrdinalIgnoreCase);
+
+                        // DEBUG: Mostrar cada comparación
+                        if (!coincide)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"No coincide - Trabajador: {t.NombreTrabajador}, Su categoría: '{t.categoria}' vs Filtro: '{CategoriaSeleccionada}'");
+                        }
+
+                        return coincide;
+                    });
+                }
+
+                // Filtrar por texto de búsqueda
+                if (!string.IsNullOrWhiteSpace(SearchText))
+                {
+                    trabajadoresFiltrados = trabajadoresFiltrados.Where(t =>
+                        (!string.IsNullOrEmpty(t.NombreTrabajador) && t.NombreTrabajador.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(t.numDoc) && t.numDoc.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(t.Telefono) && t.Telefono.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(t.categoria) && t.categoria.Contains(SearchText, StringComparison.OrdinalIgnoreCase)));
+                }
+
+                // Ordenar alfabéticamente
+                trabajadoresFiltrados = trabajadoresFiltrados.OrderBy(t => t.NombreTrabajador);
+
+                var resultados = trabajadoresFiltrados.ToList();
+
+                // DEBUG: Mostrar resultados
+                System.Diagnostics.Debug.WriteLine($"Trabajadores después del filtro: {resultados.Count}");
+                foreach (var trabajador in resultados.Take(3))
+                {
+                    System.Diagnostics.Debug.WriteLine($"- {trabajador.NombreTrabajador} ({trabajador.categoria})");
+                }
+
+                // Actualizar la colección
+                Trabajadores.Clear();
+                foreach (var trabajador in resultados)
+                {
+                    Trabajadores.Add(trabajador);
+                }
+            }
+            catch (Exception ex)
             {
-                filtered = filtered.Where(t => t.Categoria == CategoriaFiltro);
+                System.Diagnostics.Debug.WriteLine($"Error al filtrar trabajadores: {ex.Message}");
             }
+        }
 
-            Trabajadores = new ObservableCollection<Trabajador>(filtered);
-            OnPropertyChanged(nameof(Trabajadores));
+        public async Task ActualizarDatos()
+        {
+            await CargarTodosLosTrabajadoresAsync();
+        }
+
+        // Método para recargar desde el code-behind
+        public async Task CargarDatosAsync()
+        {
+            await CargarTodosLosTrabajadoresAsync();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

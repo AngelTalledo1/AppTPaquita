@@ -1,3 +1,4 @@
+
 using AppTransporte.viewModel;
 
 namespace AppTransporte.Interfaces;
@@ -8,7 +9,7 @@ public partial class VEclientes : ContentPage
     private int _idUsuario;
     private int _idTipoUsuario;
     public VEclientes(int idUsuario, int idTipoUsuario)
-	{
+    {
         this._idTipoUsuario = idUsuario;
         this._idUsuario = idTipoUsuario;
         InitializeComponent();
@@ -24,14 +25,14 @@ public partial class VEclientes : ContentPage
         
     }
 
-    private void btn_agregarCliente(object sender, EventArgs e)
+    private void btn_agregarCliente(object sender, EventArgs e) 
     {
-        Navigation.PushAsync(new VEagregarCliente(_idUsuario,_idTipoUsuario));
+        Navigation.PushAsync(new VEagregarCliente(_idUsuario, _idTipoUsuario));
     }
 
     private void Btn_atrasCliente(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new MenuPrincipal(_idUsuario,_idTipoUsuario));
+        Navigation.PushAsync(new MenuPrincipal(_idUsuario, _idTipoUsuario));
     }
 
     private async void ClienteSlect_modificar(object sender, EventArgs e)

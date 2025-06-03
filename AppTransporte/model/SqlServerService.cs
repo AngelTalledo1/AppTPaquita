@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Reflection.Metadata;
@@ -754,9 +754,8 @@ namespace AppTransporte.model
         }
 
             return clientes;
-    }
-        
-      
+        }
+
         public async Task<List<Viaje>> ObtenerViajesAsync()
         {
             var viajes = new List<Viaje>();
@@ -1015,11 +1014,11 @@ namespace AppTransporte.model
             }
         }
 
-    public async Task<List<ReporteTrabajador>> ObtenerReporteTrabajadorAsync(
-    int? idTrabajador,
-    DateTime fechaInicio,
-    DateTime fechaFin,
-    string tipoReporte)
+        public async Task<List<ReporteTrabajador>> ObtenerReporteTrabajadorAsync(
+        int? idTrabajador,
+        DateTime fechaInicio,
+        DateTime fechaFin,
+        string tipoReporte)
         {
             var reportes = new List<ReporteTrabajador>();
 
@@ -1394,11 +1393,11 @@ namespace AppTransporte.model
                 }
             }
         }
-    public async Task<int> AgregarUbicacionAsync(
-    string descripcion,
-    string sector,
-    string referencias,
-    string coordenadas)
+        public async Task<int> AgregarUbicacionAsync(
+        string descripcion,
+        string sector,
+        string referencias,
+        string coordenadas)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -1418,7 +1417,7 @@ namespace AppTransporte.model
                 }
             }
         }
-    public async Task<List<Vehiculo>> ObtenerCisternaAsync(string placa = null, string ordenarPor = null)
+        public async Task<List<Vehiculo>> ObtenerCisternaAsync(string placa = null, string ordenarPor = null)
         {
             var cisterna = new List<Vehiculo>();
 
@@ -1463,14 +1462,14 @@ namespace AppTransporte.model
             }
             return cisterna;
         }
-    public async Task CrearPedidoAsync(
-    int idSolicitud,
-    int cantidad,
-    int viajes,
-    int idOrigen,
-    int idDestino,
-    int idEstadoPedido,
-    string listaServicios)
+        public async Task CrearPedidoAsync(
+        int idSolicitud,
+        int cantidad,
+        int viajes,
+        int idOrigen,
+        int idDestino,
+        int idEstadoPedido,
+        string listaServicios)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -1579,5 +1578,324 @@ namespace AppTransporte.model
         {
             return null;
         }
+        
+            public async Task<List<TareaAdicional>> ObtenerTareasUsuarioAsync(int idUsuario)
+            {
+                var tareas = new List<TareaAdicional>();
+
+                try
+                {
+                    using var connection = new SqlConnection(_connectionString);
+                    using var command = new SqlCommand("SP_ObtenerTareasUsuario", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    command.Parameters.AddWithValue("@id_usuario", idUsuario);
+
+                    await connection.OpenAsync();
+                    using var reader = await command.ExecuteReaderAsync();
+
+                    while (await reader.ReadAsync())
+                    {
+                        tareas.Add(new TareaAdicional
+                        {
+                            id_tareaAdicional = reader.GetInt32("id_tareaAdicional"),
+                            fecha_tarea = reader.GetDateTime("fecha_tarea"),
+                            hora_inicio = TimeSpan.Parse(reader["hora_inicio"].ToString()),
+                            hora_fin = TimeSpan.Parse(reader["hora_fin"].ToString()),
+                            descripcion = reader.GetString("descripcion"),
+                            fecha_creacion = reader.GetDateTime("fecha_creacion"),
+                            fecha_modificacion = reader.GetDateTime("fecha_modificacion"),
+                            duracion_minutos = reader.GetInt32("duracion_minutos"),
+                            nombre_usuario = reader.GetString("nombre_usuario"),
+                            id_usuario = idUsuario,
+                            estado = true
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al obtener tareas: {ex.Message}");
+                    throw;
+                }
+
+                return tareas;
+            }
+
+            public async Task<List<TareaAdicional>> ObtenerTareasPorFechaAsync(DateTime fecha, int idUsuario)
+            {
+                var tareas = new List<TareaAdicional>();
+
+                try
+                {
+                    using var connection = new SqlConnection(_connectionString);
+                    using var command = new SqlCommand("SP_ObtenerTareasPorFecha", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    command.Parameters.AddWithValue("@fecha_tarea", fecha.Date);
+                    command.Parameters.AddWithValue("@id_usuario", idUsuario);
+
+                    await connection.OpenAsync();
+                    using var reader = await command.ExecuteReaderAsync();
+
+                    while (await reader.ReadAsync())
+                    {
+                        tareas.Add(new TareaAdicional
+                        {
+                            id_tareaAdicional = reader.GetInt32("id_tareaAdicional"),
+                            fecha_tarea = reader.GetDateTime("fecha_tarea"),
+                            hora_inicio = TimeSpan.Parse(reader["hora_inicio"].ToString()),
+                            hora_fin = TimeSpan.Parse(reader["hora_fin"].ToString()),
+                            descripcion = reader.GetString("descripcion"),
+                            fecha_creacion = reader.GetDateTime("fecha_creacion"),
+                            fecha_modificacion = reader.GetDateTime("fecha_modificacion"),
+                            duracion_minutos = reader.GetInt32("duracion_minutos"),
+                            nombre_usuario = reader.GetString("nombre_usuario"),
+                            id_usuario = idUsuario,
+                            estado = true
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al obtener tareas por fecha: {ex.Message}");
+                    throw;
+                }
+
+                return tareas;
+            }
+
+            public async Task<RespuestaProcedimiento> InsertarTareaAsync(TareaAdicional tarea)
+            {
+                try
+                {
+                    using var connection = new SqlConnection(_connectionString);
+                    using var command = new SqlCommand("SP_InsertarTareaAdicional", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    command.Parameters.AddWithValue("@fecha_tarea", tarea.fecha_tarea.Date);
+                    command.Parameters.AddWithValue("@hora_inicio", tarea.hora_inicio);
+                    command.Parameters.AddWithValue("@hora_fin", tarea.hora_fin);
+                    command.Parameters.AddWithValue("@descripcion", tarea.descripcion);
+                    command.Parameters.AddWithValue("@id_usuario", tarea.id_usuario);
+
+                    await connection.OpenAsync();
+                    using var reader = await command.ExecuteReaderAsync();
+
+                    if (await reader.ReadAsync())
+                    {
+                        return new RespuestaProcedimiento
+                        {
+                            id_tareaAdicional = reader.IsDBNull("id_tareaAdicional") ? null : reader.GetInt32("id_tareaAdicional"),
+                            Mensaje = reader.GetString("Mensaje"),
+                            FilasAfectadas = 1
+                        };
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return new RespuestaProcedimiento
+                    {
+                        FilasAfectadas = 0,
+                        Mensaje = ex.Message
+                    };
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al insertar tarea: {ex.Message}");
+                    return new RespuestaProcedimiento
+                    {
+                        FilasAfectadas = 0,
+                        Mensaje = $"Error inesperado: {ex.Message}"
+                    };
+                }
+
+                return new RespuestaProcedimiento { FilasAfectadas = 0, Mensaje = "Error desconocido" };
+            }
+
+            public async Task<RespuestaProcedimiento> EliminarTareaAsync(int idTarea)
+            {
+                try
+                {
+                    using var connection = new SqlConnection(_connectionString);
+                    using var command = new SqlCommand("SP_EliminarTareaAdicional", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    command.Parameters.AddWithValue("@id_tareaAdicional", idTarea);
+
+                    await connection.OpenAsync();
+                    using var reader = await command.ExecuteReaderAsync();
+
+                    if (await reader.ReadAsync())
+                    {
+                        return new RespuestaProcedimiento
+                        {
+                            FilasAfectadas = reader.GetInt32("FilasAfectadas"),
+                            Mensaje = reader.GetString("Mensaje")
+                        };
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return new RespuestaProcedimiento
+                    {
+                        FilasAfectadas = 0,
+                        Mensaje = ex.Message
+                    };
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al eliminar tarea: {ex.Message}");
+                    return new RespuestaProcedimiento
+                    {
+                        FilasAfectadas = 0,
+                        Mensaje = $"Error inesperado: {ex.Message}"
+                    };
+                }
+
+                return new RespuestaProcedimiento { FilasAfectadas = 0, Mensaje = "Error desconocido" };
+            }
+        public async Task<(int Resultado, string Mensaje)> AsignarViajeAsync(
+    int idViaje,
+    int? idTracto,
+    int? idCisterna,
+    int cantidad,
+    int? idTransportista,
+    int? idAyudante)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("SP_AsignarViaje", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@id_viaje", idViaje);
+                    command.Parameters.AddWithValue("@id_tracto", (object)idTracto ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@id_cisterna", (object)idCisterna ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@cantidad", cantidad);
+                    command.Parameters.AddWithValue("@id_transportista", (object)idTransportista ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@id_ayudante", (object)idAyudante ?? DBNull.Value);
+
+                    using var reader = await command.ExecuteReaderAsync();
+                    if (await reader.ReadAsync())
+                    {
+                        return (reader.GetInt32("Resultado"), reader.GetString("Mensaje"));
+                    }
+
+                    return (0, "Error desconocido");
+                }
+            }
+        }
+        public async Task<List<Trabajador>> ObtenerTrabajadoresDisponiblesAsync(string categoria)
+        {
+            var trabajadores = new List<Trabajador>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("SP_ObtenerTrabajadoresDisponibles", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@categoria", categoria);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            trabajadores.Add(new Trabajador
+                            {
+                                IdTrabajador = reader.GetInt32("id_trabajador"),
+                                Nombre = reader.GetString("Nombre"),
+                                apePaterno = reader.IsDBNull("apePaterno") ? null : reader.GetString("apePaterno"),
+                                apeMaterno = reader.IsDBNull("apeMaterno") ? null : reader.GetString("apeMaterno"),
+                                categoria = reader.GetString("categoria"),
+                                numDoc = reader.IsDBNull("numDoc") ? null : reader.GetString("numDoc"),
+                                Telefono = reader.IsDBNull("Telefono") ? null : reader.GetString("Telefono"),
+                                // Otros campos que necesites
+                            });
+                        }
+                    }
+                }
+            }
+
+            return trabajadores;
+        }
+
+        // Obtener cisternas disponibles
+        public async Task<List<Vehiculo>> ObtenerCisternasDisponiblesAsync()
+        {
+            var cisternas = new List<Vehiculo>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("SP_ObtenerCisternasDisponibles", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            cisternas.Add(new Vehiculo
+                            {
+                                IdVehiculo = reader.GetInt32("id_cisterna"),
+                                Placa = reader.GetString("placa"),
+                                AñoFabricacion = reader.IsDBNull("AñoFabricacion") ? null : reader.GetString("AñoFabricacion"),
+                                Estado = reader.GetBoolean("estado")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return cisternas;
+        }
+
+        // Obtener tractos disponibles
+        public async Task<List<Vehiculo>> ObtenerTractosDisponiblesAsync()
+        {
+            var tractos = new List<Vehiculo>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("SP_ObtenerTractosDisponibles", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            tractos.Add(new Vehiculo
+                            {
+                                IdVehiculo = reader.GetInt32("id_tracto"),
+                                Placa = reader.GetString("placa"),
+                                Modelo = reader.IsDBNull("modelo") ? null : reader.GetString("modelo"),
+                                AñoFabricacion = reader.IsDBNull("AñoFabricacion") ? null : reader.GetString("AñoFabricacion"),
+                                Estado = reader.GetBoolean("estado")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return tractos;
+        }
     }
-}
+    }
+
+

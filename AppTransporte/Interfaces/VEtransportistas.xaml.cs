@@ -1,18 +1,29 @@
 namespace AppTransporte.Interfaces;
 using AppTransporte.model;
 using AppTransporte.viewModel;
-#pragma warning disable CS8602, NU1701
+
 public partial class VEtransportistas : ContentPage
 {
     private int _idUsuario;
     private int _idTipoUsuario;
+
     public VEtransportistas(int idUsuario, int idTipoUsuario)
-	{
-        this._idTipoUsuario = idUsuario;
-        this._idUsuario = idTipoUsuario;
-        BindingContext = new VMTrabajadores();
+    {
+        this._idUsuario = idUsuario;
+        this._idTipoUsuario = idTipoUsuario;
+
         InitializeComponent();
-	}
+        BindingContext = new VMTrabajadores();
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is VMTrabajadores viewModel)
+        {
+            await viewModel.ActualizarDatos();
+        }
+    }
 
     private void btn_agregarTransportista(object sender, EventArgs e)
     {
@@ -28,9 +39,9 @@ public partial class VEtransportistas : ContentPage
     {
         var button = (Button)sender;
         var trabajador = button.CommandParameter as Trabajador;
-
         if (trabajador != null)
         {
+            // CORREGIDO: quitados los asteriscos
             await Navigation.PushAsync(new VEagregarTransportista(trabajador, _idUsuario, _idTipoUsuario));
         }
     }
@@ -39,17 +50,17 @@ public partial class VEtransportistas : ContentPage
     {
         var button = (Button)sender;
         var trabajador = button.CommandParameter as Trabajador;
+
         bool respuesta = await DisplayAlert("Confirmación",
-                                       "¿Deseas eliminar a "+ trabajador.NombreTrabajador+"?",
+                                       "¿Deseas eliminar a " + trabajador.NombreTrabajador + "?",
                                        "Sí",
                                        "No");
         if (respuesta)
         {
             var resultado = await App.Database.eliminarTrabajadorAsync(trabajador.IdTrabajador);
-
             if (resultado > 0)
             {
-                await DisplayAlert("Exito", "Trabajador eliminado Exitosamente", "OK");
+                await DisplayAlert("Éxito", "Trabajador eliminado exitosamente", "OK");
                 if (BindingContext is VMTrabajadores viewModel)
                 {
                     await viewModel.ActualizarDatos();
@@ -57,16 +68,8 @@ public partial class VEtransportistas : ContentPage
             }
             else
             {
-                await DisplayAlert("Error", "No se pudo agregar el trabajador. Verifica los datos.", "OK");
+                await DisplayAlert("Error", "No se pudo eliminar el trabajador. Verifica los datos.", "OK");
             }
-
-        }
-    }
-    private async void OnActualizarClicked(object sender, EventArgs e)
-    {
-        if (BindingContext is VMTrabajadores viewModel)
-        {
-            await viewModel.ActualizarDatos();
         }
     }
 }

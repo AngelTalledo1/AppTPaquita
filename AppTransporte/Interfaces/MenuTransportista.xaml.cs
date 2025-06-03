@@ -1,9 +1,9 @@
 namespace AppTransporte.Interfaces;
 #pragma warning disable CS0612, CS0618
-public partial class MenuTransportista : ContentPage,IMenuPage
+public partial class MenuTransportista : ContentPage, IMenuPage
 {
     private int _idUsuario;
-    private int _idTipoUsuario; 
+    private int _idTipoUsuario;
     public MenuTransportista(int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
@@ -20,11 +20,11 @@ public partial class MenuTransportista : ContentPage,IMenuPage
     {
         await Navigation.PushAsync(new TareasAdicionales(_idUsuario, _idTipoUsuario));
     }
-    
+
 
     private async void btn_misViajes(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VTMisViajes(_idUsuario,_idTipoUsuario));
+        await Navigation.PushAsync(new VTMisViajes(_idUsuario, _idTipoUsuario));
     }
     private async void btn_Cerrar(object sender, EventArgs e)
     {

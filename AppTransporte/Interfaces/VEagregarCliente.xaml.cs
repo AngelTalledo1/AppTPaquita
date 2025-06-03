@@ -9,13 +9,13 @@ public partial class VEagregarCliente : ContentPage
     private int _idUsuario;
     private int _idTipoUsuario;
     public VEagregarCliente(int idUsuario, int idTipoUsuario)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         this._idTipoUsuario = idUsuario;
         this._idUsuario = idTipoUsuario;
         GuardarCliente.IsVisible = true;
-        TituloLabel.Text = "Información General";
-	}
+        TituloLabel.Text = "InformaciÃ³n General";
+    }
     public VEagregarCliente(Cliente clienteSelect, int idUsuario, int idTipoUsuario)
     {
         InitializeComponent();
@@ -24,7 +24,7 @@ public partial class VEagregarCliente : ContentPage
         this._idUsuario = idTipoUsuario;
         ActualizarCliente.IsVisible = true;
         tituloInterfaz.Text = "Modificar Cliente";
-        TituloLabel.Text = "Información General";
+        TituloLabel.Text = "InformaciÃ³n General";
         NombreEntry.Text = clienteSelect.Nombre;
         ApellidoEntry.Text = $"{clienteSelect.ApePaterno} {clienteSelect.ApeMaterno} ";
         TipoDocumentoPicker.SelectedIndex = clienteSelect.Persona.IdTipoDoc;
@@ -38,7 +38,7 @@ public partial class VEagregarCliente : ContentPage
 
     private void Btn_atras(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new VEclientes(_idUsuario,_idTipoUsuario));
+        Navigation.PushAsync(new VEclientes(_idUsuario, _idTipoUsuario));
     }
     private async void OnGuardarClienteClicked(object sender, EventArgs e)
     {
@@ -47,12 +47,12 @@ public partial class VEagregarCliente : ContentPage
             string.IsNullOrWhiteSpace(TelefonoEntry.Text) ||
             string.IsNullOrWhiteSpace(DireccionEntry.Text) ||
             string.IsNullOrWhiteSpace(TipoDocumentoPicker.SelectedItem?.ToString()))
-           
+
         {
             await DisplayAlert("Error", "Todos los campos obligatorios deben llenarse.", "OK");
             return;
         }
-        
+
         int idTipoDoc = TipoDocumentoPicker.SelectedIndex + 1;
         try
         {
@@ -72,8 +72,8 @@ public partial class VEagregarCliente : ContentPage
 
             if (resultado > 0)
             {
-                await DisplayAlert("Éxito", "Cliente agregado correctamente.", "OK");
-                await Navigation.PushAsync(new VEclientes(_idUsuario,_idTipoUsuario));
+                await DisplayAlert("Ã‰xito", "Cliente agregado correctamente.", "OK");
+                await Navigation.PushAsync(new VEclientes(_idUsuario, _idTipoUsuario));
 
             }
             else
@@ -83,11 +83,11 @@ public partial class VEagregarCliente : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Ocurrió un problema: {ex.Message}", "OK");
+            await DisplayAlert("Error", $"OcurriÃ³ un problema: {ex.Message}", "OK");
         }
     }
 
-    private async void  Btn_ActualizarCliente(object sender, EventArgs e)
+    private async void Btn_ActualizarCliente(object sender, EventArgs e)
     {
         int idTipoDoc = TipoDocumentoPicker.SelectedIndex + 1;
         try
@@ -109,7 +109,7 @@ public partial class VEagregarCliente : ContentPage
 
             if (resultado > 0)
             {
-                await DisplayAlert("Éxito", "Cliente modificado correctamente.", "OK");
+                await DisplayAlert("Ã‰xito", "Cliente modificado correctamente.", "OK");
                 await Navigation.PushAsync(new VEclientes(_idUsuario, _idTipoUsuario));
             }
             else
@@ -120,7 +120,7 @@ public partial class VEagregarCliente : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Ocurrió un problema: {ex.Message}", "OK");
+            await DisplayAlert("Error", $"OcurriÃ³ un problema: {ex.Message}", "OK");
         }
     }
 }
