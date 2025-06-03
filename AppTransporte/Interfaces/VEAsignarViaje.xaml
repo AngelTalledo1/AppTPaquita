@@ -2,19 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTransporte.Interfaces.VEAsignarViaje"
-              xmlns:VME="clr-namespace:AppTransporte.viewModel"
              NavigationPage.HasNavigationBar="False"
              Title="VEAsignarViaje">
-    <ContentPage.BindingContext>
-        <VME:VMTrabajadores/>
-    </ContentPage.BindingContext>
-        <Grid RowDefinitions=".1*,.9*">
+
+    <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0"
               BackgroundColor="#cb4335">
             <Button BackgroundColor="Transparent"
-                    Clicked="Btn_atrasAsignarViaje"
-                     />
+                    Clicked="Btn_atrasAsignarViaje" />
             <Image Source="atras.png"
                    HorizontalOptions="Center"
                    VerticalOptions="End"
@@ -30,103 +26,118 @@
                    FontFamily="Comf-Medium"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1 ">
+        <Grid Grid.Row="1">
             <VerticalStackLayout Margin="10,20">
+
+                <!-- Indicador de carga -->
+                <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}"
+                                   Color="#cb4335"
+                                   HorizontalOptions="Center"
+                                   Margin="0,10" />
+
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
                     <Label x:Name="Id_Pedido"
-                           FontFamily="Comf-Bold"
-                           />
+                           FontFamily="Comf-Bold" />
                     <Label x:Name="Id_viaje"
                            FontFamily="Comf-Bold"/>
                 </HorizontalStackLayout>
-                <VerticalStackLayout Margin="20,20,30,0"
-                                     Spacing="40">
+
+                <VerticalStackLayout Margin="20,20,30,0" Spacing="40">
+
+                    <!-- Cantidad -->
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="30"
                                HorizontalOptions="Center"
-                               Source="cantidad.png"></Image>
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               x:Name="cantidadEntry"
-                               Placeholder="Cantidad"
-                               FontFamily="Comf-Bold"
-                               TextColor="Black" />
+                               Source="cantidad.png" />
+                        <VerticalStackLayout Grid.Column="1" Spacing="5">
+                            <Entry PlaceholderColor="#515a5a"
+                                   x:Name="cantidadEntry"
+                                   Placeholder="Cantidad (máx. 200 barriles)"
+                                   FontFamily="Comf-Bold"
+                                   TextColor="Black"
+                                   TextChanged="CantidadEntry_TextChanged" />
+                            <Label x:Name="lblErrorCantidad"
+                                   Text="El límite máximo es de 200 barriles"
+                                   FontSize="12"
+                                   FontFamily="Comf-Regular"
+                                   TextColor="Red"
+                                   IsVisible="False"
+                                   Margin="10,0,0,0" />
+                        </VerticalStackLayout>
                     </Grid>
+
+                    <!-- Transportista -->
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="30"
                                Source="usuario.png"
-                               HorizontalOptions="Center"></Image>
+                               HorizontalOptions="Center" />
                         <Grid Grid.Column="1">
                             <Picker x:Name="transportistaPicker"
-                                    Title="Transportista"
+                                    Title="Seleccionar Transportista"
                                     TitleColor="#515a5a"
                                     FontFamily="Comf-Bold"
                                     TextColor="Black"
                                     ItemsSource="{Binding Transportistas}"
-                                    ItemDisplayBinding="{Binding NombreCompleto}"
-                                    SelectedItem="Seleccione un trabajador">
-                            </Picker>
+                                    ItemDisplayBinding="{Binding NombreTrabajador}" />
                         </Grid>
                     </Grid>
+
+                    <!-- Ayudante -->
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="30"
                                Source="cliente2.png"
-                               HorizontalOptions="Center"></Image>
+                               HorizontalOptions="Center" />
                         <Grid Grid.Column="1">
                             <Picker x:Name="ayudantePicker"
                                     TitleColor="#515a5a"
-                                    Title="Ayudante"
+                                    Title="Seleccionar Ayudante"
                                     FontFamily="Comf-Bold"
                                     TextColor="Black"
                                     ItemsSource="{Binding Ayudantes}"
-        ItemDisplayBinding="{Binding NombreCompleto}">
-                             
-                            </Picker>
+                                    ItemDisplayBinding="{Binding NombreTrabajador}" />
                         </Grid>
                     </Grid>
+
+                    <!-- Cisterna -->
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
                                Source="cisterna.png"
-                               HorizontalOptions="Center"></Image>
+                               HorizontalOptions="Center" />
                         <Grid Grid.Column="1">
                             <Picker x:Name="cisternaPicker"
                                     TitleColor="#515a5a"
-                                    Title="Cisterna"
+                                    Title="Seleccionar Cisterna"
                                     FontFamily="Comf-Bold"
-                                    TextColor="Black">
-                                <Picker.Items>
-                                    <x:String>Cisterna 1</x:String>
-                                    <x:String>Cisterna 2</x:String>
-                                    <x:String>Cisterna 3</x:String>
-                                </Picker.Items>
-                            </Picker>
+                                    TextColor="Black"
+                                    ItemsSource="{Binding Cisternas}"
+                                    ItemDisplayBinding="{Binding Placa}" />
                         </Grid>
                     </Grid>
+
+                    <!-- Tracto -->
                     <Grid ColumnDefinitions=".2*,.8*">
                         <Image WidthRequest="40"
                                HeightRequest="40"
                                Source="cisterna.png"
-                               HorizontalOptions="Center"></Image>
+                               HorizontalOptions="Center" />
                         <Grid Grid.Column="1">
                             <Picker x:Name="tractoPicker"
                                     TitleColor="#515a5a"
-                                    Title="Tracto"
+                                    Title="Seleccionar Tracto"
                                     FontFamily="Comf-Bold"
-                                    TextColor="Black">
-                                <Picker.Items>
-                                    <x:String>Tracto 1</x:String>
-                                    <x:String>Tracto 2</x:String>
-                                    <x:String>Tracto 3</x:String>
-                                </Picker.Items>
-                            </Picker>
+                                    TextColor="Black"
+                                    ItemsSource="{Binding Tractos}"
+                                    ItemDisplayBinding="{Binding Placa}" />
                         </Grid>
                     </Grid>
-                    <HorizontalStackLayout 
-                                           Spacing="20"
+
+                    <!-- Botones -->
+                    <HorizontalStackLayout Spacing="20"
                                            HorizontalOptions="Center">
                         <Button Text="Asignar"
                                 Padding="40,0"
@@ -134,7 +145,8 @@
                                 BackgroundColor="#415a77"
                                 TextColor="White"
                                 CornerRadius="20"
-                                HorizontalOptions="Center" />
+                                HorizontalOptions="Center"
+                                Clicked="Btn_AsignarViaje" />
                         <Button Text="Cancelar"
                                 FontFamily="Comf-Bold"
                                 Padding="40,0"

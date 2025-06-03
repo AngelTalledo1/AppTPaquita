@@ -1708,7 +1708,140 @@ namespace AppTransporte.model
 
                 return new RespuestaProcedimiento { FilasAfectadas = 0, Mensaje = "Error desconocido" };
             }
+        public async Task<(int Resultado, string Mensaje)> AsignarViajeAsync(
+    int idViaje,
+    int? idTracto,
+    int? idCisterna,
+    int cantidad,
+    int? idTransportista,
+    int? idAyudante)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("SP_AsignarViaje", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@id_viaje", idViaje);
+                    command.Parameters.AddWithValue("@id_tracto", (object)idTracto ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@id_cisterna", (object)idCisterna ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@cantidad", cantidad);
+                    command.Parameters.AddWithValue("@id_transportista", (object)idTransportista ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@id_ayudante", (object)idAyudante ?? DBNull.Value);
+
+                    using var reader = await command.ExecuteReaderAsync();
+                    if (await reader.ReadAsync())
+                    {
+                        return (reader.GetInt32("Resultado"), reader.GetString("Mensaje"));
+                    }
+
+                    return (0, "Error desconocido");
+                }
+            }
         }
+        public async Task<List<Trabajador>> ObtenerTrabajadoresDisponiblesAsync(string categoria)
+        {
+            var trabajadores = new List<Trabajador>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("SP_ObtenerTrabajadoresDisponibles", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@categoria", categoria);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            trabajadores.Add(new Trabajador
+                            {
+                                IdTrabajador = reader.GetInt32("id_trabajador"),
+                                Nombre = reader.GetString("Nombre"),
+                                apePaterno = reader.IsDBNull("apePaterno") ? null : reader.GetString("apePaterno"),
+                                apeMaterno = reader.IsDBNull("apeMaterno") ? null : reader.GetString("apeMaterno"),
+                                categoria = reader.GetString("categoria"),
+                                numDoc = reader.IsDBNull("numDoc") ? null : reader.GetString("numDoc"),
+                                Telefono = reader.IsDBNull("Telefono") ? null : reader.GetString("Telefono"),
+                                // Otros campos que necesites
+                            });
+                        }
+                    }
+                }
+            }
+
+            return trabajadores;
+        }
+
+        // Obtener cisternas disponibles
+        public async Task<List<Vehiculo>> ObtenerCisternasDisponiblesAsync()
+        {
+            var cisternas = new List<Vehiculo>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("SP_ObtenerCisternasDisponibles", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            cisternas.Add(new Vehiculo
+                            {
+                                IdVehiculo = reader.GetInt32("id_cisterna"),
+                                Placa = reader.GetString("placa"),
+                                AñoFabricacion = reader.IsDBNull("AñoFabricacion") ? null : reader.GetString("AñoFabricacion"),
+                                Estado = reader.GetBoolean("estado")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return cisternas;
+        }
+
+        // Obtener tractos disponibles
+        public async Task<List<Vehiculo>> ObtenerTractosDisponiblesAsync()
+        {
+            var tractos = new List<Vehiculo>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("SP_ObtenerTractosDisponibles", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            tractos.Add(new Vehiculo
+                            {
+                                IdVehiculo = reader.GetInt32("id_tracto"),
+                                Placa = reader.GetString("placa"),
+                                Modelo = reader.IsDBNull("modelo") ? null : reader.GetString("modelo"),
+                                AñoFabricacion = reader.IsDBNull("AñoFabricacion") ? null : reader.GetString("AñoFabricacion"),
+                                Estado = reader.GetBoolean("estado")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return tractos;
+        }
+    }
     }
 
 

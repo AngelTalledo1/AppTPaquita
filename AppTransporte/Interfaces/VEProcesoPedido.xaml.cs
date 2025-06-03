@@ -9,6 +9,7 @@ public partial class VEProcesoPedido : ContentPage
     private int idtipousuario;
     private Pedido _pedido;
     private VMSeguimientoViaje _viaje;
+    private VMViajes _viewModelViajes; // Agregar referencia al ViewModel
 
     public VEProcesoPedido(Pedido pedido, int idUsuario, int idTipoUsuario, VMSeguimientoViaje? viaje)
     {
@@ -18,15 +19,19 @@ public partial class VEProcesoPedido : ContentPage
         this._pedido = pedido;
         this._viaje = viaje;
 
+        // Crear y asignar el ViewModel
         if (idTipoUsuario == 1 || idTipoUsuario == 2)
         {
-            this.BindingContext = new VMViajes(pedido.IdPedido);
+            _viewModelViajes = new VMViajes(pedido.IdPedido);
         }
         else if (idTipoUsuario == 3)
         {
-            this.BindingContext = new VMViajes(idUsuario: idUsuario);
-
+            _viewModelViajes = new VMViajes(idUsuario: idUsuario);
         }
+
+        this.BindingContext = _viewModelViajes;
+
+        // Configurar labels
         TituloPedido.Text = $"Pedido {pedido.IdPedido}";
         Origen.Text = $"{pedido.Origen}";
         Estado.Text = $"{pedido.EstadoPedido}";
@@ -37,7 +42,19 @@ public partial class VEProcesoPedido : ContentPage
         creadorAdmin.Text = $"Creado por: {pedido.Usuario}";
         creacionPedido.Text = $"Pedido Creado: {pedido.FechaSolicitud}";
         cantidadViajes.Text = $"Numero de viajes: {pedido.Viajes}";
+    }
 
+    // AGREGAR ESTE MÉTODO para recargar cuando regrese de asignar
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        // Recargar datos de viajes al aparecer la página
+        if (_viewModelViajes != null)
+        {
+            await Task.Delay(500); // Pequeña pausa para asegurar que la BD se actualizó
+            _viewModelViajes.InicializarViajes(); // Recargar viajes
+        }
     }
 
     private async void Btn_atrasEstado(object sender, EventArgs e)
@@ -49,19 +66,16 @@ public partial class VEProcesoPedido : ContentPage
         else if (idtipousuario == 1)
         {
             await Navigation.PushAsync(new VEpedidos(idUsuario, idtipousuario));
-
         }
         else if (idtipousuario == 3)
         {
             await Navigation.PushAsync(new VTMisViajes(idUsuario, idtipousuario));
-
         }
     }
 
     private void expandir_Clicked(object sender, EventArgs e)
     {
         ExpanderViajes.IsExpanded = !ExpanderViajes.IsExpanded;
-
     }
 
     private async void Btn_SeguimientoViajes(object sender, EventArgs e)
@@ -70,40 +84,31 @@ public partial class VEProcesoPedido : ContentPage
         var viaje = button.CommandParameter as Viaje;
         if (viaje != null)
         {
-            // Validar si el viaje NO est� asignado
             bool noAsignado =
                 string.IsNullOrWhiteSpace(viaje.TractoAsig) || viaje.TractoAsig == "S/A" ||
                 string.IsNullOrWhiteSpace(viaje.CisternaAsig) || viaje.CisternaAsig == "S/A" ||
                 viaje.Cantidad <= 0 ||
                 string.IsNullOrWhiteSpace(viaje.TrabajadoresAsig) || viaje.TrabajadoresAsig == "S/A";
 
-            // Revisar el tipo de usuario
             if (noAsignado)
             {
-                // Si NO est� asignado:
                 if (idtipousuario == 1)
                 {
-                    // Admin -> Navega a la interfaz para ASIGNAR
                     await Navigation.PushAsync(new VEAsignarViaje(viaje, _pedido, idUsuario, idtipousuario));
                 }
                 else if (idtipousuario == 2)
                 {
-                    // Cliente -> Que NO navegue a ning�n lado (no hace nada)
                     return;
                 }
                 else if (idtipousuario == 3)
                 {
-                    // Transportista -> Te�ricamente ni siquiera deber�a ver viajes no asignados a �l
-                    // pero si por l�gica extra apareciera, tampoco lo dejes asignar:
                     return;
                 }
             }
             else
             {
-                // El viaje S� est� asignado, navega al seguimiento
                 await Navigation.PushAsync(new VESeguimientoViaje(viaje, _pedido, idUsuario, idtipousuario));
             }
         }
     }
-
 }

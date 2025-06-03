@@ -118,7 +118,7 @@ namespace AppTransporte.viewModel
             };
             InicializarViajes();
         }
-        private async void InicializarViajes()
+        public async void InicializarViajes()
         {
             IsBusy = true;
 

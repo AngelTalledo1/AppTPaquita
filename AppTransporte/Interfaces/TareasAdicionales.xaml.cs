@@ -170,6 +170,7 @@ namespace AppTransporte.Interfaces
                 StackTareas.Children.Add(frameItem);
             }
         }
+       
 
         private Frame CrearFrameTarea(TareaAdicional tarea)
         {
@@ -204,6 +205,7 @@ namespace AppTransporte.Interfaces
                 LineBreakMode = LineBreakMode.WordWrap,
                 Margin = new Thickness(0, 5)
             };
+            
 
             // Información adicional
             var labelInfo = new Label
@@ -234,6 +236,8 @@ namespace AppTransporte.Interfaces
             stackLayout.Children.Add(labelDescripcion);
             stackLayout.Children.Add(labelInfo);
             stackLayout.Children.Add(btnEliminar);
+        
+
 
             frame.Content = stackLayout;
             return frame;
@@ -244,8 +248,8 @@ namespace AppTransporte.Interfaces
             bool confirmacion = await DisplayAlert(
                 "Confirmar Eliminación",
                 $"¿Estás seguro de que deseas eliminar esta tarea?\n\n" +
-                $" {tarea.FechaTareaString}\n" +
-                $" {tarea.HorarioCompleto}\n\n" +
+                $"{tarea.FechaTareaString}\n" +
+                $"{tarea.HorarioCompleto}\n\n" +
                 $"{tarea.descripcion}",
                 "Eliminar",
                 "Cancelar");
@@ -256,17 +260,16 @@ namespace AppTransporte.Interfaces
                 {
                     MostrarCargando(true);
 
-                    _todasLasTareas = await _sqlService.ObtenerTareasUsuarioAsync(ObtenerIdUsuarioActual());
+                    var resultado = await _sqlService.EliminarTareaAsync(tarea.id_tareaAdicional);
 
-                    // Si obtienes datos, es exitoso
-                    if (_todasLasTareas != null)
+                    if (resultado.EsExitoso)
                     {
-                        await DisplayAlert("Éxito", "Tareas cargadas correctamente", "OK");
-                        MostrarTareasEnVista(_todasLasTareas);
+                        await DisplayAlert("Éxito", resultado.Mensaje, "OK");
+                        await CargarTareasAsync(); // Esto recarga toda la interfaz
                     }
                     else
                     {
-                        await DisplayAlert("Error", "No se pudieron cargar las tareas", "OK");
+                        await DisplayAlert("Error", resultado.Mensaje, "OK");
                     }
                 }
                 catch (Exception ex)

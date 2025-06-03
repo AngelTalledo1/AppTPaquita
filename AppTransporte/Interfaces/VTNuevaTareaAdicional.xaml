@@ -6,7 +6,6 @@
              x:Class="AppTransporte.Interfaces.VTNuevaTareaAdicional"
              Title="VTNuevaTareaAdicional">
     <Grid RowDefinitions=".1*,.9*">
-        <!-- Header -->
         <Grid ColumnDefinitions=".1*,.9*"
               Padding="20,0,0,0"
               BackgroundColor="#cb4335">
@@ -28,19 +27,16 @@
                    Padding="20,20,0,0" />
         </Grid>
 
-        <!-- Content Area -->
         <Grid Grid.Row="1">
             <ScrollView>
                 <VerticalStackLayout Margin="20" Spacing="15">
 
-                    <!-- Sección de Tareas Adicionales -->
                     <Frame BackgroundColor="White"
                            CornerRadius="10"
                            HasShadow="True"
                            Padding="20">
                         <VerticalStackLayout Spacing="15">
 
-                            <!-- Título de la sección -->
                             <Label Text="Información General"
                                    FontSize="18"
                                    FontFamily="Comf-Medium"
@@ -48,7 +44,6 @@
                                    HorizontalOptions="Center"
                                    Margin="0,0,0,10" />
 
-                            <!-- Selección de Fecha -->
                             <VerticalStackLayout Spacing="5">
                                 <Label Text="Fecha de la tarea"
                                        FontSize="14"
@@ -61,7 +56,7 @@
                                             Format="dd/MM/yyyy" />
                             </VerticalStackLayout>
 
-                            <!-- Hora de Inicio -->
+            
                             <VerticalStackLayout Spacing="5">
                                 <Label Text="Hora de inicio"
                                        FontSize="14"
@@ -74,7 +69,6 @@
                                             Format="HH:mm" />
                             </VerticalStackLayout>
 
-                            <!-- Hora de Finalización -->
                             <VerticalStackLayout Spacing="5">
                                 <Label Text="Hora de finalización"
                                        FontSize="14"
@@ -87,7 +81,6 @@
                                             Format="HH:mm" />
                             </VerticalStackLayout>
 
-                            <!-- Descripción -->
                             <VerticalStackLayout Spacing="5">
                                 <Label Text="Descripción de la tarea"
                                        FontSize="14"
