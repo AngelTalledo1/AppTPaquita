@@ -30,7 +30,7 @@
         <Grid Grid.Row="1">
             <ScrollView>
                 <VerticalStackLayout>
-                        <Frame WidthRequest="500"
+                    <Frame WidthRequest="500"
                            HeightRequest="60"
                            Padding="0,10,0,0"
                            BackgroundColor="AliceBlue"
@@ -42,7 +42,7 @@
                                    TextColor="Black"
                                    FontFamily="Comf-Bold"
                                    FontSize="Medium" />
-                        </Frame>
+                    </Frame>
                     <VerticalStackLayout Spacing="30" Margin="30,20,20,0">
 
                         <!-- Tipo de Servicio -->
@@ -57,6 +57,8 @@
                                     <x:String>Transporte de Fluido</x:String>
                                     <x:String>Suministro de Agua</x:String>
                                     <x:String>Transporte de Agua</x:String>
+                                    <x:String>Transporte de Combustible</x:String>
+                                    <x:String>Transporte de Químicos</x:String>
                                 </Picker.Items>
                             </Picker>
                         </HorizontalStackLayout>
@@ -129,6 +131,7 @@
                                        FontAttributes="Italic"
                                        TextColor="Red"/>
                                 <DatePicker x:Name="FechaFinPicker"
+                                            FontFamily="Comf-Medium"
                                             Format="dd/MM/yyyy"
                                             DateSelected="FechaFinPicker_DateSelected"/>
                             </VerticalStackLayout>
@@ -147,17 +150,22 @@
                         </HorizontalStackLayout>
 
                         <!-- Cantidad -->
-                        <HorizontalStackLayout VerticalOptions="Center">
-                            
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Image WidthRequest="30" HeightRequest="30" Source="cantidad.png" VerticalOptions="Center"/>
                             <Entry x:Name="cantidadEntry"
                                    Placeholder="Cantidad en barriles"
                                    FontFamily="Comf-Medium"
                                    Keyboard="Numeric"
+                                   TextChanged="cantidadEntry_TextChanged"
                                    HorizontalOptions="FillAndExpand"/>
                         </HorizontalStackLayout>
 
-                        <!-- Label de viajes -->
-                        <Label x:Name="Viajeslbl"/>
+                        <!-- Información de conversión -->
+                        <Label x:Name="Viajeslbl"
+                               FontFamily="Comf-Medium"
+                               FontSize="12"
+                               HorizontalOptions="Center"
+                               Margin="0,-20,0,0"/>
 
                         <!-- Botones -->
                         <Grid Grid.Row="2" Padding="0">
@@ -171,14 +179,15 @@
                                         TextColor="White"
                                         CornerRadius="40"
                                         HorizontalOptions="Center" />
-                                <Button Text="Ver Pedidos Programados "
+                                <Button Text="Ver Pedidos Programados"
                                         HeightRequest="50"
                                         WidthRequest="250"
                                         FontFamily="Comf-Bold"
                                         BackgroundColor="#007AFF"
                                         TextColor="White"
                                         CornerRadius="40"
-                                        HorizontalOptions="End" />
+                                        Clicked="Btn_verPedidosProgramados"
+                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Grid>
 

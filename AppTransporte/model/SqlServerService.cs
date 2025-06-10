@@ -1530,51 +1530,72 @@ namespace AppTransporte.model
         }
 
         public async Task<int> AgregarVehiculo(
-            string placa,
-            string modelo,
-            string añoFabricacion,
-            DateTime? emisionPoliza,
-            DateTime? vencimientoPoliza,
-            DateTime? emisionCITV,
-            DateTime? vencimientoCITV,
-            DateTime? emisionCubicacion,
-            DateTime? vencimientoCubicacion,
-            byte[] imagen,
-            byte[] poliza,
-            byte[] citv,
-            byte[] cubicacion,
-            byte[] tarjetaPropiedad,
-            string tipoVehiculo
-            )
+    string placa,
+    string modelo,
+    string añoFabricacion,
+    DateTime? emisionPoliza,
+    DateTime? vencimientoPoliza,
+    DateTime? emisionCITV,
+    DateTime? vencimientoCITV,
+    DateTime? emisionCubicacion,
+    DateTime? vencimientoCubicacion,
+    byte[] imagen,
+    byte[] poliza,
+    byte[] citv,
+    byte[] cubicacion,
+    byte[] tarjetaPropiedad,
+    string tipoVehiculo)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                await connection.OpenAsync();
-
-                using (SqlCommand command = new SqlCommand("pa_AgregarVehiculo", connection))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    await connection.OpenAsync();
 
-                    // Agregar parámetros
-                    command.Parameters.AddWithValue("@placa", placa);
-                    command.Parameters.AddWithValue("@modelo", string.IsNullOrWhiteSpace(modelo) ? (object)DBNull.Value : modelo);
-                    command.Parameters.AddWithValue("@añoFabricacion", string.IsNullOrWhiteSpace(añoFabricacion) ? (object)DBNull.Value : añoFabricacion);
-                    command.Parameters.AddWithValue("@emisionPoliza", emisionPoliza);
-                    command.Parameters.AddWithValue("@vencimientoPoliza", vencimientoPoliza);
-                    command.Parameters.AddWithValue("@emisionCITV", emisionCITV);
-                    command.Parameters.AddWithValue("@vencimientoCITV", vencimientoCITV);
-                    command.Parameters.AddWithValue("@emisionCubicacion", emisionCubicacion);
-                    command.Parameters.AddWithValue("@vencimientoCubicacion", vencimientoCubicacion);
-                    command.Parameters.AddWithValue("@imagen", imagen);
-                    command.Parameters.AddWithValue("@poliza", poliza);
-                    command.Parameters.AddWithValue("@citv", citv);
-                    command.Parameters.AddWithValue("@cubicacion", cubicacion);
-                    command.Parameters.AddWithValue("@tarjetaPropiedad", tarjetaPropiedad);
-                    command.Parameters.AddWithValue("@tipoVehiculo", tipoVehiculo);
+                    using (SqlCommand command = new SqlCommand("pa_AgregarVehiculo", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
 
-                    // Ejecutar el procedimiento almacenado
-                    return await command.ExecuteNonQueryAsync();
+                        // Agregar parámetros
+                        command.Parameters.AddWithValue("@placa", placa);
+                        command.Parameters.AddWithValue("@modelo", string.IsNullOrWhiteSpace(modelo) ? (object)DBNull.Value : modelo);
+                        command.Parameters.AddWithValue("@añoFabricacion", string.IsNullOrWhiteSpace(añoFabricacion) ? (object)DBNull.Value : añoFabricacion);
+                        command.Parameters.AddWithValue("@emisionPoliza", (object)emisionPoliza ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@vencimientoPoliza", (object)vencimientoPoliza ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@emisionCITV", (object)emisionCITV ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@vencimientoCITV", (object)vencimientoCITV ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@emisionCubicacion", (object)emisionCubicacion ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@vencimientoCubicacion", (object)vencimientoCubicacion ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@imagen", (object)imagen ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@poliza", (object)poliza ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@citv", (object)citv ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@cubicacion", (object)cubicacion ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@tarjetaPropiedad", (object)tarjetaPropiedad ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@tipoVehiculo", tipoVehiculo);
+
+                        // Ejecutar y leer la respuesta
+                        using var reader = await command.ExecuteReaderAsync();
+                        if (await reader.ReadAsync())
+                        {
+                            int resultado = reader.GetInt32("Resultado");
+                            string mensaje = reader.GetString("Mensaje");
+
+                            if (resultado == 0)
+                            {
+                                throw new Exception(mensaje);
+                            }
+
+                            return resultado;
+                        }
+
+                        return 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al agregar vehículo: {ex.Message}");
+                throw;
             }
         }
         public async Task<List<Viaje>> listarViajes()
@@ -1897,6 +1918,677 @@ namespace AppTransporte.model
             }
 
             return tractos;
+        }
+        public async Task<int> EliminarVehiculoAsync(int idVehiculo, string tipoVehiculo)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlCommand command = new SqlCommand("pa_EliminarVehiculo", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 60;
+
+                        // Agregar parámetros
+                        command.Parameters.AddWithValue("@id_vehiculo", idVehiculo);
+                        command.Parameters.AddWithValue("@tipoVehiculo", tipoVehiculo ?? (object)DBNull.Value);
+
+                        System.Diagnostics.Debug.WriteLine($"Ejecutando pa_EliminarVehiculo - ID: {idVehiculo}, Tipo: {tipoVehiculo}");
+
+                        int resultado = await command.ExecuteNonQueryAsync();
+
+                        System.Diagnostics.Debug.WriteLine($"Vehículo eliminado. Filas afectadas: {resultado}");
+
+                        return resultado;
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error SQL al eliminar vehículo: {sqlEx.Message}");
+
+                // Si el procedimiento no existe, usar método de SQL directo
+                if (sqlEx.Number == 2812) // Procedure not found
+                {
+                    System.Diagnostics.Debug.WriteLine("Procedimiento no encontrado, usando SQL directo");
+                    return await EliminarVehiculoConSQLDirectoBDReal(idVehiculo, tipoVehiculo);
+                }
+
+                // Si es error de clave foránea, dar mensaje más específico
+                if (sqlEx.Number == 547) // Foreign key constraint
+                {
+                    throw new Exception($"No se puede eliminar el vehículo porque está siendo usado en viajes activos. Elimine primero los viajes asociados.");
+                }
+
+                throw new Exception($"Error de base de datos al eliminar vehículo: {sqlEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error general al eliminar vehículo: {ex.Message}");
+                throw new Exception($"Error inesperado al eliminar vehículo: {ex.Message}");
+            }
+        }
+
+        // MÉTODO PARA VER DEPENDENCIAS ANTES DE ELIMINAR
+
+        public async Task<List<Dictionary<string, object>>> VerDependenciasVehiculoAsync(int idVehiculo, string tipoVehiculo)
+        {
+            var dependencias = new List<Dictionary<string, object>>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlCommand command = new SqlCommand("pa_VerDependenciasVehiculo", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@id_vehiculo", idVehiculo);
+                        command.Parameters.AddWithValue("@tipoVehiculo", tipoVehiculo);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                var dependencia = new Dictionary<string, object>();
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    dependencia[reader.GetName(i)] = reader.IsDBNull(i) ? null : reader.GetValue(i);
+                                }
+                                dependencias.Add(dependencia);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener dependencias: {ex.Message}");
+                // No lanzar error, solo retornar lista vacía
+            }
+
+            return dependencias;
+        }
+
+        // MÉTODO DE RESPALDO CON SQL DIRECTO
+
+        private async Task<int> EliminarVehiculoConSQLDirectoBDReal(int idVehiculo, string tipoVehiculo)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            // Verificar que el vehículo existe
+                            string verificarExistenciaSql = "";
+                            if (tipoVehiculo?.ToLower() == "tracto")
+                            {
+                                verificarExistenciaSql = "SELECT COUNT(*) FROM Tracto WHERE id_tracto = @id";
+                            }
+                            else if (tipoVehiculo?.ToLower() == "cisterna")
+                            {
+                                verificarExistenciaSql = "SELECT COUNT(*) FROM Cisterna WHERE id_cisterna = @id";
+                            }
+                            else
+                            {
+                                throw new Exception($"Tipo de vehículo no válido: {tipoVehiculo}");
+                            }
+
+                            using (SqlCommand verificarCmd = new SqlCommand(verificarExistenciaSql, connection, transaction))
+                            {
+                                verificarCmd.Parameters.AddWithValue("@id", idVehiculo);
+                                int existe = (int)await verificarCmd.ExecuteScalarAsync();
+
+                                if (existe == 0)
+                                {
+                                    throw new Exception($"No se encontró el vehículo con ID {idVehiculo} en la tabla {tipoVehiculo}");
+                                }
+                            }
+
+                            // Verificar si tiene viajes asignados
+                            string verificarViajesSql = "";
+                            if (tipoVehiculo?.ToLower() == "tracto")
+                            {
+                                verificarViajesSql = "SELECT COUNT(*) FROM Viaje WHERE id_tracto = @id";
+                            }
+                            else
+                            {
+                                verificarViajesSql = "SELECT COUNT(*) FROM Viaje WHERE id_cisterna = @id";
+                            }
+
+                            using (SqlCommand verificarViajesCmd = new SqlCommand(verificarViajesSql, connection, transaction))
+                            {
+                                verificarViajesCmd.Parameters.AddWithValue("@id", idVehiculo);
+                                int viajesAsignados = (int)await verificarViajesCmd.ExecuteScalarAsync();
+
+                                if (viajesAsignados > 0)
+                                {
+                                    throw new Exception($"No se puede eliminar el vehículo porque está asignado a {viajesAsignados} viaje(s). Elimine primero los viajes asociados.");
+                                }
+                            }
+
+                            // Proceder con la eliminación
+                            string deleteEvidenciasSql = "";
+                            string deleteVehiculoSql = "";
+
+                            if (tipoVehiculo?.ToLower() == "tracto")
+                            {
+                                deleteEvidenciasSql = "DELETE FROM Evidencias_Tracto WHERE id_tracto = @id_vehiculo";
+                                deleteVehiculoSql = "DELETE FROM Tracto WHERE id_tracto = @id_vehiculo";
+                            }
+                            else // cisterna
+                            {
+                                deleteEvidenciasSql = "DELETE FROM Evidencias_Cisterna WHERE id_cisterna = @id_vehiculo";
+                                deleteVehiculoSql = "DELETE FROM Cisterna WHERE id_cisterna = @id_vehiculo";
+                            }
+
+                            // Eliminar evidencias primero
+                            using (SqlCommand deleteEvidenciasCmd = new SqlCommand(deleteEvidenciasSql, connection, transaction))
+                            {
+                                deleteEvidenciasCmd.Parameters.AddWithValue("@id_vehiculo", idVehiculo);
+                                await deleteEvidenciasCmd.ExecuteNonQueryAsync();
+                                System.Diagnostics.Debug.WriteLine($"Evidencias eliminadas para {tipoVehiculo} ID: {idVehiculo}");
+                            }
+
+                            // Eliminar el vehículo
+                            using (SqlCommand deleteVehiculoCmd = new SqlCommand(deleteVehiculoSql, connection, transaction))
+                            {
+                                deleteVehiculoCmd.Parameters.AddWithValue("@id_vehiculo", idVehiculo);
+
+                                System.Diagnostics.Debug.WriteLine($"Ejecutando DELETE directo para {tipoVehiculo} ID: {idVehiculo}");
+
+                                int filasAfectadas = await deleteVehiculoCmd.ExecuteNonQueryAsync();
+
+                                System.Diagnostics.Debug.WriteLine($"Filas eliminadas (SQL directo): {filasAfectadas}");
+
+                                transaction.Commit();
+                                return filasAfectadas;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en EliminarVehiculoConSQLDirectoBDReal: {ex.Message}");
+                throw;
+            }
+        }
+
+        // ============================================
+        // MÉTODO PARA FORZAR ELIMINACIÓN (CON VIAJES)
+        // ============================================
+
+        public async Task<int> EliminarVehiculoForzarAsync(int idVehiculo, string tipoVehiculo)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlCommand command = new SqlCommand("pa_EliminarVehiculo_Forzar", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 120; // Más tiempo porque elimina más datos
+
+                        // Agregar parámetros
+                        command.Parameters.AddWithValue("@id_vehiculo", idVehiculo);
+                        command.Parameters.AddWithValue("@tipoVehiculo", tipoVehiculo ?? (object)DBNull.Value);
+
+                        System.Diagnostics.Debug.WriteLine($"Ejecutando pa_EliminarVehiculo_Forzar - ID: {idVehiculo}, Tipo: {tipoVehiculo}");
+
+                        int resultado = await command.ExecuteNonQueryAsync();
+
+                        System.Diagnostics.Debug.WriteLine($"Vehículo eliminado forzadamente. Filas afectadas: {resultado}");
+
+                        return resultado;
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error SQL al forzar eliminación: {sqlEx.Message}");
+                throw new Exception($"Error de base de datos al forzar eliminación: {sqlEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error general al forzar eliminación: {ex.Message}");
+                throw new Exception($"Error inesperado al forzar eliminación: {ex.Message}");
+            }
+        }
+        #region Pedidos Programados
+
+        /// <summary>
+        /// Crea un nuevo pedido programado
+        /// </summary>
+        public async Task<(int IdPedido, string Mensaje)> CrearPedidoProgramadoAsync(
+            int idUsuario,
+            int? idCliente,
+            string tipoServicio,
+            string frecuencia,
+            string diasSeleccionados,
+            DateTime fechaInicio,
+            DateTime fechaFin,
+            TimeSpan horaProgramada,
+            int cantidadBarriles,
+            string descripcion = null,
+            int? idOrigen = null,
+            int? idDestino = null)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlCommand command = new SqlCommand("pa_CrearPedidoProgramado", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 60;
+
+                        // Agregar parámetros
+                        command.Parameters.AddWithValue("@id_usuario", idUsuario);
+                        command.Parameters.AddWithValue("@id_cliente", (object)idCliente ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@tipo_servicio", tipoServicio ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@frecuencia", frecuencia ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@dias_seleccionados", diasSeleccionados ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@fecha_inicio", fechaInicio);
+                        command.Parameters.AddWithValue("@fecha_fin", fechaFin);
+                        command.Parameters.AddWithValue("@hora_programada", horaProgramada);
+                        command.Parameters.AddWithValue("@cantidad_barriles", cantidadBarriles);
+                        command.Parameters.AddWithValue("@descripcion", descripcion ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@id_origen", (object)idOrigen ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@id_destino", (object)idDestino ?? DBNull.Value);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return (reader.GetInt32("id_pedidoProgramado"), reader.GetString("mensaje"));
+                            }
+                        }
+
+                        return (-1, "Error desconocido al crear pedido programado");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al crear pedido programado: {ex.Message}");
+                throw new Exception($"Error al crear pedido programado: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Obtiene lista de pedidos programados con filtros
+        /// </summary>
+        public async Task<List<PedidoProgramado>> ObtenerPedidosProgramadosAsync(
+            int? idUsuario = null,
+            string estado = null,
+            DateTime? fechaInicioFiltro = null,
+            DateTime? fechaFinFiltro = null,
+            string tipoServicio = null,
+            string frecuencia = null,
+            bool incluirFinalizados = false)
+        {
+            var pedidos = new List<PedidoProgramado>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlCommand command = new SqlCommand("pa_ListarPedidosProgramados", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 60;
+
+                        // Agregar parámetros
+                        command.Parameters.AddWithValue("@id_usuario", (object)idUsuario ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@estado", estado ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@fecha_inicio_filtro", (object)fechaInicioFiltro ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@fecha_fin_filtro", (object)fechaFinFiltro ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@tipo_servicio", tipoServicio ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@frecuencia", frecuencia ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@incluir_finalizados", incluirFinalizados);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                pedidos.Add(new PedidoProgramado
+                                {
+                                    IdPedidoProgramado = reader.GetInt32("id_pedidoProgramado"),
+                                    IdUsuario = reader.GetInt32("id_usuario"),
+                                    TipoServicio = reader.GetString("tipo_servicio"),
+                                    Frecuencia = reader.GetString("frecuencia"),
+                                    DiasSeleccionados = reader.IsDBNull("dias_seleccionados") ? null : reader.GetString("dias_seleccionados"),
+                                    FechaInicio = reader.GetDateTime("fecha_inicio"),
+                                    FechaFin = reader.GetDateTime("fecha_fin"),
+                                    HoraProgramada = TimeSpan.Parse(reader["hora_programada"].ToString()),
+                                    CantidadBarriles = reader.GetInt32("cantidad_barriles"),
+                                    CantidadLitros = reader.GetDecimal("cantidad_litros"),
+                                    Estado = reader.GetString("estado"),
+                                    Descripcion = reader.IsDBNull("descripcion") ? null : reader.GetString("descripcion"),
+                                    FechaCreacion = reader.GetDateTime("fecha_creacion"),
+                                    UltimaEjecucion = reader.IsDBNull("ultima_ejecucion") ? null : reader.GetDateTime("ultima_ejecucion"),
+                                    ProximaEjecucion = reader.IsDBNull("proxima_ejecucion") ? null : reader.GetDateTime("proxima_ejecucion"),
+                                    TotalEjecuciones = reader.GetInt32("total_ejecuciones"),
+                                    UsuarioCreador = reader.IsDBNull("usuario_creador") ? null : reader.GetString("usuario_creador"),
+                                    NombreUsuario = reader.IsDBNull("nombre_usuario") ? null : reader.GetString("nombre_usuario"),
+                                    CodigoCliente = reader.IsDBNull("codigo_cliente") ? null : reader.GetString("codigo_cliente"),
+                                    NombreCliente = reader.IsDBNull("nombre_cliente") ? null : reader.GetString("nombre_cliente"),
+                                    OrigenDescripcion = reader.IsDBNull("origen_descripcion") ? null : reader.GetString("origen_descripcion"),
+                                    DestinoDescripcion = reader.IsDBNull("destino_descripcion") ? null : reader.GetString("destino_descripcion"),
+                                    EstadoActual = reader.IsDBNull("estado_actual") ? null : reader.GetString("estado_actual"),
+                                    EstadoDescripcion = reader.IsDBNull("estado_descripcion") ? null : reader.GetString("estado_descripcion"),
+                                    DiasHastaEjecucion = reader.IsDBNull("dias_hasta_ejecucion") ? null : reader.GetInt32("dias_hasta_ejecucion")
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener pedidos programados: {ex.Message}");
+                throw new Exception($"Error al obtener pedidos programados: {ex.Message}");
+            }
+
+            return pedidos;
+        }
+
+        /// <summary>
+        /// Actualiza un pedido programado existente
+        /// </summary>
+        public async Task<string> ActualizarPedidoProgramadoAsync(
+            int idPedidoProgramado,
+            string tipoServicio = null,
+            string frecuencia = null,
+            string diasSeleccionados = null,
+            DateTime? fechaInicio = null,
+            DateTime? fechaFin = null,
+            TimeSpan? horaProgramada = null,
+            int? cantidadBarriles = null,
+            string descripcion = null,
+            int? idOrigen = null,
+            int? idDestino = null,
+            bool recalcularProximaEjecucion = true)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlCommand command = new SqlCommand("pa_ActualizarPedidoProgramado", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 60;
+
+                        // Agregar parámetros
+                        command.Parameters.AddWithValue("@id_pedidoProgramado", idPedidoProgramado);
+                        command.Parameters.AddWithValue("@tipo_servicio", tipoServicio ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@frecuencia", frecuencia ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@dias_seleccionados", diasSeleccionados ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@fecha_inicio", (object)fechaInicio ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@fecha_fin", (object)fechaFin ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@hora_programada", (object)horaProgramada ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@cantidad_barriles", (object)cantidadBarriles ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@descripcion", descripcion ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@id_origen", (object)idOrigen ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@id_destino", (object)idDestino ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@recalcular_proxima_ejecucion", recalcularProximaEjecucion);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return reader.GetString("mensaje");
+                            }
+                        }
+
+                        return "Pedido programado actualizado correctamente";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al actualizar pedido programado: {ex.Message}");
+                throw new Exception($"Error al actualizar pedido programado: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Cambia el estado de un pedido programado
+        /// </summary>
+        public async Task<string> CambiarEstadoPedidoProgramadoAsync(int idPedidoProgramado, string nuevoEstado, string motivo = null)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlCommand command = new SqlCommand("pa_CambiarEstadoPedidoProgramado", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 60;
+
+                        command.Parameters.AddWithValue("@id_pedidoProgramado", idPedidoProgramado);
+                        command.Parameters.AddWithValue("@nuevo_estado", nuevoEstado);
+                        command.Parameters.AddWithValue("@motivo", motivo ?? (object)DBNull.Value);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return reader.GetString("mensaje");
+                            }
+                        }
+
+                        return "Estado cambiado correctamente";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cambiar estado del pedido programado: {ex.Message}");
+                throw new Exception($"Error al cambiar estado del pedido programado: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Ejecuta pedidos programados pendientes
+        /// </summary>
+        public async Task<(int PedidosEjecutados, int Errores, string Mensaje)> EjecutarPedidosProgramadosAsync(
+            int? idPedidoProgramado = null,
+            bool ejecutarManualmente = false)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlCommand command = new SqlCommand("pa_EjecutarPedidosProgramados", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 120; // Más tiempo para ejecutar múltiples pedidos
+
+                        command.Parameters.AddWithValue("@id_pedidoProgramado", (object)idPedidoProgramado ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@ejecutar_manualmente", ejecutarManualmente);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return (
+                                    reader.GetInt32("pedidos_ejecutados"),
+                                    reader.GetInt32("errores"),
+                                    reader.GetString("mensaje")
+                                );
+                            }
+                        }
+
+                        return (0, 0, "No se encontraron resultados");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al ejecutar pedidos programados: {ex.Message}");
+                throw new Exception($"Error al ejecutar pedidos programados: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Elimina un pedido programado
+        /// </summary>
+        public async Task<string> EliminarPedidoProgramadoAsync(int idPedidoProgramado, string motivo = null)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlCommand command = new SqlCommand("pa_EliminarPedidoProgramado", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 60;
+
+                        command.Parameters.AddWithValue("@id_pedidoProgramado", idPedidoProgramado);
+                        command.Parameters.AddWithValue("@motivo", motivo ?? (object)DBNull.Value);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return reader.GetString("mensaje");
+                            }
+                        }
+
+                        return "Pedido programado eliminado correctamente";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al eliminar pedido programado: {ex.Message}");
+                throw new Exception($"Error al eliminar pedido programado: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Obtiene estadísticas de pedidos programados
+        /// </summary>
+        public async Task<Dictionary<string, object>> ObtenerEstadisticasPedidosProgramadosAsync(int? idUsuario = null)
+        {
+            var estadisticas = new Dictionary<string, object>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    string sql = @"
+                SELECT 
+                    COUNT(*) AS total_pedidos,
+                    SUM(CASE WHEN estado = 'Activo' THEN 1 ELSE 0 END) AS activos,
+                    SUM(CASE WHEN estado = 'Pausado' THEN 1 ELSE 0 END) AS pausados,
+                    SUM(CASE WHEN estado = 'Finalizado' THEN 1 ELSE 0 END) AS finalizados,
+                    SUM(CASE WHEN estado = 'Cancelado' THEN 1 ELSE 0 END) AS cancelados,
+                    SUM(CASE WHEN proxima_ejecucion <= GETDATE() AND estado = 'Activo' THEN 1 ELSE 0 END) AS pendientes_ejecucion,
+                    SUM(total_ejecuciones) AS total_ejecuciones_realizadas
+                FROM PedidoProgramado
+                WHERE (@id_usuario IS NULL OR id_usuario = @id_usuario)";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@id_usuario", (object)idUsuario ?? DBNull.Value);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                estadisticas["total_pedidos"] = reader.GetInt32("total_pedidos");
+                                estadisticas["activos"] = reader.GetInt32("activos");
+                                estadisticas["pausados"] = reader.GetInt32("pausados");
+                                estadisticas["finalizados"] = reader.GetInt32("finalizados");
+                                estadisticas["cancelados"] = reader.GetInt32("cancelados");
+                                estadisticas["pendientes_ejecucion"] = reader.GetInt32("pendientes_ejecucion");
+                                estadisticas["total_ejecuciones_realizadas"] = reader.GetInt32("total_ejecuciones_realizadas");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener estadísticas: {ex.Message}");
+                throw new Exception($"Error al obtener estadísticas: {ex.Message}");
+            }
+
+            return estadisticas;
+        }
+
+        #endregion
+
+        
+        public async Task<int> ModificarVehiculoAsync(
+                                int idVehiculo,
+                                string placa,
+                                string modelo,
+                                string añoFabricacion,
+                                DateTime? emisionPoliza,
+                                DateTime? vencimientoPoliza,
+                                DateTime? emisionCITV,
+                                DateTime? vencimientoCITV,
+                                DateTime? emisionCubicacion,
+                                DateTime? vencimientoCubicacion,
+                                string tipoVehiculo)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_ModificarVehiculo", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@id_vehiculo", idVehiculo);
+                    command.Parameters.AddWithValue("@placa", placa);
+                    command.Parameters.AddWithValue("@modelo", string.IsNullOrWhiteSpace(modelo) ? (object)DBNull.Value : modelo);
+                    command.Parameters.AddWithValue("@añoFabricacion", string.IsNullOrWhiteSpace(añoFabricacion) ? (object)DBNull.Value : añoFabricacion);
+                    command.Parameters.AddWithValue("@emisionPoliza", (object)emisionPoliza ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@vencimientoPoliza", (object)vencimientoPoliza ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@emisionCITV", (object)emisionCITV ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@vencimientoCITV", (object)vencimientoCITV ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@emisionCubicacion", (object)emisionCubicacion ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@vencimientoCubicacion", (object)vencimientoCubicacion ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@tipoVehiculo", tipoVehiculo);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
         }
     }
     }

@@ -26,15 +26,16 @@
                    FontFamily="Comf-Medium"
                    Padding="20,20,0,0" />
         </Grid>
-        <Grid Grid.Row="1" >
-            <VerticalStackLayout>
-                <ScrollView>
+        <Grid Grid.Row="1">
+            <ScrollView>
+               <VerticalStackLayout>
+                
                     <VerticalStackLayout>
-                        <Frame  WidthRequest="500"
-                                HeightRequest="60"
-                                Padding="0,10,0,0"
-                                BackgroundColor="AliceBlue" 
-                                BorderColor="Transparent">
+                        <Frame WidthRequest="500"
+                               HeightRequest="60"
+                               Padding="0,10,0,0"
+                               BackgroundColor="AliceBlue" 
+                               BorderColor="Transparent">
                             <Label Text="Informacion de vehiculo"
                                    HorizontalOptions="Center"
                                    TextColor="Black"
@@ -42,8 +43,7 @@
                                    FontSize="Medium" />
                         </Frame>
                         <VerticalStackLayout Margin="10">
-                            <Frame 
-                                   Margin="0"
+                            <Frame Margin="0"
                                    Padding="0"
                                    BorderColor="Transparent"
                                    BackgroundColor="#edede9">
@@ -56,17 +56,19 @@
                                         SelectedIndexChanged="PickerIndexChanged">
                                     <Picker.ItemsSource>
                                         <x:Array Type="{x:Type x:String}">
-                                        <x:String>Tracto</x:String>
-                                        <x:String>Cisterna</x:String>
+                                            <x:String>Tracto</x:String>
+                                            <x:String>Cisterna</x:String>
                                         </x:Array>
                                     </Picker.ItemsSource>
                                 </Picker>
                             </Frame>
+
+                            <!-- Placa -->
                             <Grid ColumnDefinitions=".2*,.8*">
                                 <Image WidthRequest="40"
                                        HeightRequest="40"
                                        HorizontalOptions="Center"
-                                       Source="licencia.png"></Image>
+                                       Source="licencia.png" />
                                 <Entry PlaceholderColor="#515a5a"
                                        Grid.Column="1"
                                        Margin="10"
@@ -75,13 +77,15 @@
                                        FontFamily="Comf-Medium"
                                        TextColor="Black" />
                             </Grid>
+
+                            <!-- Modelo (solo Tracto) -->
                             <Grid ColumnDefinitions=".2*,.8*"
                                   x:Name="tractoFields"
                                   IsVisible="False">
                                 <Image WidthRequest="40"
                                        HeightRequest="40"
                                        Source="cisterna.png"
-                                       HorizontalOptions="Center"></Image>
+                                       HorizontalOptions="Center" />
                                 <Entry PlaceholderColor="#515a5a"
                                        Grid.Column="1"
                                        x:Name="modeloEntry"
@@ -90,11 +94,13 @@
                                        FontFamily="Comf-Medium"
                                        TextColor="Black" />
                             </Grid>
+
+                            <!-- Año de fabricación -->
                             <Grid ColumnDefinitions=".2*,.8*">
                                 <Image WidthRequest="20"
                                        HeightRequest="20"
                                        Source="fabricar.png"
-                                       HorizontalOptions="Center"></Image>
+                                       HorizontalOptions="Center" />
                                 <Entry PlaceholderColor="#515a5a"
                                        Grid.Column="1"
                                        Margin="10"
@@ -103,58 +109,84 @@
                                        FontFamily="Comf-Medium"
                                        TextColor="Black" />
                             </Grid>
+
+                            <!-- Fecha emisión póliza -->
                             <Grid ColumnDefinitions=".2*,.8*">
                                 <Image WidthRequest="30"
                                        HeightRequest="30"
                                        Source="calendario.png"
-                                       HorizontalOptions="Center"></Image>
-                                <Entry PlaceholderColor="#515a5a"
-                                       Grid.Column="1"
-                                       Margin="10"
-                                       x:Name="emipolizaEntry"
-                                       Placeholder="Fecha de emision de poliza"
-                                       FontFamily="Comf-Medium"
-                                       TextColor="Black" />
+                                       HorizontalOptions="Center" />
+                                <VerticalStackLayout Grid.Column="1" Margin="10" Spacing="5">
+                                    <Label Text="Fecha de emisión de póliza"
+                                           FontSize="12"
+                                           FontFamily="Comf-Medium"
+                                           TextColor="#515a5a" />
+                                    <DatePicker x:Name="emipolizaDatePicker"
+                                                BackgroundColor="#f8f9fa"
+                                                TextColor="Black"
+                                                FontFamily="Comf-Medium"
+                                                Format="dd/MM/yyyy" />
+                                </VerticalStackLayout>
                             </Grid>
+
+                            <!-- Fecha vencimiento póliza -->
                             <Grid ColumnDefinitions=".2*,.8*">
                                 <Image WidthRequest="30"
                                        HeightRequest="30"
                                        Source="vencimiento.png"
-                                       HorizontalOptions="Center"></Image>
-                                <Entry PlaceholderColor="#515a5a"
-                                       Grid.Column="1"
-                                       x:Name="venpolizaEntry"
-                                       Margin="10"
-                                       Placeholder="Fecha de vencimiento de poliza"
-                                       FontFamily="Comf-Medium"
-                                       TextColor="Black" />
+                                       HorizontalOptions="Center" />
+                                <VerticalStackLayout Grid.Column="1" Margin="10" Spacing="5">
+                                    <Label Text="Fecha de vencimiento de póliza"
+                                           FontSize="12"
+                                           FontFamily="Comf-Medium"
+                                           TextColor="#515a5a" />
+                                    <DatePicker x:Name="venpolizaDatePicker"
+                                                BackgroundColor="#f8f9fa"
+                                                TextColor="Black"
+                                                FontFamily="Comf-Medium"
+                                                Format="dd/MM/yyyy" />
+                                </VerticalStackLayout>
                             </Grid>
+
+                            <!-- Fecha emisión CITV -->
                             <Grid ColumnDefinitions=".2*,.8*">
                                 <Image WidthRequest="30"
                                        HeightRequest="30"
                                        Source="calendario.png"
-                                       HorizontalOptions="Center"></Image>
-                                <Entry PlaceholderColor="#515a5a"
-                                       Grid.Column="1"
-                                       x:Name="emicitvEntry"
-                                       Margin="10"
-                                       Placeholder="Fecha de emision de CITV"
-                                       FontFamily="Comf-Medium"
-                                       TextColor="Black" />
+                                       HorizontalOptions="Center" />
+                                <VerticalStackLayout Grid.Column="1" Margin="10" Spacing="5">
+                                    <Label Text="Fecha de emisión de CITV"
+                                           FontSize="12"
+                                           FontFamily="Comf-Medium"
+                                           TextColor="#515a5a" />
+                                    <DatePicker x:Name="emicitvDatePicker"
+                                                BackgroundColor="#f8f9fa"
+                                                TextColor="Black"
+                                                FontFamily="Comf-Medium"
+                                                Format="dd/MM/yyyy" />
+                                </VerticalStackLayout>
                             </Grid>
+
+                            <!-- Fecha vencimiento CITV -->
                             <Grid ColumnDefinitions=".2*,.8*">
                                 <Image WidthRequest="30"
                                        HeightRequest="30"
                                        HorizontalOptions="Center"
                                        Source="vencimiento.png" />
-                                <Entry PlaceholderColor="#515a5a"
-                                       Grid.Column="1"
-                                       x:Name="venCITVEntry"
-                                       Margin="10"
-                                       Placeholder="Fecha de vencimiento CITV"
-                                       FontFamily="Comf-Medium"
-                                       TextColor="Black" />
+                                <VerticalStackLayout Grid.Column="1" Margin="10" Spacing="5">
+                                    <Label Text="Fecha de vencimiento CITV"
+                                           FontSize="12"
+                                           FontFamily="Comf-Medium"
+                                           TextColor="#515a5a" />
+                                    <DatePicker x:Name="venCITVDatePicker"
+                                                BackgroundColor="#f8f9fa"
+                                                TextColor="Black"
+                                                FontFamily="Comf-Medium"
+                                                Format="dd/MM/yyyy" />
+                                </VerticalStackLayout>
                             </Grid>
+
+                            <!-- Fechas específicas para cisterna -->
                             <Grid ColumnDefinitions=".2*,.8*"
                                   x:Name="cisternaFields"
                                   IsVisible="False">
@@ -162,47 +194,60 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+
+                                <!-- Fecha emisión cubicación -->
                                 <Image WidthRequest="30"
                                        HeightRequest="30"
                                        Grid.Row="0"
                                        Source="calendario.png"
-                                       HorizontalOptions="Center"></Image>
-                                <Entry PlaceholderColor="#515a5a"
-                                       Grid.Row="0"
-                                       Grid.Column="1"
-                                       x:Name="emicubEntry"
-                                       Margin="10"
-                                       Placeholder="Fecha de emision de cubicacion"
-                                       FontFamily="Comf-Medium"
-                                       TextColor="Black" />
+                                       HorizontalOptions="Center" />
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="1" Margin="10" Spacing="5">
+                                    <Label Text="Fecha de emisión de cubicación"
+                                           FontSize="12"
+                                           FontFamily="Comf-Medium"
+                                           TextColor="#515a5a" />
+                                    <DatePicker x:Name="emicubDatePicker"
+                                                BackgroundColor="#f8f9fa"
+                                                TextColor="Black"
+                                                FontFamily="Comf-Medium"
+                                                Format="dd/MM/yyyy" />
+                                </VerticalStackLayout>
+
+                                <!-- Fecha vencimiento cubicación -->
                                 <Image WidthRequest="30"
                                        HeightRequest="30"
                                        Grid.Row="1"
                                        Source="vencimiento.png"
-                                       HorizontalOptions="Center"></Image>
-                                <Entry PlaceholderColor="#515a5a"
-                                       Grid.Column="1"
-                                       Grid.Row="1"
-                                       x:Name="vencubEntry"
-                                       Margin="10"
-                                       Placeholder="Fecha de vencimiento de cubicacion"
-                                       FontFamily="Comf-Medium"
-                                       TextColor="Black" />
+                                       HorizontalOptions="Center" />
+                                <VerticalStackLayout Grid.Column="1" Grid.Row="1" Margin="10" Spacing="5">
+                                    <Label Text="Fecha de vencimiento de cubicación"
+                                           FontSize="12"
+                                           FontFamily="Comf-Medium"
+                                           TextColor="#515a5a" />
+                                    <DatePicker x:Name="vencubDatePicker"
+                                                BackgroundColor="#f8f9fa"
+                                                TextColor="Black"
+                                                FontFamily="Comf-Medium"
+                                                Format="dd/MM/yyyy" />
+                                </VerticalStackLayout>
                             </Grid>
+
+                            <!-- Botones -->
+                            
                             <HorizontalStackLayout Spacing="10"
                                                    HorizontalOptions="Center">
-                                <Button     Text="Agregar"
-                                            x:Name="AgregarVehiculo"
-                                            IsVisible="False"
-                                            HeightRequest="50"
-                                            WidthRequest="150"
-                                            Margin="10"
-                                            Clicked="AgregarVehiculo_Clicked"
-                                            FontFamily="Comf-Bold"
-                                            BackgroundColor="#007AFF"
-                                            TextColor="White"
-                                            CornerRadius="40"
-                                            HorizontalOptions="Center" />
+                                <Button Text="Agregar"
+                                        x:Name="AgregarVehiculo"
+                                        IsVisible="False"
+                                        HeightRequest="50"
+                                        WidthRequest="150"
+                                        Margin="10"
+                                        Clicked="AgregarVehiculo_Clicked"
+                                        FontFamily="Comf-Bold"
+                                        BackgroundColor="#007AFF"
+                                        TextColor="White"
+                                        CornerRadius="40"
+                                        HorizontalOptions="Center" />
                                 <Button Text="Cancelar"
                                         x:Name="CancelarVehiculo"
                                         IsVisible="False"
@@ -217,21 +262,20 @@
                                 <Button Text="Modificar"
                                         x:Name="ModificarVehiculo"
                                         IsVisible="False"
-                                            HeightRequest="50"
-                                            WidthRequest="150"
+                                        HeightRequest="50"
+                                        WidthRequest="150"
                                         Clicked="ModificarVehiculo_Clicked"
-                                            Margin="10"
-                                            FontFamily="Comf-Bold"
-                                            BackgroundColor="#007AFF"
-                                            TextColor="White"
-                                            CornerRadius="40"
-                                            HorizontalOptions="Center" />
-                               
+                                        Margin="10"
+                                        FontFamily="Comf-Bold"
+                                        BackgroundColor="#007AFF"
+                                        TextColor="White"
+                                        CornerRadius="40"
+                                        HorizontalOptions="Center" />
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
                     </VerticalStackLayout>
-                </ScrollView>
             </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </ContentPage>

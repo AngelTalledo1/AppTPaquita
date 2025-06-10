@@ -6,7 +6,7 @@
              NavigationPage.HasNavigationBar="False"
              Title="VEVehiculos">
     <ContentPage.BindingContext>
-        <viewModel:VMVehiculo /> 
+        <viewModel:VMVehiculo />
     </ContentPage.BindingContext>
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
@@ -74,15 +74,17 @@
             </VerticalStackLayout>
             <ScrollView Grid.Row="1" Margin="10,0">
                 <VerticalStackLayout>
-                    <CollectionView ItemsSource="{Binding VehiculosFiltrados}"> <!--Cambiar a vehiculos filtrados-->
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Frame Padding="10"
+                    <CollectionView ItemsSource="{Binding VehiculosFiltrados}">
+                        <!--Cambiar a vehiculos filtrados-->
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="10"
                                        BackgroundColor="#edf2f4" 
                                            BorderColor="Transparent"
                                            CornerRadius="10"
                                            Margin="3">
-                                        <Grid ColumnDefinitions=".2*,.23*,.47*,.1*" 
+                                    <!-- GRID MODIFICADO: Agregué una columna más para el botón eliminar -->
+                                    <Grid ColumnDefinitions=".18*,.2*,.42*,.1*,.1*" 
                                               RowDefinitions="1*,1*">
                                         <Label Text="Placa"
                                                FontFamily="Comf-SemBold" 
@@ -91,7 +93,8 @@
                                                    HorizontalOptions="Center"
                                                    Grid.Row="1"
                                                    VerticalOptions="Center"
-                                                   FontFamily="Comf-Bold"/> <!--Enlace placa-->
+                                                   FontFamily="Comf-Bold"/>
+                                        <!--Enlace placa-->
                                         <Label Text="V. CITV: "
                                                FontFamily="Comf-Bold"
                                                FontSize="12"
@@ -102,7 +105,8 @@
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="Center"
                                                    Grid.Column="2"
-                                                   FontFamily="Comf-SemBold"/> <!--Enlace Modelo-->
+                                                   FontFamily="Comf-SemBold"/>
+                                        <!--Enlace Modelo-->
                                         <Label Text="V. Poliza: "
                                                FontFamily="Comf-Bold"
                                                FontSize="12"
@@ -114,25 +118,43 @@
                                                    VerticalOptions="Center"
                                                    Grid.Column="2"
                                                    Grid.Row="1"
-                                                   FontFamily="Comf-SemBold" /> <!--Enlace año-->
-                                            <Button Grid.Column="3"
+                                                   FontFamily="Comf-SemBold" />
+                                        <!--Enlace año-->
+
+                                        <!-- BOTÓN DETALLES (MODIFICAR) -->
+                                        <Button Grid.Column="3"
                                                     Grid.RowSpan="2"
-                                                    HorizontalOptions="Start"
+                                                    HorizontalOptions="Center"
                                                     Clicked="btn_DetallesVehiculo"
                                                     CommandParameter="{Binding .}"
                                                     BackgroundColor="Transparent"/>
-                                            <Image Source="detalles.png"
+                                        <Image Source="detalles.png"
                                                    HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
                                                    WidthRequest="30"
                                                    Grid.Column="3"
                                                    Grid.RowSpan="2" />
-                                        </Grid>
-                                    </Frame>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </VerticalStackLayout>
-                </ScrollView>
+
+                                        <!-- NUEVO BOTÓN ELIMINAR -->
+                                        <Button Grid.Column="4"
+                                                    Grid.RowSpan="2"
+                                                    HorizontalOptions="Center"
+                                                    Clicked="btn_EliminarVehiculo"
+                                                    CommandParameter="{Binding .}"
+                                                    BackgroundColor="Transparent"/>
+                                        <Image Source="eliminar.png"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   WidthRequest="25"
+                                                   Grid.Column="4"
+                                                   Grid.RowSpan="2" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
             <Button Text="Agregar Vehiculo"
                     Padding="20,0"
                     FontFamily="Comf-SemBold"

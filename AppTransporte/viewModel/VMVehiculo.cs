@@ -97,7 +97,7 @@ namespace AppTransporte.viewModel
         }
 
         // Método para cargar los vehículos (tractos y cisternas)
-        private async void CargarVehiculos()
+        public async void CargarVehiculos()
         {
             IsBusy = true;
 
