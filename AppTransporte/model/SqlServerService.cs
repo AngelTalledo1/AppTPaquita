@@ -49,6 +49,236 @@ namespace AppTransporte.model
                 }
             }
         }
+        // Reporte de Atención de Solicitudes por Cliente
+        public (DataTable MetricasCliente, DataTable DetalleSolicitudes) ObtenerReporteAtencionSolicitudesPorCliente(
+            int idCliente,
+            DateTime fechaInicio,
+            DateTime fechaFin)
+        {
+            DataTable metricasCliente = new DataTable();
+            DataTable detalleSolicitudes = new DataTable();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    conn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("sp_ReporteAtencionSolicitudesPorCliente", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandTimeout = 180;
+
+                        // Parámetros
+                        cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                        cmd.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                        cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
+
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds);
+
+                        if (ds.Tables.Count >= 1)
+                            metricasCliente = ds.Tables[0];
+
+                        if (ds.Tables.Count >= 2)
+                            detalleSolicitudes = ds.Tables[1];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en ObtenerReporteAtencionSolicitudesPorCliente: {ex.Message}");
+                throw;
+            }
+
+            return (metricasCliente, detalleSolicitudes);
+        }
+
+        // Reporte de Trabajadores por Cliente
+        public DataTable ObtenerReporteTrabajadoresPorCliente(int idCliente)
+        {
+            DataTable resultado = new DataTable();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    conn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("sp_ReporteTrabajadoresPorCliente", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                        cmd.CommandTimeout = 120; // Aumentar el timeout por si acaso
+
+                        // Utilizar SqlDataReader para ver si hay datos
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            resultado.Load(reader);
+
+                            // Registrar para debug cuántas filas se recuperaron
+                            System.Diagnostics.Debug.WriteLine($"Filas recuperadas: {resultado.Rows.Count}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Registrar el error para depuración
+                System.Diagnostics.Debug.WriteLine($"Error en ObtenerReporteTrabajadoresPorCliente: {ex.Message}");
+                throw; // Re-lanzar la excepción para manejarla en la capa superior
+            }
+
+            return resultado;
+        }
+
+        // Reporte de Pedidos por Cliente
+        public (DataTable ResumenPedidos, DataTable DetallePedidos) ObtenerReportePedidosPorCliente(
+            int idCliente,
+            string tipoPedido = null)
+        {
+            DataTable resumenPedidos = new DataTable();
+            DataTable detallePedidos = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("sp_ReportePedidosPorCliente", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                    cmd.Parameters.AddWithValue("@TipoPedido", (object)tipoPedido ?? DBNull.Value);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumenPedidos.Load(reader);
+                        if (reader.NextResult())
+                        {
+                            detallePedidos.Load(reader);
+                        }
+                    }
+                }
+            }
+
+            return (resumenPedidos, detallePedidos);
+        }
+
+        // Reporte de Desvíos por Cliente
+        public (DataTable ResumenDesvios, DataTable DetalleDesvios) ObtenerReporteDesviosPorCliente(
+            int idCliente,
+            DateTime fechaInicio,
+            DateTime fechaFin)
+        {
+            DataTable resumenDesvios = new DataTable();
+            DataTable detalleDesvios = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("sp_ReporteDesviosPorCliente", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                    cmd.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                    cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumenDesvios.Load(reader);
+                        if (reader.NextResult())
+                        {
+                            detalleDesvios.Load(reader);
+                        }
+                    }
+                }
+            }
+
+            return (resumenDesvios, detalleDesvios);
+        }
+
+        // Reporte de Programación por Cliente
+        public DataTable ObtenerReporteProgramacionCliente(int idCliente, string periodo = "SemanaActual")
+        {
+            DataTable resultado = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("sp_ReporteProgramacionCliente", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                    cmd.Parameters.AddWithValue("@Periodo", periodo);
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(resultado);
+                    }
+                }
+            }
+
+            return resultado;
+        }
+
+        // Reporte de Trabajos por Trabajador y Cliente
+        public (DataTable ResumenTrabajador, DataTable DetalleViajes) ObtenerReporteTrabajosPorTrabajadorCliente(
+            int idCliente,
+            int? idTrabajador = null)
+        {
+            DataTable resumenTrabajador = new DataTable();
+            DataTable detalleViajes = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("sp_ReporteTrabajosPorTrabajadorCliente", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                    cmd.Parameters.AddWithValue("@IdTrabajador", (object)idTrabajador ?? DBNull.Value);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumenTrabajador.Load(reader);
+                        if (reader.NextResult())
+                        {
+                            detalleViajes.Load(reader);
+                        }
+                    }
+                }
+            }
+
+            return (resumenTrabajador, detalleViajes);
+        }
+
+        public DataTable GetTrabajadoresPorCliente(int idCliente)
+        {
+            DataTable dt = new DataTable();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (var command = new SqlCommand("pa_TrabajadoresPorCliente", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id_cliente", idCliente);
+
+                    using (var adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+
+            return dt;
+        }
+
         // Método para agregar a tu clase SqlServerService existente
         public (DataTable MetricasGenerales, DataTable PorCliente, DataTable DetalleSolicitudes) ObtenerReporteAtencionSolicitudes(DateTime fechaInicio, DateTime fechaFin)
         {
@@ -1061,15 +1291,12 @@ namespace AppTransporte.model
         public async Task<List<Usuario>> ObtenerUsuariosAsync(bool? estadoFiltro = true)
         {
             var usuarios = new List<Usuario>();
-
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-
                 using (var command = new SqlCommand("sp_ObtenerUsuarios", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-
                     // Añadir el parámetro de filtro por estado
                     if (estadoFiltro.HasValue)
                         command.Parameters.AddWithValue("@estadoFiltro", estadoFiltro.Value);
@@ -1083,25 +1310,33 @@ namespace AppTransporte.model
                             usuarios.Add(new Usuario
                             {
                                 IdUsuario = reader.GetInt32(reader.GetOrdinal("id_usuario")),
-                                Username = reader.GetString(reader.GetOrdinal("username")),
-                                Contraseña = reader.GetString(reader.GetOrdinal("contraseña")),
+                                Username = reader.IsDBNull(reader.GetOrdinal("username")) ?
+                                    null : reader.GetString(reader.GetOrdinal("username")),
+                                Contraseña = reader.IsDBNull(reader.GetOrdinal("contraseña")) ?
+                                    null : reader.GetString(reader.GetOrdinal("contraseña")),
                                 IdTipoUsuario = reader.GetInt32(reader.GetOrdinal("id_tipoUsuario")),
                                 Estado = reader.GetBoolean(reader.GetOrdinal("estado")),
-                                IdPersona = reader.GetInt32(reader.GetOrdinal("id_persona")),
+                                IdPersona = (int)(reader.IsDBNull(reader.GetOrdinal("id_persona")) ?
+                                    (int?)null : reader.GetInt32(reader.GetOrdinal("id_persona"))),
                                 IdEmpresa = reader.IsDBNull(reader.GetOrdinal("id_empresa")) ?
                                     null : reader.GetInt32(reader.GetOrdinal("id_empresa")),
-                                TipoUsuario = reader.GetString(reader.GetOrdinal("TipoUsuario")),
-                                Nombres = reader.GetString(reader.GetOrdinal("Nombre")),
-                                Apellidos = reader.GetString(reader.GetOrdinal("apePaterno")),
-                                Correo = reader.GetString(reader.GetOrdinal("email")),
-                                Telefono = reader.GetString(reader.GetOrdinal("telefono"))
+                                TipoUsuario = reader.IsDBNull(reader.GetOrdinal("TipoUsuario")) ?
+                                    null : reader.GetString(reader.GetOrdinal("TipoUsuario")),
+                                Nombres = reader.IsDBNull(reader.GetOrdinal("Nombre")) ?
+                                    null : reader.GetString(reader.GetOrdinal("Nombre")),
+                                Apellidos = reader.IsDBNull(reader.GetOrdinal("apePaterno")) ?
+                                    null : reader.GetString(reader.GetOrdinal("apePaterno")),
+                                Correo = reader.IsDBNull(reader.GetOrdinal("email")) ?
+                                    null : reader.GetString(reader.GetOrdinal("email")),
+                                Telefono = reader.IsDBNull(reader.GetOrdinal("telefono")) ?
+                                    null : reader.GetString(reader.GetOrdinal("telefono"))
                             });
                         }
                     }
                 }
             }
-
             return usuarios;
+            
         }
 
 

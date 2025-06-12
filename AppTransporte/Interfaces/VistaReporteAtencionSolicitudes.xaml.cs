@@ -19,6 +19,10 @@ namespace AppTransporte.Interfaces
         private List<AtencionCliente> _datosClientes;
         private List<DetalleSolicitud> _datosDetalle;
 
+        public int IdCliente { get; }
+        public int IdUsuario { get; }
+        public int IdTipoUsuario { get; }
+
         public VistaReporteAtencionSolicitudes()
         {
             InitializeComponent();
@@ -31,6 +35,13 @@ namespace AppTransporte.Interfaces
 
             // Cargar los datos iniciales
             CargarDatosReporte();
+        }
+
+        public VistaReporteAtencionSolicitudes(int idCliente, int idUsuario, int idTipoUsuario)
+        {
+            IdCliente = idCliente;
+            IdUsuario = idUsuario;
+            IdTipoUsuario = idTipoUsuario;
         }
 
         private void Btn_atras(object sender, EventArgs e)
