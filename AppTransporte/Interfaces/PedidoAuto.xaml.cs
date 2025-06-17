@@ -1,295 +1,243 @@
 using System;
 using System.Linq;
-using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using AppTransporte.model;
-using AppTransporte.viewModel;
 
 namespace AppTransporte.Interfaces
 {
     public partial class PedidoAuto : ContentPage
     {
-        private int _idUsuario;
-        private int _idTipoUsuario;
+        private int idUsuario;
+        private int idtipousuario;
+        private SqlServerService _sqlService;
+        private PedidoAutomatico _pedidoEditar; // Para cuando se está editando
 
         public PedidoAuto(int idUsuario, int idTipoUsuario)
         {
             InitializeComponent();
+            this.idUsuario = idUsuario;
+            this.idtipousuario = idTipoUsuario;
 
-            // CORRECCIÓN: Asignar correctamente los parámetros
-            this._idUsuario = idUsuario;
-            this._idTipoUsuario = idTipoUsuario;
+            // Usar el mismo connection string que ya tienes en tu SqlServerService existente
+            // Busca en tu código donde ya inicializas SqlServerService y usa la misma cadena
+            try
+            {
+                // Intenta usar el mismo connection string que en otras partes de tu app
+                var existingService = new SqlServerService("Data Source=SQL8011.site4now.net;Initial Catalog=db_aaecc9_paquitaappdb;User Id=db_aaecc9_paquitaappdb_admin;Password=paquita123;Connection Timeout=60"); // Esto usará el que ya tienes configurado
+                _sqlService = existingService;
+            }
+            catch
+            {
+                // Si no funciona, necesitarás poner tu connection string real aquí
+                _sqlService = null;
+            }
 
-            // Inicializar fechas por defecto
-            InicializarFechasPorDefecto();
+            InicializarFechas();
+            CargarServicios();
         }
 
-        private void InicializarFechasPorDefecto()
+        // Constructor para editar pedido existente
+        public PedidoAuto(int idUsuario, int idTipoUsuario, PedidoAutomatico pedidoEditar) : this(idUsuario, idTipoUsuario)
         {
-            // Fecha de inicio: hoy
+            _pedidoEditar = pedidoEditar;
+            CargarDatosParaEdicion();
+        }
+
+        private void InicializarFechas()
+        {
+            // Establecer fecha mínima como hoy
+            FechaInicioPicker.MinimumDate = DateTime.Today;
+            FechaFinPicker.MinimumDate = DateTime.Today;
+
+            // Establecer fechas por defecto
             FechaInicioPicker.Date = DateTime.Today;
+            FechaFinPicker.Date = DateTime.Today.AddDays(7); // Una semana por defecto
+        }
 
-            // Fecha de fin: una semana después
-            FechaFinPicker.Date = DateTime.Today.AddDays(7);
+        private async void CargarServicios()
+        {
+            try
+            {
+                if (_sqlService != null)
+                {
+                    var servicios = await _sqlService.ObtenerServiciosAsync();
+                    TipoServicioPicker.ItemsSource = servicios.Select(s => s.Descripcion).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cargar servicios: {ex.Message}");
+                // Si no puede cargar de la BD, mantener los valores hardcodeados del XAML
+            }
+        }
 
-            // Hora por defecto: 8:00 AM
-            HoraPicker.Time = new TimeSpan(8, 0, 0);
+        private void CargarDatosParaEdicion()
+        {
+            if (_pedidoEditar == null) return;
+
+            // Cambiar título
+            TituloLabel.Text = "Editar Pedido Automático";
+
+            // Cargar datos en los controles
+            TipoServicioPicker.SelectedItem = _pedidoEditar.TipoServicio;
+            descripcionEntry.Text = _pedidoEditar.Descripcion;
+
+            // Cargar días seleccionados
+            var dias = _pedidoEditar.DiasSemana.Split(',').Select(d => d.Trim()).ToList();
+            LunesCheck.IsChecked = dias.Contains("Lunes");
+            MartesCheck.IsChecked = dias.Contains("Martes");
+            MiercolesCheck.IsChecked = dias.Contains("Miércoles");
+            JuevesCheck.IsChecked = dias.Contains("Jueves");
+            ViernesCheck.IsChecked = dias.Contains("Viernes");
+            SabadoCheck.IsChecked = dias.Contains("Sábado");
+            DomingoCheck.IsChecked = dias.Contains("Domingo");
+
+            FechaInicioPicker.Date = _pedidoEditar.FechaInicio;
+            FechaFinPicker.Date = _pedidoEditar.FechaFin;
+            HoraPicker.Time = _pedidoEditar.HoraProgramada;
         }
 
         private async void Btn_atras(object sender, EventArgs e)
         {
-            // CORRECCIÓN: Usar las variables correctas
-            await Navigation.PushAsync(new MenuPrincipal(_idUsuario, _idTipoUsuario));
+            await Navigation.PushAsync(new ListaPedidosAutomaticos(idUsuario, idtipousuario));
         }
 
-        private void OnFrecuenciaChanged(object sender, EventArgs e)
+        private async void Btn_verPedidos(object sender, EventArgs e)
         {
-            // Mostrar selección de días solo si es "Personalizada"
-            bool esPersonalizada = FrecuenciaPicker.SelectedItem?.ToString() == "Personalizada";
-            DiasSeleccionadosLayout.IsVisible = esPersonalizada;
-
-            // Limpiar selecciones si no es personalizada
-            if (!esPersonalizada)
-            {
-                foreach (var check in new[] { LunesCheck, MartesCheck, MiercolesCheck, JuevesCheck, ViernesCheck, SabadoCheck })
-                    check.IsChecked = false;
-            }
+            await Navigation.PushAsync(new ListaPedidosAutomaticos(idUsuario, idtipousuario));
         }
 
         private void FechaInicioPicker_DateSelected(object sender, DateChangedEventArgs e)
         {
-            // Validar que la fecha de inicio no sea anterior a hoy
-            if (e.NewDate < DateTime.Today)
-            {
-                DisplayAlert("Advertencia", "La fecha de inicio no puede ser anterior a hoy", "OK");
-                FechaInicioPicker.Date = DateTime.Today;
-                return;
-            }
-
-            // Ajustar fecha de fin si es necesario
-            if (FechaFinPicker.Date <= e.NewDate)
+            // Asegurar que la fecha de fin no sea anterior a la de inicio
+            if (FechaFinPicker.Date < e.NewDate)
             {
                 FechaFinPicker.Date = e.NewDate.AddDays(1);
             }
+            FechaFinPicker.MinimumDate = e.NewDate;
         }
 
         private void FechaFinPicker_DateSelected(object sender, DateChangedEventArgs e)
         {
-            // Validar que la fecha de fin sea posterior a la de inicio
-            if (e.NewDate <= FechaInicioPicker.Date)
-            {
-                DisplayAlert("Advertencia", "La fecha de fin debe ser posterior a la fecha de inicio", "OK");
-                FechaFinPicker.Date = FechaInicioPicker.Date.AddDays(1);
-            }
+            // Validación adicional si es necesaria
         }
 
         private async void Btn_crear(object sender, EventArgs e)
         {
-            var button = sender as Button;
-
             try
             {
-                // Deshabilitar botón mientras se procesa
-                button.IsEnabled = false;
-                button.Text = "Creando...";
-
-                // Validar datos
-                if (!ValidarFormulario())
+                // Validaciones
+                if (TipoServicioPicker.SelectedItem == null)
+                {
+                    await DisplayAlert("Error", "Debe seleccionar un tipo de servicio.", "OK");
                     return;
+                }
 
-                // Obtener datos del formulario
-                var tipoServicio = TipoServicioPicker.SelectedItem?.ToString();
-                var frecuencia = FrecuenciaPicker.SelectedItem?.ToString();
-                var fechaInicio = FechaInicioPicker.Date;
-                var fechaFin = FechaFinPicker.Date;
-                var hora = HoraPicker.Time;
-                var cantidadBarriles = int.Parse(cantidadEntry.Text);
-
-                // Obtener días seleccionados si es personalizada
+                // Verificar que al menos un día esté seleccionado
                 string diasSeleccionados = "";
-                if (frecuencia == "Personalizada")
+                var dias = new[] {
+                    LunesCheck.IsChecked ? "Lunes" : "",
+                    MartesCheck.IsChecked ? "Martes" : "",
+                    MiercolesCheck.IsChecked ? "Miércoles" : "",
+                    JuevesCheck.IsChecked ? "Jueves" : "",
+                    ViernesCheck.IsChecked ? "Viernes" : "",
+                    SabadoCheck.IsChecked ? "Sábado" : "",
+                    DomingoCheck.IsChecked ? "Domingo" : ""
+                };
+                diasSeleccionados = string.Join(", ", dias.Where(d => !string.IsNullOrEmpty(d)));
+
+                if (string.IsNullOrWhiteSpace(diasSeleccionados))
                 {
-                    diasSeleccionados = ObtenerDiasSeleccionados();
-                    if (string.IsNullOrWhiteSpace(diasSeleccionados))
-                    {
-                        await DisplayAlert("Error", "Debe seleccionar al menos un día para frecuencia personalizada.", "OK");
-                        return;
-                    }
+                    await DisplayAlert("Error", "Debe seleccionar al menos un día.", "OK");
+                    return;
                 }
 
-                // Crear descripción automática
-                string descripcion = $"Pedido automatizado - {tipoServicio} - {frecuencia}";
-                if (!string.IsNullOrEmpty(diasSeleccionados))
+                if (FechaInicioPicker.Date > FechaFinPicker.Date)
                 {
-                    descripcion += $" ({diasSeleccionados})";
+                    await DisplayAlert("Error", "La fecha de inicio no puede ser mayor a la fecha de fin.", "OK");
+                    return;
                 }
 
-                System.Diagnostics.Debug.WriteLine($"Creando pedido programado: {tipoServicio}, {frecuencia}, {cantidadBarriles} barriles");
-
-                // Llamar al método de base de datos
-                var resultado = await App.Database.CrearPedidoProgramadoAsync(
-                    idUsuario: _idUsuario,
-                    idCliente: null, // Por ahora null, puedes agregar lógica para seleccionar cliente
-                    tipoServicio: tipoServicio,
-                    frecuencia: frecuencia,
-                    diasSeleccionados: diasSeleccionados,
-                    fechaInicio: fechaInicio,
-                    fechaFin: fechaFin,
-                    horaProgramada: hora,
-                    cantidadBarriles: cantidadBarriles,
-                    descripcion: descripcion
-                );
-
-                if (resultado.IdPedido > 0)
+                if (FechaInicioPicker.Date < DateTime.Today)
                 {
-                    await DisplayAlert("? Éxito",
-                        $"Pedido programado creado exitosamente.\n\n" +
-                        $"ID: {resultado.IdPedido}\n" +
-                        $"Tipo: {tipoServicio}\n" +
-                        $"Frecuencia: {frecuencia}\n" +
-                        $"Cantidad: {cantidadBarriles} barriles\n" +
-                        $"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}", "OK");
+                    await DisplayAlert("Error", "La fecha de inicio no puede ser anterior a hoy.", "OK");
+                    return;
+                }
 
-                    // Limpiar formulario
-                    LimpiarFormulario();
+                // Obtener el ID del servicio
+                int idTipoServicio = await ObtenerIdServicioPorDescripcion(TipoServicioPicker.SelectedItem.ToString());
+
+                if (idTipoServicio == 0)
+                {
+                    await DisplayAlert("Error", "No se pudo obtener el tipo de servicio seleccionado.", "OK");
+                    return;
+                }
+
+                // Crear el objeto pedido automático
+                var pedidoAutomatico = new PedidoAutomatico
+                {
+                    IdUsuario = idUsuario,
+                    IdTipoServicio = idTipoServicio,
+                    DiasSemana = diasSeleccionados,
+                    HoraProgramada = HoraPicker.Time,
+                    FechaInicio = FechaInicioPicker.Date,
+                    FechaFin = FechaFinPicker.Date,
+                    Descripcion = string.IsNullOrWhiteSpace(descripcionEntry.Text) ? null : descripcionEntry.Text
+                };
+
+                if (_sqlService == null)
+                {
+                    await DisplayAlert("Error", "Error de conexión a la base de datos. Revisa tu configuración.", "OK");
+                    return;
+                }
+
+                RespuestaPedidoAutomatico respuesta;
+
+                // Determinar si es creación o edición
+                if (_pedidoEditar != null)
+                {
+                    // Edición
+                    pedidoAutomatico.IdPedidoAutomatico = _pedidoEditar.IdPedidoAutomatico;
+                    respuesta = await _sqlService.ActualizarPedidoAutomaticoAsync(pedidoAutomatico);
                 }
                 else
                 {
-                    await DisplayAlert("? Error", resultado.Mensaje ?? "No se pudo crear el pedido programado", "OK");
+                    // Creación
+                    respuesta = await _sqlService.InsertarPedidoAutomaticoAsync(pedidoAutomatico);
+                }
+
+                if (respuesta.EsExitoso)
+                {
+                    string accion = _pedidoEditar != null ? "actualizado" : "creado";
+                    await DisplayAlert("Éxito", $"Pedido automático {accion} exitosamente.", "OK");
+
+                    // Navegar a la lista de pedidos automáticos
+                    await Navigation.PushAsync(new ListaPedidosAutomaticos(idUsuario, idtipousuario));
+                }
+                else
+                {
+                    await DisplayAlert("Error", respuesta.Mensaje, "OK");
                 }
             }
             catch (Exception ex)
             {
-                await DisplayAlert("? Error", $"Ocurrió un error al crear el pedido programado:\n{ex.Message}", "OK");
-                System.Diagnostics.Debug.WriteLine($"Error al crear pedido programado: {ex.Message}");
-            }
-            finally
-            {
-                // Rehabilitar botón
-                if (button != null)
-                {
-                    button.IsEnabled = true;
-                    button.Text = "Programar Pedido";
-                }
+                await DisplayAlert("Error", $"Ocurrió un error inesperado: {ex.Message}", "OK");
             }
         }
 
-        private bool ValidarFormulario()
-        {
-            // Validar tipo de servicio
-            if (TipoServicioPicker.SelectedItem == null)
-            {
-                DisplayAlert("Error", "Debe seleccionar un tipo de servicio.", "OK");
-                return false;
-            }
-
-            // Validar frecuencia
-            if (FrecuenciaPicker.SelectedItem == null)
-            {
-                DisplayAlert("Error", "Debe seleccionar una frecuencia.", "OK");
-                return false;
-            }
-
-            // Validar cantidad
-            if (string.IsNullOrWhiteSpace(cantidadEntry.Text))
-            {
-                DisplayAlert("Error", "Debe ingresar la cantidad en barriles.", "OK");
-                return false;
-            }
-
-            if (!int.TryParse(cantidadEntry.Text, out int cantidad) || cantidad <= 0)
-            {
-                DisplayAlert("Error", "Ingrese una cantidad válida en barriles (mayor a 0).", "OK");
-                return false;
-            }
-
-            // Validar fechas
-            if (FechaInicioPicker.Date < DateTime.Today)
-            {
-                DisplayAlert("Error", "La fecha de inicio no puede ser anterior a hoy.", "OK");
-                return false;
-            }
-
-            if (FechaFinPicker.Date <= FechaInicioPicker.Date)
-            {
-                DisplayAlert("Error", "La fecha de fin debe ser posterior a la fecha de inicio.", "OK");
-                return false;
-            }
-
-            // Validar días personalizados si aplica
-            if (FrecuenciaPicker.SelectedItem?.ToString() == "Personalizada")
-            {
-                var diasSeleccionados = ObtenerDiasSeleccionados();
-                if (string.IsNullOrWhiteSpace(diasSeleccionados))
-                {
-                    DisplayAlert("Error", "Debe seleccionar al menos un día para frecuencia personalizada.", "OK");
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private string ObtenerDiasSeleccionados()
-        {
-            var diasSeleccionados = new List<string>();
-
-            if (LunesCheck.IsChecked) diasSeleccionados.Add("Lunes");
-            if (MartesCheck.IsChecked) diasSeleccionados.Add("Martes");
-            if (MiercolesCheck.IsChecked) diasSeleccionados.Add("Miércoles");
-            if (JuevesCheck.IsChecked) diasSeleccionados.Add("Jueves");
-            if (ViernesCheck.IsChecked) diasSeleccionados.Add("Viernes");
-            if (SabadoCheck.IsChecked) diasSeleccionados.Add("Sábado");
-
-            return string.Join(", ", diasSeleccionados);
-        }
-
-        private void LimpiarFormulario()
-        {
-            // Limpiar selecciones
-            TipoServicioPicker.SelectedItem = null;
-            FrecuenciaPicker.SelectedItem = null;
-            cantidadEntry.Text = "";
-
-            // Resetear fechas
-            InicializarFechasPorDefecto();
-
-            // Limpiar días seleccionados
-            foreach (var check in new[] { LunesCheck, MartesCheck, MiercolesCheck, JuevesCheck, ViernesCheck, SabadoCheck })
-                check.IsChecked = false;
-
-            // Ocultar layout de días
-            DiasSeleccionadosLayout.IsVisible = false;
-        }
-
-        // NUEVO: Evento para el botón "Ver Pedidos Programados"
-        private async void Btn_verPedidosProgramados(object sender, EventArgs e)
+        private async Task<int> ObtenerIdServicioPorDescripcion(string descripcion)
         {
             try
             {
-                await Navigation.PushAsync(new ListaPedidosProgramados(_idUsuario, _idTipoUsuario));
+                var servicios = await _sqlService.ObtenerServiciosAsync();
+                var servicio = servicios.FirstOrDefault(s => s.Descripcion == descripcion);
+                return servicio?.IdServicio ?? 0;
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", $"Error al navegar: {ex.Message}", "OK");
-            }
-        }
-
-        // NUEVO: Mostrar información adicional cuando cambia la cantidad
-        private void cantidadEntry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (int.TryParse(e.NewTextValue, out int barriles) && barriles > 0)
-            {
-                double litros = barriles * 159.0; // 1 barril = 159 litros
-                int viajes = (int)Math.Ceiling(litros / 25000.0); // Asumiendo cisternas de 25,000 L
-
-                Viajeslbl.Text = $"˜ {litros:N0} litros | Viajes estimados: {viajes}";
-                Viajeslbl.TextColor = Colors.DarkBlue;
-                Viajeslbl.FontAttributes = FontAttributes.Italic;
-            }
-            else
-            {
-                Viajeslbl.Text = "";
+                System.Diagnostics.Debug.WriteLine($"Error al obtener ID del servicio: {ex.Message}");
+                return 0;
             }
         }
     }

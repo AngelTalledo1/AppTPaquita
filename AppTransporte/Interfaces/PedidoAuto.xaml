@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTransporte.Interfaces.PedidoAuto"
@@ -16,7 +17,8 @@
                    Margin="20"
                    HeightRequest="20"
                    WidthRequest="20" />
-            <Label Text="Programar Pedido"
+            <Label Text="Programar Pedido Automático"
+                   x:Name="TituloLabel"
                    Grid.Column="1"
                    FontSize="20"
                    TextColor="AliceBlue"
@@ -36,12 +38,11 @@
                            BackgroundColor="AliceBlue"
                            BorderColor="Transparent">
                         <Label Text="Información General"
-                                   x:Name="TituloLabel"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"
-                                   TextColor="Black"
-                                   FontFamily="Comf-Bold"
-                                   FontSize="Medium" />
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="Black"
+                               FontFamily="Comf-Bold"
+                               FontSize="Medium" />
                     </Frame>
                     <VerticalStackLayout Spacing="30" Margin="30,20,20,0">
 
@@ -63,26 +64,17 @@
                             </Picker>
                         </HorizontalStackLayout>
 
-                        <!-- Frecuencia -->
+                        <!-- Descripción del pedido -->
                         <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="frecuencia.png" VerticalOptions="Center" />
-                            <Picker x:Name="FrecuenciaPicker"
-                                    Title="Selecciona la Frecuencia"
-                                    FontAttributes="Bold"
-                                    FontFamily="Comf-Medium"
-                                    SelectedIndexChanged="OnFrecuenciaChanged"
-                                    HorizontalOptions="FillAndExpand">
-                                <Picker.Items>
-                                    <x:String>Diaria</x:String>
-                                    <x:String>Semanal</x:String>
-                                    <x:String>Mensual</x:String>
-                                    <x:String>Personalizada</x:String>
-                                </Picker.Items>
-                            </Picker>
+                            <Image WidthRequest="30" HeightRequest="30" Source="tiposervicio.png" VerticalOptions="Center"/>
+                            <Entry x:Name="descripcionEntry"
+                                   Placeholder="Descripción del pedido (opcional)"
+                                   FontFamily="Comf-Medium"
+                                   HorizontalOptions="FillAndExpand"/>
                         </HorizontalStackLayout>
 
                         <!-- Días personalizados -->
-                        <StackLayout x:Name="DiasSeleccionadosLayout" Padding="10" IsVisible="False">
+                        <StackLayout x:Name="DiasSeleccionadosLayout" Padding="10">
                             <Label Text="Seleccione los días:" FontFamily="Comf-Medium" Padding="10" HorizontalOptions="Center"/>
                             <Grid>
                                 <Grid ColumnDefinitions="auto, auto, auto" RowDefinitions="auto, auto, auto">
@@ -93,13 +85,15 @@
                                     <Label FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="2" Grid.Column="0" Text="Miércoles"/>
                                     <CheckBox Color="Red" Grid.Row="2" Grid.Column="1" x:Name="MiercolesCheck"/>
                                 </Grid>
-                                <Grid ColumnDefinitions="1*, 5*, 2*,3*" RowDefinitions="auto,auto,auto">
+                                <Grid ColumnDefinitions="1*, 5*, 2*,3*" RowDefinitions="auto,auto,auto,auto">
                                     <Label FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="0" Grid.Column="2" Text="Jueves"/>
                                     <CheckBox Color="Red" Grid.Row="0" Grid.Column="3" x:Name="JuevesCheck"/>
                                     <Label Padding="-2" FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="1" Grid.Column="2" Text="Viernes"/>
                                     <CheckBox Color="Red" Grid.Row="1" Grid.Column="3" x:Name="ViernesCheck"/>
                                     <Label Padding="-2" FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="2" Grid.Column="2" Text="Sábado"/>
                                     <CheckBox Color="Red" Grid.Row="2" Grid.Column="3" x:Name="SabadoCheck"/>
+                                    <Label Padding="-2" FontFamily="Comf-Medium" VerticalOptions="Center" Grid.Row="3" Grid.Column="2" Text="Domingo"/>
+                                    <CheckBox Color="Red" Grid.Row="3" Grid.Column="3" x:Name="DomingoCheck"/>
                                 </Grid>
                             </Grid>
                         </StackLayout>
@@ -149,30 +143,12 @@
                             </VerticalStackLayout>
                         </HorizontalStackLayout>
 
-                        <!-- Cantidad -->
-                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="cantidad.png" VerticalOptions="Center"/>
-                            <Entry x:Name="cantidadEntry"
-                                   Placeholder="Cantidad en barriles"
-                                   FontFamily="Comf-Medium"
-                                   Keyboard="Numeric"
-                                   TextChanged="cantidadEntry_TextChanged"
-                                   HorizontalOptions="FillAndExpand"/>
-                        </HorizontalStackLayout>
-
-                        <!-- Información de conversión -->
-                        <Label x:Name="Viajeslbl"
-                               FontFamily="Comf-Medium"
-                               FontSize="12"
-                               HorizontalOptions="Center"
-                               Margin="0,-20,0,0"/>
-
                         <!-- Botones -->
                         <Grid Grid.Row="2" Padding="0">
                             <VerticalStackLayout HorizontalOptions="Center" Spacing="20">
-                                <Button Text="Programar Pedido"
+                                <Button Text="Programar Pedido Automático"
                                         HeightRequest="50"
-                                        WidthRequest="250"
+                                        WidthRequest="280"
                                         Clicked="Btn_crear"
                                         FontFamily="Comf-Bold"
                                         BackgroundColor="#cb4335"
@@ -181,12 +157,12 @@
                                         HorizontalOptions="Center" />
                                 <Button Text="Ver Pedidos Programados"
                                         HeightRequest="50"
-                                        WidthRequest="250"
+                                        WidthRequest="280"
+                                        Clicked="Btn_verPedidos"
                                         FontFamily="Comf-Bold"
                                         BackgroundColor="#007AFF"
                                         TextColor="White"
                                         CornerRadius="40"
-                                        Clicked="Btn_verPedidosProgramados"
                                         HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Grid>

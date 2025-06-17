@@ -162,13 +162,10 @@
 		<MauiXaml Update="Interfaces\Calendar.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Interfaces\EditarPedidoProgramado.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
 		<MauiXaml Update="Interfaces\Empresas.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Interfaces\ListaPedidosProgramados.xaml">
+		<MauiXaml Update="Interfaces\ListaPedidosAutomaticos.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\Login.xaml">

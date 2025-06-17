@@ -62,7 +62,7 @@ public partial class MenuPrincipal : ContentPage
     }
     private async void btn_Pedidoauto(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new PedidoAuto(_idUsuario, _idTipoUsuario));
+        await Navigation.PushAsync(new ListaPedidosAutomaticos(_idUsuario, _idTipoUsuario));
     }
     private async void Btn_AgregarServ(object sender, EventArgs e)
     {

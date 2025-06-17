@@ -2129,10 +2129,7 @@ namespace AppTransporte.model
             }
         }
 
-        // ============================================
         // MÉTODO PARA FORZAR ELIMINACIÓN (CON VIAJES)
-        // ============================================
-
         public async Task<int> EliminarVehiculoForzarAsync(int idVehiculo, string tipoVehiculo)
         {
             try
@@ -2171,388 +2168,7 @@ namespace AppTransporte.model
                 throw new Exception($"Error inesperado al forzar eliminación: {ex.Message}");
             }
         }
-        #region Pedidos Programados
 
-        /// <summary>
-        /// Crea un nuevo pedido programado
-        /// </summary>
-        public async Task<(int IdPedido, string Mensaje)> CrearPedidoProgramadoAsync(
-            int idUsuario,
-            int? idCliente,
-            string tipoServicio,
-            string frecuencia,
-            string diasSeleccionados,
-            DateTime fechaInicio,
-            DateTime fechaFin,
-            TimeSpan horaProgramada,
-            int cantidadBarriles,
-            string descripcion = null,
-            int? idOrigen = null,
-            int? idDestino = null)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-
-                    using (SqlCommand command = new SqlCommand("pa_CrearPedidoProgramado", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.CommandTimeout = 60;
-
-                        // Agregar parámetros
-                        command.Parameters.AddWithValue("@id_usuario", idUsuario);
-                        command.Parameters.AddWithValue("@id_cliente", (object)idCliente ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@tipo_servicio", tipoServicio ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@frecuencia", frecuencia ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@dias_seleccionados", diasSeleccionados ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@fecha_inicio", fechaInicio);
-                        command.Parameters.AddWithValue("@fecha_fin", fechaFin);
-                        command.Parameters.AddWithValue("@hora_programada", horaProgramada);
-                        command.Parameters.AddWithValue("@cantidad_barriles", cantidadBarriles);
-                        command.Parameters.AddWithValue("@descripcion", descripcion ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@id_origen", (object)idOrigen ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@id_destino", (object)idDestino ?? DBNull.Value);
-
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                return (reader.GetInt32("id_pedidoProgramado"), reader.GetString("mensaje"));
-                            }
-                        }
-
-                        return (-1, "Error desconocido al crear pedido programado");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al crear pedido programado: {ex.Message}");
-                throw new Exception($"Error al crear pedido programado: {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Obtiene lista de pedidos programados con filtros
-        /// </summary>
-        public async Task<List<PedidoProgramado>> ObtenerPedidosProgramadosAsync(
-            int? idUsuario = null,
-            string estado = null,
-            DateTime? fechaInicioFiltro = null,
-            DateTime? fechaFinFiltro = null,
-            string tipoServicio = null,
-            string frecuencia = null,
-            bool incluirFinalizados = false)
-        {
-            var pedidos = new List<PedidoProgramado>();
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-
-                    using (SqlCommand command = new SqlCommand("pa_ListarPedidosProgramados", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.CommandTimeout = 60;
-
-                        // Agregar parámetros
-                        command.Parameters.AddWithValue("@id_usuario", (object)idUsuario ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@estado", estado ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@fecha_inicio_filtro", (object)fechaInicioFiltro ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@fecha_fin_filtro", (object)fechaFinFiltro ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@tipo_servicio", tipoServicio ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@frecuencia", frecuencia ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@incluir_finalizados", incluirFinalizados);
-
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            while (await reader.ReadAsync())
-                            {
-                                pedidos.Add(new PedidoProgramado
-                                {
-                                    IdPedidoProgramado = reader.GetInt32("id_pedidoProgramado"),
-                                    IdUsuario = reader.GetInt32("id_usuario"),
-                                    TipoServicio = reader.GetString("tipo_servicio"),
-                                    Frecuencia = reader.GetString("frecuencia"),
-                                    DiasSeleccionados = reader.IsDBNull("dias_seleccionados") ? null : reader.GetString("dias_seleccionados"),
-                                    FechaInicio = reader.GetDateTime("fecha_inicio"),
-                                    FechaFin = reader.GetDateTime("fecha_fin"),
-                                    HoraProgramada = TimeSpan.Parse(reader["hora_programada"].ToString()),
-                                    CantidadBarriles = reader.GetInt32("cantidad_barriles"),
-                                    CantidadLitros = reader.GetDecimal("cantidad_litros"),
-                                    Estado = reader.GetString("estado"),
-                                    Descripcion = reader.IsDBNull("descripcion") ? null : reader.GetString("descripcion"),
-                                    FechaCreacion = reader.GetDateTime("fecha_creacion"),
-                                    UltimaEjecucion = reader.IsDBNull("ultima_ejecucion") ? null : reader.GetDateTime("ultima_ejecucion"),
-                                    ProximaEjecucion = reader.IsDBNull("proxima_ejecucion") ? null : reader.GetDateTime("proxima_ejecucion"),
-                                    TotalEjecuciones = reader.GetInt32("total_ejecuciones"),
-                                    UsuarioCreador = reader.IsDBNull("usuario_creador") ? null : reader.GetString("usuario_creador"),
-                                    NombreUsuario = reader.IsDBNull("nombre_usuario") ? null : reader.GetString("nombre_usuario"),
-                                    CodigoCliente = reader.IsDBNull("codigo_cliente") ? null : reader.GetString("codigo_cliente"),
-                                    NombreCliente = reader.IsDBNull("nombre_cliente") ? null : reader.GetString("nombre_cliente"),
-                                    OrigenDescripcion = reader.IsDBNull("origen_descripcion") ? null : reader.GetString("origen_descripcion"),
-                                    DestinoDescripcion = reader.IsDBNull("destino_descripcion") ? null : reader.GetString("destino_descripcion"),
-                                    EstadoActual = reader.IsDBNull("estado_actual") ? null : reader.GetString("estado_actual"),
-                                    EstadoDescripcion = reader.IsDBNull("estado_descripcion") ? null : reader.GetString("estado_descripcion"),
-                                    DiasHastaEjecucion = reader.IsDBNull("dias_hasta_ejecucion") ? null : reader.GetInt32("dias_hasta_ejecucion")
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al obtener pedidos programados: {ex.Message}");
-                throw new Exception($"Error al obtener pedidos programados: {ex.Message}");
-            }
-
-            return pedidos;
-        }
-
-        /// <summary>
-        /// Actualiza un pedido programado existente
-        /// </summary>
-        public async Task<string> ActualizarPedidoProgramadoAsync(
-            int idPedidoProgramado,
-            string tipoServicio = null,
-            string frecuencia = null,
-            string diasSeleccionados = null,
-            DateTime? fechaInicio = null,
-            DateTime? fechaFin = null,
-            TimeSpan? horaProgramada = null,
-            int? cantidadBarriles = null,
-            string descripcion = null,
-            int? idOrigen = null,
-            int? idDestino = null,
-            bool recalcularProximaEjecucion = true)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-
-                    using (SqlCommand command = new SqlCommand("pa_ActualizarPedidoProgramado", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.CommandTimeout = 60;
-
-                        // Agregar parámetros
-                        command.Parameters.AddWithValue("@id_pedidoProgramado", idPedidoProgramado);
-                        command.Parameters.AddWithValue("@tipo_servicio", tipoServicio ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@frecuencia", frecuencia ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@dias_seleccionados", diasSeleccionados ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@fecha_inicio", (object)fechaInicio ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@fecha_fin", (object)fechaFin ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@hora_programada", (object)horaProgramada ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@cantidad_barriles", (object)cantidadBarriles ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@descripcion", descripcion ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@id_origen", (object)idOrigen ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@id_destino", (object)idDestino ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@recalcular_proxima_ejecucion", recalcularProximaEjecucion);
-
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                return reader.GetString("mensaje");
-                            }
-                        }
-
-                        return "Pedido programado actualizado correctamente";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al actualizar pedido programado: {ex.Message}");
-                throw new Exception($"Error al actualizar pedido programado: {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Cambia el estado de un pedido programado
-        /// </summary>
-        public async Task<string> CambiarEstadoPedidoProgramadoAsync(int idPedidoProgramado, string nuevoEstado, string motivo = null)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-
-                    using (SqlCommand command = new SqlCommand("pa_CambiarEstadoPedidoProgramado", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.CommandTimeout = 60;
-
-                        command.Parameters.AddWithValue("@id_pedidoProgramado", idPedidoProgramado);
-                        command.Parameters.AddWithValue("@nuevo_estado", nuevoEstado);
-                        command.Parameters.AddWithValue("@motivo", motivo ?? (object)DBNull.Value);
-
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                return reader.GetString("mensaje");
-                            }
-                        }
-
-                        return "Estado cambiado correctamente";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al cambiar estado del pedido programado: {ex.Message}");
-                throw new Exception($"Error al cambiar estado del pedido programado: {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Ejecuta pedidos programados pendientes
-        /// </summary>
-        public async Task<(int PedidosEjecutados, int Errores, string Mensaje)> EjecutarPedidosProgramadosAsync(
-            int? idPedidoProgramado = null,
-            bool ejecutarManualmente = false)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-
-                    using (SqlCommand command = new SqlCommand("pa_EjecutarPedidosProgramados", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.CommandTimeout = 120; // Más tiempo para ejecutar múltiples pedidos
-
-                        command.Parameters.AddWithValue("@id_pedidoProgramado", (object)idPedidoProgramado ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@ejecutar_manualmente", ejecutarManualmente);
-
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                return (
-                                    reader.GetInt32("pedidos_ejecutados"),
-                                    reader.GetInt32("errores"),
-                                    reader.GetString("mensaje")
-                                );
-                            }
-                        }
-
-                        return (0, 0, "No se encontraron resultados");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al ejecutar pedidos programados: {ex.Message}");
-                throw new Exception($"Error al ejecutar pedidos programados: {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Elimina un pedido programado
-        /// </summary>
-        public async Task<string> EliminarPedidoProgramadoAsync(int idPedidoProgramado, string motivo = null)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-
-                    using (SqlCommand command = new SqlCommand("pa_EliminarPedidoProgramado", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.CommandTimeout = 60;
-
-                        command.Parameters.AddWithValue("@id_pedidoProgramado", idPedidoProgramado);
-                        command.Parameters.AddWithValue("@motivo", motivo ?? (object)DBNull.Value);
-
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                return reader.GetString("mensaje");
-                            }
-                        }
-
-                        return "Pedido programado eliminado correctamente";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al eliminar pedido programado: {ex.Message}");
-                throw new Exception($"Error al eliminar pedido programado: {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Obtiene estadísticas de pedidos programados
-        /// </summary>
-        public async Task<Dictionary<string, object>> ObtenerEstadisticasPedidosProgramadosAsync(int? idUsuario = null)
-        {
-            var estadisticas = new Dictionary<string, object>();
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-
-                    string sql = @"
-                SELECT 
-                    COUNT(*) AS total_pedidos,
-                    SUM(CASE WHEN estado = 'Activo' THEN 1 ELSE 0 END) AS activos,
-                    SUM(CASE WHEN estado = 'Pausado' THEN 1 ELSE 0 END) AS pausados,
-                    SUM(CASE WHEN estado = 'Finalizado' THEN 1 ELSE 0 END) AS finalizados,
-                    SUM(CASE WHEN estado = 'Cancelado' THEN 1 ELSE 0 END) AS cancelados,
-                    SUM(CASE WHEN proxima_ejecucion <= GETDATE() AND estado = 'Activo' THEN 1 ELSE 0 END) AS pendientes_ejecucion,
-                    SUM(total_ejecuciones) AS total_ejecuciones_realizadas
-                FROM PedidoProgramado
-                WHERE (@id_usuario IS NULL OR id_usuario = @id_usuario)";
-
-                    using (SqlCommand command = new SqlCommand(sql, connection))
-                    {
-                        command.Parameters.AddWithValue("@id_usuario", (object)idUsuario ?? DBNull.Value);
-
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                estadisticas["total_pedidos"] = reader.GetInt32("total_pedidos");
-                                estadisticas["activos"] = reader.GetInt32("activos");
-                                estadisticas["pausados"] = reader.GetInt32("pausados");
-                                estadisticas["finalizados"] = reader.GetInt32("finalizados");
-                                estadisticas["cancelados"] = reader.GetInt32("cancelados");
-                                estadisticas["pendientes_ejecucion"] = reader.GetInt32("pendientes_ejecucion");
-                                estadisticas["total_ejecuciones_realizadas"] = reader.GetInt32("total_ejecuciones_realizadas");
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al obtener estadísticas: {ex.Message}");
-                throw new Exception($"Error al obtener estadísticas: {ex.Message}");
-            }
-
-            return estadisticas;
-        }
-
-        #endregion
-
-        
         public async Task<int> ModificarVehiculoAsync(
                                 int idVehiculo,
                                 string placa,
@@ -2589,6 +2205,249 @@ namespace AppTransporte.model
                     return await command.ExecuteNonQueryAsync();
                 }
             }
+        }
+        public async Task<RespuestaPedidoAutomatico> InsertarPedidoAutomaticoAsync(PedidoAutomatico pedido)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                using var command = new SqlCommand("SP_InsertarPedidoAutomatico", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("@id_usuario", pedido.IdUsuario);
+                command.Parameters.AddWithValue("@id_tipoServicio", pedido.IdTipoServicio);
+                command.Parameters.AddWithValue("@dias_semana", pedido.DiasSemana);
+                command.Parameters.AddWithValue("@hora_programada", pedido.HoraProgramada);
+                command.Parameters.AddWithValue("@fecha_inicio", pedido.FechaInicio.Date);
+                command.Parameters.AddWithValue("@fecha_fin", pedido.FechaFin.Date);
+                command.Parameters.AddWithValue("@descripcion", (object)pedido.Descripcion ?? DBNull.Value);
+
+                await connection.OpenAsync();
+                using var reader = await command.ExecuteReaderAsync();
+
+                if (await reader.ReadAsync())
+                {
+                    return new RespuestaPedidoAutomatico
+                    {
+                        IdPedidoAutomatico = reader.IsDBNull("id_pedidoAutomatico") ? null : reader.GetInt32("id_pedidoAutomatico"),
+                        Mensaje = reader.GetString("Mensaje"),
+                        FilasAfectadas = reader.IsDBNull("id_pedidoAutomatico") ? 0 : 1
+                    };
+                }
+            }
+            catch (SqlException ex)
+            {
+                return new RespuestaPedidoAutomatico
+                {
+                    FilasAfectadas = 0,
+                    Mensaje = ex.Message
+                };
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al insertar pedido automático: {ex.Message}");
+                return new RespuestaPedidoAutomatico
+                {
+                    FilasAfectadas = 0,
+                    Mensaje = $"Error inesperado: {ex.Message}"
+                };
+            }
+
+            return new RespuestaPedidoAutomatico { FilasAfectadas = 0, Mensaje = "Error desconocido" };
+        }
+
+        public async Task<List<PedidoAutomatico>> ObtenerPedidosAutomaticosAsync(int idUsuario, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
+        {
+            var pedidos = new List<PedidoAutomatico>();
+
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                using var command = new SqlCommand("SP_ObtenerPedidosAutomaticos", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("@id_usuario", idUsuario);
+                command.Parameters.AddWithValue("@fecha_desde", (object)fechaDesde ?? DBNull.Value);
+                command.Parameters.AddWithValue("@fecha_hasta", (object)fechaHasta ?? DBNull.Value);
+
+                await connection.OpenAsync();
+                using var reader = await command.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    pedidos.Add(new PedidoAutomatico
+                    {
+                        IdPedidoAutomatico = reader.GetInt32("id_pedidoAutomatico"),
+                        IdUsuario = reader.GetInt32("id_usuario"),
+                        IdTipoServicio = reader.GetInt32("id_tipoServicio"),
+                        TipoServicio = reader.GetString("tipoServicio"),
+                        DiasSemana = reader.GetString("dias_semana"),
+                        HoraProgramada = TimeSpan.TryParse(reader["hora_programada"]?.ToString(), out var tiempo) ? tiempo : TimeSpan.Zero,
+                        FechaInicio = reader.GetDateTime("fecha_inicio"),
+                        FechaFin = reader.GetDateTime("fecha_fin"),
+                        Estado = reader.GetBoolean("estado"),
+                        FechaCreacion = reader.GetDateTime("fecha_creacion"),
+                        FechaModificacion = reader.GetDateTime("fecha_modificacion"),
+                        UltimoProcesamiento = reader.IsDBNull("ultimo_procesamiento") ? null : reader.GetDateTime("ultimo_procesamiento"),
+                        Descripcion = reader.IsDBNull("descripcion") ? null : reader.GetString("descripcion"),
+                        DiasDuracion = reader.GetInt32("dias_duracion"),
+                        EstadoDescripcion = reader.GetString("estado_descripcion")
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener pedidos automáticos: {ex.Message}");
+                throw;
+            }
+
+            return pedidos;
+        }
+
+        public async Task<RespuestaPedidoAutomatico> ActualizarPedidoAutomaticoAsync(PedidoAutomatico pedido)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                using var command = new SqlCommand("SP_ActualizarPedidoAutomatico", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("@id_pedidoAutomatico", pedido.IdPedidoAutomatico);
+                command.Parameters.AddWithValue("@id_tipoServicio", pedido.IdTipoServicio);
+                command.Parameters.AddWithValue("@dias_semana", pedido.DiasSemana);
+                command.Parameters.AddWithValue("@hora_programada", pedido.HoraProgramada);
+                command.Parameters.AddWithValue("@fecha_inicio", pedido.FechaInicio.Date);
+                command.Parameters.AddWithValue("@fecha_fin", pedido.FechaFin.Date);
+                command.Parameters.AddWithValue("@descripcion", (object)pedido.Descripcion ?? DBNull.Value);
+
+                await connection.OpenAsync();
+                using var reader = await command.ExecuteReaderAsync();
+
+                if (await reader.ReadAsync())
+                {
+                    return new RespuestaPedidoAutomatico
+                    {
+                        FilasAfectadas = reader.GetInt32("FilasAfectadas"),
+                        Mensaje = reader.GetString("Mensaje")
+                    };
+                }
+            }
+            catch (SqlException ex)
+            {
+                return new RespuestaPedidoAutomatico
+                {
+                    FilasAfectadas = 0,
+                    Mensaje = ex.Message
+                };
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al actualizar pedido automático: {ex.Message}");
+                return new RespuestaPedidoAutomatico
+                {
+                    FilasAfectadas = 0,
+                    Mensaje = $"Error inesperado: {ex.Message}"
+                };
+            }
+
+            return new RespuestaPedidoAutomatico { FilasAfectadas = 0, Mensaje = "Error desconocido" };
+        }
+
+        public async Task<RespuestaPedidoAutomatico> EliminarPedidoAutomaticoAsync(int idPedidoAutomatico)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                using var command = new SqlCommand("SP_EliminarPedidoAutomatico", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("@id_pedidoAutomatico", idPedidoAutomatico);
+
+                await connection.OpenAsync();
+                using var reader = await command.ExecuteReaderAsync();
+
+                if (await reader.ReadAsync())
+                {
+                    return new RespuestaPedidoAutomatico
+                    {
+                        FilasAfectadas = reader.GetInt32("FilasAfectadas"),
+                        Mensaje = reader.GetString("Mensaje")
+                    };
+                }
+            }
+            catch (SqlException ex)
+            {
+                return new RespuestaPedidoAutomatico
+                {
+                    FilasAfectadas = 0,
+                    Mensaje = ex.Message
+                };
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al eliminar pedido automático: {ex.Message}");
+                return new RespuestaPedidoAutomatico
+                {
+                    FilasAfectadas = 0,
+                    Mensaje = $"Error inesperado: {ex.Message}"
+                };
+            }
+
+            return new RespuestaPedidoAutomatico { FilasAfectadas = 0, Mensaje = "Error desconocido" };
+        }
+
+        public async Task<RespuestaPedidoAutomatico> CambiarEstadoPedidoAutomaticoAsync(int idPedidoAutomatico, bool nuevoEstado)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                using var command = new SqlCommand("SP_CambiarEstadoPedidoAutomatico", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("@id_pedidoAutomatico", idPedidoAutomatico);
+                command.Parameters.AddWithValue("@nuevo_estado", nuevoEstado);
+
+                await connection.OpenAsync();
+                using var reader = await command.ExecuteReaderAsync();
+
+                if (await reader.ReadAsync())
+                {
+                    return new RespuestaPedidoAutomatico
+                    {
+                        FilasAfectadas = reader.GetInt32("FilasAfectadas"),
+                        Mensaje = reader.GetString("Mensaje")
+                    };
+                }
+            }
+            catch (SqlException ex)
+            {
+                return new RespuestaPedidoAutomatico
+                {
+                    FilasAfectadas = 0,
+                    Mensaje = ex.Message
+                };
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cambiar estado del pedido automático: {ex.Message}");
+                return new RespuestaPedidoAutomatico
+                {
+                    FilasAfectadas = 0,
+                    Mensaje = $"Error inesperado: {ex.Message}"
+                };
+            }
+
+            return new RespuestaPedidoAutomatico { FilasAfectadas = 0, Mensaje = "Error desconocido" };
         }
     }
     }
