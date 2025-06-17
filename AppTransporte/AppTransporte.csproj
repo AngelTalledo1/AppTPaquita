@@ -165,6 +165,9 @@
 		<MauiXaml Update="Interfaces\Empresas.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Interfaces\ListaPedidosAutomaticos.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Interfaces\Login.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -181,9 +184,6 @@
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\VEReportes.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Interfaces\PedidosProgramadosPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Interfaces\Servicios.xaml">

@@ -99,8 +99,10 @@ public partial class VEagregarTransportista : ContentPage
                 await DisplayAlert("Error", "No se pudo agregar el trabajador. Verifica los datos.", "OK");
             }
         }
-        catch (Exception)
+        
+       catch (Exception ex) 
         {
+            Console.WriteLine(ex.Message);
             await DisplayAlert("Error", "Ocurrió un error al agregar el trabajador. Inténtalo de nuevo.", "OK");
         }
     }
