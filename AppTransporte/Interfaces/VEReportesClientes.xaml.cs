@@ -73,33 +73,7 @@ namespace AppTransporte.Interfaces
 
         #region Event Handlers para Generar Reportes
 
-        private async void ReporteSolicitudes_Clicked(object sender, EventArgs e)
-        {
-            if (_clientes.Count == 0)
-            {
-                await DisplayAlert("Error", "No se pudo identificar el cliente", "Ok");
-                return;
-            }
-
-            LoadingOverlay.IsVisible = true;
-
-            try
-            {
-                var clienteSeleccionado = _clientes[0];
-
-                // Navegar al reporte de atención de solicitudes
-                await Navigation.PushAsync(new VistaReporteAtencionSolicitudes(
-                    clienteSeleccionado.IdCliente, _idUsuario, _idTipoUsuario));
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Error", $"Error al generar reporte: {ex.Message}", "Ok");
-            }
-            finally
-            {
-                LoadingOverlay.IsVisible = false;
-            }
-        }
+        
 
         private async void ReporteTrabajadores_Clicked(object sender, EventArgs e)
         {

@@ -162,7 +162,7 @@
                         FontFamily="Comf-Medium" 
                         HeightRequest="45" 
                         Margin="5,0" 
-                        Clicked="ExportarPDF_Clicked"/>
+                        />
                 <Button Grid.Column="1" 
                         Text="Compartir" 
                         CornerRadius="20" 
@@ -171,7 +171,7 @@
                         FontFamily="Comf-Medium" 
                         HeightRequest="45" 
                         Margin="5,0" 
-                        Clicked="Compartir_Clicked"/>
+                        />
             </Grid>
         </Grid>
 

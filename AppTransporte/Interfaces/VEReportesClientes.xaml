@@ -48,15 +48,7 @@
                 <!-- Lista de botones para los distintos tipos de reportes -->
                 <Frame BackgroundColor="White" CornerRadius="10" HasShadow="False" Padding="20">
                     <VerticalStackLayout Spacing="15">
-                        <!-- Reporte de Solicitudes -->
-                        <Button Text="Reporte de Atención de Solicitudes" 
-                                HeightRequest="55"
-                                BackgroundColor="#cb4335"
-                                TextColor="White"
-                                CornerRadius="10"
-                                FontFamily="Comf-Medium"
-                                Clicked="ReporteSolicitudes_Clicked"/>
-
+                      
                         <!-- Reporte de Trabajadores Asignados -->
                         <Button Text="Reporte de Trabajadores Asignados" 
                                 HeightRequest="55"

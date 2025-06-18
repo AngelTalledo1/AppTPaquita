@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VistaReporteTareasAdicionales"
+             NavigationPage.HasNavigationBar="False"
+             Title="Reporte de Tareas Adicionales"
+             BackgroundColor="#edf2f4">
+
+    <Grid RowDefinitions=".1*,.9*">
+        <!-- Cabecera -->
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atras"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Reporte de Tareas Adicionales"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="15" Spacing="15">
+                <!-- Selección de rango de fechas -->
+                <Frame CornerRadius="15" Padding="15" BackgroundColor="White" HasShadow="False">
+                    <VerticalStackLayout>
+                        <Label Text="Seleccione rango de fechas" 
+                               FontSize="16" 
+                               FontFamily="Comf-Bold" 
+                               TextColor="#333333"/>
+
+                        <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*" Margin="0,15,0,0" ColumnSpacing="10">
+                            <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                <Label Text="Fecha inicio:" FontFamily="Comf-Medium" />
+                                <DatePicker x:Name="fechaInicioPicker" 
+                                           Date="{Binding FechaInicio}" 
+                                           DateSelected="fechaInicioPicker_DateSelected"
+                                           Format="dd/MM/yyyy"
+                                           BackgroundColor="#f8f8f8"/>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                <Label Text="Fecha fin:" FontFamily="Comf-Medium" />
+                                <DatePicker x:Name="fechaFinPicker" 
+                                           Date="{Binding FechaFin}" 
+                                           DateSelected="fechaFinPicker_DateSelected"
+                                           Format="dd/MM/yyyy"
+                                           BackgroundColor="#f8f8f8"/>
+                            </VerticalStackLayout>
+
+                            <Button Grid.Row="1" Grid.ColumnSpan="2"
+                                   Text="Generar reporte" 
+                                   BackgroundColor="#cb4335" 
+                                   TextColor="White"
+                                   HeightRequest="40"
+                                   CornerRadius="20"
+                                   FontFamily="Comf-Medium"
+                                   Clicked="GenerarReporte_Clicked"
+                                   Margin="0,15,0,0"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Información del trabajador -->
+                <Frame x:Name="FrameInfoTrabajador" 
+                      IsVisible="False" 
+                      CornerRadius="15" 
+                      Padding="15" 
+                      BackgroundColor="White" 
+                      HasShadow="False">
+                    <VerticalStackLayout>
+                        <Label Text="Información del Trabajador" 
+                               FontSize="16" 
+                               FontFamily="Comf-Bold" 
+                               TextColor="#333333"/>
+                        <Grid ColumnDefinitions="Auto,*" 
+                              RowDefinitions="Auto,Auto,Auto" 
+                              ColumnSpacing="10" 
+                              RowSpacing="5" 
+                              Margin="0,10,0,0">
+                            <Label Grid.Row="0" Grid.Column="0" 
+                                   Text="Nombre:" 
+                                   FontFamily="Comf-Medium" 
+                                   TextColor="#666666"/>
+                            <Label Grid.Row="0" Grid.Column="1" 
+                                   x:Name="lblNombreTrabajador" 
+                                   TextColor="#333333"
+                                   FontFamily="Comf-Regular"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" 
+                                   Text="Categoría:" 
+                                   FontFamily="Comf-Medium" 
+                                   TextColor="#666666"/>
+                            <Label Grid.Row="1" Grid.Column="1" 
+                                   x:Name="lblCategoriaTrabajador" 
+                                   TextColor="#333333"
+                                   FontFamily="Comf-Regular"/>
+
+                            <Label Grid.Row="2" Grid.Column="0" 
+                                   Text="Período:" 
+                                   FontFamily="Comf-Medium" 
+                                   TextColor="#666666"/>
+                            <Label Grid.Row="2" Grid.Column="1" 
+                                   x:Name="lblPeriodoReporte" 
+                                   TextColor="#333333"
+                                   FontFamily="Comf-Regular"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Resumen de tareas -->
+                <Frame x:Name="FrameResumen" 
+                      IsVisible="False" 
+                      CornerRadius="15" 
+                      Padding="15" 
+                      BackgroundColor="White" 
+                      HasShadow="False">
+                    <VerticalStackLayout>
+                        <Label Text="Resumen de Tareas" 
+                               FontSize="16" 
+                               FontFamily="Comf-Bold" 
+                               TextColor="#333333"/>
+                        <Grid ColumnDefinitions="Auto,*" 
+                              RowDefinitions="Auto,Auto,Auto" 
+                              ColumnSpacing="10" 
+                              RowSpacing="5"
+                              Margin="0,10,0,0">
+                            <Label Grid.Row="0" Grid.Column="0" 
+                                   Text="Total de tareas:" 
+                                   FontFamily="Comf-Medium" 
+                                   TextColor="#666666"/>
+                            <Label Grid.Row="0" Grid.Column="1" 
+                                   x:Name="lblTotalTareas" 
+                                   TextColor="#333333"
+                                   FontFamily="Comf-Regular"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" 
+                                   Text="Tareas completadas:" 
+                                   FontFamily="Comf-Medium" 
+                                   TextColor="#666666"/>
+                            <Label Grid.Row="1" Grid.Column="1" 
+                                   x:Name="lblTareasCompletadas" 
+                                   TextColor="#107C10"
+                                   FontFamily="Comf-Regular"/>
+
+                            <Label Grid.Row="2" Grid.Column="0" 
+                                   Text="Tareas pendientes:" 
+                                   FontFamily="Comf-Medium" 
+                                   TextColor="#666666"/>
+                            <Label Grid.Row="2" Grid.Column="1" 
+                                   x:Name="lblTareasPendientes" 
+                                   TextColor="#cb4335"
+                                   FontFamily="Comf-Regular"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Lista de tareas -->
+                <Frame x:Name="FrameTareas" 
+                      IsVisible="False" 
+                      CornerRadius="15" 
+                      Padding="15" 
+                      BackgroundColor="White" 
+                      HasShadow="False">
+                    <VerticalStackLayout>
+                        <Label Text="Detalle de Tareas" 
+                               FontSize="16" 
+                               FontFamily="Comf-Bold" 
+                               TextColor="#333333"/>
+                        <CollectionView x:Name="ListaTareas" 
+                                        EmptyView="No hay tareas registradas para este período" 
+                                        Margin="0,10,0,0">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Margin="0,0,0,10" 
+                                           Padding="10" 
+                                           BorderColor="#EEEEEE" 
+                                           CornerRadius="10" 
+                                           HasShadow="False">
+                                        <Grid ColumnSpacing="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                                  Text="{Binding Descripcion}" 
+                                                  FontFamily="Comf-Bold" 
+                                                  TextColor="#333333"/>
+
+                                            <Label Grid.Row="0" Grid.Column="2"
+                                                  Text="{Binding EstadoTexto}" 
+                                                  TextColor="{Binding Estado, Converter={StaticResource BoolToColorConverter}}"
+                                                  FontSize="12" 
+                                                  FontFamily="Comf-Medium"
+                                                  HorizontalOptions="End"/>
+
+                                            <Label Grid.Row="1" Grid.Column="0"
+                                                  Text="{Binding FechaTareaFormateada}"
+                                                  FontSize="12" 
+                                                  FontFamily="Comf-Regular"
+                                                  TextColor="#666666"/>
+
+                                            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                                                  Text="{Binding HorarioCompleto}" 
+                                                  FontSize="12" 
+                                                  FontFamily="Comf-Regular"
+                                                  TextColor="#666666"
+                                                  HorizontalOptions="Start"/>
+
+                                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                                  Text="{Binding DuracionFormateada}" 
+                                                  FontSize="12" 
+                                                  FontFamily="Comf-Regular"
+                                                  TextColor="#666666"/>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Botón para exportar PDF -->
+                <Button x:Name="BtnExportarPDF" 
+                       IsVisible="False"
+                       Text="Exportar a PDF" 
+                       BackgroundColor="#cb4335" 
+                       TextColor="White"
+                       HeightRequest="40"
+                       CornerRadius="20"
+                       FontFamily="Comf-Medium"
+                       Clicked="ExportarPDF_Clicked"
+                       Margin="40,10,40,20"/>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Indicador de carga -->
+        <Grid x:Name="LoadingOverlay" 
+              IsVisible="False" 
+              BackgroundColor="#80000000"
+              Grid.RowSpan="2">
+            <Frame CornerRadius="10" 
+                   BackgroundColor="White" 
+                   WidthRequest="180" 
+                   HeightRequest="120"
+                   BorderColor="#cb4335"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="True" 
+                                      HeightRequest="40" 
+                                      WidthRequest="40" 
+                                      Color="#cb4335"/>
+                    <Label Text="Generando reporte..." 
+                           FontFamily="Comf-Medium"
+                           TextColor="#333333"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>

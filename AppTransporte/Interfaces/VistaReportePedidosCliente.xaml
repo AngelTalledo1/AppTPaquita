@@ -207,10 +207,9 @@
                                                 <Label Text="{Binding id_pedido}" 
                                                        TextColor="#333333"/>
                                                 <Label Grid.Column="1" 
-       Text="{Binding origen, StringFormat='{0} → {1}', Converter={StaticResource DestinoConverter}}"
-       LineBreakMode="TailTruncation"
-       TextColor="#333333"/>
-
+                                                       Text="{Binding origen_destino}"
+                                                       LineBreakMode="TailTruncation"
+                                                       TextColor="#333333"/>
                                                 <Label Grid.Column="2" 
                                                        Text="{Binding estado}" 
                                                        TextColor="#333333"/>

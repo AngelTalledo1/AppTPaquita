@@ -57,7 +57,7 @@
                     <Frame CornerRadius="20" Padding="10" BackgroundColor="White">
                         <Grid ColumnDefinitions="3*, 1*" Padding="10" BackgroundColor="White">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer/>
+                                <TapGestureRecognizer Tapped="btn_reportes"/>
                             </Grid.GestureRecognizers>
                             <VerticalStackLayout VerticalOptions="Center">
                                 <Label Text="Reportes" FontSize="16" FontFamily="Comf-Bold" TextColor="Black"/>

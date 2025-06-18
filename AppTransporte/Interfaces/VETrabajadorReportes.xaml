@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VETrabajadorReportes"
+             NavigationPage.HasNavigationBar="False"
+             Title="Reportes del Trabajador"
+             BackgroundColor="#edf2f4">
+
+    <Grid RowDefinitions=".1*,.9*">
+        <!-- Cabecera -->
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atras"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Reportes del Trabajador"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="15" Spacing="15">
+                <!-- Opciones de reporte -->
+                <Frame CornerRadius="15" Padding="15" BackgroundColor="White" HasShadow="False">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Seleccione el tipo de reporte" 
+                               FontSize="18" 
+                               FontFamily="Comf-Bold"
+                               TextColor="#333333"/>
+
+                        <!-- Botones de reportes -->
+                        <Button Text="Reporte de Actividad Diaria" 
+                               BackgroundColor="#cb4335" 
+                               TextColor="White"
+                               HeightRequest="45"
+                               CornerRadius="20"
+                               FontFamily="Comf-Medium"
+                               Clicked="ReporteActividadDiaria_Clicked"
+                               Margin="0,5"/>
+
+                        <Button Text="Reporte de Tareas Adicionales" 
+                               BackgroundColor="#cb4335" 
+                               TextColor="White"
+                               HeightRequest="45"
+                               CornerRadius="20"
+                               FontFamily="Comf-Medium"
+                               Clicked="ReporteTareasAdicionales_Clicked"
+                               Margin="0,5"/>
+
+
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Información del trabajador -->
+                <Frame x:Name="FrameInfoTrabajador" 
+                      CornerRadius="15" 
+                      Padding="15" 
+                      BackgroundColor="White" 
+                      HasShadow="False">
+                    <VerticalStackLayout>
+                        <Label Text="Información del Trabajador" 
+                               FontSize="16" 
+                               FontFamily="Comf-Bold" 
+                               TextColor="#333333"/>
+                        <Grid ColumnDefinitions="Auto,*" 
+                              RowDefinitions="Auto,Auto,Auto" 
+                              ColumnSpacing="10" 
+                              RowSpacing="5"
+                              Margin="0,10,0,0">
+                            <Label Grid.Row="0" Grid.Column="0" 
+                                   Text="Nombre:" 
+                                   FontFamily="Comf-Medium" 
+                                   TextColor="#666666"/>
+                            <Label Grid.Row="0" Grid.Column="1" 
+                                   x:Name="lblNombre" 
+                                   TextColor="#333333"
+                                   FontFamily="Comf-Regular"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" 
+                                   Text="Categoría:" 
+                                   FontFamily="Comf-Medium" 
+                                   TextColor="#666666"/>
+                            <Label Grid.Row="1" Grid.Column="1" 
+                                   x:Name="lblCategoria" 
+                                   TextColor="#333333"
+                                   FontFamily="Comf-Regular"/>
+
+                            <Label Grid.Row="2" Grid.Column="0" 
+                                   Text="ID Trabajador:" 
+                                   FontFamily="Comf-Medium" 
+                                   TextColor="#666666"/>
+                            <Label Grid.Row="2" Grid.Column="1" 
+                                   x:Name="lblIdTrabajador" 
+                                   TextColor="#333333"
+                                   FontFamily="Comf-Regular"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Información adicional -->
+                <Frame CornerRadius="15" Padding="15" BackgroundColor="White" HasShadow="False">
+                    <VerticalStackLayout>
+                        <Label Text="Información" 
+                               FontSize="16" 
+                               FontFamily="Comf-Bold"
+                               TextColor="#333333"/>
+
+                        <Label Text="Los reportes le permiten visualizar su actividad, tareas y rendimiento en los períodos seleccionados."
+                               TextColor="#666666"
+                               FontFamily="Comf-Regular"
+                               Margin="0,10,0,0"/>
+
+                        <Label Text="Seleccione el tipo de reporte que desea generar."
+                               TextColor="#666666"
+                               FontFamily="Comf-Regular"
+                               Margin="0,10,0,0"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Indicador de carga -->
+        <Grid x:Name="LoadingOverlay" 
+              IsVisible="False" 
+              BackgroundColor="#80000000"
+              Grid.RowSpan="2">
+            <Frame CornerRadius="10" 
+                   BackgroundColor="White" 
+                   WidthRequest="180" 
+                   HeightRequest="120"
+                   BorderColor="#cb4335"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="True" 
+                                      HeightRequest="40" 
+                                      WidthRequest="40" 
+                                      Color="#cb4335"/>
+                    <Label Text="Cargando..." 
+                           FontFamily="Comf-Medium"
+                           TextColor="#333333"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>
