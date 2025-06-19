@@ -222,7 +222,7 @@ namespace AppTransporte.model
                         command.CommandTimeout = 120; // 2 minutos de timeout
 
                         // Parámetros
-                        command.Parameters.AddWithValue("@id_trabajador", idTrabajador);
+                        command.Parameters.AddWithValue("@id_usuario", idTrabajador);
                         command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
                         command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
 
