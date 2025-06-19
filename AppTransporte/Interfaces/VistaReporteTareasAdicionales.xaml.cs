@@ -90,7 +90,7 @@ namespace AppTransporte.Interfaces
             try
             {
                 // Obtener las tareas adicionales para el rango de fechas
-                _tareasReporte = await App.Database.ObtenerTareasAdicionalesTrabajadorAsync(_idTrabajador, _fechaInicio, _fechaFin);
+                _tareasReporte = await App.Database.ObtenerTareasAdicionalesTrabajadorAsync(_idUsuario, _fechaInicio, _fechaFin);
 
                 // Actualizar la interfaz con los datos
                 MostrarDatosReporte();

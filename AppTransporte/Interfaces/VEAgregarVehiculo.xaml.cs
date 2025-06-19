@@ -182,7 +182,18 @@ public partial class VEAgregarVehiculo : ContentPage
             var tipoVehiculo = TipovehiculoPicker.SelectedItem?.ToString();
             var datosVehiculo = ObtenerDatosFormulario();
 
-            var resultado = await App.Database.ModificarVehiculoAsync(
+            // Establecer valores de fecha para emisionCubicacion y vencimientoCubicacion
+            // Si el vehículo es de tipo Cisterna, usar los valores de los DatePickers
+            // Si no, usar la fecha actual (o cualquier otra fecha válida requerida para el negocio)
+            DateTime emisionCubicacion = tipoVehiculo == "Cisterna"
+                ? datosVehiculo.EmisionCubicacion ?? DateTime.Today
+                : DateTime.Today;
+
+            DateTime vencimientoCubicacion = tipoVehiculo == "Cisterna"
+                ? datosVehiculo.VencimientoCubicacion ?? DateTime.Today.AddYears(1)
+                : DateTime.Today.AddYears(1);
+
+            var (resultado, mensaje) = await App.Database.ModificarVehiculoAsync(
                 _vehiculoAModificar.IdVehiculo,
                 datosVehiculo.Placa,
                 datosVehiculo.Modelo,
@@ -191,8 +202,8 @@ public partial class VEAgregarVehiculo : ContentPage
                 datosVehiculo.VencimientoPoliza,
                 datosVehiculo.EmisionCITV,
                 datosVehiculo.VencimientoCITV,
-                datosVehiculo.EmisionCubicacion,
-                datosVehiculo.VencimientoCubicacion,
+                emisionCubicacion,
+                vencimientoCubicacion,
                 tipoVehiculo
             );
 
@@ -203,7 +214,7 @@ public partial class VEAgregarVehiculo : ContentPage
             }
             else
             {
-                await DisplayAlert("Error", "No se pudo modificar el vehículo", "OK");
+                await DisplayAlert("Error", $"No se pudo modificar el vehículo: {mensaje}", "OK");
             }
         }
         catch (Exception ex)
@@ -219,6 +230,7 @@ public partial class VEAgregarVehiculo : ContentPage
             }
         }
     }
+
 
     private bool ValidarFormulario()
     {
