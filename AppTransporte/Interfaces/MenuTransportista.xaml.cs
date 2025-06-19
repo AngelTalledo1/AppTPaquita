@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace AppTransporte.Interfaces;
 #pragma warning disable CS0612, CS0618
 public partial class MenuTransportista : ContentPage, IMenuPage
@@ -60,4 +62,8 @@ public partial class MenuTransportista : ContentPage, IMenuPage
         return true; // Bloquea la acción predeterminada del botón atrás
     }
 
+    private async void btn_reportes(object sender, TappedEventArgs e)
+    {
+        await Navigation.PushAsync(new VETrabajadorReportes(_idUsuario, _idTipoUsuario));
+    }
 }

@@ -27,6 +27,10 @@ public partial class MenuCliente : ContentPage, IMenuPage
     {
         Navigation.PushAsync(new VCMisPedidos(_idUsuario, _idTipoUsuario));
     }
+    private void Reportes_clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new VEReportesClientes(_idUsuario, _idTipoUsuario));
+    }
     private async void btn_Cerrar(object sender, EventArgs e)
     {
         bool respuesta = await DisplayAlert("Cerrar Sesión", "¿Estás seguro de cerrar sesión?", "Aceptar", "Cancelar");

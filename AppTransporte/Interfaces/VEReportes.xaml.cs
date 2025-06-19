@@ -175,6 +175,6 @@ public partial class VEReportes : ContentPage
 
     private async void ReporteSolicitudes_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VistaReporteAtencionSolicitudes());
+        //await Navigation.PushAsync(new VistaReporteAtencionSolicitudes());
     }
 }

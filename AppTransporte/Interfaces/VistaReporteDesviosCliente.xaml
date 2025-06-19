@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VistaReporteDesviosCliente"
+             NavigationPage.HasNavigationBar="False"
+             Title="Reporte de Desvíos">
+    <Grid RowDefinitions=".1*,.9*">
+        <!-- Cabecera -->
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atras"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Reporte de Desvíos e Incidencias"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+
+        <!-- Contenido principal -->
+        <Grid Grid.Row="1" RowDefinitions="Auto,*,Auto">
+            <!-- Filtros y resumen -->
+            <StackLayout Padding="15" BackgroundColor="#f8f9fa">
+                <!-- Selección de fechas -->
+                <Label x:Name="FechasReporte" 
+                       Text="Periodo: 01/01/2025 - 31/01/2025" 
+                       FontFamily="Comf-Medium"
+                       FontSize="16"/>
+                <Grid ColumnDefinitions="*,*,Auto" Margin="0,10,0,0">
+                    <DatePicker x:Name="fechaInicio" 
+                               Format="dd/MM/yyyy"
+                               DateSelected="OnFechaSeleccionada" 
+                               FontFamily="Comf-Medium"/>
+                    <DatePicker x:Name="fechaFin" 
+                               Grid.Column="1"
+                               Format="dd/MM/yyyy"
+                               DateSelected="OnFechaSeleccionada" 
+                               FontFamily="Comf-Medium"/>
+                    <Button Grid.Column="2" 
+                            Text="Actualizar" 
+                            BackgroundColor="#cb4335" 
+                            TextColor="White"
+                            CornerRadius="20"
+                            HeightRequest="40"
+                            WidthRequest="100"
+                            Clicked="ActualizarReporte_Clicked"/>
+                </Grid>
+
+                <!-- Resumen de incidencias -->
+                <Frame BorderColor="#e0e0e0" BackgroundColor="White" Margin="0,10,0,0" Padding="15" CornerRadius="10">
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                        <StackLayout HorizontalOptions="Center">
+                            <Label Text="Total Incidencias" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label x:Name="TotalIncidenciasLabel" 
+                                   Text="0" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#cb4335"
+                                   FontSize="24"
+                                   HorizontalTextAlignment="Center"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" HorizontalOptions="Center">
+                            <Label Text="Incidencias Resueltas" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label x:Name="IncidenciasResueltasLabel" 
+                                   Text="0" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#007AFF"
+                                   FontSize="24"
+                                   HorizontalTextAlignment="Center"/>
+                        </StackLayout>
+                        <StackLayout Grid.Row="1" HorizontalOptions="Center" Margin="0,10,0,0">
+                            <Label Text="Viajes con Incidencias" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label x:Name="ViajesConIncidenciasLabel" 
+                                   Text="0" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#FF9500"
+                                   FontSize="24"
+                                   HorizontalTextAlignment="Center"/>
+                        </StackLayout>
+                        <StackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" Margin="0,10,0,0">
+                            <Label Text="Tiempo Resolución" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label x:Name="TiempoResolucionLabel" 
+                                   Text="0 h" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#34C759"
+                                   FontSize="24"
+                                   HorizontalTextAlignment="Center"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+
+            <!-- Detalle de desvíos -->
+            <Frame Grid.Row="1" 
+                   BorderColor="#e0e0e0" 
+                   BackgroundColor="White" 
+                   Padding="0" 
+                   Margin="10" 
+                   CornerRadius="10">
+                <Grid RowDefinitions="Auto,*">
+                    <Label Text="Detalle de Desvíos e Incidencias" 
+                           FontFamily="Comf-Bold" 
+                           TextColor="#333333"
+                           FontSize="16"
+                           Margin="15,10" />
+
+                    <ScrollView Grid.Row="1">
+                        <VerticalStackLayout>
+                            <!-- Cabecera de tabla -->
+                            <Grid BackgroundColor="#f0f0f0" Padding="10" ColumnDefinitions="Auto,1*,2*,1*,1*">
+                                <Label Text="Viaje" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="1" 
+                                       Text="Fecha/Hora" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="2" 
+                                       Text="Comentario" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="3" 
+                                       Text="Estado" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="4" 
+                                       Text="Conductor" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                            </Grid>
+
+                            <!-- Datos de desvíos -->
+                            <CollectionView x:Name="desviosCollectionView" 
+                                            EmptyView="No hay desvíos registrados en el periodo seleccionado">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="10" ColumnDefinitions="Auto,1*,2*,1*,1*">
+                                            <Label Text="{Binding id_viaje}" 
+                                                   TextColor="#333333" 
+                                                   FontFamily="Comf-Medium"/>
+                                            <Label Grid.Column="1" 
+                                                   Text="{Binding fechaHora, StringFormat='{0:dd/MM/yyyy HH:mm}'}" 
+                                                   TextColor="#333333"/>
+                                            <Label Grid.Column="2" 
+                                                   Text="{Binding comentario}" 
+                                                   TextColor="#333333"
+                                                   LineBreakMode="TailTruncation"/>
+                                            <Label Grid.Column="3" 
+                                                   Text="{Binding estado_viaje}" 
+                                                   TextColor="#333333"/>
+                                            <Label Grid.Column="4" 
+                                                   Text="{Binding conductor}" 
+                                                   TextColor="#333333"/>
+                                            <Grid.Triggers>
+                                                <DataTrigger TargetType="Grid" 
+                                                             Binding="{Binding Row}" 
+                                                             Value="True">
+                                                    <Setter Property="BackgroundColor" Value="#f5f5f5"/>
+                                                </DataTrigger>
+                                            </Grid.Triggers>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </Grid>
+            </Frame>
+
+            <!-- Botones de acción -->
+            <Grid Grid.Row="2" 
+                  BackgroundColor="#f8f9fa" 
+                  Padding="15" 
+                  ColumnDefinitions="*,*">
+                <Button Text="Exportar PDF" 
+                        CornerRadius="20" 
+                        BackgroundColor="#007AFF" 
+                        TextColor="White" 
+                        FontFamily="Comf-Medium" 
+                        HeightRequest="45" 
+                        Margin="5,0" 
+                        Clicked="ExportarPDF_Clicked"/>
+                <Button Grid.Column="1" 
+                        Text="Compartir" 
+                        CornerRadius="20" 
+                        BackgroundColor="#34C759" 
+                        TextColor="White" 
+                        FontFamily="Comf-Medium" 
+                        HeightRequest="45" 
+                        Margin="5,0" 
+                        Clicked="Compartir_Clicked"/>
+            </Grid>
+        </Grid>
+
+        <!-- Overlay de carga -->
+        <Grid x:Name="LoadingOverlay" 
+              IsVisible="False" 
+              BackgroundColor="#80000000"
+              Grid.RowSpan="2">
+            <Frame CornerRadius="10" 
+                   BackgroundColor="White" 
+                   WidthRequest="180" 
+                   HeightRequest="120"
+                   BorderColor="#cb4335"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="True" 
+                                      HeightRequest="40" 
+                                      WidthRequest="40" 
+                                      Color="#cb4335"/>
+                    <Label Text="Procesando..." 
+                           FontFamily="Comf-Medium"
+                           TextColor="#333333"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>

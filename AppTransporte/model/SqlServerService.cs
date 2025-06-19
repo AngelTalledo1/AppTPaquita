@@ -49,6 +49,1144 @@ namespace AppTransporte.model
                 }
             }
         }
+        // Reporte de Atención de Solicitudes por Cliente
+        public (DataTable MetricasCliente, DataTable DetalleSolicitudes) ObtenerReporteAtencionSolicitudesPorCliente(
+            int idCliente,
+            DateTime fechaInicio,
+            DateTime fechaFin)
+        {
+            DataTable metricasCliente = new DataTable();
+            DataTable detalleSolicitudes = new DataTable();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    conn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("sp_ReporteAtencionSolicitudesPorCliente", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandTimeout = 180;
+
+                        // Parámetros
+                        cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                        cmd.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                        cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
+
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds);
+
+                        if (ds.Tables.Count >= 1)
+                            metricasCliente = ds.Tables[0];
+
+                        if (ds.Tables.Count >= 2)
+                            detalleSolicitudes = ds.Tables[1];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en ObtenerReporteAtencionSolicitudesPorCliente: {ex.Message}");
+                throw;
+            }
+
+            return (metricasCliente, detalleSolicitudes);
+        }
+
+        // Reporte de Trabajadores por Cliente
+        public DataTable ObtenerReporteTrabajadoresPorCliente(int idCliente)
+        {
+            DataTable resultado = new DataTable();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    conn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("sp_ReporteTrabajadoresPorCliente", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                        cmd.CommandTimeout = 120; // Aumentar el timeout por si acaso
+
+                        // Utilizar SqlDataReader para ver si hay datos
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            resultado.Load(reader);
+
+                            // Registrar para debug cuántas filas se recuperaron
+                            System.Diagnostics.Debug.WriteLine($"Filas recuperadas: {resultado.Rows.Count}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Registrar el error para depuración
+                System.Diagnostics.Debug.WriteLine($"Error en ObtenerReporteTrabajadoresPorCliente: {ex.Message}");
+                throw; // Re-lanzar la excepción para manejarla en la capa superior
+            }
+
+            return resultado;
+        }
+
+        // Reporte de Pedidos por Cliente
+        // Reporte de Pedidos por Cliente
+        public (DataTable ResumenPedidos, DataTable DetallePedidos) ObtenerReportePedidosPorCliente(
+    int idCliente,
+    string tipoPedido = null)
+        {
+            DataTable resumenPedidos = new DataTable();
+            DataTable detallePedidos = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("sp_ReportePedidosPorCliente", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                    cmd.Parameters.AddWithValue("@TipoPedido", (object)tipoPedido ?? DBNull.Value);
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds);
+
+                        if (ds.Tables.Count > 0)
+                            resumenPedidos = ds.Tables[0];
+                        if (ds.Tables.Count > 1)
+                            detallePedidos = ds.Tables[1];
+                    }
+                }
+            }
+
+            return (resumenPedidos, detallePedidos);
+        }
+
+
+
+        // Reporte de Desvíos por Cliente
+        public (DataTable ResumenDesvios, DataTable DetalleDesvios) ObtenerReporteDesviosPorCliente(
+            int idCliente,
+            DateTime fechaInicio,
+            DateTime fechaFin)
+        {
+            DataTable resumenDesvios = new DataTable();
+            DataTable detalleDesvios = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("sp_ReporteDesviosPorCliente", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                    cmd.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                    cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumenDesvios.Load(reader);
+                        if (reader.NextResult())
+                        {
+                            detalleDesvios.Load(reader);
+                        }
+                    }
+                }
+            }
+
+            return (resumenDesvios, detalleDesvios);
+        }
+        public async Task<List<TareaAdicionalTrabajador>> ObtenerTareasAdicionalesTrabajadorAsync(
+    int idTrabajador,
+    DateTime fechaInicio,
+    DateTime fechaFin)
+        {
+            var tareas = new List<TareaAdicionalTrabajador>();
+
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("sp_ReporteTareasAdicionalesTrabajador", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 120; // 2 minutos de timeout
+
+                        // Parámetros
+                        command.Parameters.AddWithValue("@id_trabajador", idTrabajador);
+                        command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
+                        command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                tareas.Add(new TareaAdicionalTrabajador
+                                {
+                                    IdTareaAdicional = reader.GetInt32(reader.GetOrdinal("id_tareaAdicional")),
+                                    FechaTarea = reader.GetDateTime(reader.GetOrdinal("fecha_tarea")),
+                                    HoraInicio = TimeSpan.Parse(reader["hora_inicio"].ToString()),
+                                    HoraFin = TimeSpan.Parse(reader["hora_fin"].ToString()),
+                                    Descripcion = reader.GetString(reader.GetOrdinal("descripcion")),
+                                    Estado = reader.GetBoolean(reader.GetOrdinal("estado"))
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener tareas adicionales del trabajador: {ex.Message}");
+                throw;
+            }
+
+            return tareas;
+        }
+        public async Task<ReporteDiarioCompleto> ObtenerReporteDiarioCompletoAsync(
+    int idTrabajador,
+    DateTime fecha)
+        {
+            var reporte = new ReporteDiarioCompleto
+            {
+                IdTrabajador = idTrabajador,
+                Fecha = fecha.Date
+            };
+
+            try
+            {
+                // Obtener información del trabajador
+                var trabajadores = await ObtenerTrabajadoresAsync();
+                var trabajador = trabajadores.FirstOrDefault(t => t.IdTrabajador == idTrabajador);
+
+                if (trabajador != null)
+                {
+                    reporte.NombreTrabajador = $"{trabajador.Nombre} {trabajador.apePaterno} {trabajador.apeMaterno}".Trim();
+                    reporte.Categoria = trabajador.categoria;
+                }
+
+                // Obtener actividades diarias
+                reporte.Actividades = await ObtenerActividadesDiariasTrabajadorAsync(idTrabajador, fecha);
+
+                // Obtener tareas adicionales (solo del día seleccionado)
+                var tareas = await ObtenerTareasAdicionalesTrabajadorAsync(idTrabajador, fecha, fecha);
+                reporte.TareasAdicionales = tareas;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener reporte diario completo: {ex.Message}");
+                throw;
+            }
+
+            return reporte;
+        }
+
+
+        // Método para obtener el reporte de actividades diarias de un trabajador
+
+        // Método combinado para obtener el reporte diario completo de un trabajador
+        // Método para generar un reporte PDF de tareas adicionales
+        public byte[] GenerarReporteTareasAdicionalesPDF(
+            List<TareaAdicionalTrabajador> tareas,
+            string nombreTrabajador,
+            DateTime fechaInicio,
+            DateTime fechaFin)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
+                PdfWriter writer = PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                // Título del reporte
+                iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 18, iTextSharp.text.Font.BOLD);
+                Paragraph titulo = new Paragraph("Reporte de Tareas Adicionales", titleFont);
+                titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                titulo.SpacingAfter = 20;
+                document.Add(titulo);
+
+                // Información del trabajador y período
+                iTextSharp.text.Font normalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12);
+                Paragraph infoTrabajador = new Paragraph($"Trabajador: {nombreTrabajador}", normalFont);
+                infoTrabajador.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                infoTrabajador.SpacingAfter = 5;
+                document.Add(infoTrabajador);
+
+                Paragraph infoPeriodo = new Paragraph($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}", normalFont);
+                infoPeriodo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                infoPeriodo.SpacingAfter = 20;
+                document.Add(infoPeriodo);
+
+                // Tabla de tareas adicionales
+                PdfPTable table = new PdfPTable(5); // 5 columnas
+                table.WidthPercentage = 100;
+                float[] widths = new float[] { 20f, 15f, 20f, 30f, 15f };
+                table.SetWidths(widths);
+
+                // Cabecera de la tabla
+                iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
+                BaseColor headerColor = new BaseColor(220, 220, 220); // Gris claro
+
+                PdfPCell headerFecha = new PdfPCell(new Phrase("Fecha", headerFont));
+                headerFecha.BackgroundColor = headerColor;
+                headerFecha.Padding = 5;
+
+                PdfPCell headerHorario = new PdfPCell(new Phrase("Horario", headerFont));
+                headerHorario.BackgroundColor = headerColor;
+                headerHorario.Padding = 5;
+
+                PdfPCell headerDuracion = new PdfPCell(new Phrase("Duración", headerFont));
+                headerDuracion.BackgroundColor = headerColor;
+                headerDuracion.Padding = 5;
+
+                PdfPCell headerDescripcion = new PdfPCell(new Phrase("Descripción", headerFont));
+                headerDescripcion.BackgroundColor = headerColor;
+                headerDescripcion.Padding = 5;
+
+                PdfPCell headerEstado = new PdfPCell(new Phrase("Estado", headerFont));
+                headerEstado.BackgroundColor = headerColor;
+                headerEstado.Padding = 5;
+
+                table.AddCell(headerFecha);
+                table.AddCell(headerHorario);
+                table.AddCell(headerDuracion);
+                table.AddCell(headerDescripcion);
+                table.AddCell(headerEstado);
+
+                // Filas de datos
+                bool colorAlternado = false;
+                foreach (var tarea in tareas)
+                {
+                    BaseColor bgColor = colorAlternado ? BaseColor.WHITE : new BaseColor(245, 245, 245);
+                    colorAlternado = !colorAlternado;
+
+                    PdfPCell cellFecha = new PdfPCell(new Phrase(tarea.FechaTareaFormateada, normalFont));
+                    cellFecha.BackgroundColor = bgColor;
+                    cellFecha.Padding = 5;
+
+                    PdfPCell cellHorario = new PdfPCell(new Phrase(tarea.HorarioCompleto, normalFont));
+                    cellHorario.BackgroundColor = bgColor;
+                    cellHorario.Padding = 5;
+
+                    PdfPCell cellDuracion = new PdfPCell(new Phrase(tarea.DuracionFormateada, normalFont));
+                    cellDuracion.BackgroundColor = bgColor;
+                    cellDuracion.Padding = 5;
+
+                    PdfPCell cellDescripcion = new PdfPCell(new Phrase(tarea.Descripcion, normalFont));
+                    cellDescripcion.BackgroundColor = bgColor;
+                    cellDescripcion.Padding = 5;
+
+                    PdfPCell cellEstado = new PdfPCell(new Phrase(tarea.EstadoTexto, normalFont));
+                    cellEstado.BackgroundColor = bgColor;
+                    cellEstado.Padding = 5;
+
+                    table.AddCell(cellFecha);
+                    table.AddCell(cellHorario);
+                    table.AddCell(cellDuracion);
+                    table.AddCell(cellDescripcion);
+                    table.AddCell(cellEstado);
+                }
+
+                document.Add(table);
+
+                // Pie de página
+                iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
+                footerFont.Color = BaseColor.GRAY;
+
+                Paragraph footer = new Paragraph($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}", footerFont);
+                footer.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
+                footer.SpacingBefore = 20;
+                document.Add(footer);
+
+                document.Close();
+                return ms.ToArray();
+            }
+        }
+
+        // Método para generar un reporte PDF de actividad diaria
+        public byte[] GenerarReporteActividadDiariaPDF(ReporteDiarioCompleto reporte)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
+                PdfWriter writer = PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                // Título del reporte
+                iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 18, iTextSharp.text.Font.BOLD);
+                Paragraph titulo = new Paragraph("Reporte de Actividad Diaria", titleFont);
+                titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                titulo.SpacingAfter = 20;
+                document.Add(titulo);
+
+                // Información del trabajador y fecha
+                iTextSharp.text.Font normalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12);
+                Paragraph infoTrabajador = new Paragraph($"Trabajador: {reporte.NombreTrabajador}", normalFont);
+                infoTrabajador.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                infoTrabajador.SpacingAfter = 5;
+                document.Add(infoTrabajador);
+
+                Paragraph infoCategoria = new Paragraph($"Categoría: {reporte.Categoria}", normalFont);
+                infoCategoria.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                infoCategoria.SpacingAfter = 5;
+                document.Add(infoCategoria);
+
+                Paragraph infoFecha = new Paragraph($"Fecha: {reporte.FechaFormateada}", normalFont);
+                infoFecha.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                infoFecha.SpacingAfter = 20;
+                document.Add(infoFecha);
+
+                // Resumen de actividades
+                iTextSharp.text.Font subtitleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
+                Paragraph resumenTitulo = new Paragraph("Resumen de Actividades", subtitleFont);
+                resumenTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                resumenTitulo.SpacingAfter = 10;
+                document.Add(resumenTitulo);
+
+                PdfPTable resumenTable = new PdfPTable(2);
+                resumenTable.WidthPercentage = 50;
+                resumenTable.HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
+                resumenTable.SpacingAfter = 20;
+
+                // Añadir datos del resumen
+                PdfPCell cellResumenLabel1 = new PdfPCell(new Phrase("Total de Viajes:", normalFont));
+                PdfPCell cellResumenValue1 = new PdfPCell(new Phrase(reporte.TotalViajes.ToString(), normalFont));
+
+                PdfPCell cellResumenLabel2 = new PdfPCell(new Phrase("Total de Tareas Adicionales:", normalFont));
+                PdfPCell cellResumenValue2 = new PdfPCell(new Phrase(reporte.TotalTareas.ToString(), normalFont));
+
+                resumenTable.AddCell(cellResumenLabel1);
+                resumenTable.AddCell(cellResumenValue1);
+                resumenTable.AddCell(cellResumenLabel2);
+                resumenTable.AddCell(cellResumenValue2);
+
+                document.Add(resumenTable);
+
+                // Tabla de actividades
+                if (reporte.Actividades.Count > 0)
+                {
+                    Paragraph actividadesTitulo = new Paragraph("Registro de Viajes y Seguimientos", subtitleFont);
+                    actividadesTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                    actividadesTitulo.SpacingAfter = 10;
+                    document.Add(actividadesTitulo);
+
+                    PdfPTable actividadesTable = new PdfPTable(5); // 5 columnas
+                    actividadesTable.WidthPercentage = 100;
+                    actividadesTable.SpacingAfter = 20;
+
+                    // Cabecera de la tabla
+                    iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
+                    BaseColor headerColor = new BaseColor(220, 220, 220); // Gris claro
+
+                    PdfPCell headerViaje = new PdfPCell(new Phrase("ID Viaje", headerFont));
+                    headerViaje.BackgroundColor = headerColor;
+                    headerViaje.Padding = 5;
+
+                    PdfPCell headerHora = new PdfPCell(new Phrase("Hora", headerFont));
+                    headerHora.BackgroundColor = headerColor;
+                    headerHora.Padding = 5;
+
+                    PdfPCell headerEstado = new PdfPCell(new Phrase("Estado", headerFont));
+                    headerEstado.BackgroundColor = headerColor;
+                    headerEstado.Padding = 5;
+
+                    PdfPCell headerCantidad = new PdfPCell(new Phrase("Cantidad", headerFont));
+                    headerCantidad.BackgroundColor = headerColor;
+                    headerCantidad.Padding = 5;
+
+                    PdfPCell headerComentario = new PdfPCell(new Phrase("Comentario", headerFont));
+                    headerComentario.BackgroundColor = headerColor;
+                    headerComentario.Padding = 5;
+
+                    actividadesTable.AddCell(headerViaje);
+                    actividadesTable.AddCell(headerHora);
+                    actividadesTable.AddCell(headerEstado);
+                    actividadesTable.AddCell(headerCantidad);
+                    actividadesTable.AddCell(headerComentario);
+
+                    // Filas de datos
+                    bool colorAlternado = false;
+                    foreach (var actividad in reporte.Actividades)
+                    {
+                        BaseColor bgColor = colorAlternado ? BaseColor.WHITE : new BaseColor(245, 245, 245);
+                        colorAlternado = !colorAlternado;
+
+                        PdfPCell cellViaje = new PdfPCell(new Phrase(actividad.IdViaje.ToString(), normalFont));
+                        cellViaje.BackgroundColor = bgColor;
+                        cellViaje.Padding = 5;
+
+                        PdfPCell cellHora = new PdfPCell(new Phrase(actividad.HoraFormateada, normalFont));
+                        cellHora.BackgroundColor = bgColor;
+                        cellHora.Padding = 5;
+
+                        PdfPCell cellEstado = new PdfPCell(new Phrase(actividad.EstadoActual, normalFont));
+                        cellEstado.BackgroundColor = bgColor;
+                        cellEstado.Padding = 5;
+
+                        PdfPCell cellCantidad = new PdfPCell(new Phrase(actividad.Cantidad?.ToString() ?? "N/A", normalFont));
+                        cellCantidad.BackgroundColor = bgColor;
+                        cellCantidad.Padding = 5;
+
+                        PdfPCell cellComentario = new PdfPCell(new Phrase(actividad.Comentario ?? "", normalFont));
+                        cellComentario.BackgroundColor = bgColor;
+                        cellComentario.Padding = 5;
+
+                        actividadesTable.AddCell(cellViaje);
+                        actividadesTable.AddCell(cellHora);
+                        actividadesTable.AddCell(cellEstado);
+                        actividadesTable.AddCell(cellCantidad);
+                        actividadesTable.AddCell(cellComentario);
+                    }
+
+                    document.Add(actividadesTable);
+                }
+
+                // Tabla de tareas adicionales
+                if (reporte.TareasAdicionales.Count > 0)
+                {
+                    Paragraph tareasTitulo = new Paragraph("Tareas Adicionales", subtitleFont);
+                    tareasTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                    tareasTitulo.SpacingAfter = 10;
+                    document.Add(tareasTitulo);
+
+                    PdfPTable tareasTable = new PdfPTable(4); // 4 columnas
+                    tareasTable.WidthPercentage = 100;
+
+                    // Cabecera de la tabla
+                    iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
+                    BaseColor headerColor = new BaseColor(220, 220, 220); // Gris claro
+
+                    PdfPCell headerHorario = new PdfPCell(new Phrase("Horario", headerFont));
+                    headerHorario.BackgroundColor = headerColor;
+                    headerHorario.Padding = 5;
+
+                    PdfPCell headerDuracion = new PdfPCell(new Phrase("Duración", headerFont));
+                    headerDuracion.BackgroundColor = headerColor;
+                    headerDuracion.Padding = 5;
+
+                    PdfPCell headerDescripcion = new PdfPCell(new Phrase("Descripción", headerFont));
+                    headerDescripcion.BackgroundColor = headerColor;
+                    headerDescripcion.Padding = 5;
+
+                    PdfPCell headerEstado = new PdfPCell(new Phrase("Estado", headerFont));
+                    headerEstado.BackgroundColor = headerColor;
+                    headerEstado.Padding = 5;
+
+                    tareasTable.AddCell(headerHorario);
+                    tareasTable.AddCell(headerDuracion);
+                    tareasTable.AddCell(headerDescripcion);
+                    tareasTable.AddCell(headerEstado);
+
+                    // Filas de datos
+                    bool colorAlternado = false;
+                    foreach (var tarea in reporte.TareasAdicionales)
+                    {
+                        BaseColor bgColor = colorAlternado ? BaseColor.WHITE : new BaseColor(245, 245, 245);
+                        colorAlternado = !colorAlternado;
+
+                        PdfPCell cellHorario = new PdfPCell(new Phrase(tarea.HorarioCompleto, normalFont));
+                        cellHorario.BackgroundColor = bgColor;
+                        cellHorario.Padding = 5;
+
+                        PdfPCell cellDuracion = new PdfPCell(new Phrase(tarea.DuracionFormateada, normalFont));
+                        cellDuracion.BackgroundColor = bgColor;
+                        cellDuracion.Padding = 5;
+
+                        PdfPCell cellDescripcion = new PdfPCell(new Phrase(tarea.Descripcion, normalFont));
+                        cellDescripcion.BackgroundColor = bgColor;
+                        cellDescripcion.Padding = 5;
+
+                        PdfPCell cellEstado = new PdfPCell(new Phrase(tarea.EstadoTexto, normalFont));
+                        cellEstado.BackgroundColor = bgColor;
+                        cellEstado.Padding = 5;
+
+                        tareasTable.AddCell(cellHorario);
+                        tareasTable.AddCell(cellDuracion);
+                        tareasTable.AddCell(cellDescripcion);
+                        tareasTable.AddCell(cellEstado);
+                    }
+
+                    document.Add(tareasTable);
+                }
+
+                // Pie de página
+                iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
+                footerFont.Color = BaseColor.GRAY;
+
+                Paragraph footer = new Paragraph($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}", footerFont);
+                footer.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
+                footer.SpacingBefore = 20;
+                document.Add(footer);
+
+                document.Close();
+                return ms.ToArray();
+            }
+        }
+        // Método para obtener un reporte de actividad de un trabajador por un rango de fechas
+        public async Task<List<ReporteDiarioCompleto>> ObtenerReportePeriodoTrabajadorAsync(
+            int idTrabajador,
+            DateTime fechaInicio,
+            DateTime fechaFin)
+        {
+            var reportes = new List<ReporteDiarioCompleto>();
+
+            // Obtener información del trabajador
+            var trabajadores = await ObtenerTrabajadoresAsync();
+            var trabajador = trabajadores.FirstOrDefault(t => t.IdTrabajador == idTrabajador);
+
+            if (trabajador == null)
+            {
+                throw new Exception($"No se encontró el trabajador con ID {idTrabajador}");
+            }
+
+            string nombreTrabajador = $"{trabajador.Nombre} {trabajador.apePaterno} {trabajador.apeMaterno}".Trim();
+            string categoria = trabajador.categoria;
+
+            // Obtener todas las tareas adicionales para el período
+            var todasLasTareas = await ObtenerTareasAdicionalesTrabajadorAsync(idTrabajador, fechaInicio, fechaFin);
+
+            // Para cada día en el período
+            for (DateTime fecha = fechaInicio.Date; fecha <= fechaFin.Date; fecha = fecha.AddDays(1))
+            {
+                // Obtener actividades para este día
+                var actividadesDia = await ObtenerActividadesDiariasTrabajadorAsync(idTrabajador, fecha);
+
+                // Si no hay actividades ni tareas para este día, podemos saltar al siguiente
+                var tareasDia = todasLasTareas.Where(t => t.FechaTarea.Date == fecha.Date).ToList();
+
+                if (actividadesDia.Count == 0 && tareasDia.Count == 0)
+                    continue;
+
+                // Crear el reporte para este día
+                var reporteDia = new ReporteDiarioCompleto
+                {
+                    IdTrabajador = idTrabajador,
+                    NombreTrabajador = nombreTrabajador,
+                    Categoria = categoria,
+                    Fecha = fecha,
+                    Actividades = actividadesDia,
+                    TareasAdicionales = tareasDia
+                };
+
+                reportes.Add(reporteDia);
+            }
+
+            return reportes;
+        }
+
+        // Método para generar un reporte PDF de un período completo
+        public byte[] GenerarReportePeriodoTrabajadorPDF(
+            List<ReporteDiarioCompleto> reportes,
+            DateTime fechaInicio,
+            DateTime fechaFin)
+        {
+            if (reportes == null || reportes.Count == 0)
+                return new byte[0];
+
+            var nombreTrabajador = reportes.First().NombreTrabajador;
+            var categoria = reportes.First().Categoria;
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
+                PdfWriter writer = PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                // Título del reporte
+                iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 18, iTextSharp.text.Font.BOLD);
+                Paragraph titulo = new Paragraph("Reporte de Actividad por Período", titleFont);
+                titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                titulo.SpacingAfter = 20;
+                document.Add(titulo);
+
+                // Información del trabajador y período
+                iTextSharp.text.Font normalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12);
+                Paragraph infoTrabajador = new Paragraph($"Trabajador: {nombreTrabajador}", normalFont);
+                infoTrabajador.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                infoTrabajador.SpacingAfter = 5;
+                document.Add(infoTrabajador);
+
+                Paragraph infoCategoria = new Paragraph($"Categoría: {categoria}", normalFont);
+                infoCategoria.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                infoCategoria.SpacingAfter = 5;
+                document.Add(infoCategoria);
+
+                Paragraph infoPeriodo = new Paragraph($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}", normalFont);
+                infoPeriodo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                infoPeriodo.SpacingAfter = 20;
+                document.Add(infoPeriodo);
+
+                // Resumen general
+                iTextSharp.text.Font subtitleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
+                Paragraph resumenTitulo = new Paragraph("Resumen General", subtitleFont);
+                resumenTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                resumenTitulo.SpacingAfter = 10;
+                document.Add(resumenTitulo);
+
+                PdfPTable resumenTable = new PdfPTable(2);
+                resumenTable.WidthPercentage = 60;
+                resumenTable.HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
+                resumenTable.SpacingAfter = 20;
+
+                // Calcular totales para el resumen
+                int totalDiasActividad = reportes.Count;
+                int totalViajes = reportes.Sum(r => r.TotalViajes);
+                int totalTareas = reportes.Sum(r => r.TotalTareas);
+
+                // Añadir datos del resumen
+                PdfPCell cellResumenLabel1 = new PdfPCell(new Phrase("Días con Actividad:", normalFont));
+                PdfPCell cellResumenValue1 = new PdfPCell(new Phrase(totalDiasActividad.ToString(), normalFont));
+
+                PdfPCell cellResumenLabel2 = new PdfPCell(new Phrase("Total de Viajes:", normalFont));
+                PdfPCell cellResumenValue2 = new PdfPCell(new Phrase(totalViajes.ToString(), normalFont));
+
+                PdfPCell cellResumenLabel3 = new PdfPCell(new Phrase("Total de Tareas Adicionales:", normalFont));
+                PdfPCell cellResumenValue3 = new PdfPCell(new Phrase(totalTareas.ToString(), normalFont));
+
+                resumenTable.AddCell(cellResumenLabel1);
+                resumenTable.AddCell(cellResumenValue1);
+                resumenTable.AddCell(cellResumenLabel2);
+                resumenTable.AddCell(cellResumenValue2);
+                resumenTable.AddCell(cellResumenLabel3);
+                resumenTable.AddCell(cellResumenValue3);
+
+                document.Add(resumenTable);
+
+                // Por cada día con actividad, generar una sección
+                foreach (var reporte in reportes.OrderBy(r => r.Fecha))
+                {
+                    // Título del día
+                    Paragraph diaTitulo = new Paragraph($"Actividades del {reporte.FechaFormateada}", subtitleFont);
+                    diaTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
+                    diaTitulo.SpacingBefore = 15;
+                    diaTitulo.SpacingAfter = 10;
+                    document.Add(diaTitulo);
+
+                    // Tabla de actividades del día
+                    if (reporte.Actividades.Count > 0)
+                    {
+                        Paragraph actividadesTitulo = new Paragraph("Viajes y Seguimientos:", normalFont);
+                        actividadesTitulo.SpacingAfter = 5;
+                        document.Add(actividadesTitulo);
+
+                        PdfPTable actividadesTable = new PdfPTable(4); // 4 columnas
+                        actividadesTable.WidthPercentage = 100;
+                        actividadesTable.SpacingAfter = 10;
+
+                        // Cabecera
+                        BaseColor headerColor = new BaseColor(220, 220, 220); // Gris claro
+                        iTextSharp.text.Font smallBoldFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 11, iTextSharp.text.Font.BOLD);
+
+                        PdfPCell headerViaje = new PdfPCell(new Phrase("ID Viaje", smallBoldFont));
+                        headerViaje.BackgroundColor = headerColor;
+                        headerViaje.Padding = 4;
+
+                        PdfPCell headerHora = new PdfPCell(new Phrase("Hora", smallBoldFont));
+                        headerHora.BackgroundColor = headerColor;
+                        headerHora.Padding = 4;
+
+                        PdfPCell headerEstado = new PdfPCell(new Phrase("Estado", smallBoldFont));
+                        headerEstado.BackgroundColor = headerColor;
+                        headerEstado.Padding = 4;
+
+                        PdfPCell headerComentario = new PdfPCell(new Phrase("Comentario", smallBoldFont));
+                        headerComentario.BackgroundColor = headerColor;
+                        headerComentario.Padding = 4;
+
+                        actividadesTable.AddCell(headerViaje);
+                        actividadesTable.AddCell(headerHora);
+                        actividadesTable.AddCell(headerEstado);
+                        actividadesTable.AddCell(headerComentario);
+
+                        // Filas de datos, ordenadas por hora
+                        iTextSharp.text.Font smallFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
+                        bool colorAlternado = false;
+
+                        foreach (var actividad in reporte.Actividades.OrderBy(a => a.FechaHora))
+                        {
+                            BaseColor bgColor = colorAlternado ? BaseColor.WHITE : new BaseColor(245, 245, 245);
+                            colorAlternado = !colorAlternado;
+
+                            PdfPCell cellViaje = new PdfPCell(new Phrase(actividad.IdViaje.ToString(), smallFont));
+                            cellViaje.BackgroundColor = bgColor;
+                            cellViaje.Padding = 4;
+
+                            PdfPCell cellHora = new PdfPCell(new Phrase(actividad.HoraFormateada, smallFont));
+                            cellHora.BackgroundColor = bgColor;
+                            cellHora.Padding = 4;
+
+                            PdfPCell cellEstado = new PdfPCell(new Phrase(actividad.EstadoActual, smallFont));
+                            cellEstado.BackgroundColor = bgColor;
+                            cellEstado.Padding = 4;
+
+                            PdfPCell cellComentario = new PdfPCell(new Phrase(actividad.Comentario ?? "", smallFont));
+                            cellComentario.BackgroundColor = bgColor;
+                            cellComentario.Padding = 4;
+
+                            actividadesTable.AddCell(cellViaje);
+                            actividadesTable.AddCell(cellHora);
+                            actividadesTable.AddCell(cellEstado);
+                            actividadesTable.AddCell(cellComentario);
+                        }
+
+                        document.Add(actividadesTable);
+                    }
+
+                    // Tabla de tareas adicionales del día
+                    if (reporte.TareasAdicionales.Count > 0)
+                    {
+                        Paragraph tareasTitulo = new Paragraph("Tareas Adicionales:", normalFont);
+                        tareasTitulo.SpacingAfter = 5;
+                        tareasTitulo.SpacingBefore = 5;
+                        document.Add(tareasTitulo);
+
+                        PdfPTable tareasTable = new PdfPTable(3); // 3 columnas
+                        tareasTable.WidthPercentage = 100;
+                        tareasTable.SpacingAfter = 10;
+
+                        // Cabecera
+                        BaseColor headerColor = new BaseColor(220, 220, 220); // Gris claro
+                        iTextSharp.text.Font smallBoldFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 11, iTextSharp.text.Font.BOLD);
+
+                        PdfPCell headerHorario = new PdfPCell(new Phrase("Horario", smallBoldFont));
+                        headerHorario.BackgroundColor = headerColor;
+                        headerHorario.Padding = 4;
+
+                        PdfPCell headerDescripcion = new PdfPCell(new Phrase("Descripción", smallBoldFont));
+                        headerDescripcion.BackgroundColor = headerColor;
+                        headerDescripcion.Padding = 4;
+
+                        PdfPCell headerEstado = new PdfPCell(new Phrase("Estado", smallBoldFont));
+                        headerEstado.BackgroundColor = headerColor;
+                        headerEstado.Padding = 4;
+
+                        tareasTable.AddCell(headerHorario);
+                        tareasTable.AddCell(headerDescripcion);
+                        tareasTable.AddCell(headerEstado);
+
+                        // Filas de datos, ordenadas por hora de inicio
+                        iTextSharp.text.Font smallFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
+                        bool colorAlternado = false;
+
+                        foreach (var tarea in reporte.TareasAdicionales.OrderBy(t => t.HoraInicio))
+                        {
+                            BaseColor bgColor = colorAlternado ? BaseColor.WHITE : new BaseColor(245, 245, 245);
+                            colorAlternado = !colorAlternado;
+
+                            PdfPCell cellHorario = new PdfPCell(new Phrase(tarea.HorarioCompleto, smallFont));
+                            cellHorario.BackgroundColor = bgColor;
+                            cellHorario.Padding = 4;
+
+                            PdfPCell cellDescripcion = new PdfPCell(new Phrase(tarea.Descripcion, smallFont));
+                            cellDescripcion.BackgroundColor = bgColor;
+                            cellDescripcion.Padding = 4;
+
+                            PdfPCell cellEstado = new PdfPCell(new Phrase(tarea.EstadoTexto, smallFont));
+                            cellEstado.BackgroundColor = bgColor;
+                            cellEstado.Padding = 4;
+
+                            tareasTable.AddCell(cellHorario);
+                            tareasTable.AddCell(cellDescripcion);
+                            tareasTable.AddCell(cellEstado);
+                        }
+
+                        document.Add(tareasTable);
+                    }
+                }
+
+                // Pie de página
+                iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
+                footerFont.Color = BaseColor.GRAY;
+
+                Paragraph footer = new Paragraph($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}", footerFont);
+                footer.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
+                footer.SpacingBefore = 20;
+                document.Add(footer);
+
+                document.Close();
+                return ms.ToArray();
+            }
+        }
+
+
+        public async Task<List<ActividadDiariaTrabajador>> ObtenerActividadesDiariasTrabajadorAsync(
+    int idTrabajador,
+    DateTime fecha)
+        {
+            var actividades = new List<ActividadDiariaTrabajador>();
+
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("sp_ReporteDiarioTrabajador", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 120; // 2 minutos de timeout
+
+                        // Parámetros
+                        command.Parameters.AddWithValue("@id_trabajador", idTrabajador);
+                        command.Parameters.AddWithValue("@fecha", fecha.Date);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                actividades.Add(new ActividadDiariaTrabajador
+                                {
+                                    IdViaje = reader.GetInt32(reader.GetOrdinal("id_viaje")),
+                                    IdPedido = reader.GetInt32(reader.GetOrdinal("id_pedido")),
+                                    Cantidad = reader.IsDBNull(reader.GetOrdinal("cantidad")) ?
+                                        (int?)null : reader.GetInt32(reader.GetOrdinal("cantidad")),
+                                    EstadoActual = reader.GetString(reader.GetOrdinal("estado_actual")),
+                                    FechaHora = reader.GetDateTime(reader.GetOrdinal("fechaHora")),
+                                    Evidencia = reader.IsDBNull(reader.GetOrdinal("evidencia")) ?
+                                        null : reader.GetString(reader.GetOrdinal("evidencia")),
+                                    Comentario = reader.IsDBNull(reader.GetOrdinal("Comentario")) ?
+                                        null : reader.GetString(reader.GetOrdinal("Comentario"))
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener actividades diarias del trabajador: {ex.Message}");
+                throw;
+            }
+
+            return actividades;
+        }
+
+
+        // Reporte de Programación por Cliente
+        public DataTable ObtenerReporteProgramacionCliente(int idCliente, string periodo = "SemanaActual")
+        {
+            DataTable resultado = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("sp_ReporteProgramacionCliente", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                    cmd.Parameters.AddWithValue("@Periodo", periodo);
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(resultado);
+                    }
+                }
+            }
+
+            return resultado;
+        }
+
+       
+        // Método mejorado para manejar sp_ReporteTrabajosPorTrabajadorCliente
+        public (DataTable ResumenTrabajador, DataTable DetalleViajes) ObtenerReporteTrabajosPorTrabajadorCliente(
+            int idCliente,
+            int? idTrabajador = null)
+        {
+            DataTable resumenTrabajador = new DataTable();
+            DataTable detalleViajes = new DataTable();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    conn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("sp_ReporteTrabajosPorTrabajadorCliente", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandTimeout = 180; // Timeout de 3 minutos
+                        cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                        cmd.Parameters.AddWithValue("@IdTrabajador", (object)idTrabajador ?? DBNull.Value);
+
+                        // Usar SqlDataAdapter para obtener múltiples resultados
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            DataSet ds = new DataSet();
+                            adapter.Fill(ds);
+
+                            if (ds.Tables.Count > 0)
+                                resumenTrabajador = ds.Tables[0];
+
+                            if (ds.Tables.Count > 1)
+                                detalleViajes = ds.Tables[1];
+
+                            System.Diagnostics.Debug.WriteLine($"ResumenTrabajador filas: {resumenTrabajador?.Rows?.Count ?? 0}");
+                            System.Diagnostics.Debug.WriteLine($"DetalleViajes filas: {detalleViajes?.Rows?.Count ?? 0}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en ObtenerReporteTrabajosPorTrabajadorCliente: {ex.Message}");
+                throw; // Re-lanzar para manejo en la capa superior
+            }
+
+            return (resumenTrabajador, detalleViajes);
+        }
+
+        // Método para obtener el resumen como una lista de objetos tipados
+        public async Task<List<TrabajadorViajeResumen>> ObtenerResumenTrabajadorViajesAsync(int idCliente, int? idTrabajador = null)
+        {
+            var resumenes = new List<TrabajadorViajeResumen>();
+
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("sp_ReporteTrabajosPorTrabajadorCliente", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@IdCliente", idCliente);
+                        command.Parameters.AddWithValue("@IdTrabajador", (object)idTrabajador ?? DBNull.Value);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            // Leer el primer conjunto de resultados (resumen)
+                            while (await reader.ReadAsync())
+                            {
+                                resumenes.Add(new TrabajadorViajeResumen
+                                {
+                                    IdTrabajador = reader.GetInt32(reader.GetOrdinal("id_trabajador")),
+                                    NombreCompleto = reader.GetString(reader.GetOrdinal("NombreCompleto")),
+                                    Categoria = reader.GetString(reader.GetOrdinal("Categoria")),
+                                    NumLicencia = reader.IsDBNull(reader.GetOrdinal("NumLicencia")) ?
+                                        null : reader.GetString(reader.GetOrdinal("NumLicencia")),
+                                    TotalViajesRealizados = reader.GetInt32(reader.GetOrdinal("TotalViajesRealizados")),
+                                    TotalPedidosAtendidos = reader.GetInt32(reader.GetOrdinal("TotalPedidosAtendidos")),
+                                    VolumenTotalTransportado = reader.GetDecimal(reader.GetOrdinal("VolumenTotalTransportado"))
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en ObtenerResumenTrabajadorViajesAsync: {ex.Message}");
+                throw;
+            }
+
+            return resumenes;
+        }
+
+        // Método para obtener el detalle como una lista de objetos tipados
+        public async Task<List<DetalleViajeTrabajador>> ObtenerDetalleViajesTrabajadorAsync(int idCliente, int? idTrabajador = null)
+        {
+            var detalles = new List<DetalleViajeTrabajador>();
+
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("sp_ReporteTrabajosPorTrabajadorCliente", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@IdCliente", idCliente);
+                        command.Parameters.AddWithValue("@IdTrabajador", (object)idTrabajador ?? DBNull.Value);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            // Saltar el primer conjunto de resultados (resumen)
+                            if (await reader.NextResultAsync())
+                            {
+                                // Leer el segundo conjunto de resultados (detalle de viajes)
+                                while (await reader.ReadAsync())
+                                {
+                                    detalles.Add(new DetalleViajeTrabajador
+                                    {
+                                        IdViaje = reader.GetInt32(reader.GetOrdinal("id_viaje")),
+                                        FechaProgramada = reader.GetDateTime(reader.GetOrdinal("fecha_programada")),
+                                        Volumen = reader.GetDecimal(reader.GetOrdinal("Volumen")),
+                                        Tracto = reader.IsDBNull(reader.GetOrdinal("Tracto")) ?
+                                            string.Empty : reader.GetString(reader.GetOrdinal("Tracto")),
+                                        Cisterna = reader.IsDBNull(reader.GetOrdinal("Cisterna")) ?
+                                            string.Empty : reader.GetString(reader.GetOrdinal("Cisterna")),
+                                        Origen = reader.IsDBNull(reader.GetOrdinal("Origen")) ?
+                                            string.Empty : reader.GetString(reader.GetOrdinal("Origen")),
+                                        Destino = reader.IsDBNull(reader.GetOrdinal("Destino")) ?
+                                            string.Empty : reader.GetString(reader.GetOrdinal("Destino")),
+                                        UltimoEstado = reader.IsDBNull(reader.GetOrdinal("UltimoEstado")) ?
+                                            string.Empty : reader.GetString(reader.GetOrdinal("UltimoEstado")),
+                                        Completado = reader.GetString(reader.GetOrdinal("Completado")) == "Sí",
+                                        
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en ObtenerDetalleViajesTrabajadorAsync: {ex.Message}");
+                throw;
+            }
+
+            return detalles;
+        }
+
+        // Método combinado que devuelve ambas listas en una tupla
+        public async Task<(List<TrabajadorViajeResumen> Resumen, List<DetalleViajeTrabajador> Detalles)>
+            ObtenerReporteTrabajadorViajesCompletoAsync(int idCliente, int? idTrabajador = null)
+        {
+            var resumen = await ObtenerResumenTrabajadorViajesAsync(idCliente, idTrabajador);
+            var detalles = await ObtenerDetalleViajesTrabajadorAsync(idCliente, idTrabajador);
+
+            return (resumen, detalles);
+
+
+        } 
+
+
+
+        public DataTable GetTrabajadoresPorCliente(int idCliente)
+        {
+            DataTable dt = new DataTable();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (var command = new SqlCommand("pa_TrabajadoresPorCliente", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@IdCliente", idCliente);
+
+                    using (var adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+
+            return dt;
+        }
+
         // Método para agregar a tu clase SqlServerService existente
         public (DataTable MetricasGenerales, DataTable PorCliente, DataTable DetalleSolicitudes) ObtenerReporteAtencionSolicitudes(DateTime fechaInicio, DateTime fechaFin)
         {
@@ -1106,9 +2244,55 @@ namespace AppTransporte.model
                 }
             }
             return usuarios;
+            
         }
 
 
+        public async Task<Trabajador> ObtenerTrabajadorPorUsuarioAsync(int idUsuario)
+        {
+            try
+            {
+                // Primero obtenemos el ID del trabajador usando el nuevo procedimiento
+                int idTrabajador = 0;
+
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("pa_obtenerTrabajadorPorUsuario", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+                        var result = await command.ExecuteScalarAsync();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            idTrabajador = Convert.ToInt32(result);
+                        }
+                        else
+                        {
+                            // No se encontró un trabajador asociado a este usuario
+                            return null;
+                        }
+                    }
+                }
+
+                // Si encontramos un ID válido, ahora obtenemos los detalles del trabajador
+                if (idTrabajador > 0)
+                {
+                    // Usamos el método existente para obtener todos los trabajadores
+                    var trabajadores = await ObtenerTrabajadoresAsync();
+                    return trabajadores.FirstOrDefault(t => t.IdTrabajador == idTrabajador);
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener trabajador por usuario: {ex.Message}");
+                throw;
+            }
+        }
 
         public async Task<List<Trabajador>> ObtenerTrabajadoresAsync(string categoria = null)
         {

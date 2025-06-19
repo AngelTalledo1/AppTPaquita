@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VistaReportePedidosCliente"
+             NavigationPage.HasNavigationBar="False"
+             Title="Reporte de Pedidos">
+    <Grid RowDefinitions=".1*,.9*">
+        <!-- Cabecera -->
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atras"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Reporte de Pedidos"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+
+        <!-- Contenido principal -->
+        <Grid Grid.Row="1" RowDefinitions="Auto,*,Auto">
+            <!-- Filtros y resumen -->
+            <StackLayout Padding="15" BackgroundColor="#f8f9fa">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Frame BorderColor="#e0e0e0" BackgroundColor="White" Padding="0" CornerRadius="10">
+                        <Picker x:Name="tipoPedidoPicker" 
+                                Title="Filtrar por tipo de pedido" 
+                                FontFamily="Comf-Medium"
+                                Margin="10"
+                                SelectedIndexChanged="TipoPedido_SelectedIndexChanged"/>
+                    </Frame>
+                    <Button Grid.Column="1" 
+                            Text="Actualizar" 
+                            BackgroundColor="#cb4335" 
+                            TextColor="White"
+                            CornerRadius="20"
+                            HeightRequest="40"
+                            WidthRequest="100"
+                            Margin="10,0,0,0"
+                            Clicked="ActualizarReporte_Clicked"/>
+                </Grid>
+
+                <!-- Resumen de pedidos -->
+                <Frame BorderColor="#e0e0e0" BackgroundColor="White" Margin="0,10,0,0" Padding="15" CornerRadius="10">
+                    <Grid ColumnDefinitions="*,*">
+                        <StackLayout HorizontalOptions="Center">
+                            <Label Text="Total Pedidos" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label x:Name="TotalPedidosLabel" 
+                                   Text="0" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#cb4335"
+                                   FontSize="24"
+                                   HorizontalTextAlignment="Center"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" HorizontalOptions="Center">
+                            <Label Text="Volumen Total" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label x:Name="VolumenTotalLabel" 
+                                   Text="0" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#007AFF"
+                                   FontSize="24"
+                                   HorizontalTextAlignment="Center"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+
+            <!-- Contenido de reportes -->
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout Padding="10" Spacing="15">
+                    <!-- Resumen por estado -->
+                    <Frame BorderColor="#e0e0e0" BackgroundColor="White" Padding="0" CornerRadius="10">
+                        <Grid RowDefinitions="Auto,*">
+                            <Label Text="Resumen por Estado" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333"
+                                   FontSize="16"
+                                   Margin="15,10" />
+
+                            <!-- Cabecera de tabla -->
+                            <VerticalStackLayout Grid.Row="1">
+                                <Grid BackgroundColor="#f0f0f0" Padding="10" ColumnDefinitions="*,Auto,Auto,Auto">
+                                    <Label Text="Estado" 
+                                           FontFamily="Comf-Bold" 
+                                           TextColor="#333333"/>
+                                    <Label Grid.Column="1" 
+                                           Text="Cantidad" 
+                                           FontFamily="Comf-Bold" 
+                                           TextColor="#333333"
+                                           HorizontalTextAlignment="Center"
+                                           Margin="0,0,20,0"/>
+                                    <Label Grid.Column="2" 
+                                           Text="Volumen" 
+                                           FontFamily="Comf-Bold" 
+                                           TextColor="#333333"
+                                           HorizontalTextAlignment="Center"
+                                           Margin="0,0,20,0"/>
+                                    <Label Grid.Column="3" 
+                                           Text="Viajes Prom." 
+                                           FontFamily="Comf-Bold" 
+                                           TextColor="#333333"
+                                           HorizontalTextAlignment="Center"/>
+                                </Grid>
+
+                                <!-- Datos de resumen -->
+                                <CollectionView x:Name="resumenCollectionView" 
+                                                HeightRequest="150"
+                                                EmptyView="No hay datos disponibles">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Padding="10" ColumnDefinitions="*,Auto,Auto,Auto">
+                                                <Label Text="{Binding EstadoPedido}" 
+                                                       TextColor="#333333" 
+                                                       FontFamily="Comf-Medium"/>
+                                                <Label Grid.Column="1" 
+                                                       Text="{Binding CantidadPedidos}" 
+                                                       TextColor="#333333"
+                                                       HorizontalTextAlignment="Center"
+                                                       Margin="0,0,20,0"/>
+                                                <Label Grid.Column="2" 
+                                                       Text="{Binding VolumenTotal}" 
+                                                       TextColor="#333333"
+                                                       HorizontalTextAlignment="Center"
+                                                       Margin="0,0,20,0"/>
+                                                <Label Grid.Column="3" 
+                                                       Text="{Binding PromedioViajes, StringFormat='{0:F1}'}" 
+                                                       TextColor="#333333"
+                                                       HorizontalTextAlignment="Center"/>
+                                                <Grid.Triggers>
+                                                    <DataTrigger TargetType="Grid" 
+                                                                 Binding="{Binding Row}" 
+                                                                 Value="True">
+                                                        <Setter Property="BackgroundColor" Value="#f5f5f5"/>
+                                                    </DataTrigger>
+                                                </Grid.Triggers>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+
+                    <!-- Detalle de pedidos -->
+                    <Frame BorderColor="#e0e0e0" BackgroundColor="White" Padding="0" CornerRadius="10">
+                        <Grid RowDefinitions="Auto,*">
+                            <Label Text="Detalle de Pedidos" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333"
+                                   FontSize="16"
+                                   Margin="15,10" />
+
+                            <VerticalStackLayout Grid.Row="1">
+                                <!-- Cabecera de tabla -->
+                                <Grid BackgroundColor="#f0f0f0" Padding="10" ColumnDefinitions="Auto,2*,1*,1*,1*,1*">
+                                    <Label Text="#" 
+                                           FontFamily="Comf-Bold" 
+                                           TextColor="#333333"/>
+                                    <Label Grid.Column="1" 
+                                           Text="Origen - Destino" 
+                                           FontFamily="Comf-Bold" 
+                                           TextColor="#333333"/>
+                                    <Label Grid.Column="2" 
+                                           Text="Estado" 
+                                           FontFamily="Comf-Bold" 
+                                           TextColor="#333333"/>
+                                    <Label Grid.Column="3" 
+                                           Text="Cantidad" 
+                                           FontFamily="Comf-Bold" 
+                                           TextColor="#333333"
+                                           HorizontalTextAlignment="Center"/>
+                                    <Label Grid.Column="4" 
+                                           Text="Viajes" 
+                                           FontFamily="Comf-Bold" 
+                                           TextColor="#333333"
+                                           HorizontalTextAlignment="Center"/>
+                                    <Label Grid.Column="5" 
+                                           Text="Completo" 
+                                           FontFamily="Comf-Bold" 
+                                           TextColor="#333333"
+                                           HorizontalTextAlignment="Center"/>
+                                </Grid>
+
+                                <!-- Datos de detalle -->
+                                <CollectionView x:Name="detalleCollectionView" 
+                                                HeightRequest="300"
+                                                EmptyView="No hay datos disponibles">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Padding="10" ColumnDefinitions="Auto,2*,1*,1*,1*,1*">
+                                                <Label Text="{Binding id_pedido}" 
+                                                       TextColor="#333333"/>
+                                                <Label Grid.Column="1" 
+                                                       Text="{Binding origen_destino}"
+                                                       LineBreakMode="TailTruncation"
+                                                       TextColor="#333333"/>
+                                                <Label Grid.Column="2" 
+                                                       Text="{Binding estado}" 
+                                                       TextColor="#333333"/>
+                                                <Label Grid.Column="3" 
+                                                       Text="{Binding cantidad}" 
+                                                       TextColor="#333333"
+                                                       HorizontalTextAlignment="Center"/>
+                                                <Label Grid.Column="4" 
+                                                       Text="{Binding viajes}" 
+                                                       TextColor="#333333"
+                                                       HorizontalTextAlignment="Center"/>
+                                                <Label Grid.Column="5" 
+                                                       Text="{Binding completado}" 
+                                                       TextColor="#333333"
+                                                       HorizontalTextAlignment="Center"/>
+                                                <Grid.Triggers>
+                                                    <DataTrigger TargetType="Grid" 
+                                                                 Binding="{Binding Row}" 
+                                                                 Value="True">
+                                                        <Setter Property="BackgroundColor" Value="#f5f5f5"/>
+                                                    </DataTrigger>
+                                                </Grid.Triggers>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <!-- Botones de acción -->
+            <Grid Grid.Row="2" 
+                  BackgroundColor="#f8f9fa" 
+                  Padding="15" 
+                  ColumnDefinitions="*,*">
+                <Button Text="Exportar PDF" 
+                        CornerRadius="20" 
+                        BackgroundColor="#007AFF" 
+                        TextColor="White" 
+                        FontFamily="Comf-Medium" 
+                        HeightRequest="45" 
+                        Margin="5,0" 
+                        Clicked="ExportarPDF_Clicked"/>
+                <Button Grid.Column="1" 
+                        Text="Compartir" 
+                        CornerRadius="20" 
+                        BackgroundColor="#34C759" 
+                        TextColor="White" 
+                        FontFamily="Comf-Medium" 
+                        HeightRequest="45" 
+                        Margin="5,0" 
+                        Clicked="Compartir_Clicked"/>
+            </Grid>
+        </Grid>
+
+        <!-- Overlay de carga -->
+        <Grid x:Name="LoadingOverlay" 
+              IsVisible="False" 
+              BackgroundColor="#80000000"
+              Grid.RowSpan="2">
+            <Frame CornerRadius="10" 
+                   BackgroundColor="White" 
+                   WidthRequest="180" 
+                   HeightRequest="120"
+                   BorderColor="#cb4335"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="True" 
+                                      HeightRequest="40" 
+                                      WidthRequest="40" 
+                                      Color="#cb4335"/>
+                    <Label Text="Procesando..." 
+                           FontFamily="Comf-Medium"
+                           TextColor="#333333"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>

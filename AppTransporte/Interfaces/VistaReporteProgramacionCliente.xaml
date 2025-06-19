@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VistaReporteProgramacionCliente"
+             NavigationPage.HasNavigationBar="False"
+             Title="Reporte de Programación">
+    <Grid RowDefinitions=".1*,.9*">
+        <!-- Cabecera -->
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atras"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Reporte de Programación"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+
+        <!-- Contenido principal -->
+        <Grid Grid.Row="1" RowDefinitions="Auto,*,Auto">
+            <!-- Filtros y resumen -->
+            <StackLayout Padding="15" BackgroundColor="#f8f9fa">
+                <Label x:Name="PeriodoLabel" 
+                       Text="Periodo: Semana Actual" 
+                       FontFamily="Comf-Bold"
+                       FontSize="16"/>
+
+                <!-- Selección de periodo -->
+                <Grid ColumnDefinitions="*, *, *" Margin="0,10,0,0">
+                    <RadioButton x:Name="RadioSemanaActual" 
+                                 Content="Semana Actual" 
+                                 FontFamily="Comf-Medium"
+                                 GroupName="PeriodoProgramacion"
+                                 IsChecked="True" 
+                                 CheckedChanged="RadioSemanaActual_CheckedChanged"/>
+                    <RadioButton Grid.Column="1" 
+                                 x:Name="RadioMesActual"
+                                 Content="Mes Actual" 
+                                 FontFamily="Comf-Medium"
+                                 GroupName="PeriodoProgramacion"
+                                 CheckedChanged="RadioMesActual_CheckedChanged"/>
+                    <RadioButton Grid.Column="2" 
+                                 x:Name="RadioPersonalizado"
+                                 Content="Personalizado" 
+                                 FontFamily="Comf-Medium"
+                                 GroupName="PeriodoProgramacion"
+                                 CheckedChanged="RadioPersonalizado_CheckedChanged"/>
+                </Grid>
+
+                <!-- Panel de fechas personalizadas (inicialmente oculto) -->
+                <Grid x:Name="panelFechasPersonalizadas" 
+                      ColumnDefinitions="*,*,Auto" 
+                      Margin="0,10,0,0"
+                      IsVisible="False">
+                    <DatePicker x:Name="fechaInicio" 
+                               Format="dd/MM/yyyy"
+                               DateSelected="OnFechaSeleccionada" 
+                               FontFamily="Comf-Medium"/>
+                    <DatePicker x:Name="fechaFin" 
+                               Grid.Column="1"
+                               Format="dd/MM/yyyy"
+                               DateSelected="OnFechaSeleccionada" 
+                               FontFamily="Comf-Medium"/>
+                    <Button Grid.Column="2" 
+                            Text="Aplicar" 
+                            BackgroundColor="#cb4335" 
+                            TextColor="White"
+                            CornerRadius="20"
+                            HeightRequest="40"
+                            WidthRequest="100"
+                            Clicked="ActualizarReporte_Clicked"/>
+                </Grid>
+
+                <!-- Resumen de programación -->
+                <Frame BorderColor="#e0e0e0" BackgroundColor="White" Margin="0,10,0,0" Padding="15" CornerRadius="10">
+                    <StackLayout HorizontalOptions="Center">
+                        <Label Text="Total de Viajes Programados" 
+                               FontFamily="Comf-Bold" 
+                               TextColor="#333333"
+                               HorizontalTextAlignment="Center"/>
+                        <Label x:Name="TotalViajesProgramadosLabel" 
+                               Text="0" 
+                               FontFamily="Comf-Bold" 
+                               TextColor="#cb4335"
+                               FontSize="28"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+
+            <!-- Detalle de programación -->
+            <Frame Grid.Row="1" BorderColor="#e0e0e0" BackgroundColor="White" Padding="0" Margin="10" CornerRadius="10">
+                <Grid RowDefinitions="Auto,*">
+                    <Label Text="Detalle de Programación" 
+                           FontFamily="Comf-Bold" 
+                           TextColor="#333333"
+                           FontSize="16"
+                           Margin="15,10" />
+
+                    <ScrollView Grid.Row="1">
+                        <VerticalStackLayout>
+                            <!-- Cabecera de tabla -->
+                            <Grid BackgroundColor="#f0f0f0" Padding="10" ColumnDefinitions="Auto,Auto,1*,1*,1*,1*">
+                                <Label Text="#" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="1" 
+                                       Text="Fecha/Hora" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="2" 
+                                       Text="Conductor" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="3" 
+                                       Text="Vehículos" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="4" 
+                                       Text="Día" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                                <Label Grid.Column="5" 
+                                       Text="Estado" 
+                                       FontFamily="Comf-Bold" 
+                                       TextColor="#333333"/>
+                            </Grid>
+
+                            <!-- Datos de programación -->
+                            <CollectionView x:Name="programacionCollectionView" 
+                                            EmptyView="No hay programación para el periodo seleccionado">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="10" ColumnDefinitions="Auto,Auto,1*,1*,1*,1*">
+                                            <Label Text="{Binding id_viaje}" 
+                                                   TextColor="#333333" 
+                                                   FontFamily="Comf-Medium"/>
+                                            <Label Grid.Column="1" 
+                                                   Text="{Binding fecha_programada, StringFormat='{0:dd/MM/yyyy HH:mm}'}" 
+                                                   TextColor="#333333"/>
+                                            <Label Grid.Column="2" 
+                                                   Text="{Binding conductor}" 
+                                                   TextColor="#333333"
+                                                   LineBreakMode="TailTruncation"/>
+                                            <VerticalStackLayout Grid.Column="3">
+                                                <Label Text="{Binding tracto}" 
+                                                       TextColor="#333333"/>
+                                                <Label Text="{Binding cisterna}" 
+                                                       TextColor="#333333"/>
+                                            </VerticalStackLayout>
+                                            <Label Grid.Column="4" 
+                                                   Text="{Binding DiaSemanaTexto}" 
+                                                   TextColor="#333333"/>
+                                            <Label Grid.Column="5" 
+                                                   Text="{Binding estado_actual}" 
+                                                   TextColor="#333333"/>
+                                            <Grid.Triggers>
+                                                <DataTrigger TargetType="Grid" 
+                                                             Binding="{Binding Row}" 
+                                                             Value="True">
+                                                    <Setter Property="BackgroundColor" Value="#f5f5f5"/>
+                                                </DataTrigger>
+                                            </Grid.Triggers>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </Grid>
+            </Frame>
+
+            <!-- Botones de acción -->
+            <Grid Grid.Row="2" 
+                  BackgroundColor="#f8f9fa" 
+                  Padding="15" 
+                  ColumnDefinitions="*,*">
+                <Button Text="Exportar PDF" 
+                        CornerRadius="20" 
+                        BackgroundColor="#007AFF" 
+                        TextColor="White" 
+                        FontFamily="Comf-Medium" 
+                        HeightRequest="45" 
+                        Margin="5,0" 
+                        Clicked="ExportarPDF_Clicked"/>
+                <Button Grid.Column="1" 
+                        Text="Compartir" 
+                        CornerRadius="20" 
+                        BackgroundColor="#34C759" 
+                        TextColor="White" 
+                        FontFamily="Comf-Medium" 
+                        HeightRequest="45" 
+                        Margin="5,0" 
+                        Clicked="Compartir_Clicked"/>
+            </Grid>
+        </Grid>
+
+        <!-- Overlay de carga -->
+        <Grid x:Name="LoadingOverlay" 
+              IsVisible="False" 
+              BackgroundColor="#80000000"
+              Grid.RowSpan="2">
+            <Frame CornerRadius="10" 
+                   BackgroundColor="White" 
+                   WidthRequest="180" 
+                   HeightRequest="120"
+                   BorderColor="#cb4335"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="True" 
+                                      HeightRequest="40" 
+                                      WidthRequest="40" 
+                                      Color="#cb4335"/>
+                    <Label Text="Procesando..." 
+                           FontFamily="Comf-Medium"
+                           TextColor="#333333"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>

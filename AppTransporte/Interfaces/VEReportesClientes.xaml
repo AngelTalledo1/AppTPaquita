@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTransporte.Interfaces.VEReportesClientes"
+             NavigationPage.HasNavigationBar="False"
+             Title="Mis Reportes">
+    <Grid RowDefinitions=".1*,.9*">
+        <!-- Cabecera -->
+        <Grid ColumnDefinitions=".1*,.9*"
+              Padding="20,0,0,0"
+              BackgroundColor="#cb4335">
+            <Button BackgroundColor="Transparent"
+                    Clicked="Btn_atras"/>
+            <Image Source="atras.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="20"
+                   HeightRequest="20"
+                   WidthRequest="20" />
+            <Label Text="Mis Reportes"
+                   Grid.Column="1"
+                   FontSize="20"
+                   TextColor="AliceBlue"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontFamily="Comf-Medium"
+                   Padding="20,20,0,0" />
+        </Grid>
+
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="1" BackgroundColor="#edf2f4">
+            <VerticalStackLayout Padding="20" Spacing="20">
+                <!-- Se muestra el nombre del cliente en forma fija -->
+                <Label Text="{Binding ClienteNombre}" 
+                       FontSize="18" 
+                       FontFamily="Comf-Bold" 
+                       TextColor="#333333" 
+                       HorizontalOptions="Center"
+                       Margin="0,0,0,10"/>
+
+                <!-- Instrucciones -->
+                <Label Text="Seleccione el tipo de reporte que desea generar:"
+                       FontSize="16"
+                       FontFamily="Comf-Medium"
+                       TextColor="#555555"
+                       Margin="0,0,0,10"/>
+
+                <!-- Lista de botones para los distintos tipos de reportes -->
+                <Frame BackgroundColor="White" CornerRadius="10" HasShadow="False" Padding="20">
+                    <VerticalStackLayout Spacing="15">
+                      
+                        <!-- Reporte de Trabajadores Asignados -->
+                        <Button Text="Reporte de Trabajadores Asignados" 
+                                HeightRequest="55"
+                                BackgroundColor="#007AFF"
+                                TextColor="White"
+                                CornerRadius="10" 
+                                FontFamily="Comf-Medium"
+                                Clicked="ReporteTrabajadores_Clicked"/>
+
+                        <!-- Reporte de Pedidos -->
+                        <Button Text="Reporte de Pedidos" 
+                                HeightRequest="55"
+                                BackgroundColor="#34C759"
+                                TextColor="White"
+                                CornerRadius="10"
+                                FontFamily="Comf-Medium"
+                                Clicked="ReportePedidos_Clicked"/>
+
+                        <!-- Reporte de Desvíos -->
+                        <Button Text="Reporte de Desvíos" 
+                                HeightRequest="55"
+                                BackgroundColor="#FF9500"
+                                TextColor="White"
+                                CornerRadius="10"
+                                FontFamily="Comf-Medium"
+                                Clicked="ReporteDesvios_Clicked"/>
+
+                        <!-- Reporte de Programación -->
+                        <Button Text="Reporte de Programación" 
+                                HeightRequest="55"
+                                BackgroundColor="#5856D6"
+                                TextColor="White"
+                                CornerRadius="10"
+                                FontFamily="Comf-Medium"
+                                Clicked="ReporteProgramacion_Clicked"/>
+
+                        <!-- Reporte de Trabajos por Trabajador -->
+                        <Button Text="Reporte de Trabajos por Trabajador" 
+                                HeightRequest="55"
+                                BackgroundColor="#4A4A4A"
+                                TextColor="White"
+                                CornerRadius="10"
+                                FontFamily="Comf-Medium"
+                                Clicked="ReporteTrabajosTrabajador_Clicked"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Nota explicativa -->
+                <Frame BackgroundColor="White" CornerRadius="10" HasShadow="False" Padding="15">
+                    <StackLayout>
+                        <Label Text="Información" 
+                               FontFamily="Comf-Bold" 
+                               TextColor="#333333" 
+                               FontSize="16"/>
+                        <Label Text="Al seleccionar un reporte, se abrirá una nueva pantalla donde podrá configurar los filtros específicos y generar el reporte detallado."
+                               FontFamily="Comf-Medium"
+                               TextColor="#555555"
+                               FontSize="14"
+                               Margin="0,10,0,0"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Logo o imagen corporativa -->
+                <Image Source="paquitatext.png"
+                       HeightRequest="60"
+                       HorizontalOptions="Center"
+                       Margin="0,20,0,0"/>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Indicador de carga -->
+        <Grid x:Name="LoadingOverlay" 
+              IsVisible="False" 
+              BackgroundColor="#80000000"
+              Grid.RowSpan="2">
+            <Frame CornerRadius="10" 
+                   BackgroundColor="White" 
+                   WidthRequest="180" 
+                   HeightRequest="120"
+                   BorderColor="#cb4335"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="True" 
+                                      HeightRequest="40" 
+                                      WidthRequest="40" 
+                                      Color="#cb4335"/>
+                    <Label Text="Preparando..." 
+                           FontFamily="Comf-Medium"
+                           TextColor="#333333"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>
