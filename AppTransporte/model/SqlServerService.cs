@@ -2268,6 +2268,7 @@ namespace AppTransporte.model
                         if (result != null && result != DBNull.Value)
                         {
                             idTrabajador = Convert.ToInt32(result);
+                            Console.WriteLine(idTrabajador);
                         }
                         else
                         {
@@ -2281,7 +2282,7 @@ namespace AppTransporte.model
                 if (idTrabajador > 0)
                 {
                     // Usamos el método existente para obtener todos los trabajadores
-                    var trabajadores = await ObtenerTrabajadoresAsync();
+                    var trabajadores = await ObtenerTrabajadoresAsync("Transportista");
                     return trabajadores.FirstOrDefault(t => t.IdTrabajador == idTrabajador);
                 }
 
@@ -3353,43 +3354,78 @@ namespace AppTransporte.model
             }
         }
 
-        public async Task<int> ModificarVehiculoAsync(
-                                int idVehiculo,
-                                string placa,
-                                string modelo,
-                                string añoFabricacion,
-                                DateTime? emisionPoliza,
-                                DateTime? vencimientoPoliza,
-                                DateTime? emisionCITV,
-                                DateTime? vencimientoCITV,
-                                DateTime? emisionCubicacion,
-                                DateTime? vencimientoCubicacion,
-                                string tipoVehiculo)
+        public async Task<(int Resultado, string Mensaje)> ModificarVehiculoAsync(
+     int idVehiculo,
+     string placa,
+     string modelo,
+     string añoFabricacion,
+     DateTime? emisionPoliza,
+     DateTime? vencimientoPoliza,
+     DateTime? emisionCITV,
+     DateTime? vencimientoCITV,
+     DateTime emisionCubicacion,
+     DateTime vencimientoCubicacion,
+     string tipoVehiculo)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                await connection.OpenAsync();
-
-                using (SqlCommand command = new SqlCommand("pa_ModificarVehiculo", connection))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
+                    await connection.OpenAsync();
 
-                    command.Parameters.AddWithValue("@id_vehiculo", idVehiculo);
-                    command.Parameters.AddWithValue("@placa", placa);
-                    command.Parameters.AddWithValue("@modelo", string.IsNullOrWhiteSpace(modelo) ? (object)DBNull.Value : modelo);
-                    command.Parameters.AddWithValue("@añoFabricacion", string.IsNullOrWhiteSpace(añoFabricacion) ? (object)DBNull.Value : añoFabricacion);
-                    command.Parameters.AddWithValue("@emisionPoliza", (object)emisionPoliza ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@vencimientoPoliza", (object)vencimientoPoliza ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@emisionCITV", (object)emisionCITV ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@vencimientoCITV", (object)vencimientoCITV ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@emisionCubicacion", (object)emisionCubicacion ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@vencimientoCubicacion", (object)vencimientoCubicacion ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@tipoVehiculo", tipoVehiculo);
+                    using (SqlCommand command = new SqlCommand("pa_ModificarVehiculo", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
 
-                    return await command.ExecuteNonQueryAsync();
+                        // Agregar parámetros
+                        command.Parameters.AddWithValue("@id_vehiculo", idVehiculo);
+                        command.Parameters.AddWithValue("@placa", placa);
+                        command.Parameters.AddWithValue("@modelo", string.IsNullOrWhiteSpace(modelo) ? (object)DBNull.Value : modelo);
+                        command.Parameters.AddWithValue("@añoFabricacion", string.IsNullOrWhiteSpace(añoFabricacion) ? (object)DBNull.Value : añoFabricacion);
+                        command.Parameters.AddWithValue("@emisionPoliza", (object)emisionPoliza ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@vencimientoPoliza", (object)vencimientoPoliza ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@emisionCITV", (object)emisionCITV ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@vencimientoCITV", (object)vencimientoCITV ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@emisionCubicacion", emisionCubicacion);
+                        command.Parameters.AddWithValue("@vencimientoCubicacion", vencimientoCubicacion);
+                        command.Parameters.AddWithValue("@tipoVehiculo", tipoVehiculo);
+
+                        // Parámetro de retorno para obtener el resultado
+                        SqlParameter returnValue = new SqlParameter("@ReturnValue", SqlDbType.Int);
+                        returnValue.Direction = ParameterDirection.ReturnValue;
+                        command.Parameters.Add(returnValue);
+
+                        try
+                        {
+                            // Ejecutar el procedimiento almacenado
+                            await command.ExecuteNonQueryAsync();
+
+                            // Obtener el valor de retorno
+                            int resultado = (int)returnValue.Value;
+                            return (resultado, "Vehículo modificado correctamente");
+                        }
+                        catch (SqlException sqlEx)
+                        {
+                            // Capturar mensajes de error específicos del procedimiento almacenado
+                            string mensajeError = sqlEx.Message;
+
+                            // Registrar el error para depuración
+                            System.Diagnostics.Debug.WriteLine($"Error SQL al modificar vehículo: {mensajeError}");
+
+                            // Devolver el mensaje de error específico
+                            return (0, mensajeError);
+                        }
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                // Capturar y registrar cualquier otra excepción
+                System.Diagnostics.Debug.WriteLine($"Error general al modificar vehículo: {ex.Message}");
+                return (0, $"Error inesperado: {ex.Message}");
+            }
         }
+
         public async Task<RespuestaPedidoAutomatico> InsertarPedidoAutomaticoAsync(PedidoAutomatico pedido)
         {
             try

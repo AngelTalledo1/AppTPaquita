@@ -94,25 +94,6 @@ namespace AppTransporte.Interfaces
 
             await MostrarReporte(() => new VistaReporteTareasAdicionales(_idTrabajador, _idUsuario, _idTipoUsuario));
         }
-
-        private async void ReportePeriodoCompleto_Clicked(object sender, EventArgs e)
-        {
-            if (!ValidarTrabajador())
-                return;
-
-            // Aquí se navega al reporte de período
-            await DisplayAlert("En desarrollo", "Esta funcionalidad estará disponible próximamente", "OK");
-        }
-
-        private async void ReporteEstadisticas_Clicked(object sender, EventArgs e)
-        {
-            if (!ValidarTrabajador())
-                return;
-
-            // Aquí se navega al reporte de estadísticas
-            await DisplayAlert("En desarrollo", "Esta funcionalidad estará disponible próximamente", "OK");
-        }
-
         // Método auxiliar para validar que el trabajador esté cargado
         private bool ValidarTrabajador()
         {
