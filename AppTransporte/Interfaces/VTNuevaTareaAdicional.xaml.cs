@@ -10,7 +10,6 @@ namespace AppTransporte.Interfaces
     {
         private int _idUsuario;
         private int _idTipoUsuario;
-        private readonly SqlServerService _sqlService;
 
         public VTNuevaTareaAdicional(int idUsuario, int idTipoUsuario)
         {
