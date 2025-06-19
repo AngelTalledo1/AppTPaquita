@@ -15,9 +15,6 @@ namespace AppTransporte.Interfaces
         public VTNuevaTareaAdicional(int idUsuario, int idTipoUsuario)
         {
             InitializeComponent();
-
-            string connectionString = ("Data Source=SQL8011.site4now.net;Initial Catalog=db_aaecc9_paquitaappdb;User Id=db_aaecc9_paquitaappdb_admin;Password=paquita123;Connection Timeout=60");
-            _sqlService = new SqlServerService(connectionString);
             this._idUsuario = idUsuario;
             this._idTipoUsuario = idTipoUsuario;
             DatePickerTarea.Date = DateTime.Today;
@@ -59,11 +56,11 @@ namespace AppTransporte.Interfaces
                     hora_inicio = TimePickerInicio.Time,
                     hora_fin = TimePickerFin.Time,
                     descripcion = EditorDescripcion.Text.Trim(),
-                    id_usuario = ObtenerIdUsuarioActual(),
+                    id_usuario = _idUsuario,
                     estado = true
                 };
 
-                var resultado = await _sqlService.InsertarTareaAsync(nuevaTarea);
+                var resultado = await App.Database.InsertarTareaAsync(nuevaTarea);
 
                 if (resultado.EsExitoso)
                 {
