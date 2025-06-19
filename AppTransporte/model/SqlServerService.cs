@@ -222,7 +222,7 @@ namespace AppTransporte.model
                         command.CommandTimeout = 120; // 2 minutos de timeout
 
                         // Parámetros
-                        command.Parameters.AddWithValue("@id_trabajador", idTrabajador);
+                        command.Parameters.AddWithValue("@id_usuario", idTrabajador);
                         command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
                         command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
 
@@ -3444,6 +3444,12 @@ namespace AppTransporte.model
                 command.Parameters.AddWithValue("@fecha_fin", pedido.FechaFin.Date);
                 command.Parameters.AddWithValue("@descripcion", (object)pedido.Descripcion ?? DBNull.Value);
 
+                // Nuevos parámetros agregados
+                command.Parameters.AddWithValue("@id_transportista", (object)pedido.IdTransportista ?? DBNull.Value);
+                command.Parameters.AddWithValue("@id_ayudante", (object)pedido.IdAyudante ?? DBNull.Value);
+                command.Parameters.AddWithValue("@id_tracto", (object)pedido.IdTracto ?? DBNull.Value);
+                command.Parameters.AddWithValue("@id_cisterna", (object)pedido.IdCisterna ?? DBNull.Value);
+
                 await connection.OpenAsync();
                 using var reader = await command.ExecuteReaderAsync();
 
@@ -3477,7 +3483,6 @@ namespace AppTransporte.model
 
             return new RespuestaPedidoAutomatico { FilasAfectadas = 0, Mensaje = "Error desconocido" };
         }
-
         public async Task<List<PedidoAutomatico>> ObtenerPedidosAutomaticosAsync(int idUsuario, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
         {
             var pedidos = new List<PedidoAutomatico>();
@@ -3515,7 +3520,19 @@ namespace AppTransporte.model
                         UltimoProcesamiento = reader.IsDBNull("ultimo_procesamiento") ? null : reader.GetDateTime("ultimo_procesamiento"),
                         Descripcion = reader.IsDBNull("descripcion") ? null : reader.GetString("descripcion"),
                         DiasDuracion = reader.GetInt32("dias_duracion"),
-                        EstadoDescripcion = reader.GetString("estado_descripcion")
+                        EstadoDescripcion = reader.GetString("estado_descripcion"),
+
+                        // Nuevos campos agregados
+                        IdTransportista = reader.IsDBNull("id_transportista") ? null : reader.GetInt32("id_transportista"),
+                        IdAyudante = reader.IsDBNull("id_ayudante") ? null : reader.GetInt32("id_ayudante"),
+                        IdTracto = reader.IsDBNull("id_tracto") ? null : reader.GetInt32("id_tracto"),
+                        IdCisterna = reader.IsDBNull("id_cisterna") ? null : reader.GetInt32("id_cisterna"),
+
+                        // Nombres para mostrar en la interfaz
+                        NombreTransportista = reader.IsDBNull("nombre_transportista") ? null : reader.GetString("nombre_transportista"),
+                        NombreAyudante = reader.IsDBNull("nombre_ayudante") ? null : reader.GetString("nombre_ayudante"),
+                        PlacaTracto = reader.IsDBNull("placa_tracto") ? null : reader.GetString("placa_tracto"),
+                        PlacaCisterna = reader.IsDBNull("placa_cisterna") ? null : reader.GetString("placa_cisterna")
                     });
                 }
             }
@@ -3527,7 +3544,6 @@ namespace AppTransporte.model
 
             return pedidos;
         }
-
         public async Task<RespuestaPedidoAutomatico> ActualizarPedidoAutomaticoAsync(PedidoAutomatico pedido)
         {
             try
@@ -3545,6 +3561,12 @@ namespace AppTransporte.model
                 command.Parameters.AddWithValue("@fecha_inicio", pedido.FechaInicio.Date);
                 command.Parameters.AddWithValue("@fecha_fin", pedido.FechaFin.Date);
                 command.Parameters.AddWithValue("@descripcion", (object)pedido.Descripcion ?? DBNull.Value);
+
+                // Nuevos parámetros agregados
+                command.Parameters.AddWithValue("@id_transportista", (object)pedido.IdTransportista ?? DBNull.Value);
+                command.Parameters.AddWithValue("@id_ayudante", (object)pedido.IdAyudante ?? DBNull.Value);
+                command.Parameters.AddWithValue("@id_tracto", (object)pedido.IdTracto ?? DBNull.Value);
+                command.Parameters.AddWithValue("@id_cisterna", (object)pedido.IdCisterna ?? DBNull.Value);
 
                 await connection.OpenAsync();
                 using var reader = await command.ExecuteReaderAsync();
