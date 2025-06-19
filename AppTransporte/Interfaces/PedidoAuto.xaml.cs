@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
@@ -6,6 +7,14 @@ using AppTransporte.model;
 
 namespace AppTransporte.Interfaces
 {
+    // Clases auxiliares para los pickers
+    public class PickerItem
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public override string ToString() => Nombre;
+    }
+
     public partial class PedidoAuto : ContentPage
     {
         private int idUsuario;
@@ -13,35 +22,37 @@ namespace AppTransporte.Interfaces
         private SqlServerService _sqlService;
         private PedidoAutomatico _pedidoEditar; // Para cuando se está editando
 
+        // Listas para los pickers nuevos
+        private List<PickerItem> _transportistas = new();
+        private List<PickerItem> _ayudantes = new();
+        private List<PickerItem> _tractos = new();
+        private List<PickerItem> _cisternas = new();
+
         public PedidoAuto(int idUsuario, int idTipoUsuario)
         {
             InitializeComponent();
             this.idUsuario = idUsuario;
             this.idtipousuario = idTipoUsuario;
 
-            // Usar el mismo connection string que ya tienes en tu SqlServerService existente
-            // Busca en tu código donde ya inicializas SqlServerService y usa la misma cadena
             try
             {
-                // Intenta usar el mismo connection string que en otras partes de tu app
-                var existingService = new SqlServerService("Data Source=SQL8011.site4now.net;Initial Catalog=db_aaecc9_paquitaappdb;User Id=db_aaecc9_paquitaappdb_admin;Password=paquita123;Connection Timeout=60"); // Esto usará el que ya tienes configurado
+                // Usar el mismo connection string que ya tienes
+                var existingService = new SqlServerService("Data Source=SQL8011.site4now.net;Initial Catalog=db_aaecc9_paquitaappdb;User Id=db_aaecc9_paquitaappdb_admin;Password=paquita123;Connection Timeout=60");
                 _sqlService = existingService;
             }
             catch
             {
-                // Si no funciona, necesitarás poner tu connection string real aquí
                 _sqlService = null;
             }
 
             InicializarFechas();
-            CargarServicios();
+            CargarDatosAsync();
         }
 
         // Constructor para editar pedido existente
         public PedidoAuto(int idUsuario, int idTipoUsuario, PedidoAutomatico pedidoEditar) : this(idUsuario, idTipoUsuario)
         {
             _pedidoEditar = pedidoEditar;
-            CargarDatosParaEdicion();
         }
 
         private void InicializarFechas()
@@ -55,20 +66,149 @@ namespace AppTransporte.Interfaces
             FechaFinPicker.Date = DateTime.Today.AddDays(7); // Una semana por defecto
         }
 
-        private async void CargarServicios()
+        private async void CargarDatosAsync()
         {
             try
             {
                 if (_sqlService != null)
                 {
-                    var servicios = await _sqlService.ObtenerServiciosAsync();
-                    TipoServicioPicker.ItemsSource = servicios.Select(s => s.Descripcion).ToList();
+                    // Cargar servicios
+                    await CargarServicios();
+
+                    // Cargar transportistas, ayudantes, tractos y cisternas
+                    await CargarTransportistas();
+                    await CargarAyudantes();
+                    await CargarTractos();
+                    await CargarCisternas();
+
+                    // Si es edición, cargar los datos después de que se carguen las listas
+                    if (_pedidoEditar != null)
+                    {
+                        CargarDatosParaEdicion();
+                    }
                 }
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Error al cargar datos: {ex.Message}");
+                await DisplayAlert("Error", "Error al cargar datos. Algunos campos pueden no estar disponibles.", "OK");
+            }
+        }
+
+        private async Task CargarServicios()
+        {
+            try
+            {
+                var servicios = await _sqlService.ObtenerServiciosAsync();
+                TipoServicioPicker.ItemsSource = servicios.Select(s => s.Descripcion).ToList();
+            }
+            catch (Exception ex)
+            {
                 System.Diagnostics.Debug.WriteLine($"Error al cargar servicios: {ex.Message}");
-                // Si no puede cargar de la BD, mantener los valores hardcodeados del XAML
+            }
+        }
+
+        private async Task CargarTransportistas()
+        {
+            try
+            {
+                var trabajadores = await _sqlService.ObtenerTrabajadoresAsync("Transportista");
+                _transportistas.Clear();
+                _transportistas.Add(new PickerItem { Id = 0, Nombre = "Ninguno (Asignar después)" });
+
+                foreach (var trabajador in trabajadores)
+                {
+                    _transportistas.Add(new PickerItem
+                    {
+                        Id = trabajador.IdTrabajador,
+                        Nombre = $"{trabajador.Nombre} {trabajador.apePaterno} {trabajador.apeMaterno}".Trim()
+                    });
+                }
+
+                TransportistaPicker.ItemsSource = _transportistas;
+                TransportistaPicker.SelectedIndex = 0; // Seleccionar "Ninguno" por defecto
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cargar transportistas: {ex.Message}");
+            }
+        }
+
+        private async Task CargarAyudantes()
+        {
+            try
+            {
+                var trabajadores = await _sqlService.ObtenerTrabajadoresAsync("Ayudante");
+                _ayudantes.Clear();
+                _ayudantes.Add(new PickerItem { Id = 0, Nombre = "Ninguno (Asignar después)" });
+
+                foreach (var trabajador in trabajadores)
+                {
+                    _ayudantes.Add(new PickerItem
+                    {
+                        Id = trabajador.IdTrabajador,
+                        Nombre = $"{trabajador.Nombre} {trabajador.apePaterno} {trabajador.apeMaterno}".Trim()
+                    });
+                }
+
+                AyudantePicker.ItemsSource = _ayudantes;
+                AyudantePicker.SelectedIndex = 0; // Seleccionar "Ninguno" por defecto
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cargar ayudantes: {ex.Message}");
+            }
+        }
+
+        private async Task CargarTractos()
+        {
+            try
+            {
+                var tractos = await _sqlService.ObtenerTractosDisponiblesAsync();
+                _tractos.Clear();
+                _tractos.Add(new PickerItem { Id = 0, Nombre = "Ninguno (Asignar después)" });
+
+                foreach (var tracto in tractos)
+                {
+                    _tractos.Add(new PickerItem
+                    {
+                        Id = tracto.IdVehiculo,
+                        Nombre = $"{tracto.Placa} - {tracto.Modelo}".Trim()
+                    });
+                }
+
+                TractosPicker.ItemsSource = _tractos;
+                TractosPicker.SelectedIndex = 0; // Seleccionar "Ninguno" por defecto
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cargar tractos: {ex.Message}");
+            }
+        }
+
+        private async Task CargarCisternas()
+        {
+            try
+            {
+                var cisternas = await _sqlService.ObtenerCisternasDisponiblesAsync();
+                _cisternas.Clear();
+                _cisternas.Add(new PickerItem { Id = 0, Nombre = "Ninguna (Asignar después)" });
+
+                foreach (var cisterna in cisternas)
+                {
+                    _cisternas.Add(new PickerItem
+                    {
+                        Id = cisterna.IdVehiculo,
+                        Nombre = $"{cisterna.Placa} - {cisterna.AñoFabricacion}".Trim()
+                    });
+                }
+
+                CisternaPicker.ItemsSource = _cisternas;
+                CisternaPicker.SelectedIndex = 0; // Seleccionar "Ninguna" por defecto
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cargar cisternas: {ex.Message}");
             }
         }
 
@@ -76,26 +216,62 @@ namespace AppTransporte.Interfaces
         {
             if (_pedidoEditar == null) return;
 
-            // Cambiar título
-            TituloLabel.Text = "Editar Pedido Automático";
+            try
+            {
+                // Cambiar título
+                TituloLabel.Text = "Editar Pedido Automático";
 
-            // Cargar datos en los controles
-            TipoServicioPicker.SelectedItem = _pedidoEditar.TipoServicio;
-            descripcionEntry.Text = _pedidoEditar.Descripcion;
+                // Cargar datos en los controles
+                TipoServicioPicker.SelectedItem = _pedidoEditar.TipoServicio;
+                descripcionEntry.Text = _pedidoEditar.Descripcion;
 
-            // Cargar días seleccionados
-            var dias = _pedidoEditar.DiasSemana.Split(',').Select(d => d.Trim()).ToList();
-            LunesCheck.IsChecked = dias.Contains("Lunes");
-            MartesCheck.IsChecked = dias.Contains("Martes");
-            MiercolesCheck.IsChecked = dias.Contains("Miércoles");
-            JuevesCheck.IsChecked = dias.Contains("Jueves");
-            ViernesCheck.IsChecked = dias.Contains("Viernes");
-            SabadoCheck.IsChecked = dias.Contains("Sábado");
-            DomingoCheck.IsChecked = dias.Contains("Domingo");
+                // Cargar selecciones de los nuevos campos
+                if (_pedidoEditar.IdTransportista.HasValue && _pedidoEditar.IdTransportista > 0)
+                {
+                    var transportista = _transportistas.FirstOrDefault(t => t.Id == _pedidoEditar.IdTransportista);
+                    if (transportista != null)
+                        TransportistaPicker.SelectedItem = transportista;
+                }
 
-            FechaInicioPicker.Date = _pedidoEditar.FechaInicio;
-            FechaFinPicker.Date = _pedidoEditar.FechaFin;
-            HoraPicker.Time = _pedidoEditar.HoraProgramada;
+                if (_pedidoEditar.IdAyudante.HasValue && _pedidoEditar.IdAyudante > 0)
+                {
+                    var ayudante = _ayudantes.FirstOrDefault(a => a.Id == _pedidoEditar.IdAyudante);
+                    if (ayudante != null)
+                        AyudantePicker.SelectedItem = ayudante;
+                }
+
+                if (_pedidoEditar.IdTracto.HasValue && _pedidoEditar.IdTracto > 0)
+                {
+                    var tracto = _tractos.FirstOrDefault(t => t.Id == _pedidoEditar.IdTracto);
+                    if (tracto != null)
+                        TractosPicker.SelectedItem = tracto;
+                }
+
+                if (_pedidoEditar.IdCisterna.HasValue && _pedidoEditar.IdCisterna > 0)
+                {
+                    var cisterna = _cisternas.FirstOrDefault(c => c.Id == _pedidoEditar.IdCisterna);
+                    if (cisterna != null)
+                        CisternaPicker.SelectedItem = cisterna;
+                }
+
+                // Cargar días seleccionados
+                var dias = _pedidoEditar.DiasSemana.Split(',').Select(d => d.Trim()).ToList();
+                LunesCheck.IsChecked = dias.Contains("Lunes");
+                MartesCheck.IsChecked = dias.Contains("Martes");
+                MiercolesCheck.IsChecked = dias.Contains("Miércoles");
+                JuevesCheck.IsChecked = dias.Contains("Jueves");
+                ViernesCheck.IsChecked = dias.Contains("Viernes");
+                SabadoCheck.IsChecked = dias.Contains("Sábado");
+                DomingoCheck.IsChecked = dias.Contains("Domingo");
+
+                FechaInicioPicker.Date = _pedidoEditar.FechaInicio;
+                FechaFinPicker.Date = _pedidoEditar.FechaFin;
+                HoraPicker.Time = _pedidoEditar.HoraProgramada;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cargar datos para edición: {ex.Message}");
+            }
         }
 
         private async void Btn_atras(object sender, EventArgs e)
@@ -174,6 +350,24 @@ namespace AppTransporte.Interfaces
                     return;
                 }
 
+                // Obtener IDs de las selecciones (si están seleccionadas)
+                int? idTransportista = null;
+                int? idAyudante = null;
+                int? idTracto = null;
+                int? idCisterna = null;
+
+                if (TransportistaPicker.SelectedItem is PickerItem transportistaSeleccionado && transportistaSeleccionado.Id > 0)
+                    idTransportista = transportistaSeleccionado.Id;
+
+                if (AyudantePicker.SelectedItem is PickerItem ayudanteSeleccionado && ayudanteSeleccionado.Id > 0)
+                    idAyudante = ayudanteSeleccionado.Id;
+
+                if (TractosPicker.SelectedItem is PickerItem tractoSeleccionado && tractoSeleccionado.Id > 0)
+                    idTracto = tractoSeleccionado.Id;
+
+                if (CisternaPicker.SelectedItem is PickerItem cisternaSeleccionada && cisternaSeleccionada.Id > 0)
+                    idCisterna = cisternaSeleccionada.Id;
+
                 // Crear el objeto pedido automático
                 var pedidoAutomatico = new PedidoAutomatico
                 {
@@ -183,7 +377,12 @@ namespace AppTransporte.Interfaces
                     HoraProgramada = HoraPicker.Time,
                     FechaInicio = FechaInicioPicker.Date,
                     FechaFin = FechaFinPicker.Date,
-                    Descripcion = string.IsNullOrWhiteSpace(descripcionEntry.Text) ? null : descripcionEntry.Text
+                    Descripcion = string.IsNullOrWhiteSpace(descripcionEntry.Text) ? null : descripcionEntry.Text,
+                    // Nuevos campos
+                    IdTransportista = idTransportista,
+                    IdAyudante = idAyudante,
+                    IdTracto = idTracto,
+                    IdCisterna = idCisterna
                 };
 
                 if (_sqlService == null)
