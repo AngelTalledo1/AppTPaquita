@@ -19,7 +19,7 @@
                    Margin="20"
                    HeightRequest="20"
                    WidthRequest="20" />
-            <Label Text="Reporte de Tareas Adicionales"
+            <Label Text="Reporte Tareas Adicionales"
                    Grid.Column="1"
                    FontSize="20"
                    TextColor="AliceBlue"

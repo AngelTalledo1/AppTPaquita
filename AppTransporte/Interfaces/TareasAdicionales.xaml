@@ -29,23 +29,24 @@
         </Grid>
         <Grid Grid.Row="1"
               RowDefinitions=".95*,.08*">
-            <VerticalStackLayout>
+            <ScrollView>
+                <VerticalStackLayout>
 
-                <!-- Filtro por fecha solamente -->
-                <HorizontalStackLayout Margin="15,10"
+                    <!-- Filtro por fecha solamente -->
+                    <HorizontalStackLayout Margin="15,10"
                                        VerticalOptions="Start">
-                    <Label Text="Fecha: "
+                        <Label Text="Fecha: "
                            FontFamily="Comf-Medium"
                            VerticalOptions="Center"
                            WidthRequest="60" />
-                    <DatePicker x:Name="DatePickerFiltro"
+                        <DatePicker x:Name="DatePickerFiltro"
                                 BackgroundColor="#e1dddb"
                                 TextColor="#780000"
                                 FontFamily="Comf-Bold"
                                 HorizontalOptions="FillAndExpand"
                                 Format="dd/MM/yyyy"
                                 DateSelected="DatePickerFiltro_DateSelected" />
-                    <Button Text="Hoy"
+                        <Button Text="Hoy"
                             FontFamily="Comf-Medium"
                             BackgroundColor="#95a5a6"
                             TextColor="White"
@@ -55,7 +56,7 @@
                             HeightRequest="40"
                             Margin="5,0"
                             Clicked="Btn_FiltrarHoy" />
-                    <Button Text="Todos"
+                        <Button Text="Todos"
                             FontFamily="Comf-Medium"
                             BackgroundColor="#95a5a6"
                             TextColor="White"
@@ -64,18 +65,19 @@
                             WidthRequest="70"
                             HeightRequest="40"
                             Clicked="Btn_MostrarTodas" />
-                </HorizontalStackLayout>
+                    </HorizontalStackLayout>
 
-                <!-- Lista de tareas -->
-                <ScrollView Margin="10,15,0,20">
-                    <VerticalStackLayout Margin="10">
-                        <ActivityIndicator x:Name="LoadingIndicator"
+
+                    <!-- Lista de tareas -->
+                    <Grid>
+                        <VerticalStackLayout Margin="10">
+                            <ActivityIndicator x:Name="LoadingIndicator"
                                            IsRunning="False"
                                            IsVisible="False"
                                            HorizontalOptions="Center" />
 
-                        <!-- Mensaje cuando no hay tareas -->
-                        <Label x:Name="LabelSinTareas"
+                            <!-- Mensaje cuando no hay tareas -->
+                            <Label x:Name="LabelSinTareas"
                                Text="No hay tareas para la fecha seleccionada"
                                FontFamily="Comf-Medium"
                                FontSize="14"
@@ -84,14 +86,14 @@
                                VerticalOptions="Center"
                                Margin="0,50"
                                IsVisible="False" />
-
-                        <!-- Lista de tareas -->
-                        <VerticalStackLayout x:Name="StackTareas">
-                            <!-- Las tareas se agregarán dinámicamente aquí -->
+                            <!-- Lista de tareas -->
+                            <VerticalStackLayout x:Name="StackTareas">
+                                <!-- Las tareas se agregarán dinámicamente aquí -->
+                            </VerticalStackLayout>
                         </VerticalStackLayout>
-                    </VerticalStackLayout>
-                </ScrollView>
-            </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </ScrollView>
 
             <!-- Botón Nueva Tarea -->
             <Button Text="Nueva Tarea"
