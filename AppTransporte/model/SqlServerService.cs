@@ -3483,6 +3483,7 @@ namespace AppTransporte.model
 
             return new RespuestaPedidoAutomatico { FilasAfectadas = 0, Mensaje = "Error desconocido" };
         }
+
         public async Task<List<PedidoAutomatico>> ObtenerPedidosAutomaticosAsync(int idUsuario, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
         {
             var pedidos = new List<PedidoAutomatico>();
@@ -3690,6 +3691,104 @@ namespace AppTransporte.model
             }
 
             return new RespuestaPedidoAutomatico { FilasAfectadas = 0, Mensaje = "Error desconocido" };
+        }
+        public async Task<List<Trabajador>> ObtenerTrabajadoresDisponiblesConEstadoAsync(string categoria)
+        {
+            var trabajadores = new List<Trabajador>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("SP_ObtenerTrabajadoresConEstado", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@categoria", categoria);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            trabajadores.Add(new Trabajador
+                            {
+                                IdTrabajador = reader.GetInt32("id_trabajador"),
+                                Nombre = reader.GetString("Nombre"),
+                                apePaterno = reader.IsDBNull("apePaterno") ? null : reader.GetString("apePaterno"),
+                                apeMaterno = reader.IsDBNull("apeMaterno") ? null : reader.GetString("apeMaterno"),
+                                categoria = reader.GetString("categoria"),
+                                numDoc = reader.IsDBNull("numDoc") ? null : reader.GetString("numDoc"),
+                                Telefono = reader.IsDBNull("Telefono") ? null : reader.GetString("Telefono"),
+                                EstadoDescripcion = reader.GetString("estado_descripcion")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return trabajadores;
+        }
+        public async Task<List<Vehiculo>> ObtenerCisternasDisponiblesConEstadoAsync()
+        {
+            var cisternas = new List<Vehiculo>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("SP_ObtenerCisternasConEstado", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            cisternas.Add(new Vehiculo
+                            {
+                                IdVehiculo = reader.GetInt32("id_cisterna"),
+                                Placa = reader.GetString("placa"),
+                                AñoFabricacion = reader.IsDBNull("AñoFabricacion") ? null : reader.GetString("AñoFabricacion"),
+                                Estado = reader.GetBoolean("estado"),
+                                EstadoDescripcion = reader.GetString("estado_descripcion")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return cisternas;
+        }
+        public async Task<List<Vehiculo>> ObtenerTractosDisponiblesConEstadoAsync()
+        {
+            var tractos = new List<Vehiculo>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand("SP_ObtenerTractosConEstado", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            tractos.Add(new Vehiculo
+                            {
+                                IdVehiculo = reader.GetInt32("id_tracto"),
+                                Placa = reader.GetString("placa"),
+                                Modelo = reader.IsDBNull("modelo") ? null : reader.GetString("modelo"),
+                                AñoFabricacion = reader.IsDBNull("AñoFabricacion") ? null : reader.GetString("AñoFabricacion"),
+                                Estado = reader.GetBoolean("estado"),
+                                EstadoDescripcion = reader.GetString("estado_descripcion")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return tractos;
         }
     }
     }

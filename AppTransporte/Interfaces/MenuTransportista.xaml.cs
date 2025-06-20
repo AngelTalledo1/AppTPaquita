@@ -20,7 +20,8 @@ public partial class MenuTransportista : ContentPage, IMenuPage
     }
     private async void btn_ta(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new TareasAdicionales(_idUsuario, _idTipoUsuario));
+        await Navigation.PushAsync(new TareasAdicionales(_idTipoUsuario, _idUsuario));
+
     }
 
 

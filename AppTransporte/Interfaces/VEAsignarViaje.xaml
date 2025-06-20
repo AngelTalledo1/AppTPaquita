@@ -76,12 +76,12 @@
                                HorizontalOptions="Center" />
                         <Grid Grid.Column="1">
                             <Picker x:Name="transportistaPicker"
-                                    Title="Seleccionar Transportista"
-                                    TitleColor="#515a5a"
-                                    FontFamily="Comf-Bold"
-                                    TextColor="Black"
-                                    ItemsSource="{Binding Transportistas}"
-                                    ItemDisplayBinding="{Binding NombreTrabajador}" />
+                                Title="Seleccionar Transportista"
+                                TitleColor="#515a5a"
+                                FontFamily="Comf-Bold"
+                                TextColor="Black"
+                                ItemsSource="{Binding Transportistas}"
+                                ItemDisplayBinding="{Binding NombreTrabajadorConEstado}" />
                         </Grid>
                     </Grid>
 
@@ -98,7 +98,8 @@
                                     FontFamily="Comf-Bold"
                                     TextColor="Black"
                                     ItemsSource="{Binding Ayudantes}"
-                                    ItemDisplayBinding="{Binding NombreTrabajador}" />
+                                    ItemDisplayBinding="{Binding NombreTrabajadorConEstado}" />
+
                         </Grid>
                     </Grid>
 
@@ -115,7 +116,7 @@
                                     FontFamily="Comf-Bold"
                                     TextColor="Black"
                                     ItemsSource="{Binding Cisternas}"
-                                    ItemDisplayBinding="{Binding Placa}" />
+                                    ItemDisplayBinding="{Binding PlacaConEstado}" />
                         </Grid>
                     </Grid>
 
@@ -132,7 +133,7 @@
                                     FontFamily="Comf-Bold"
                                     TextColor="Black"
                                     ItemsSource="{Binding Tractos}"
-                                    ItemDisplayBinding="{Binding Placa}" />
+                                    ItemDisplayBinding="{Binding PlacaConEstado}" />
                         </Grid>
                     </Grid>
 

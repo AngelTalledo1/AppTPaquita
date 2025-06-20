@@ -7,170 +7,358 @@ using Microsoft.Data.SqlClient;
 using AppTransporte.Interfaces;
 using AppTransporte.model;
 
-
-
 namespace AppTransporte.Interfaces
 {
     public partial class TareasAdicionales : ContentPage
     {
-        private readonly SqlServerService _sqlService;
-        private List<TareaAdicional> _todasLasTareas;
-        private bool _mostrandoTodasLasTareas = false;
+        private SqlServerService _sqlService;
         private int _idTipoUsuario;
         private int _idUsuario;
+        private bool _cargandoDatos = false;
+        private bool _paginaInicializada = false;
 
         public TareasAdicionales(int idTipoUsuario, int idUsuario)
         {
             InitializeComponent();
 
-            // ACTUALIZAR CON TU CONNECTION STRING
-            string connectionString = ("Data Source=SQL8011.site4now.net;Initial Catalog=db_aaecc9_paquitaappdb;User Id=db_aaecc9_paquitaappdb_admin;Password=paquita123;Connection Timeout=60");
-            _sqlService = new SqlServerService(connectionString);
-
-            _todasLasTareas = new List<TareaAdicional>();
-
-            // Inicializar con fecha de hoy
-            DatePickerFiltro.Date = DateTime.Today;
             _idTipoUsuario = idTipoUsuario;
             _idUsuario = idUsuario;
+
+            System.Diagnostics.Debug.WriteLine($"=== CONSTRUCTOR TareasAdicionales ===");
+            System.Diagnostics.Debug.WriteLine($"Usuario: {_idUsuario}, TipoUsuario: {_idTipoUsuario}");
         }
-        public void setUserData(int idUsuario, int idTipoUsuario)
+
+        private void InicializarServicioSQL()
         {
-            _idUsuario = idUsuario;
-            _idTipoUsuario = idTipoUsuario;
+            try
+            {
+                // Crear una nueva instancia cada vez para evitar problemas de estado
+                string connectionString = "Data Source=SQL8011.site4now.net;Initial Catalog=db_aaecc9_paquitaappdb;User Id=db_aaecc9_paquitaappdb_admin;Password=paquita123;Connection Timeout=60";
+                _sqlService = new SqlServerService(connectionString);
+                System.Diagnostics.Debug.WriteLine("SqlServerService inicializado correctamente");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error inicializando SqlServerService: {ex.Message}");
+                _sqlService = null;
+            }
+        }
+
+        private void InicializarControles()
+        {
+            try
+            {
+                // Desactivar eventos temporalmente
+                DatePickerFiltro.DateSelected -= DatePickerFiltro_DateSelected;
+
+                // Resetear controles a estado inicial
+                DatePickerFiltro.Date = DateTime.Today;
+                LabelSinTareas.IsVisible = false;
+                LoadingIndicator.IsVisible = false;
+                LoadingIndicator.IsRunning = false;
+
+                // Limpiar lista de tareas
+                if (StackTareas != null)
+                {
+                    StackTareas.Children.Clear();
+                }
+
+                // Reactivar eventos
+                DatePickerFiltro.DateSelected += DatePickerFiltro_DateSelected;
+
+                System.Diagnostics.Debug.WriteLine("Controles inicializados correctamente");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error inicializando controles: {ex.Message}");
+            }
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await CargarTareasAsync();
+
+            System.Diagnostics.Debug.WriteLine($"=== OnAppearing INICIO ===");
+            System.Diagnostics.Debug.WriteLine($"PaginaInicializada: {_paginaInicializada}");
+            System.Diagnostics.Debug.WriteLine($"CargandoDatos: {_cargandoDatos}");
+
+            // Evitar múltiples cargas concurrentes
+            if (_cargandoDatos)
+            {
+                System.Diagnostics.Debug.WriteLine("Ya se están cargando datos, saliendo...");
+                return;
+            }
+
+            try
+            {
+                _cargandoDatos = true;
+
+                // RESETEAR COMPLETAMENTE el estado cada vez
+                InicializarServicioSQL();
+                InicializarControles();
+
+                // Pequeña pausa para asegurar que la UI esté lista
+                await Task.Delay(100);
+
+                // Cargar tareas para HOY por defecto
+                await CargarTareasPorFechaAsync(DateTime.Today);
+
+                _paginaInicializada = true;
+                System.Diagnostics.Debug.WriteLine("=== OnAppearing COMPLETADO ===");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en OnAppearing: {ex.Message}");
+                await DisplayAlert("Error", $"Error al cargar la página: {ex.Message}", "OK");
+            }
+            finally
+            {
+                _cargandoDatos = false;
+            }
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            System.Diagnostics.Debug.WriteLine("=== OnDisappearing ===");
+
+            // Limpiar estado al salir
+            _paginaInicializada = false;
+            _cargandoDatos = false;
+
+            // Detener indicador de carga si está activo
+            if (LoadingIndicator != null)
+            {
+                LoadingIndicator.IsRunning = false;
+                LoadingIndicator.IsVisible = false;
+            }
         }
 
         private async void Btn_Atras(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new MenuTransportista(_idUsuario, _idTipoUsuario));
-        }
-        public class TareasAdicionalesService
-        {
-            private readonly string _connectionString;
-
-            public TareasAdicionalesService(string connectionString)
+            System.Diagnostics.Debug.WriteLine("=== Navegando ATRÁS ===");
+            try
             {
-                _connectionString = connectionString;
+                await Navigation.PushAsync(new MenuTransportista(_idUsuario, _idTipoUsuario));
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error navegando atrás: {ex.Message}");
             }
         }
 
-            private async void Btn_NuevaTarea(object sender, EventArgs e)
+        private async void Btn_NuevaTarea(object sender, EventArgs e)
         {
             try
             {
-                // Navegar a la página de nueva tarea
+                System.Diagnostics.Debug.WriteLine($"=== Navegando a NUEVA TAREA ===");
                 await Navigation.PushAsync(new VTNuevaTareaAdicional(_idUsuario, _idTipoUsuario));
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Error navegando a nueva tarea: {ex.Message}");
                 await DisplayAlert("Error", $"Error al navegar: {ex.Message}", "OK");
             }
         }
 
         private async void DatePickerFiltro_DateSelected(object sender, DateChangedEventArgs e)
         {
-            _mostrandoTodasLasTareas = false;
+            if (_cargandoDatos) return;
+
+            System.Diagnostics.Debug.WriteLine($"=== FECHA SELECCIONADA: {e.NewDate:yyyy-MM-dd} ===");
             await CargarTareasPorFechaAsync(e.NewDate);
         }
 
         private async void Btn_FiltrarHoy(object sender, EventArgs e)
         {
+            if (_cargandoDatos) return;
+
+            System.Diagnostics.Debug.WriteLine("=== FILTRO HOY ===");
             DatePickerFiltro.Date = DateTime.Today;
-            _mostrandoTodasLasTareas = false;
             await CargarTareasPorFechaAsync(DateTime.Today);
         }
 
         private async void Btn_MostrarTodas(object sender, EventArgs e)
         {
-            _mostrandoTodasLasTareas = true;
-            await CargarTodasLasTareasAsync();
-        }
+            if (_cargandoDatos) return;
 
-        private async Task CargarTareasAsync()
-        {
-            if (_mostrandoTodasLasTareas)
-            {
-                await CargarTodasLasTareasAsync();
-            }
-            else
-            {
-                await CargarTareasPorFechaAsync(DatePickerFiltro.Date);
-            }
+            System.Diagnostics.Debug.WriteLine("=== FILTRO TODAS ===");
+            await CargarTodasLasTareasAsync();
         }
 
         private async Task CargarTodasLasTareasAsync()
         {
+            if (_cargandoDatos) return;
+
             try
             {
+                _cargandoDatos = true;
+                System.Diagnostics.Debug.WriteLine($">>> CARGANDO TODAS LAS TAREAS - Usuario: {_idUsuario}");
+
                 MostrarCargando(true);
 
-                int idUsuario = ObtenerIdUsuarioActual();
-                _todasLasTareas = await _sqlService.ObtenerTareasUsuarioAsync(idUsuario);
+                if (_sqlService == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("ERROR: _sqlService es null, reinicializando...");
+                    InicializarServicioSQL();
+                }
 
-                MostrarTareasEnVista(_todasLasTareas);
+                var todasLasTareas = await _sqlService.ObtenerTareasUsuarioAsync(_idUsuario);
+
+                System.Diagnostics.Debug.WriteLine($">>> RESULTADO: {todasLasTareas?.Count ?? 0} tareas obtenidas");
+
+                // Log detallado de cada tarea
+                if (todasLasTareas != null)
+                {
+                    for (int i = 0; i < todasLasTareas.Count; i++)
+                    {
+                        var tarea = todasLasTareas[i];
+                        System.Diagnostics.Debug.WriteLine($"  [{i}] ID:{tarea.id_tareaAdicional} - {tarea.fecha_tarea:yyyy-MM-dd} - {tarea.descripcion}");
+                    }
+                }
+
+                MostrarTareasEnVista(todasLasTareas);
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"ERROR en CargarTodasLasTareasAsync: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"StackTrace: {ex.StackTrace}");
                 await DisplayAlert("Error", $"Error al cargar tareas: {ex.Message}", "OK");
             }
             finally
             {
                 MostrarCargando(false);
+                _cargandoDatos = false;
             }
         }
 
         private async Task CargarTareasPorFechaAsync(DateTime fecha)
         {
+            if (_cargandoDatos) return;
+
             try
             {
+                _cargandoDatos = true;
+                System.Diagnostics.Debug.WriteLine($">>> CARGANDO TAREAS POR FECHA: {fecha:yyyy-MM-dd} - Usuario: {_idUsuario}");
+
                 MostrarCargando(true);
 
-                int idUsuario = ObtenerIdUsuarioActual();
-                var tareasFecha = await _sqlService.ObtenerTareasPorFechaAsync(fecha, idUsuario);
+                if (_sqlService == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("ERROR: _sqlService es null, reinicializando...");
+                    InicializarServicioSQL();
+                }
+
+                var tareasFecha = await _sqlService.ObtenerTareasPorFechaAsync(fecha, _idUsuario);
+
+                System.Diagnostics.Debug.WriteLine($">>> RESULTADO: {tareasFecha?.Count ?? 0} tareas obtenidas para {fecha:yyyy-MM-dd}");
+
+                // Log detallado de cada tarea
+                if (tareasFecha != null)
+                {
+                    for (int i = 0; i < tareasFecha.Count; i++)
+                    {
+                        var tarea = tareasFecha[i];
+                        System.Diagnostics.Debug.WriteLine($"  [{i}] ID:{tarea.id_tareaAdicional} - {tarea.fecha_tarea:yyyy-MM-dd} - {tarea.descripcion}");
+                    }
+                }
 
                 MostrarTareasEnVista(tareasFecha);
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"ERROR en CargarTareasPorFechaAsync: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"StackTrace: {ex.StackTrace}");
                 await DisplayAlert("Error", $"Error al cargar tareas: {ex.Message}", "OK");
             }
             finally
             {
                 MostrarCargando(false);
+                _cargandoDatos = false;
             }
         }
 
         private void MostrarCargando(bool mostrar)
         {
-            LoadingIndicator.IsRunning = mostrar;
-            LoadingIndicator.IsVisible = mostrar;
+            try
+            {
+                if (LoadingIndicator != null)
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        LoadingIndicator.IsRunning = mostrar;
+                        LoadingIndicator.IsVisible = mostrar;
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en MostrarCargando: {ex.Message}");
+            }
         }
 
         private void MostrarTareasEnVista(List<TareaAdicional> tareas)
         {
-            StackTareas.Children.Clear();
-
-            if (tareas.Count == 0)
+            try
             {
-                LabelSinTareas.IsVisible = true;
-                return;
+                System.Diagnostics.Debug.WriteLine($">>> MOSTRANDO TAREAS EN VISTA: {tareas?.Count ?? 0} tareas");
+
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    if (StackTareas == null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("ERROR: StackTareas es null");
+                        return;
+                    }
+
+                    // Limpiar lista actual
+                    StackTareas.Children.Clear();
+                    System.Diagnostics.Debug.WriteLine("StackTareas limpiado");
+
+                    if (tareas == null || tareas.Count == 0)
+                    {
+                        System.Diagnostics.Debug.WriteLine("No hay tareas para mostrar");
+                        if (LabelSinTareas != null)
+                        {
+                            LabelSinTareas.IsVisible = true;
+                            LabelSinTareas.Text = "No hay tareas para mostrar";
+                        }
+                        return;
+                    }
+
+                    // Ocultar mensaje de "sin tareas"
+                    if (LabelSinTareas != null)
+                    {
+                        LabelSinTareas.IsVisible = false;
+                    }
+
+                    // Agregar cada tarea a la vista
+                    for (int i = 0; i < tareas.Count; i++)
+                    {
+                        var tarea = tareas[i];
+                        System.Diagnostics.Debug.WriteLine($">>> Agregando tarea [{i}]: {tarea.descripcion}");
+
+                        try
+                        {
+                            var frameItem = CrearFrameTarea(tarea);
+                            StackTareas.Children.Add(frameItem);
+                            System.Diagnostics.Debug.WriteLine($"  ? Tarea [{i}] agregada exitosamente");
+                        }
+                        catch (Exception ex)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"  ? Error agregando tarea [{i}]: {ex.Message}");
+                        }
+                    }
+
+                    System.Diagnostics.Debug.WriteLine($">>> TOTAL en StackTareas: {StackTareas.Children.Count} elementos");
+                });
             }
-
-            LabelSinTareas.IsVisible = false;
-
-            foreach (var tarea in tareas)
+            catch (Exception ex)
             {
-                var frameItem = CrearFrameTarea(tarea);
-                StackTareas.Children.Add(frameItem);
+                System.Diagnostics.Debug.WriteLine($"ERROR en MostrarTareasEnVista: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"StackTrace: {ex.StackTrace}");
             }
         }
-       
 
         private Frame CrearFrameTarea(TareaAdicional tarea)
         {
@@ -189,7 +377,7 @@ namespace AppTransporte.Interfaces
             // Cabecera con fecha y horario
             var labelCabecera = new Label
             {
-                Text = $" {tarea.FechaTareaString} | {tarea.HorarioCompleto}",
+                Text = $"{tarea.FechaTareaString} | {tarea.HorarioCompleto}",
                 FontSize = 14,
                 FontFamily = "Comf-Medium",
                 TextColor = Color.FromArgb("#2c3e50")
@@ -205,7 +393,6 @@ namespace AppTransporte.Interfaces
                 LineBreakMode = LineBreakMode.WordWrap,
                 Margin = new Thickness(0, 5)
             };
-            
 
             // Información adicional
             var labelInfo = new Label
@@ -236,8 +423,6 @@ namespace AppTransporte.Interfaces
             stackLayout.Children.Add(labelDescripcion);
             stackLayout.Children.Add(labelInfo);
             stackLayout.Children.Add(btnEliminar);
-        
-
 
             frame.Content = stackLayout;
             return frame;
@@ -245,6 +430,8 @@ namespace AppTransporte.Interfaces
 
         private async Task EliminarTarea(TareaAdicional tarea)
         {
+            if (_cargandoDatos) return;
+
             bool confirmacion = await DisplayAlert(
                 "Confirmar Eliminación",
                 $"¿Estás seguro de que deseas eliminar esta tarea?\n\n" +
@@ -258,6 +445,9 @@ namespace AppTransporte.Interfaces
             {
                 try
                 {
+                    _cargandoDatos = true;
+                    System.Diagnostics.Debug.WriteLine($"=== ELIMINANDO TAREA ID: {tarea.id_tareaAdicional} ===");
+
                     MostrarCargando(true);
 
                     var resultado = await _sqlService.EliminarTareaAsync(tarea.id_tareaAdicional);
@@ -265,36 +455,28 @@ namespace AppTransporte.Interfaces
                     if (resultado.EsExitoso)
                     {
                         await DisplayAlert("Éxito", resultado.Mensaje, "OK");
-                        await CargarTareasAsync(); // Esto recarga toda la interfaz
+                        System.Diagnostics.Debug.WriteLine("Tarea eliminada exitosamente, recargando...");
+
+                        // Recargar tareas para la fecha actual del DatePicker
+                        await CargarTareasPorFechaAsync(DatePickerFiltro.Date);
                     }
                     else
                     {
                         await DisplayAlert("Error", resultado.Mensaje, "OK");
+                        System.Diagnostics.Debug.WriteLine($"Error al eliminar: {resultado.Mensaje}");
                     }
                 }
                 catch (Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine($"Error al eliminar tarea: {ex.Message}");
                     await DisplayAlert("Error", $"Error al eliminar tarea: {ex.Message}", "OK");
                 }
                 finally
                 {
                     MostrarCargando(false);
+                    _cargandoDatos = false;
                 }
             }
-        }
-
-        private int ObtenerIdUsuarioActual()
-        {
-            // IMPLEMENTA SEGÚN TU SISTEMA DE AUTENTICACIÓN
-            // Ejemplo usando Preferences:
-            // return Preferences.Get("UsuarioId", 1);
-
-            // Ejemplo usando SecureStorage:
-            // var userId = await SecureStorage.GetAsync("UsuarioId");
-            // return int.TryParse(userId, out int id) ? id : 1;
-
-            // POR AHORA RETORNA 1 PARA PRUEBAS
-            return 1;
         }
     }
 }

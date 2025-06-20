@@ -73,15 +73,16 @@ namespace AppTransporte.viewModel
             {
                 IsBusy = true;
 
-                // Cargar trabajadores disponibles (no asignados a viajes activos)
-                var transportistasDisponibles = await App.Database.ObtenerTrabajadoresDisponiblesAsync("Transportista");
-                var ayudantesDisponibles = await App.Database.ObtenerTrabajadoresDisponiblesAsync("Ayudante");
+                // CAMBIAR ESTAS LÍNEAS para usar los nuevos métodos con estado:
+                var transportistasDisponibles = await App.Database.ObtenerTrabajadoresDisponiblesConEstadoAsync("Transportista");
+                var ayudantesDisponibles = await App.Database.ObtenerTrabajadoresDisponiblesConEstadoAsync("Ayudante");
 
                 Transportistas.Clear();
                 Ayudantes.Clear();
 
                 foreach (var transportista in transportistasDisponibles)
                 {
+                    System.Diagnostics.Debug.WriteLine($"Transportista: {transportista.NombreTrabajadorConEstado}");
                     Transportistas.Add(transportista);
                 }
 
@@ -90,9 +91,9 @@ namespace AppTransporte.viewModel
                     Ayudantes.Add(ayudante);
                 }
 
-                // Cargar vehículos disponibles (no asignados a viajes activos)
-                var cisternasDisponibles = await App.Database.ObtenerCisternasDisponiblesAsync();
-                var tractosDisponibles = await App.Database.ObtenerTractosDisponiblesAsync();
+                // CAMBIAR ESTAS LÍNEAS para usar los nuevos métodos con estado:
+                var cisternasDisponibles = await App.Database.ObtenerCisternasDisponiblesConEstadoAsync();
+                var tractosDisponibles = await App.Database.ObtenerTractosDisponiblesConEstadoAsync();
 
                 Cisternas.Clear();
                 Tractos.Clear();

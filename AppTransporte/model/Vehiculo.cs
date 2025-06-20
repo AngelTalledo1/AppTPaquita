@@ -25,9 +25,16 @@ namespace AppTransporte.model
         public byte[]? CITV { get; set; }
         public byte[]? Cubicacion { get; set; }
         public byte[]? TarjetaPropiedad { get; set; }
-
         public string Tipo { get; set; } = string.Empty;
 
-
+        // AGREGAR ESTAS DOS PROPIEDADES:
+        public string EstadoDescripcion { get; set; } = "Disponible";
+        public string PlacaConEstado
+        {
+            get
+            {
+                return $"{Placa} ({EstadoDescripcion})";
+            }
+        }
     }
 }
