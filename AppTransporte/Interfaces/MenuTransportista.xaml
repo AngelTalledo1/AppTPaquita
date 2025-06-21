@@ -96,8 +96,8 @@
               Opacity="0.9"
               IsVisible="False"
               ZIndex="10"
-              VerticalOptions="FillAndExpand"
-              HorizontalOptions="FillAndExpand">
+              VerticalOptions="Fill"
+              HorizontalOptions="Fill">
         <VerticalStackLayout HorizontalOptions="Center"
                              VerticalOptions="Center"
                              Spacing="10">

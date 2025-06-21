@@ -135,38 +135,84 @@ namespace AppTransporte.model
 
         // Reporte de Pedidos por Cliente
         // Reporte de Pedidos por Cliente
-        public (DataTable ResumenPedidos, DataTable DetallePedidos) ObtenerReportePedidosPorCliente(
-    int idCliente,
-    string tipoPedido = null)
+        public async Task<(DataTable ResumenPedidos, DataTable DetallePedidos)> ObtenerReportePedidosPorClienteAsync(
+     int idCliente,
+     string tipoPedido = null,
+     DateTime? fechaDesde = null,
+     DateTime? fechaHasta = null)
         {
             DataTable resumenPedidos = new DataTable();
             DataTable detallePedidos = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            try
             {
-                conn.Open();
-
-                using (SqlCommand cmd = new SqlCommand("sp_ReportePedidosPorCliente", conn))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@IdCliente", idCliente);
-                    cmd.Parameters.AddWithValue("@TipoPedido", (object)tipoPedido ?? DBNull.Value);
+                    await connection.OpenAsync();
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    using (var command = new SqlCommand("sp_ReportePedidosPorCliente", connection))
                     {
-                        DataSet ds = new DataSet();
-                        adapter.Fill(ds);
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 180; // Timeout de 3 minutos
 
-                        if (ds.Tables.Count > 0)
-                            resumenPedidos = ds.Tables[0];
-                        if (ds.Tables.Count > 1)
-                            detallePedidos = ds.Tables[1];
+                        // Parámetros obligatorios
+                        command.Parameters.AddWithValue("@IdCliente", idCliente);
+
+                        // Parámetros opcionales
+                        if (!string.IsNullOrEmpty(tipoPedido) && tipoPedido != "Todos los tipos")
+                        {
+                            command.Parameters.AddWithValue("@TipoPedido", tipoPedido);
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@TipoPedido", DBNull.Value);
+                        }
+
+                        // Parámetros de fecha
+                        if (fechaDesde.HasValue)
+                        {
+                            command.Parameters.AddWithValue("@FechaDesde", fechaDesde.Value.Date);
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@FechaDesde", DBNull.Value);
+                        }
+
+                        if (fechaHasta.HasValue)
+                        {
+                            command.Parameters.AddWithValue("@FechaHasta", fechaHasta.Value.Date);
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@FechaHasta", DBNull.Value);
+                        }
+
+                        using (var adapter = new SqlDataAdapter(command))
+                        {
+                            DataSet ds = new DataSet();
+                            adapter.Fill(ds);
+
+                            if (ds.Tables.Count > 0)
+                                resumenPedidos = ds.Tables[0];
+                            if (ds.Tables.Count > 1)
+                                detallePedidos = ds.Tables[1];
+
+                            // Debug para verificar los datos
+                            System.Diagnostics.Debug.WriteLine($"Resumen Pedidos filas: {resumenPedidos?.Rows?.Count ?? 0}");
+                            System.Diagnostics.Debug.WriteLine($"Detalle Pedidos filas: {detallePedidos?.Rows?.Count ?? 0}");
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en ObtenerReportePedidosPorClienteAsync: {ex.Message}");
+                throw new Exception($"Error al obtener el reporte de pedidos: {ex.Message}", ex);
             }
 
             return (resumenPedidos, detallePedidos);
         }
+
 
 
 
@@ -2302,7 +2348,7 @@ namespace AppTransporte.model
             {
                 await connection.OpenAsync();
 
-                using (var command = new SqlCommand("pa_MostrarTrabajadores", connection))
+                using (var command = new SqlCommand("pa_MostrarTrabajadoresConEstado", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     if (!string.IsNullOrEmpty(categoria))
@@ -2323,7 +2369,6 @@ namespace AppTransporte.model
                                 Nombre = reader.IsDBNull(reader.GetOrdinal("Nombre")) ? null : reader.GetString(reader.GetOrdinal("Nombre")),
                                 apePaterno = reader.IsDBNull(reader.GetOrdinal("apePaterno")) ? null : reader.GetString(reader.GetOrdinal("apePaterno")),
                                 apeMaterno = reader.IsDBNull(reader.GetOrdinal("apeMaterno")) ? null : reader.GetString(reader.GetOrdinal("apeMaterno")),
-                                // Aseguramos que numDoc sea tratado como un string en caso de que contenga texto
                                 idtipoDoc = reader.GetInt32(reader.GetOrdinal("id_tipoDoc")),
                                 idcategoria = reader.GetInt32(reader.GetOrdinal("id_categoria")),
                                 numDoc = reader.IsDBNull(reader.GetOrdinal("numDoc")) ? null : reader.GetString(reader.GetOrdinal("numDoc")),
@@ -2333,9 +2378,8 @@ namespace AppTransporte.model
                                 categoria = reader.IsDBNull(reader.GetOrdinal("categoria")) ? null : reader.GetString(reader.GetOrdinal("categoria")),
                                 licencia = reader.IsDBNull(reader.GetOrdinal("licencia")) ? null : reader.GetString(reader.GetOrdinal("licencia")),
                                 usuario = reader.IsDBNull(reader.GetOrdinal("Usuario")) ? null : reader.GetString(reader.GetOrdinal("Usuario")),
-                                password = reader.IsDBNull(reader.GetOrdinal("Contraseña")) ? null : reader.GetString(reader.GetOrdinal("Contraseña"))
-
-
+                                password = reader.IsDBNull(reader.GetOrdinal("Contraseña")) ? null : reader.GetString(reader.GetOrdinal("Contraseña")),
+                                estado = reader.GetBoolean(reader.GetOrdinal("estado")) // Campo booleano para lista general
                             });
                         }
                     }
@@ -3790,7 +3834,121 @@ namespace AppTransporte.model
 
             return tractos;
         }
+        public async Task<List<TipoUsuario>> ObtenerTiposUsuarioAsync()
+        {
+            var tiposUsuario = new List<TipoUsuario>();
+
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("SELECT id_tipoUsuario, descripcion FROM Tipo_Usuario ORDER BY descripcion", connection))
+                    {
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                tiposUsuario.Add(new TipoUsuario
+                                {
+                                    IdTipoUsuario = reader.GetInt32("id_tipoUsuario"),
+                                    descripcion = reader.GetString("descripcion")
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener tipos de usuario: {ex.Message}");
+                throw; 
+            }
+
+            return tiposUsuario;
+        }
+        public async Task<int> AgregarTrabajadorConEstadoAsync(
+                string nombre,
+                string apePaterno,
+                string apeMaterno,
+                int idTipoDoc,
+                string numDoc,
+                string telefono,
+                string direccion,
+                string email,
+                int idCat,
+                string? licencia,
+                bool estado)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_AgregarTrabajadorConEstado", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@Nombre", nombre);
+                    command.Parameters.AddWithValue("@apePaterno", string.IsNullOrWhiteSpace(apePaterno) ? (object)DBNull.Value : apePaterno);
+                    command.Parameters.AddWithValue("@apeMaterno", string.IsNullOrWhiteSpace(apeMaterno) ? (object)DBNull.Value : apeMaterno);
+                    command.Parameters.AddWithValue("@id_tipoDoc", idTipoDoc);
+                    command.Parameters.AddWithValue("@numDoc", numDoc);
+                    command.Parameters.AddWithValue("@Telefono", telefono);
+                    command.Parameters.AddWithValue("@direccion", direccion);
+                    command.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(email) ? (object)DBNull.Value : email);
+                    command.Parameters.AddWithValue("@id_categoria", idCat);
+                    command.Parameters.AddWithValue("@licencia", string.IsNullOrWhiteSpace(licencia) ? (object)DBNull.Value : licencia);
+                    command.Parameters.AddWithValue("@estado", estado);
+
+                    // Ejecutar el procedimiento almacenado
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+        public async Task<int> ModificarTrabajadorConEstadoAsync(
+                        int id_trabajador,
+                        string nombre,
+                        string apePaterno,
+                        string apeMaterno,
+                        int idTipoDoc,
+                        string numDoc,
+                        string telefono,
+                        string direccion,
+                        string email,
+                        int idCategoria,
+                        string? licencia,
+                        bool estado)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("pa_ModificarTrabajadorConEstado", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id_trabajador", id_trabajador);
+                    command.Parameters.AddWithValue("@Nombre", nombre);
+                    command.Parameters.AddWithValue("@apePaterno", string.IsNullOrWhiteSpace(apePaterno) ? (object)DBNull.Value : apePaterno);
+                    command.Parameters.AddWithValue("@apeMaterno", string.IsNullOrWhiteSpace(apeMaterno) ? (object)DBNull.Value : apeMaterno);
+                    command.Parameters.AddWithValue("@id_tipoDoc", idTipoDoc);
+                    command.Parameters.AddWithValue("@numDoc", numDoc);
+                    command.Parameters.AddWithValue("@Telefono", telefono);
+                    command.Parameters.AddWithValue("@direccion", direccion);
+                    command.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(email) ? (object)DBNull.Value : email);
+                    command.Parameters.AddWithValue("@id_categoria", idCategoria);
+                    command.Parameters.AddWithValue("@licencia", string.IsNullOrWhiteSpace(licencia) ? (object)DBNull.Value : licencia);
+                    command.Parameters.AddWithValue("@estado", estado);
+
+                    // Ejecutar el procedimiento almacenado
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+
     }
-    }
+}
 
 

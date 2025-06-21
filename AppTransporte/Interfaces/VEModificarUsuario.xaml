@@ -42,6 +42,13 @@
                                FontSize="Medium" />
                     </Frame>
 
+                    <!-- Indicador de carga -->
+                    <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                       IsVisible="{Binding IsBusy}"
+                                       Color="#cb4335"
+                                       HorizontalOptions="Center"
+                                       Margin="0,10" />
+
                     <!-- Campos para actualizar usuario -->
                     <VerticalStackLayout Margin="0,10,20,0" Spacing="15">
                         <!-- Campo Username -->
@@ -59,7 +66,6 @@
                                    TextColor="Black" />
                         </Grid>
 
-    
                         <!-- Campo Contraseña -->
                         <Grid ColumnDefinitions=".2*,.8*">
                             <Image WidthRequest="40"
@@ -87,7 +93,6 @@
                             </Grid>
                         </Grid>
 
-
                         <!-- Campo Tipo de Usuario -->
                         <Grid ColumnDefinitions=".2*,.8*">
                             <Image WidthRequest="40"
@@ -99,12 +104,9 @@
                                     x:Name="tipoUsuario_picker"
                                     Title="Seleccione tipo de usuario"
                                     FontFamily="Comf-Bold"
-                                    TextColor="Black">
-                                <Picker.Items>
-                                    <x:String>Administrador</x:String>
-                                    <x:String>Cliente</x:String>
-                                    <x:String>Empleado</x:String>
-                                </Picker.Items>
+                                    TextColor="Black"
+                                    ItemsSource="{Binding TiposUsuario}"
+                                    ItemDisplayBinding="{Binding descripcion}">
                             </Picker>
                         </Grid>
 
@@ -138,7 +140,6 @@
                             <Label Grid.Column="1"
                                     Margin="10"
                                     x:Name="persona_label"
-                                  
                                     FontFamily="Comf-Bold"
                                     TextColor="Black">
                             </Label>
@@ -158,27 +159,11 @@
                                     TextColor="Black">
                             </Picker>
                         </Grid>
-
-                        <!-- Campo original para servicios (oculto) -->
-                        <Grid ColumnDefinitions=".2*,.8*" IsVisible="False">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   HorizontalOptions="Center"
-                                   Source=".png" />
-                            <Entry PlaceholderColor="#515a5a"
-                                   Grid.Column="1"
-                                   Margin="10"
-                                   x:Name="descripcion_entry"
-                                   Placeholder="Nombre del Servicio"
-                                   FontFamily="Comf-Bold"
-                                   TextColor="Black" />
-                        </Grid>
                     </VerticalStackLayout>
 
                     <HorizontalStackLayout Margin="30"
                            Spacing="40"
                            HorizontalOptions="Center">
-
                         <Button Text="Actualizar Usuario"
                                 x:Name="ActualizarUsuario"
                                 HeightRequest="50"

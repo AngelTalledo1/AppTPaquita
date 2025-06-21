@@ -23,11 +23,15 @@ namespace AppTransporte.model
         public string? licencia { get; set; } = string.Empty;
         public string usuario { get; set; } = string.Empty;
         public string password { get; set; } = string.Empty;
+
+        // AGREGAR ESTA PROPIEDAD PARA EL ESTADO
+        public bool estado { get; set; } = true;
+
         public string NombreCompleto => $"{Nombre} {apePaterno} {apeMaterno}".Trim();
         public string NombreTrabajador => $"{Nombre} {apePaterno}".Trim();
         public string apellidoTrabajador => $"{apePaterno} {apeMaterno}".Trim();
 
-        // AGREGAR ESTAS DOS PROPIEDADES:
+        // PROPIEDADES PARA ASIGNAR VIAJE CON ESTADO
         public string EstadoDescripcion { get; set; } = "Disponible";
         public string NombreTrabajadorConEstado
         {
@@ -37,7 +41,5 @@ namespace AppTransporte.model
                 return $"{nombre} ({EstadoDescripcion})";
             }
         }
-
-        
     }
 }

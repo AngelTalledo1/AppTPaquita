@@ -6,6 +6,7 @@ using System.Linq;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.Maui.Controls;
+using AppTransporte.model;
 
 namespace AppTransporte.Interfaces
 {
@@ -17,6 +18,12 @@ namespace AppTransporte.Interfaces
         private DataTable _resumenPedidos;
         private DataTable _detallePedidos;
         private List<string> _tiposPedido;
+        private DateTime? _fechaDesde;
+        private DateTime? _fechaHasta;
+        private string _empresaRUC = "";
+        private string _empresaTelefono = "";
+        private string _empresaNombre = "";
+        private byte[] _empresaLogo = null;
 
         public VistaReportePedidosCliente(int idCliente, int idUsuario, int idTipoUsuario)
         {
@@ -25,8 +32,62 @@ namespace AppTransporte.Interfaces
             _idUsuario = idUsuario;
             _idTipoUsuario = idTipoUsuario;
 
+            InicializarControles();
             CargarTiposPedido();
+            CargarDatosEmpresa();
             CargarReporte();
+        }
+
+        private async void CargarDatosEmpresa()
+        {
+            try
+            {
+                _empresaRUC = "20102423985";
+                _empresaTelefono = "981 229 253";
+                _empresaNombre = "Transportes Paquita S.R.L.";
+            }
+            
+            catch (Exception ex)
+            {
+                // Usar valores por defecto
+                _empresaRUC = "20102423985";
+                _empresaTelefono = "981 229 253";
+                _empresaNombre = "Transportes Paquita S.R.L.";
+            }
+        }
+        private async Task CargarLogoEmpresa()
+        {
+            try
+            {
+                    var stream = await FileSystem.OpenAppPackageFileAsync("Resources/Images/paquita.png");
+                    if (stream != null)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await stream.CopyToAsync(memoryStream);
+                            _empresaLogo = memoryStream.ToArray();
+                            System.Diagnostics.Debug.WriteLine("Logo cargado desde Resources/Images/");
+                            return;
+                        }
+                    }
+                }
+                catch (Exception ex2)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Opción 2 falló: {ex2.Message}");
+                }
+            }
+
+        private void InicializarControles()
+        {
+            // Configurar fechas por defecto (últimos 30 días)
+            fechaHastaPicker.Date = DateTime.Today;
+            fechaDesdePicker.Date = DateTime.Today.AddDays(-30);
+
+            // Establecer fechas iniciales
+            _fechaDesde = fechaDesdePicker.Date;
+            _fechaHasta = fechaHastaPicker.Date;
+
+            ActualizarLabelPeriodo();
         }
 
         private void CargarTiposPedido()
@@ -43,7 +104,8 @@ namespace AppTransporte.Interfaces
             tipoPedidoPicker.ItemsSource = _tiposPedido;
             tipoPedidoPicker.SelectedIndex = 0;
         }
-        private async void CargarReporte(string tipoPedido = null)
+
+        private async void CargarReporte(string tipoPedido = null, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
         {
             try
             {
@@ -55,7 +117,16 @@ namespace AppTransporte.Interfaces
                     tipoSeleccionado = null;
                 }
 
-                var resultado = await Task.Run(() => App.Database.ObtenerReportePedidosPorCliente(_idCliente, tipoSeleccionado));
+                // Usar las fechas proporcionadas o las del control
+                DateTime? fechaDesdeParam = fechaDesde ?? _fechaDesde;
+                DateTime? fechaHastaParam = fechaHasta ?? _fechaHasta;
+
+                var resultado = await Task.Run(() => App.Database.ObtenerReportePedidosPorClienteAsync(
+                    _idCliente,
+                    tipoSeleccionado,
+                    fechaDesdeParam,
+                    fechaHastaParam));
+
                 _resumenPedidos = resultado.ResumenPedidos;
                 _detallePedidos = resultado.DetallePedidos;
 
@@ -76,7 +147,6 @@ namespace AppTransporte.Interfaces
                     }).ToList();
 
                 // Procesar directamente la tabla de detalle
-                // Asegúrate de que los nombres de las columnas coincidan con los de la consulta SQL
                 var detalleItems = new List<object>();
                 if (_detallePedidos != null && _detallePedidos.Rows.Count > 0)
                 {
@@ -102,11 +172,9 @@ namespace AppTransporte.Interfaces
                 resumenCollectionView.ItemsSource = resumenItems;
                 detalleCollectionView.ItemsSource = detalleItems;
 
-                // Depuración: verificar si hay elementos en la lista de detalle
-                Console.WriteLine($"Elementos en detalleItems: {detalleItems.Count}");
-
                 // Actualizar resumen
                 ActualizarResumen();
+                ActualizarLabelPeriodo();
             }
             catch (Exception ex)
             {
@@ -120,8 +188,24 @@ namespace AppTransporte.Interfaces
             }
         }
 
-
-
+        private void ActualizarLabelPeriodo()
+        {
+            if (_fechaDesde.HasValue && _fechaHasta.HasValue)
+            {
+                if (_fechaDesde.Value.Date == _fechaHasta.Value.Date)
+                {
+                    PeriodoLabel.Text = _fechaDesde.Value.ToString("dd/MM/yyyy");
+                }
+                else
+                {
+                    PeriodoLabel.Text = $"{_fechaDesde.Value:dd/MM/yyyy} - {_fechaHasta.Value:dd/MM/yyyy}";
+                }
+            }
+            else
+            {
+                PeriodoLabel.Text = "Todos";
+            }
+        }
 
         private List<dynamic> ConvertirDataTableALista(DataTable dt)
         {
@@ -153,8 +237,14 @@ namespace AppTransporte.Interfaces
                 TotalPedidosLabel.Text = totalPedidos.ToString();
                 VolumenTotalLabel.Text = volumenTotal.ToString();
             }
+            else
+            {
+                TotalPedidosLabel.Text = "0";
+                VolumenTotalLabel.Text = "0";
+            }
         }
 
+        // Eventos de controles
         private void Btn_atras(object sender, EventArgs e)
         {
             Navigation.PopAsync();
@@ -163,13 +253,62 @@ namespace AppTransporte.Interfaces
         private void TipoPedido_SelectedIndexChanged(object sender, EventArgs e)
         {
             string tipoPedidoSeleccionado = tipoPedidoPicker.SelectedItem?.ToString();
-            CargarReporte(tipoPedidoSeleccionado);
+            CargarReporte(tipoPedidoSeleccionado, _fechaDesde, _fechaHasta);
+        }
+
+        private void FechaDesde_DateSelected(object sender, DateChangedEventArgs e)
+        {
+            _fechaDesde = e.NewDate;
+
+            // Validar que fecha desde no sea mayor que fecha hasta
+            if (_fechaHasta.HasValue && _fechaDesde > _fechaHasta)
+            {
+                _fechaHasta = _fechaDesde;
+                fechaHastaPicker.Date = _fechaDesde.Value;
+            }
+
+            string tipoPedidoSeleccionado = tipoPedidoPicker.SelectedItem?.ToString();
+            CargarReporte(tipoPedidoSeleccionado, _fechaDesde, _fechaHasta);
+        }
+
+        private void FechaHasta_DateSelected(object sender, DateChangedEventArgs e)
+        {
+            _fechaHasta = e.NewDate;
+
+            // Validar que fecha hasta no sea menor que fecha desde
+            if (_fechaDesde.HasValue && _fechaHasta < _fechaDesde)
+            {
+                _fechaDesde = _fechaHasta;
+                fechaDesdePicker.Date = _fechaHasta.Value;
+            }
+
+            string tipoPedidoSeleccionado = tipoPedidoPicker.SelectedItem?.ToString();
+            CargarReporte(tipoPedidoSeleccionado, _fechaDesde, _fechaHasta);
+        }
+
+        private void LimpiarFiltros_Clicked(object sender, EventArgs e)
+        {
+            // Limpiar filtros de fecha
+            _fechaDesde = null;
+            _fechaHasta = null;
+
+            // Resetear controles
+            fechaDesdePicker.Date = DateTime.Today.AddDays(-30);
+            fechaHastaPicker.Date = DateTime.Today;
+            tipoPedidoPicker.SelectedIndex = 0;
+
+            // Establecer nuevas fechas por defecto
+            _fechaDesde = fechaDesdePicker.Date;
+            _fechaHasta = fechaHastaPicker.Date;
+
+            // Recargar con filtros limpiados
+            CargarReporte("Todos los tipos", _fechaDesde, _fechaHasta);
         }
 
         private async void ActualizarReporte_Clicked(object sender, EventArgs e)
         {
             string tipoPedidoSeleccionado = tipoPedidoPicker.SelectedItem?.ToString();
-            CargarReporte(tipoPedidoSeleccionado);
+            CargarReporte(tipoPedidoSeleccionado, _fechaDesde, _fechaHasta);
         }
 
         private async void ExportarPDF_Clicked(object sender, EventArgs e)
@@ -253,12 +392,17 @@ namespace AppTransporte.Interfaces
                 iTextSharp.text.Font normalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12);
                 iTextSharp.text.Font subtitleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
                 iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
+                iTextSharp.text.Font empresaFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
+
                 iTextSharp.text.BaseColor headerColor = new iTextSharp.text.BaseColor(220, 220, 220);
 
-                // Añadir título
+                AgregarEncabezadoEmpresarial(document, normalFont, empresaFont);
+
+                // Añadir título del reporte
                 iTextSharp.text.Paragraph titulo = new iTextSharp.text.Paragraph("Reporte de Pedidos", titleFont);
                 titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
                 titulo.SpacingAfter = 20;
+                titulo.SpacingBefore = 10;
                 document.Add(titulo);
 
                 // Añadir información del cliente y fecha
@@ -266,6 +410,11 @@ namespace AppTransporte.Interfaces
                 document.Add(new iTextSharp.text.Paragraph($"Fecha de generación: {DateTime.Now:dd/MM/yyyy HH:mm}", normalFont));
                 string tipoSeleccionado = tipoPedidoPicker.SelectedItem?.ToString();
                 document.Add(new iTextSharp.text.Paragraph($"Tipo de pedido: {tipoSeleccionado ?? "Todos"}", normalFont));
+
+                // Añadir información de período
+                string periodoTexto = _fechaDesde.HasValue && _fechaHasta.HasValue ?
+                    $"{_fechaDesde.Value:dd/MM/yyyy} - {_fechaHasta.Value:dd/MM/yyyy}" : "Todos";
+                document.Add(new iTextSharp.text.Paragraph($"Período: {periodoTexto}", normalFont));
                 document.Add(new iTextSharp.text.Paragraph(" "));
 
                 // Añadir resumen general
@@ -288,11 +437,15 @@ namespace AppTransporte.Interfaces
                 resumenTable.AddCell(headerCell2);
 
                 // Datos del resumen
-                int totalPedidos = _resumenPedidos.AsEnumerable().Sum(r => Convert.ToInt32(r["CantidadPedidos"]));
-                int volumenTotal = _resumenPedidos.AsEnumerable().Sum(r => Convert.ToInt32(r["VolumenTotal"]));
+                if (_resumenPedidos != null && _resumenPedidos.Rows.Count > 0)
+                {
+                    int totalPedidos = _resumenPedidos.AsEnumerable().Sum(r => Convert.ToInt32(r["CantidadPedidos"]));
+                    int volumenTotal = _resumenPedidos.AsEnumerable().Sum(r => Convert.ToInt32(r["VolumenTotal"]));
 
-                AgregarFilaTabla(resumenTable, "Total de Pedidos", totalPedidos.ToString(), normalFont);
-                AgregarFilaTabla(resumenTable, "Volumen Total", volumenTotal.ToString() + " L", normalFont);
+                    AgregarFilaTabla(resumenTable, "Total de Pedidos", totalPedidos.ToString(), normalFont);
+                    AgregarFilaTabla(resumenTable, "Volumen Total", volumenTotal.ToString() + " L", normalFont);
+                    AgregarFilaTabla(resumenTable, "Período", periodoTexto, normalFont);
+                }
 
                 document.Add(resumenTable);
 
@@ -314,23 +467,26 @@ namespace AppTransporte.Interfaces
                 AgregarCeldaEncabezado(estadoTable, "Viajes Prom.", headerFont, headerColor);
 
                 // Filas de datos de estados
-                bool colorAlternadoResumen = false;
-                foreach (System.Data.DataRow row in _resumenPedidos.Rows)
+                if (_resumenPedidos != null && _resumenPedidos.Rows.Count > 0)
                 {
-                    iTextSharp.text.BaseColor bgColor = colorAlternadoResumen ?
-                        new iTextSharp.text.BaseColor(245, 245, 245) : iTextSharp.text.BaseColor.WHITE;
-                    colorAlternadoResumen = !colorAlternadoResumen;
+                    bool colorAlternadoResumen = false;
+                    foreach (System.Data.DataRow row in _resumenPedidos.Rows)
+                    {
+                        iTextSharp.text.BaseColor bgColor = colorAlternadoResumen ?
+                            new iTextSharp.text.BaseColor(245, 245, 245) : iTextSharp.text.BaseColor.WHITE;
+                        colorAlternadoResumen = !colorAlternadoResumen;
 
-                    string estado = row["EstadoPedido"].ToString();
-                    int cantidad = Convert.ToInt32(row["CantidadPedidos"]);
-                    int volumen = Convert.ToInt32(row["VolumenTotal"]);
-                    double promedio = _resumenPedidos.Columns.Contains("PromedioViajes") ?
-                        Convert.ToDouble(row["PromedioViajes"]) : 1.0;
+                        string estado = row["EstadoPedido"].ToString();
+                        int cantidad = Convert.ToInt32(row["CantidadPedidos"]);
+                        int volumen = Convert.ToInt32(row["VolumenTotal"]);
+                        double promedio = _resumenPedidos.Columns.Contains("PromedioViajes") ?
+                            Convert.ToDouble(row["PromedioViajes"]) : 1.0;
 
-                    AgregarCeldaDetalle(estadoTable, estado, normalFont, bgColor, iTextSharp.text.Element.ALIGN_LEFT);
-                    AgregarCeldaDetalle(estadoTable, cantidad.ToString(), normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
-                    AgregarCeldaDetalle(estadoTable, volumen.ToString() + " L", normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
-                    AgregarCeldaDetalle(estadoTable, promedio.ToString("F1"), normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
+                        AgregarCeldaDetalle(estadoTable, estado, normalFont, bgColor, iTextSharp.text.Element.ALIGN_LEFT);
+                        AgregarCeldaDetalle(estadoTable, cantidad.ToString(), normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
+                        AgregarCeldaDetalle(estadoTable, volumen.ToString() + " L", normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
+                        AgregarCeldaDetalle(estadoTable, promedio.ToString("F1"), normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
+                    }
                 }
 
                 document.Add(estadoTable);
@@ -354,37 +510,31 @@ namespace AppTransporte.Interfaces
                 AgregarCeldaEncabezado(detalleTable, "Completado", headerFont, headerColor);
 
                 // Filas de datos de detalle
-                bool colorAlternadoDetalle = false;
-                foreach (System.Data.DataRow row in _detallePedidos.Rows)
+                if (_detallePedidos != null && _detallePedidos.Rows.Count > 0)
                 {
-                    iTextSharp.text.BaseColor bgColor = colorAlternadoDetalle ?
-                        new iTextSharp.text.BaseColor(245, 245, 245) : iTextSharp.text.BaseColor.WHITE;
-                    colorAlternadoDetalle = !colorAlternadoDetalle;
+                    bool colorAlternadoDetalle = false;
+                    foreach (System.Data.DataRow row in _detallePedidos.Rows)
+                    {
+                        iTextSharp.text.BaseColor bgColor = colorAlternadoDetalle ?
+                            new iTextSharp.text.BaseColor(245, 245, 245) : iTextSharp.text.BaseColor.WHITE;
+                        colorAlternadoDetalle = !colorAlternadoDetalle;
 
-                    // Verificar y obtener valores según los nombres de columna disponibles
-                    string id = row.Table.Columns.Contains("id_pedido") ? row["id_pedido"].ToString() :
-                              (row.Table.Columns.Contains("pedido") ? row["pedido"].ToString() : "");
+                        string id = row.Table.Columns.Contains("id_pedido") ? row["id_pedido"].ToString() : "";
+                        string origen = row.Table.Columns.Contains("origen") ? row["origen"]?.ToString() ?? "" : "";
+                        string destino = row.Table.Columns.Contains("destino") ? row["destino"]?.ToString() ?? "" : "";
+                        string origenDestino = $"{origen} → {destino}";
+                        string estado = row.Table.Columns.Contains("estado") ? row["estado"]?.ToString() ?? "" : "";
+                        string cantidad = row.Table.Columns.Contains("cantidad") ? row["cantidad"]?.ToString() ?? "0" : "0";
+                        string viajes = row.Table.Columns.Contains("viajes") ? row["viajes"]?.ToString() ?? "1" : "1";
+                        string completado = row.Table.Columns.Contains("completado") ? row["completado"]?.ToString() ?? "No" : "No";
 
-                    string origen = row.Table.Columns.Contains("origen") ? row["origen"]?.ToString() ?? "" : "";
-                    string destino = row.Table.Columns.Contains("destino") ? row["destino"]?.ToString() ?? "" : "";
-                    string origenDestino = $"{origen} → {destino}";
-
-                    string estado = row.Table.Columns.Contains("estado") ? row["estado"]?.ToString() ?? "" : "";
-
-                    string cantidad = row.Table.Columns.Contains("cantidad") ?
-                                    row["cantidad"]?.ToString() ?? "0" : "0";
-
-                    string viajes = row.Table.Columns.Contains("viajes") ? row["viajes"]?.ToString() ?? "1" :
-                                   (row.Table.Columns.Contains("total_viajes") ? row["total_viajes"]?.ToString() ?? "1" : "1");
-
-                    string completado = row.Table.Columns.Contains("completado") ? row["completado"]?.ToString() ?? "No" : "No";
-
-                    AgregarCeldaDetalle(detalleTable, id, normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
-                    AgregarCeldaDetalle(detalleTable, origenDestino, normalFont, bgColor, iTextSharp.text.Element.ALIGN_LEFT);
-                    AgregarCeldaDetalle(detalleTable, estado, normalFont, bgColor, iTextSharp.text.Element.ALIGN_LEFT);
-                    AgregarCeldaDetalle(detalleTable, cantidad, normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
-                    AgregarCeldaDetalle(detalleTable, viajes, normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
-                    AgregarCeldaDetalle(detalleTable, completado, normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
+                        AgregarCeldaDetalle(detalleTable, id, normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
+                        AgregarCeldaDetalle(detalleTable, origenDestino, normalFont, bgColor, iTextSharp.text.Element.ALIGN_LEFT);
+                        AgregarCeldaDetalle(detalleTable, estado, normalFont, bgColor, iTextSharp.text.Element.ALIGN_LEFT);
+                        AgregarCeldaDetalle(detalleTable, cantidad, normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
+                        AgregarCeldaDetalle(detalleTable, viajes, normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
+                        AgregarCeldaDetalle(detalleTable, completado, normalFont, bgColor, iTextSharp.text.Element.ALIGN_CENTER);
+                    }
                 }
 
                 document.Add(detalleTable);
@@ -402,7 +552,91 @@ namespace AppTransporte.Interfaces
                 return ms.ToArray();
             }
         }
+        private void AgregarEncabezadoEmpresarial(iTextSharp.text.Document document, iTextSharp.text.Font normalFont, iTextSharp.text.Font empresaFont)
+        {
+            try
+            {
+                // Crear tabla para el encabezado (logo + datos empresa)
+                iTextSharp.text.pdf.PdfPTable encabezadoTable = new iTextSharp.text.pdf.PdfPTable(2);
+                encabezadoTable.WidthPercentage = 100;
+                encabezadoTable.SetWidths(new float[] { 1f, 3f }); // Logo más pequeño, datos más grandes
+                encabezadoTable.SpacingAfter = 20;
 
+                // Celda del logo
+                iTextSharp.text.pdf.PdfPCell logoCell = new iTextSharp.text.pdf.PdfPCell();
+                logoCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+                logoCell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
+                logoCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+
+                if (_empresaLogo != null && _empresaLogo.Length > 0)
+                {
+                    try
+                    {
+                        iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(_empresaLogo);
+                        // Redimensionar logo para que no sea muy grande
+                        float maxWidth = 80f;
+                        float maxHeight = 60f;
+                        logo.ScaleToFit(maxWidth, maxHeight);
+                        logoCell.AddElement(logo);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Error al agregar logo: {ex.Message}");
+                        // Si falla el logo, agregar texto alternativo
+                        logoCell.AddElement(new iTextSharp.text.Paragraph("LOGO", empresaFont));
+                    }
+                }
+                else
+                {
+                    // Si no hay logo, mostrar placeholder
+                    logoCell.AddElement(new iTextSharp.text.Paragraph("LOGO", empresaFont));
+                }
+
+                // Celda de información de la empresa
+                iTextSharp.text.pdf.PdfPCell infoCell = new iTextSharp.text.pdf.PdfPCell();
+                infoCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+                infoCell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
+                infoCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+
+                // Agregar información de la empresa
+                iTextSharp.text.Paragraph empresaNombre = new iTextSharp.text.Paragraph(_empresaNombre, normalFont);
+                empresaNombre.SpacingAfter = 5;
+                infoCell.AddElement(empresaNombre);
+
+                iTextSharp.text.Paragraph rucInfo = new iTextSharp.text.Paragraph($"RUC: {_empresaRUC}", empresaFont);
+                rucInfo.SpacingAfter = 3;
+                infoCell.AddElement(rucInfo);
+
+                iTextSharp.text.Paragraph telefonoInfo = new iTextSharp.text.Paragraph($"Teléfono: {_empresaTelefono}", empresaFont);
+                infoCell.AddElement(telefonoInfo);
+
+                // Agregar celdas a la tabla
+                encabezadoTable.AddCell(logoCell);
+                encabezadoTable.AddCell(infoCell);
+
+                // Agregar tabla al documento
+                document.Add(encabezadoTable);
+
+                // Línea separadora
+                iTextSharp.text.pdf.PdfPTable lineaTable = new iTextSharp.text.pdf.PdfPTable(1);
+                lineaTable.WidthPercentage = 100;
+                lineaTable.SpacingAfter = 15;
+
+                iTextSharp.text.pdf.PdfPCell lineaCell = new iTextSharp.text.pdf.PdfPCell();
+                lineaCell.Border = iTextSharp.text.Rectangle.BOTTOM_BORDER;
+                lineaCell.BorderWidth = 1f;
+                lineaCell.BorderColor = new iTextSharp.text.BaseColor(200, 200, 200);
+                lineaCell.FixedHeight = 1f;
+
+                lineaTable.AddCell(lineaCell);
+                document.Add(lineaTable);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al crear encabezado empresarial: {ex.Message}");
+                // Si falla, continuar sin encabezado empresarial
+            }
+        }
 
         private void AgregarFilaTabla(iTextSharp.text.pdf.PdfPTable table, string columna1, string columna2, iTextSharp.text.Font font)
         {

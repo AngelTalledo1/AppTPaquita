@@ -13,10 +13,13 @@ namespace AppTransporte.viewModel
     internal class VMUsuario : INotifyPropertyChanged
     {
         public ObservableCollection<Usuario> Usuarios { get; set; } = new();
+        public ObservableCollection<Usuario> UsuariosFiltrados { get; set; } = new();
+
         public event PropertyChangedEventHandler? PropertyChanged;
+
         private bool isBusy;
-        private bool mostrarSoloActivos = true; // Por defecto, solo mostrar usuarios activos
-        private string textoBusqueda;
+        private bool mostrarSoloActivos = true;
+        private string textoBusqueda = "";
 
         public bool IsBusy
         {
@@ -46,7 +49,7 @@ namespace AppTransporte.viewModel
             {
                 textoBusqueda = value;
                 OnPropertyChanged(nameof(TextoBusqueda));
-                // Aquí podrías implementar la búsqueda
+                FiltrarUsuarios();
             }
         }
 
@@ -58,22 +61,58 @@ namespace AppTransporte.viewModel
         private async void CargarUsuarios()
         {
             IsBusy = true;
-
-            // Pasar el filtro de estado (null para todos, true para activos)
-            var usuarios = await App.Database.ObtenerUsuariosAsync(MostrarSoloActivos ? true : (bool?)null);
-
-            Usuarios.Clear();
-            foreach (var usuario in usuarios)
+            try
             {
-                Usuarios.Add(usuario);
+                // Pasar el filtro de estado (null para todos, true para activos)
+                var usuarios = await App.Database.ObtenerUsuariosAsync(MostrarSoloActivos ? true : (bool?)null);
+
+                Usuarios.Clear();
+                foreach (var usuario in usuarios)
+                {
+                    Usuarios.Add(usuario);
+                }
+
+                FiltrarUsuarios();
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores si es necesario
+                System.Diagnostics.Debug.WriteLine($"Error al cargar usuarios: {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private void FiltrarUsuarios()
+        {
+            UsuariosFiltrados.Clear();
+
+            var usuariosFiltrados = Usuarios.AsEnumerable();
+
+            // Aplicar filtro de búsqueda si hay texto
+            if (!string.IsNullOrWhiteSpace(TextoBusqueda))
+            {
+                string busqueda = TextoBusqueda.ToLower().Trim();
+                usuariosFiltrados = usuariosFiltrados.Where(u =>
+                    (u.Username?.ToLower().Contains(busqueda) ?? false) ||
+                    (u.Nombres?.ToLower().Contains(busqueda) ?? false) ||
+                    (u.Apellidos?.ToLower().Contains(busqueda) ?? false) ||
+                    ($"{u.Nombres} {u.Apellidos}".ToLower().Contains(busqueda))
+                );
             }
 
-            IsBusy = false;
+            foreach (var usuario in usuariosFiltrados)
+            {
+                UsuariosFiltrados.Add(usuario);
+            }
         }
 
         public async Task ActualizarDatos()
         {
             Usuarios.Clear();
+            UsuariosFiltrados.Clear();
             CargarUsuarios();
         }
 

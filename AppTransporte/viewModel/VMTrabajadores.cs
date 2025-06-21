@@ -16,6 +16,7 @@ namespace AppTransporte.viewModel
         private string _categoriaSeleccionada = "Todos";
         private string _searchText = "";
         private bool _isBusy = false;
+        private bool _mostrarSoloActivos = true; // NUEVO FILTRO
 
         // Propiedades públicas
         public ObservableCollection<Trabajador> Trabajadores
@@ -61,6 +62,21 @@ namespace AppTransporte.viewModel
                 {
                     _searchText = value;
                     OnPropertyChanged(nameof(SearchText));
+                    FiltrarTrabajadores();
+                }
+            }
+        }
+
+        // NUEVA PROPIEDAD PARA FILTRO DE ACTIVOS
+        public bool MostrarSoloActivos
+        {
+            get => _mostrarSoloActivos;
+            set
+            {
+                if (_mostrarSoloActivos != value)
+                {
+                    _mostrarSoloActivos = value;
+                    OnPropertyChanged(nameof(MostrarSoloActivos));
                     FiltrarTrabajadores();
                 }
             }
@@ -113,7 +129,7 @@ namespace AppTransporte.viewModel
                 System.Diagnostics.Debug.WriteLine("=== TRABAJADORES Y SUS CATEGORÍAS ===");
                 foreach (var trabajador in _todosTrabajadores.Take(5))
                 {
-                    System.Diagnostics.Debug.WriteLine($"Trabajador: {trabajador.NombreTrabajador} - Categoría: '{trabajador.categoria}'");
+                    System.Diagnostics.Debug.WriteLine($"Trabajador: {trabajador.NombreTrabajador} - Categoría: '{trabajador.categoria}' - Estado: {trabajador.estado}");
                 }
             }
             catch (Exception ex)
@@ -171,7 +187,14 @@ namespace AppTransporte.viewModel
                 // DEBUG: Mostrar qué estamos filtrando
                 System.Diagnostics.Debug.WriteLine($"=== FILTRANDO ===");
                 System.Diagnostics.Debug.WriteLine($"Categoría seleccionada: '{CategoriaSeleccionada}'");
+                System.Diagnostics.Debug.WriteLine($"Solo activos: {MostrarSoloActivos}");
                 System.Diagnostics.Debug.WriteLine($"Total trabajadores antes del filtro: {_todosTrabajadores.Count}");
+
+                // NUEVO FILTRO: Solo activos
+                if (MostrarSoloActivos)
+                {
+                    trabajadoresFiltrados = trabajadoresFiltrados.Where(t => t.estado);
+                }
 
                 // Filtrar por categoría
                 if (!string.IsNullOrEmpty(CategoriaSeleccionada) && CategoriaSeleccionada != "Todos")
@@ -209,7 +232,7 @@ namespace AppTransporte.viewModel
                 System.Diagnostics.Debug.WriteLine($"Trabajadores después del filtro: {resultados.Count}");
                 foreach (var trabajador in resultados.Take(3))
                 {
-                    System.Diagnostics.Debug.WriteLine($"- {trabajador.NombreTrabajador} ({trabajador.categoria})");
+                    System.Diagnostics.Debug.WriteLine($"- {trabajador.NombreTrabajador} ({trabajador.categoria}) - Estado: {trabajador.estado}");
                 }
 
                 // Actualizar la colección

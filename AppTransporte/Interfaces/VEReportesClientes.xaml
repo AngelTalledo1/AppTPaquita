@@ -52,7 +52,7 @@
                         <!-- Reporte de Trabajadores Asignados -->
                         <Button Text="Reporte de Trabajadores Asignados" 
                                 HeightRequest="55"
-                                BackgroundColor="#007AFF"
+                                BackgroundColor="#cb4335"
                                 TextColor="White"
                                 CornerRadius="10" 
                                 FontFamily="Comf-Medium"
@@ -61,7 +61,7 @@
                         <!-- Reporte de Pedidos -->
                         <Button Text="Reporte de Pedidos" 
                                 HeightRequest="55"
-                                BackgroundColor="#34C759"
+                                BackgroundColor="#cb4335"
                                 TextColor="White"
                                 CornerRadius="10"
                                 FontFamily="Comf-Medium"
@@ -70,7 +70,7 @@
                         <!-- Reporte de Desvíos -->
                         <Button Text="Reporte de Desvíos" 
                                 HeightRequest="55"
-                                BackgroundColor="#FF9500"
+                                BackgroundColor="#cb4335"
                                 TextColor="White"
                                 CornerRadius="10"
                                 FontFamily="Comf-Medium"
@@ -79,7 +79,7 @@
                         <!-- Reporte de Programación -->
                         <Button Text="Reporte de Programación" 
                                 HeightRequest="55"
-                                BackgroundColor="#5856D6"
+                                BackgroundColor="#cb4335"
                                 TextColor="White"
                                 CornerRadius="10"
                                 FontFamily="Comf-Medium"
@@ -88,7 +88,7 @@
                         <!-- Reporte de Trabajos por Trabajador -->
                         <Button Text="Reporte de Trabajos por Trabajador" 
                                 HeightRequest="55"
-                                BackgroundColor="#4A4A4A"
+                                BackgroundColor="#cb4335"
                                 TextColor="White"
                                 CornerRadius="10"
                                 FontFamily="Comf-Medium"

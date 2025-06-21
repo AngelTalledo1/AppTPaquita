@@ -1,53 +1,118 @@
 using AppTransporte.model;
 using AppTransporte.viewModel;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace AppTransporte.Interfaces;
 
-public partial class VEModificarUsuario : ContentPage
+public partial class VEModificarUsuario : ContentPage, INotifyPropertyChanged
 {
     public Usuario userContext { get; set; }
     private VMEmpresas vmEmpresas;
     private int _idUsuario;
     private int _idTipoUsuario;
-    private int? empresaSeleccionada;
     private bool passwordVisible = false;
+    private bool _isBusy = false;
+
+    // Propiedades para binding
+    public ObservableCollection<TipoUsuario> TiposUsuario { get; set; } = new();
+
+    public bool IsBusy
+    {
+        get => _isBusy;
+        set
+        {
+            _isBusy = value;
+            OnPropertyChanged(nameof(IsBusy));
+        }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     public VEModificarUsuario(Usuario usuario, int idUsuario, int idTipoUsuario)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
+
         userContext = usuario;
         this._idTipoUsuario = idUsuario;
         this._idUsuario = idTipoUsuario;
+
+        // Configurar el BindingContext ANTES de cargar datos
+        this.BindingContext = this;
+
+        // Configurar campos básicos
         username_entry.Text = usuario.Username;
         password_entry.Text = usuario.Contraseña;
         estado_switch.IsToggled = usuario.Estado;
         estado_label.Text = usuario.Estado ? "Activo" : "Inactivo";
         persona_label.Text = $"{usuario.Nombres} {usuario.Apellidos}";
+
         estado_switch.Toggled += (s, e) => {
             estado_label.Text = estado_switch.IsToggled ? "Activo" : "Inactivo";
         };
-        ConfigurarTipoUsuario(usuario.IdTipoUsuario);
-        CargarEmpresas(usuario.IdEmpresa);
 
+        // Cargar datos de forma asíncrona
+        CargarDatosAsync(usuario.IdTipoUsuario, usuario.IdEmpresa);
     }
-    private void ConfigurarTipoUsuario(int idTipoUsuario)
+
+    private async void CargarDatosAsync(int idTipoUsuarioActual, int? idEmpresaActual)
     {
-            switch (idTipoUsuario)
+        try
         {
-            case 1:
-                tipoUsuario_picker.SelectedIndex = 0; // Administrador
-                break;
-            case 2:
-                tipoUsuario_picker.SelectedIndex = 1; // Cliente
-                break;
-            case 3:
-                tipoUsuario_picker.SelectedIndex = 2; // Empleado
-                break;
-            default:
-                tipoUsuario_picker.SelectedIndex = -1;
-                break;
+            IsBusy = true;
+
+            // Cargar tipos de usuario y empresas en paralelo
+            var taskTipos = CargarTiposUsuarioAsync(idTipoUsuarioActual);
+            var taskEmpresas = CargarEmpresasAsync(idEmpresaActual);
+
+            await Task.WhenAll(taskTipos, taskEmpresas);
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Error al cargar datos: {ex.Message}", "OK");
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
-    private async void CargarEmpresas(int? idEmpresaUsuario = null)
+
+    private async Task CargarTiposUsuarioAsync(int idTipoUsuarioActual)
+    {
+        try
+        {
+            // Obtener tipos de usuario desde la base de datos
+            var tiposUsuarioBD = await App.Database.ObtenerTiposUsuarioAsync();
+
+            // Limpiar y agregar a la colección en el hilo principal
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                TiposUsuario.Clear();
+                foreach (var tipo in tiposUsuarioBD)
+                {
+                    TiposUsuario.Add(tipo);
+                }
+
+                // Seleccionar el tipo actual del usuario
+                var tipoActual = TiposUsuario.FirstOrDefault(t => t.IdTipoUsuario == idTipoUsuarioActual);
+                if (tipoActual != null)
+                {
+                    tipoUsuario_picker.SelectedItem = tipoActual;
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"No se pudieron cargar los tipos de usuario: {ex.Message}", "OK");
+        }
+    }
+
+    private async Task CargarEmpresasAsync(int? idEmpresaUsuario = null)
     {
         try
         {
@@ -55,26 +120,30 @@ public partial class VEModificarUsuario : ContentPage
             vmEmpresas = new VMEmpresas();
 
             // Esperar a que se carguen los datos
-            await Task.Delay(500); // Pequeña espera para asegurar que se carguen los datos
+            await Task.Delay(500);
 
-            // Limpiar items actuales
-            empresa_picker.Items.Clear();
-
-            // Agregar cada empresa al picker
-            foreach (var empresa in vmEmpresas.Empresas)
+            // Configurar en el hilo principal
+            Device.BeginInvokeOnMainThread(() =>
             {
-                empresa_picker.Items.Add(empresa.razonSocial);
-            }
+                // Limpiar items actuales
+                empresa_picker.Items.Clear();
 
-            // Si el usuario ya tenía una empresa asignada, seleccionarla
-            if (idEmpresaUsuario.HasValue)
-            {
-                var empresaIndex = vmEmpresas.Empresas.ToList().FindIndex(e => e.id_empresa == idEmpresaUsuario.Value);
-                if (empresaIndex >= 0)
+                // Agregar cada empresa al picker
+                foreach (var empresa in vmEmpresas.Empresas)
                 {
-                    empresa_picker.SelectedIndex = empresaIndex;
+                    empresa_picker.Items.Add(empresa.razonSocial);
                 }
-            }
+
+                // Si el usuario ya tenía una empresa asignada, seleccionarla
+                if (idEmpresaUsuario.HasValue)
+                {
+                    var empresaIndex = vmEmpresas.Empresas.ToList().FindIndex(e => e.id_empresa == idEmpresaUsuario.Value);
+                    if (empresaIndex >= 0)
+                    {
+                        empresa_picker.SelectedIndex = empresaIndex;
+                    }
+                }
+            });
         }
         catch (Exception ex)
         {
@@ -90,11 +159,11 @@ public partial class VEModificarUsuario : ContentPage
         // Cambiar el ícono del botón según el estado
         if (passwordVisible)
         {
-            ((Button)sender).ImageSource = "oculto.png"; // Icono para ocultar contraseña
+            ((Button)sender).ImageSource = "oculto.png";
         }
         else
         {
-            ((Button)sender).ImageSource = "mostrarcontra.png"; // Icono para mostrar contraseña
+            ((Button)sender).ImageSource = "mostrarcontra.png";
         }
     }
 
@@ -102,16 +171,24 @@ public partial class VEModificarUsuario : ContentPage
     {
         Navigation.PushAsync(new VEUsuarios(_idUsuario, _idTipoUsuario));
     }
+
     private async void btn_actualizarUsuario(object sender, EventArgs e)
     {
         try
         {
-            // Obtener el ID del tipo de usuario seleccionado
-            int idTipoUsuario = tipoUsuario_picker.SelectedIndex + 1; // Asumiendo que los índices coinciden con IDs
+            IsBusy = true;
+
+            // Validar que se haya seleccionado un tipo de usuario
+            var tipoUsuarioSeleccionado = tipoUsuario_picker.SelectedItem as TipoUsuario;
+            if (tipoUsuarioSeleccionado == null)
+            {
+                await DisplayAlert("Error", "Debe seleccionar un tipo de usuario", "OK");
+                return;
+            }
 
             // Obtener ID de empresa (si se seleccionó alguna)
             int? idEmpresa = null;
-            if (empresa_picker.SelectedIndex >= 0)
+            if (empresa_picker.SelectedIndex >= 0 && vmEmpresas?.Empresas != null)
             {
                 idEmpresa = vmEmpresas.Empresas[empresa_picker.SelectedIndex].id_empresa;
             }
@@ -121,7 +198,7 @@ public partial class VEModificarUsuario : ContentPage
                 userContext.IdUsuario,
                 username_entry.Text,
                 password_entry.Text,
-                idTipoUsuario,
+                tipoUsuarioSeleccionado.IdTipoUsuario,
                 estado_switch.IsToggled,
                 userContext.IdPersona,
                 idEmpresa);
@@ -140,6 +217,9 @@ public partial class VEModificarUsuario : ContentPage
         {
             await DisplayAlert("Error", $"Ocurrió un problema: {ex.Message}", "OK");
         }
-
+        finally
+        {
+            IsBusy = false;
+        }
     }
 }

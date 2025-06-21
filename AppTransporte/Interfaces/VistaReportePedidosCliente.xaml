@@ -31,7 +31,8 @@
         <Grid Grid.Row="1" RowDefinitions="Auto,*,Auto">
             <!-- Filtros y resumen -->
             <StackLayout Padding="15" BackgroundColor="#f8f9fa">
-                <Grid ColumnDefinitions="*,Auto">
+                <!-- Primera fila: Tipo de pedido y botón actualizar -->
+                <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,10">
                     <Frame BorderColor="#e0e0e0" BackgroundColor="White" Padding="0" CornerRadius="10">
                         <Picker x:Name="tipoPedidoPicker" 
                                 Title="Filtrar por tipo de pedido" 
@@ -50,9 +51,72 @@
                             Clicked="ActualizarReporte_Clicked"/>
                 </Grid>
 
+                <!-- Segunda fila: Filtros de fecha -->
+                <Frame BorderColor="#e0e0e0" BackgroundColor="White" Padding="15" CornerRadius="10" Margin="0,0,0,10">
+                    <Grid RowDefinitions="Auto,Auto">
+                        <Label Text="Filtrar por fechas :" 
+                               FontFamily="Comf-Bold" 
+                               TextColor="#333333"
+                               FontSize="14"
+                               Margin="0,0,0,10"/>
+
+                        <Grid Grid.Row="1" ColumnDefinitions="*,Auto,*,Auto">
+                            <!-- Fecha Desde -->
+                            <StackLayout>
+                                <Label Text="Desde:" 
+                                       FontFamily="Comf-Medium" 
+                                       TextColor="Black"
+                                       FontSize="12"/>
+                                <DatePicker x:Name="fechaDesdePicker"
+                                            BackgroundColor="#f8f9fa"
+                                            FontFamily="Comf-Reg"
+                                            FontSize="14"
+                                            Format="dd/MM/yyyy"
+                                            DateSelected="FechaDesde_DateSelected"/>
+                            </StackLayout>
+
+                            <!-- Separador -->
+                            <Label Grid.Column="1" 
+                                   Text="_" 
+                                   FontSize="16" 
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Margin="15,0"/>
+
+                            <!-- Fecha Hasta -->
+                            <StackLayout Grid.Column="2">
+                                <Label Text="Hasta:" 
+                                       FontFamily="Comf-Medium" 
+                                       TextColor="Black"
+                                       FontSize="12"/>
+                                <DatePicker x:Name="fechaHastaPicker"
+                                            BackgroundColor="#f8f9fa"
+                                            FontFamily="Comf-Reg"
+                                            FontSize="14"
+                                            Format="dd/MM/yyyy"
+                                            DateSelected="FechaHasta_DateSelected"/>
+                            </StackLayout>
+
+                            <!-- Botón limpiar filtros -->
+                            <Button Grid.Column="3"
+                                    Text="Restaurar"
+                                    BackgroundColor="#6c757d"
+                                    TextColor="White"
+                                    CornerRadius="15"
+                                    FontFamily="Comf-Medium"
+                                    FontSize="11"
+                                    HeightRequest="40"
+                                    WidthRequest="90"
+                                    VerticalOptions="End"
+                                    Margin="15,0,0,0"
+                                    Clicked="LimpiarFiltros_Clicked"/>
+                        </Grid>
+                    </Grid>
+                </Frame>
+
                 <!-- Resumen de pedidos -->
-                <Frame BorderColor="#e0e0e0" BackgroundColor="White" Margin="0,10,0,0" Padding="15" CornerRadius="10">
-                    <Grid ColumnDefinitions="*,*">
+                <Frame BorderColor="#e0e0e0" BackgroundColor="White" Padding="15" CornerRadius="10">
+                    <Grid ColumnDefinitions="*,*,*">
                         <StackLayout HorizontalOptions="Center">
                             <Label Text="Total Pedidos" 
                                    FontFamily="Comf-Bold" 
@@ -75,6 +139,18 @@
                                    FontFamily="Comf-Bold" 
                                    TextColor="#007AFF"
                                    FontSize="24"
+                                   HorizontalTextAlignment="Center"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" HorizontalOptions="Center">
+                            <Label Text="Período" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#333333"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label x:Name="PeriodoLabel" 
+                                   Text="Todos" 
+                                   FontFamily="Comf-Bold" 
+                                   TextColor="#28a745"
+                                   FontSize="14"
                                    HorizontalTextAlignment="Center"/>
                         </StackLayout>
                     </Grid>
