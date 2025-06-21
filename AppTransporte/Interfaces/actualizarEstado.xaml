@@ -1,135 +1,271 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="AppTransporte.Interfaces.actualizarEstado"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             NavigationPage.HasNavigationBar="False"
-             x:Class="AppTransporte.Interfaces.actualizarEstado"
-             Title="actualizarEstado">
-    <Grid RowDefinitions=".1*,.9*">
-        <Grid ColumnDefinitions=".1*,.9*"
-              BackgroundColor="#cb4335"
-              Padding="20,0,0,0">
-            <Button BackgroundColor="Transparent"
-                    Clicked="Btn_atrasEvidencias" />
-            <Image Source="atras.png"
-                   HorizontalOptions="Center"
-                   VerticalOptions="End"
-                   Margin="20"
-                   HeightRequest="20"
-                   WidthRequest="20" />
-            <Label Text="Actualizar Estado del Viaje"
-                   FontSize="20"
-                   FontFamily="Comf-Medium"
-                   Grid.Column="1"
-                   TextColor="White"
-                   HorizontalOptions="Start"
-                   VerticalOptions="Center"
-                   Padding="20,20,0,0" />
+             Title="Actualizar Estado del Viaje"
+             BackgroundColor="#F5F5F5">
+
+    <ContentPage.Resources>
+        <Style x:Key="HeaderStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="#333333" />
+            <Setter Property="Margin" Value="0,10,0,5" />
+        </Style>
+
+        <Style x:Key="CardStyle" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="HasShadow" Value="True" />
+            <Setter Property="Margin" Value="15,5" />
+            <Setter Property="Padding" Value="15" />
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#C75450" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="HeightRequest" Value="50" />
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#4A90E2" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="HeightRequest" Value="50" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Shell.TitleView>
+        <Grid BackgroundColor="#cb4335">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" 
+                    Text="←" 
+                    BackgroundColor="Transparent" 
+                    TextColor="White" 
+                    FontSize="24"
+                    Clicked="OnBackClicked" />
+
+            <Label Grid.Column="1" 
+                   Text="Actualizar Estado del Viaje" 
+                   TextColor="White" 
+                   FontSize="18" 
+                   FontAttributes="Bold" 
+                   VerticalOptions="Center" />
         </Grid>
-        <Grid Grid.Row="1"
-              BackgroundColor="White">
-            <ScrollView>
-                <VerticalStackLayout Margin="20,20" Spacing="15">
-                    <!-- Estado Actual -->
-                    <Frame BorderColor="#e0e0e0" 
-                           CornerRadius="5" 
-                           Padding="10">
-                        <VerticalStackLayout Spacing="5">
-                            <Label Text="Estado Actual:"
-                                   FontFamily="Comf-Bold"
-                                   FontSize="Body"
-                                   TextColor="Black" />
-                            <Label x:Name="EstadoActualLabel"
-                                   FontFamily="Comf-SemBold"
-                                   TextColor="#424242"
-                                   FontSize="16" />
-                        </VerticalStackLayout>
-                    </Frame>
+    </Shell.TitleView>
 
-                    <!-- Siguiente Estado -->
-                    <Frame BorderColor="#e0e0e0" 
-                           CornerRadius="5" 
-                           Padding="10"
-                           BackgroundColor="#f5f5f5">
-                        <VerticalStackLayout Spacing="5">
-                            <Label Text="Próximo Estado:"
-                                   FontFamily="Comf-Bold"
-                                   FontSize="Body"
-                                   TextColor="Black" />
-                            <Label x:Name="SiguienteEstadoLabel"
-                                   FontFamily="Comf-SemBold"
-                                   TextColor="#1565c0"
-                                   FontSize="16" />
-                        </VerticalStackLayout>
-                    </Frame>
+    <Grid>
+        <!-- Contenido principal -->
+        <ScrollView>
+            <StackLayout Spacing="0">
 
-                    <!-- Comentario -->
-                    <Label Text="Agregar Comentario:"
-                           FontFamily="Comf-Bold"
-                           FontSize="Body"
-                           TextColor="Black" />
-                    <Editor PlaceholderColor="#515a5a"
-                            x:Name="descripcionEntry"
-                            Placeholder="Detalles: Barriles, destino, servicio"
-                            FontFamily="Comf-SemBold"
-                            VerticalOptions="Start"
-                            AutoSize="TextChanges"
-                            HeightRequest="100"
-                            TextColor="Black"/>
+                <!-- Información del Viaje -->
+                <Frame Style="{StaticResource CardStyle}">
+                    <StackLayout>
+                        <Label Text="Información del Viaje" Style="{StaticResource HeaderStyle}" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                    <!-- Sección de Evidencia -->
-                    <Label Text="Evidencia Fotográfica:"
-                           FontFamily="Comf-Bold"
-                           FontSize="Body" 
-                           TextColor="Black"/>
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding ViajeInfo.IdViaje, StringFormat='Viaje: #{0}'}" />
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding ViajeInfo.Placa, StringFormat='Vehículo: {0}'}" />
+                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding ViajeInfo.CantidadPlanificada, StringFormat='Planificado: {0} L'}" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding ViajeInfo.CantidadRecogida, StringFormat='Recogido: {0} L'}" />
+                            <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding ViajeInfo.Destino, StringFormat='Destino: {0}'}" />
+                        </Grid>
+                    </StackLayout>
+                </Frame>
 
-                    <Button Text="Tomar Foto"
-                            Clicked="OnCaptureAndUploadPhotoClicked"
-                            BackgroundColor="#cb4335"
-                            TextColor="White"
-                            FontAttributes="Bold"/>
-
-                    <!-- Imagen capturada -->
-                    <Grid x:Name="ImageContainer" IsVisible="False">
-                        <Frame BorderColor="#e0e0e0" 
-                               CornerRadius="10" 
-                               Padding="5" 
-                               HeightRequest="250"
-                               HorizontalOptions="Fill">
-                            <Image x:Name="CapturedImage"
-                                   Aspect="AspectFit"/>
+                <!-- Estado Actual -->
+                <Frame Style="{StaticResource CardStyle}">
+                    <StackLayout>
+                        <Label Text="Estado Actual:" Style="{StaticResource HeaderStyle}" />
+                        <Frame BackgroundColor="#E8F5E8" CornerRadius="5" Padding="10" HasShadow="False">
+                            <Label Text="{Binding EstadoActual}" 
+                                   FontSize="16" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#2E7D32" 
+                                   HorizontalOptions="Center" />
                         </Frame>
-                    </Grid>
+                    </StackLayout>
+                </Frame>
 
-                    <!-- Estado de la subida -->
-                    <Frame x:Name="StatusContainer"
-                           BorderColor="#e0e0e0" 
-                           CornerRadius="5" 
-                           Padding="10" 
-                           IsVisible="False">
-                        <StackLayout Orientation="Horizontal" Spacing="10">
-                            <Label x:Name="UploadStatus"
-                                   TextColor="#424242"
-                                   FontSize="14"
-                                   VerticalOptions="Center"/>
+                <!-- Selección de Nuevo Estado -->
+                <Frame Style="{StaticResource CardStyle}">
+                    <StackLayout>
+                        <Label Text="Cambiar a Estado:" Style="{StaticResource HeaderStyle}" />
+                        <Picker x:Name="EstadoPicker"
+                                ItemsSource="{Binding EstadosDisponibles}"
+                                SelectedItem="{Binding EstadoSeleccionado}"
+                                ItemDisplayBinding="{Binding Descripcion}"
+                                Title="Seleccionar estado..."
+                                BackgroundColor="White"
+                                TextColor="#333333" />
+
+                        <!-- Mensaje de validación -->
+                        <Label x:Name="MensajeValidacion"
+                               Text="{Binding MensajeValidacion}"
+                               TextColor="#C75450"
+                               FontSize="12"
+                               IsVisible="{Binding TieneMensajeValidacion}" />
+                    </StackLayout>
+                </Frame>
+
+                <!-- Registro de Cantidad (Solo para recogida) -->
+                <Frame x:Name="SeccionCantidad" 
+                       Style="{StaticResource CardStyle}"
+                       IsVisible="{Binding EsEstadoRecogida}">
+                    <StackLayout>
+                        <Label Text="Cantidad Recogida:" Style="{StaticResource HeaderStyle}" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Entry Grid.Row="0" Grid.Column="0"
+                                   x:Name="CantidadEntry"
+                                   Text="{Binding CantidadRecogida}"
+                                   Placeholder="Ingrese cantidad en litros"
+                                   Keyboard="Numeric"
+                                   BackgroundColor="White" />
+                            <Label Grid.Row="0" Grid.Column="1" 
+                                   Text="L" 
+                                   VerticalOptions="Center" 
+                                   Margin="5,0,0,0" />
+
+                            <Label Grid.Row="1" Grid.ColumnSpan="2"
+                                   Text="{Binding CantidadDisponible, StringFormat='Disponible: {0} L'}"
+                                   FontSize="12"
+                                   TextColor="#666666" />
+
+                            <Label Grid.Row="2" Grid.ColumnSpan="2"
+                                   Text="{Binding MensajeCantidad}"
+                                   TextColor="#C75450"
+                                   FontSize="12"
+                                   IsVisible="{Binding TieneMensajeCantidad}" />
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Ubicación (Para estados de recogida/entrega) -->
+                <Frame x:Name="SeccionUbicacion"
+                       Style="{StaticResource CardStyle}"
+                       IsVisible="{Binding RequiereUbicacion}">
+                    <StackLayout>
+                        <Label Text="Ubicación:" Style="{StaticResource HeaderStyle}" />
+                        <Entry x:Name="UbicacionEntry"
+                               Text="{Binding Ubicacion}"
+                               Placeholder="Ingrese ubicación actual"
+                               BackgroundColor="White" />
+                    </StackLayout>
+                </Frame>
+
+                <!-- Comentarios -->
+                <Frame Style="{StaticResource CardStyle}">
+                    <StackLayout>
+                        <Label Text="Agregar Comentario:" Style="{StaticResource HeaderStyle}" />
+                        <Editor x:Name="descripcionEntry"
+                                Text="{Binding Comentario}"
+                                Placeholder="Detalles: Barriles, destino, servicio"
+                                HeightRequest="100"
+                                BackgroundColor="White"
+                                TextColor="#333333" />
+                    </StackLayout>
+                </Frame>
+
+                <!-- Evidencia Fotográfica -->
+                <Frame Style="{StaticResource CardStyle}">
+                    <StackLayout>
+                        <Label Text="Evidencia Fotográfica:" Style="{StaticResource HeaderStyle}" />
+
+                        <!-- Estado de la subida -->
+                        <StackLayout x:Name="StatusContainer" IsVisible="True">
+                            <Label x:Name="UploadStatus" 
+                                   Text="Listo para capturar evidencia fotográfica"
+                                   TextColor="#2e7d32"
+                                   FontSize="12"
+                                   HorizontalOptions="Center" />
                         </StackLayout>
-                    </Frame>
 
-                    <!-- Botón de guardar -->
-                    <Button Text="Guardar Actualización"
-                            x:Name="GuardarButton"
+                        <!-- Foto tomada -->
+                        <Frame x:Name="ImageContainer" 
+                               IsVisible="{Binding TieneFoto}"
+                               BackgroundColor="#F0F0F0" 
+                               CornerRadius="5" 
+                               Padding="5"
+                               HeightRequest="200">
+                            <Image x:Name="CapturedImage" 
+                                   Source="{Binding FotoEvidencia}"
+                                   Aspect="AspectFill" />
+                        </Frame>
+
+                        <!-- Botón para tomar foto -->
+                        <Button x:Name="TomarFotoButton"
+                                Text="Tomar Foto"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Clicked="OnCaptureAndUploadPhotoClicked"
+                                Margin="0,10" />
+
+                        <!-- Lista de fotos opcionales -->
+                        <Label Text="Lista para capturar evidencia fotográfica"
+                               TextColor="#4A90E2"
+                               FontSize="14"
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </Frame>
+
+                <!-- Botón de Guardar -->
+                <Frame Style="{StaticResource CardStyle}">
+                    <Button x:Name="GuardarButton"
+                            Text="Guardar Actualización"
+                            Style="{StaticResource SecondaryButtonStyle}"
                             Clicked="GuardarButton_Clicked"
-                            BackgroundColor="#2e86c1"
-                            TextColor="White"
-                            FontAttributes="Bold"
-                            Margin="0,15,0,0"/>
+                            IsEnabled="{Binding PuedeGuardar}" />
+                </Frame>
 
-                    <ActivityIndicator x:Name="LoadingIndicator" 
-                                       IsRunning="False" 
-                                       IsVisible="False"
-                                       Color="#2e86c1"
-                                       HeightRequest="50"/>
-                </VerticalStackLayout>
-            </ScrollView>
-        </Grid>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Indicador de carga -->
+        <StackLayout x:Name="LoadingOverlay" 
+                     IsVisible="False"
+                     BackgroundColor="#80000000"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+            <ActivityIndicator x:Name="LoadingIndicator"
+                               IsVisible="False"
+                               IsRunning="False"
+                               Color="White"
+                               Scale="2"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="CenterAndExpand" />
+            <Label Text="Procesando..."
+                   TextColor="White"
+                   FontSize="16"
+                   HorizontalOptions="Center"
+                   Margin="0,10,0,0" />
+        </StackLayout>
     </Grid>
 </ContentPage>
