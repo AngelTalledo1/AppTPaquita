@@ -10,18 +10,12 @@ namespace AppTransporte.Interfaces
     {
         private int _idUsuario;
         private int _idTipoUsuario;
-        private readonly SqlServerService _sqlService;
 
         public VTNuevaTareaAdicional(int idUsuario, int idTipoUsuario)
         {
             InitializeComponent();
             this._idUsuario = idUsuario;
             this._idTipoUsuario = idTipoUsuario;
-
-            // INICIALIZAR EL SERVICIO SQL (ESTO FALTABA)
-            string connectionString = "Data Source=SQL8011.site4now.net;Initial Catalog=db_aaecc9_paquitaappdb;User Id=db_aaecc9_paquitaappdb_admin;Password=paquita123;Connection Timeout=60";
-            _sqlService = new SqlServerService(connectionString);
-
             // Inicializar controles
             DatePickerTarea.Date = DateTime.Today;
             TimePickerInicio.Time = TimeSpan.Zero;
@@ -89,8 +83,7 @@ namespace AppTransporte.Interfaces
                 System.Diagnostics.Debug.WriteLine($"  - Descripción: {nuevaTarea.descripcion}");
                 System.Diagnostics.Debug.WriteLine($"  - ID Usuario: {nuevaTarea.id_usuario}");
 
-                // USAR EL SERVICIO SQL EN LUGAR DE App.Database
-                var resultado = await _sqlService.InsertarTareaAsync(nuevaTarea);
+                var resultado = await App.Database.InsertarTareaAsync(nuevaTarea);
 
                 System.Diagnostics.Debug.WriteLine($"Resultado del guardado: {resultado?.Mensaje ?? "null"}");
                 System.Diagnostics.Debug.WriteLine($"Éxito: {resultado?.EsExitoso ?? false}");

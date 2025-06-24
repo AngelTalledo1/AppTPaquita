@@ -9,6 +9,9 @@ namespace AppTransporte.model
     public class EstadoViaje
     {
         public int IdEstadoViaje { get; set; }
-        public string Descripcion { get; set; } = string.Empty;
+        public string Descripcion { get; set; }
+        public int Orden { get; set; }
+        public bool RequiereCantidad { get; set; }
+        public bool RequiereUbicacion { get; set; }
     }
 }

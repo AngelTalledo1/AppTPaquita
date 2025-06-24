@@ -5,23 +5,25 @@ using Google.Apis.Auth.OAuth2;
 using System.IO;
 using SkiaSharp;
 using System.Threading.Tasks;
+using AppTransporte.viewModel;
 
 namespace AppTransporte.Interfaces;
 #pragma warning disable CS8603, CS1998, CS4014, CS8618, CS0414
 
 public partial class actualizarEstado : ContentPage
 {
+    private readonly ActualizarEstadoViajeViewModel _viewModel;
     private StorageClient _storageClient;
     private bool _isInitialized = false;
     private readonly string bucketName = "pqt_bucket";
     private int _idUsuario;
     private int _idTipoUsuario;
-    private bool isUploading = false; // Para prevenir múltiples ejecuciones
+    private bool isUploading = false;
     private Viaje _viaje;
-    private string? _fileUrl = null;  // Almacena la URL de la imagen subida
+    private string? _fileUrl = null;
     private Dictionary<int, string> _estadosViaje = new Dictionary<int, string>();
 
-    // Variable para almacenar la imagen comprimida (no se sube hasta Guardar)
+    // Variable para almacenar la imagen comprimida
     private byte[]? _imageData = null;
 
     public actualizarEstado(Viaje viaje, int idUsuario, int idTipoUsuario)
@@ -30,31 +32,64 @@ public partial class actualizarEstado : ContentPage
         _viaje = viaje;
         _idUsuario = idUsuario;
         _idTipoUsuario = idTipoUsuario;
+        _viewModel = new ActualizarEstadoViajeViewModel(new ViajeInfo(), 0);
         InitializeAsync();
+        CargarInformacionViajeAsync(viaje.IdViaje);
+    }
+
+    private async void CargarInformacionViajeAsync(int idViaje)
+    {
+        try
+        {
+            ShowLoading();
+
+            var viajeInfo = await App.Database.ObtenerInfoViajeAsync(idViaje);
+            var Trabajador = await App.Database.ObtenerTrabajadorPorUsuarioAsync(_idUsuario);
+
+            // Actualizar el ViewModel
+            _viewModel.ViajeInfo = viajeInfo;
+            _viewModel.IdTrabajador = Trabajador.IdTrabajador;
+
+            // Cargar estados disponibles
+            _viewModel.CargarEstadosDisponiblesAsync();
+
+            BindingContext = _viewModel;
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"No se pudo cargar la información del viaje: {ex.Message}", "OK");
+        }
+        finally
+        {
+            HideLoading();
+        }
     }
 
     private async void InitializeAsync()
     {
-        // Mostrar indicador de carga
         LoadingIndicator.IsVisible = true;
         LoadingIndicator.IsRunning = true;
-
-        // Inicializar almacenamiento
         await InitializeStorageAsync();
-
-        // En este punto se pueden cargar otros datos si se desea
-
-        // Ocultar indicador de carga
         LoadingIndicator.IsVisible = false;
         LoadingIndicator.IsRunning = false;
     }
 
-    // Declarar el caché estático para URLs firmadas
     private static Dictionary<string, (string Url, DateTime Expiration)> _signedUrlCache = new();
 
-    // Este método recibe la URL no firmada (almacenada en la BD)
-    // y devuelve, de forma asíncrona, la URL firmada usando Google Cloud Storage.
-    // Se utiliza un caché de 30 minutos para evitar regenerarla si ya existe.
+    private void ShowLoading()
+    {
+        LoadingOverlay.IsVisible = true;
+        LoadingIndicator.IsVisible = true;
+        LoadingIndicator.IsRunning = true;
+    }
+
+    private void HideLoading()
+    {
+        LoadingOverlay.IsVisible = false;
+        LoadingIndicator.IsVisible = false;
+        LoadingIndicator.IsRunning = false;
+    }
+
     public async Task<string> GetSignedUrlForImageAsync(string unsignedUrl)
     {
         if (string.IsNullOrWhiteSpace(unsignedUrl))
@@ -124,7 +159,7 @@ public partial class actualizarEstado : ContentPage
         }
     }
 
-    // Captura y comprime la imagen, la muestra en la UI y la guarda en _imageData
+    // En actualizarEstado.xaml.cs - método OnCaptureAndUploadPhotoClicked
     private async void OnCaptureAndUploadPhotoClicked(object sender, EventArgs e)
     {
         if (isUploading) return;
@@ -166,6 +201,13 @@ public partial class actualizarEstado : ContentPage
                 using var memoryStream = new MemoryStream();
                 await sourceStream.CopyToAsync(memoryStream);
                 _imageData = CompressImage(memoryStream.ToArray());
+
+                // Mostrar la imagen en la interfaz sin convertirla a base64
+                _viewModel.FotoEvidencia = ImageSource.FromStream(() => new MemoryStream(_imageData));
+
+                // No asignamos Base64 al ViewModel, ya que el backend sólo acepta URLs
+                _viewModel.FotoBytes = null;
+
                 try { File.Delete(photo.FullPath); }
                 catch (Exception ex) { Console.WriteLine($"Error eliminando archivo: {ex.Message}"); }
             }
@@ -188,7 +230,14 @@ public partial class actualizarEstado : ContentPage
         }
     }
 
-    // El método de guardar ahora sube la imagen (si fue capturada) y luego actualiza el estado
+
+    private async void OnBackClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
+
+    // **MÉTODO COMPLETAMENTE REESCRITO PARA USAR EL VIEWMODEL**
+    // En actualizarEstado.xaml.cs - método GuardarButton_Clicked
     private async void GuardarButton_Clicked(object sender, EventArgs e)
     {
         GuardarButton.IsEnabled = false;
@@ -197,41 +246,56 @@ public partial class actualizarEstado : ContentPage
 
         try
         {
-            string comentario = descripcionEntry.Text;
-            // Si se capturó una imagen, se sube en este momento
+            // Obtener el comentario del Entry y asignarlo al ViewModel
+            _viewModel.Comentario = descripcionEntry.Text;
+
+            // Siempre subir la imagen primero si existe, para obtener una URL
             if (_imageData != null)
             {
+                UpdateStatusMessage("Subiendo imagen...", "#1565c0");
                 string fileName = $"photo_viaje{_viaje.IdViaje}_{DateTime.Now:yyyyMMdd_HHmmss}.jpg";
                 using (var uploadStream = new MemoryStream(_imageData))
                 {
                     _fileUrl = await UploadFileAsync(uploadStream, fileName);
                     Console.WriteLine($"Foto subida: {_fileUrl}");
+
+                    // Asignar la URL al ViewModel, nunca datos Base64
+                    _viewModel.FotoBytes = _fileUrl;
                 }
             }
 
-            // Actualizar el seguimiento en la base de datos con la URL (si existe)
-            int result = await App.Database.ActualizarEstadoSeguimientoAsync(
-                _viaje.IdViaje,
-                comentario,
-                _fileUrl
-            );
+            // Proceder con la operación usando la URL de la imagen (no datos Base64)
+            bool resultado = false;
 
-            if (result == 1)
+            if (_viewModel.EstadoSeleccionado != null)
             {
-                await DisplayAlert("Éxito", "El estado del viaje ha sido actualizado correctamente", "OK");
-                await Navigation.PopAsync();
-            }
-            else if (result == -2)
-            {
-                await DisplayAlert("Aviso", "Este viaje ya se encuentra en su estado final", "OK");
-            }
-            else if (result == -1)
-            {
-                await DisplayAlert("Error", "El viaje no existe", "OK");
+                // Si hay un estado seleccionado, usar la lógica del ViewModel
+                resultado = await _viewModel.GuardarActualizacion();
             }
             else
             {
-                await DisplayAlert("Error", "No se pudo actualizar el estado del viaje", "OK");
+                // Si no hay estado seleccionado, solo actualizar seguimiento
+                int result = await App.Database.ActualizarSeguimientoViajeAsync(
+                    _viaje.IdViaje,
+                    _viewModel.Comentario,
+                    _fileUrl
+                );
+                resultado = result > 0;
+                _viewModel.ResultadoOperacion = resultado
+                    ? "Seguimiento actualizado correctamente"
+                    : "No se pudo actualizar el seguimiento";
+                _viewModel.OperacionExitosa = resultado;
+            }
+
+            // Mostrar el resultado
+            if (_viewModel.OperacionExitosa)
+            {
+                await DisplayAlert("Éxito", _viewModel.ResultadoOperacion, "OK");
+                await Navigation.PushAsync(new VTMisViajes(_idUsuario,_idTipoUsuario));
+            }
+            else
+            {
+                await DisplayAlert("Error", _viewModel.ResultadoOperacion, "OK");
             }
         }
         catch (Exception ex)
