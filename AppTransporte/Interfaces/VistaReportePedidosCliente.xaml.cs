@@ -23,7 +23,7 @@ namespace AppTransporte.Interfaces
         private string _empresaRUC = "";
         private string _empresaTelefono = "";
         private string _empresaNombre = "";
-        private byte[] _empresaLogo = null;
+        private byte[] _empresaLogo= null;
 
         public VistaReportePedidosCliente(int idCliente, int idUsuario, int idTipoUsuario)
         {
@@ -31,11 +31,12 @@ namespace AppTransporte.Interfaces
             _idCliente = idCliente;
             _idUsuario = idUsuario;
             _idTipoUsuario = idTipoUsuario;
-
+            CargarLogoEmpresa();
             InicializarControles();
             CargarTiposPedido();
             CargarDatosEmpresa();
             CargarReporte();
+            
         }
 
         private async void CargarDatosEmpresa()
@@ -44,7 +45,7 @@ namespace AppTransporte.Interfaces
             {
                 _empresaRUC = "20102423985";
                 _empresaTelefono = "981 229 253";
-                _empresaNombre = "Transportes Paquita S.R.L.";
+                _empresaNombre = "TRANSPORTES PAQUITA S.R.L.";
             }
             
             catch (Exception ex)
@@ -52,31 +53,28 @@ namespace AppTransporte.Interfaces
                 // Usar valores por defecto
                 _empresaRUC = "20102423985";
                 _empresaTelefono = "981 229 253";
-                _empresaNombre = "Transportes Paquita S.R.L.";
+                _empresaNombre = "TRANSPORTES PAQUITA S.R.L.";
             }
         }
-        private async Task CargarLogoEmpresa()
+        private async void CargarLogoEmpresa()
         {
             try
             {
-                    var stream = await FileSystem.OpenAppPackageFileAsync("Resources/Images/paquita.png");
-                    if (stream != null)
+                var stream = await FileSystem.OpenAppPackageFileAsync("paquitaaa.png");
+                if (stream != null)
+                {
+                    using (var memoryStream = new MemoryStream())
                     {
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            await stream.CopyToAsync(memoryStream);
-                            _empresaLogo = memoryStream.ToArray();
-                            System.Diagnostics.Debug.WriteLine("Logo cargado desde Resources/Images/");
-                            return;
-                        }
+                        await stream.CopyToAsync(memoryStream);
+                        _empresaLogo = memoryStream.ToArray();
                     }
                 }
-                catch (Exception ex2)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Opción 2 falló: {ex2.Message}");
-                }
             }
-
+            catch
+            {
+                _empresaLogo = null;
+            }
+        }
         private void InicializarControles()
         {
             // Configurar fechas por defecto (últimos 30 días)
@@ -556,10 +554,23 @@ namespace AppTransporte.Interfaces
         {
             try
             {
-                // Crear tabla para el encabezado (logo + datos empresa)
+                // CREAR FUENTES PERSONALIZADAS PARA LA EMPRESA
+                iTextSharp.text.Font empresaNombreFont = new iTextSharp.text.Font(
+                    iTextSharp.text.Font.FontFamily.HELVETICA,
+                    16, // Tamaño más grande
+                    iTextSharp.text.Font.BOLD); // Negrita
+                empresaNombreFont.Color = new iTextSharp.text.BaseColor(203, 67, 53); // Color rojo como tu app
+
+                iTextSharp.text.Font empresaInfoFont = new iTextSharp.text.Font(
+                    iTextSharp.text.Font.FontFamily.HELVETICA,
+                    11, // Tamaño mediano
+                    iTextSharp.text.Font.NORMAL);
+                empresaInfoFont.Color = new iTextSharp.text.BaseColor(60, 60, 60); // Gris oscuro
+
+                // Crear tabla para el encabezado
                 iTextSharp.text.pdf.PdfPTable encabezadoTable = new iTextSharp.text.pdf.PdfPTable(2);
                 encabezadoTable.WidthPercentage = 100;
-                encabezadoTable.SetWidths(new float[] { 1f, 3f }); // Logo más pequeño, datos más grandes
+                encabezadoTable.SetWidths(new float[] { 1f, 3f });
                 encabezadoTable.SpacingAfter = 20;
 
                 // Celda del logo
@@ -573,41 +584,40 @@ namespace AppTransporte.Interfaces
                     try
                     {
                         iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(_empresaLogo);
-                        // Redimensionar logo para que no sea muy grande
-                        float maxWidth = 80f;
-                        float maxHeight = 60f;
+                        float maxWidth = 90f; // Un poco más grande
+                        float maxHeight = 70f;
                         logo.ScaleToFit(maxWidth, maxHeight);
                         logoCell.AddElement(logo);
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        System.Diagnostics.Debug.WriteLine($"Error al agregar logo: {ex.Message}");
-                        // Si falla el logo, agregar texto alternativo
                         logoCell.AddElement(new iTextSharp.text.Paragraph("LOGO", empresaFont));
                     }
                 }
                 else
                 {
-                    // Si no hay logo, mostrar placeholder
                     logoCell.AddElement(new iTextSharp.text.Paragraph("LOGO", empresaFont));
                 }
 
-                // Celda de información de la empresa
+                // Celda de información de la empresa (MEJORADA)
                 iTextSharp.text.pdf.PdfPCell infoCell = new iTextSharp.text.pdf.PdfPCell();
                 infoCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
                 infoCell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
                 infoCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                infoCell.PaddingLeft = 15; // Espacio desde el logo
 
-                // Agregar información de la empresa
-                iTextSharp.text.Paragraph empresaNombre = new iTextSharp.text.Paragraph(_empresaNombre, normalFont);
-                empresaNombre.SpacingAfter = 5;
+                // NOMBRE DE LA EMPRESA - ESTILIZADO
+                iTextSharp.text.Paragraph empresaNombre = new iTextSharp.text.Paragraph(_empresaNombre, empresaNombreFont);
+                empresaNombre.SpacingAfter = 8;
                 infoCell.AddElement(empresaNombre);
 
-                iTextSharp.text.Paragraph rucInfo = new iTextSharp.text.Paragraph($"RUC: {_empresaRUC}", empresaFont);
-                rucInfo.SpacingAfter = 3;
+                // RUC - MEJORADO
+                iTextSharp.text.Paragraph rucInfo = new iTextSharp.text.Paragraph($"RUC: {_empresaRUC}", empresaInfoFont);
+                rucInfo.SpacingAfter = 4;
                 infoCell.AddElement(rucInfo);
 
-                iTextSharp.text.Paragraph telefonoInfo = new iTextSharp.text.Paragraph($"Teléfono: {_empresaTelefono}", empresaFont);
+                // TELÉFONO - MEJORADO
+                iTextSharp.text.Paragraph telefonoInfo = new iTextSharp.text.Paragraph($"Teléfono: {_empresaTelefono}", empresaInfoFont);
                 infoCell.AddElement(telefonoInfo);
 
                 // Agregar celdas a la tabla
@@ -617,16 +627,16 @@ namespace AppTransporte.Interfaces
                 // Agregar tabla al documento
                 document.Add(encabezadoTable);
 
-                // Línea separadora
+                // LÍNEA SEPARADORA MEJORADA
                 iTextSharp.text.pdf.PdfPTable lineaTable = new iTextSharp.text.pdf.PdfPTable(1);
                 lineaTable.WidthPercentage = 100;
-                lineaTable.SpacingAfter = 15;
+                lineaTable.SpacingAfter = 20; // Más espacio
 
                 iTextSharp.text.pdf.PdfPCell lineaCell = new iTextSharp.text.pdf.PdfPCell();
                 lineaCell.Border = iTextSharp.text.Rectangle.BOTTOM_BORDER;
-                lineaCell.BorderWidth = 1f;
-                lineaCell.BorderColor = new iTextSharp.text.BaseColor(200, 200, 200);
-                lineaCell.FixedHeight = 1f;
+                lineaCell.BorderWidth = 2f; // Línea más gruesa
+                lineaCell.BorderColor = new iTextSharp.text.BaseColor(203, 67, 53); // Color rojo como tu app
+                lineaCell.FixedHeight = 2f;
 
                 lineaTable.AddCell(lineaCell);
                 document.Add(lineaTable);
@@ -634,7 +644,6 @@ namespace AppTransporte.Interfaces
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error al crear encabezado empresarial: {ex.Message}");
-                // Si falla, continuar sin encabezado empresarial
             }
         }
 
