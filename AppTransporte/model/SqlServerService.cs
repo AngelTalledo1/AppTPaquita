@@ -1752,7 +1752,7 @@ namespace AppTransporte.model
 
             using (var connection = new SqlConnection(_connectionString))
             {
-                using (var command = new SqlCommand("pa_ListPedidosDet", connection))
+                using (var command = new SqlCommand("pa_ListPedidosDetConEstadoReal", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -1772,12 +1772,14 @@ namespace AppTransporte.model
                                 Origen = reader.GetString(reader.GetOrdinal("origen_descripcion")),
                                 OrigSector = reader.GetString(reader.GetOrdinal("origen_sector")),
                                 Servicios = reader.GetString(reader.GetOrdinal("servicios_relacionados")),
-
                                 Destino = reader.GetString(reader.GetOrdinal("destino_descripcion")),
                                 DestSector = reader.GetString(reader.GetOrdinal("destino_sector")),
                                 IdSolicitud = reader.GetInt32(reader.GetOrdinal("idSolicitud")),
 
-                                EstadoPedido = reader["estado_pedido"]?.ToString() ?? "Sin estado",
+                                // Usar el estado real de los viajes en lugar del estado del pedido
+                                EstadoPedido = reader["estado_viaje_actual"]?.ToString() ?? "Sin estado",
+                                ultEstado = reader["estado_viaje_actual"]?.ToString() ?? "Sin estado",
+
                                 FechaSolicitud = reader.GetDateTime(reader.GetOrdinal("fecha_solicitud")),
                                 FechaEntrega = reader.IsDBNull(reader.GetOrdinal("fecha_entrega"))
                                     ? null
@@ -1796,7 +1798,7 @@ namespace AppTransporte.model
 
             using (var connection = new SqlConnection(_connectionString))
             {
-                using (var command = new SqlCommand("pa_ListPedidosUsuario", connection))
+                using (var command = new SqlCommand("pa_ListPedidosUsuarioConEstadoReal", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -1822,7 +1824,11 @@ namespace AppTransporte.model
                                 Destino = reader.GetString(reader.GetOrdinal("destino_descripcion")),
                                 DestSector = reader.GetString(reader.GetOrdinal("destino_sector")),
                                 IdSolicitud = reader.GetInt32(reader.GetOrdinal("idSolicitud")),
-                                EstadoPedido = reader["estado_pedido"]?.ToString() ?? "Sin estado",
+
+                                // Usar el estado real de los viajes en lugar del estado del pedido
+                                EstadoPedido = reader["estado_viaje_actual"]?.ToString() ?? "Sin estado",
+                                ultEstado = reader["estado_viaje_actual"]?.ToString() ?? "Sin estado",
+
                                 FechaSolicitud = reader.GetDateTime(reader.GetOrdinal("fecha_solicitud")),
                                 FechaEntrega = reader.IsDBNull(reader.GetOrdinal("fecha_entrega"))
                                     ? null
@@ -2333,6 +2339,31 @@ namespace AppTransporte.model
 
             return trabajadores;
         }
+        // Agregar este método a la clase SqlServerService
+        public async Task<string> ObtenerEstadoRealPedidoAsync(int idPedido)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("pa_ObtenerEstadoRealPedido", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@id_pedido", idPedido);
+
+                        var resultado = await command.ExecuteScalarAsync();
+                        return resultado?.ToString() ?? "Pendiente";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener estado real del pedido: {ex.Message}");
+                return "Sin estado";
+            }
+        }
         public async Task<List<Seguimiento>> ObtenerEstadosViaje()
         {
             var seguimiento = new List<Seguimiento>();
@@ -2594,6 +2625,7 @@ namespace AppTransporte.model
                 }
             }
         }
+
         public async Task<List<Vehiculo>> ObtenerCisternaAsync(string placa = null, string ordenarPor = null)
         {
             var cisterna = new List<Vehiculo>();
@@ -3472,6 +3504,58 @@ namespace AppTransporte.model
 
             return new RespuestaPedidoAutomatico { FilasAfectadas = 0, Mensaje = "Error desconocido" };
         }
+        // En tu clase Database, REEMPLAZA o agrega este método:
+
+        public async Task<List<Pedido>> ObtenerPedidosConEstadoAsync(int? idUsuario = null, string filtroEstado = null)
+        {
+            var pedidos = new List<Pedido>();
+
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("pa_ObtenerPedidosConEstado", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Parámetros
+                        command.Parameters.AddWithValue("@id_usuario", (object)idUsuario ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@filtro_estado", (object)filtroEstado ?? DBNull.Value);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                var pedido = new Pedido
+                                {
+                                    IdPedido = reader.GetInt32("IdPedido"),
+                                    Cantidad = reader.GetInt32("Cantidad"),
+                                    Viajes = reader.GetInt32("Viajes"),
+                                    FechaSolicitud = reader.GetDateTime("FechaSolicitud"),
+                                    FechaEntrega = reader.GetDateTime("FechaEntrega"),
+                                    Destino = reader.GetString("Destino"),
+                                    Cliente = reader.GetString("Cliente"),
+                                    Usuario = reader.GetString("Usuario"),
+                                    Servicios = reader.IsDBNull("Servicios") ? "" : reader.GetString("Servicios"),
+
+                                    EstadoPedido = reader.GetString("EstadoPedido")
+                                };
+
+                                pedidos.Add(pedido);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener pedidos con estado: {ex.Message}");
+            }
+
+            return pedidos;
+        }
 
         public async Task<List<PedidoAutomatico>> ObtenerPedidosAutomaticosAsync(int idUsuario, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
         {
@@ -4008,6 +4092,31 @@ namespace AppTransporte.model
 
             return estados;
         }
+        // Agregar este método a SqlServerService
+        public async Task<string> ObtenerEstadoActualPedidoAsync(int idPedido)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("pa_ObtenerEstadoActualPedido", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@id_pedido", idPedido);
+
+                        var resultado = await command.ExecuteScalarAsync();
+                        return resultado?.ToString() ?? "Sin estado";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener estado del pedido: {ex.Message}");
+                return "Error al obtener estado";
+            }
+        }
 
 
 
@@ -4148,6 +4257,55 @@ namespace AppTransporte.model
                 System.Diagnostics.Debug.WriteLine($"Error al actualizar seguimiento: {ex.Message}");
                 return 0;
             }
+        }
+        public async Task<ResultadoRechazarSolicitud> RechazarSolicitudAsync(int idSolicitud, string comentario = null)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("pa_RechazarSolicitud", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Parámetros del procedimiento
+                        command.Parameters.AddWithValue("@id_solicitud", idSolicitud);
+                        command.Parameters.AddWithValue("@comentario", (object)comentario ?? DBNull.Value);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return new ResultadoRechazarSolicitud
+                                {
+                                    FilasAfectadas = reader.GetInt32("FilasAfectadas"),
+                                    Mensaje = reader.GetString("Mensaje"),
+                                    Exitoso = reader.GetInt32("Exitoso") == 1
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en RechazarSolicitudAsync: {ex.Message}");
+                return new ResultadoRechazarSolicitud
+                {
+                    FilasAfectadas = 0,
+                    Mensaje = $"Error: {ex.Message}",
+                    Exitoso = false
+                };
+            }
+
+            return new ResultadoRechazarSolicitud
+            {
+                FilasAfectadas = 0,
+                Mensaje = "Error desconocido",
+                Exitoso = false
+            };
         }
 
         // Método actualizado para obtener info del viaje (usando el PA corregido)
