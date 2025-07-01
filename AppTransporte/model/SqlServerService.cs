@@ -4288,6 +4288,155 @@ namespace AppTransporte.model
                 return (false, ex.Message);
             }
         }
+        public async Task<(bool EnViaje, string MensajeDetalle)> VerificarTrabajadorEnViajeAsync(int idTrabajador)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("sp_VerificarTrabajadorEnViaje", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@id_trabajador", idTrabajador);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                bool enViaje = reader.GetBoolean("EnViaje");
+                                string detalleViaje = reader.IsDBNull("DetalleViaje") ?
+                                    string.Empty : reader.GetString("DetalleViaje");
+
+                                return (enViaje, detalleViaje);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al verificar trabajador en viaje: {ex.Message}");
+                return (false, string.Empty);
+            }
+
+            return (false, string.Empty);
+        }
+        public async Task<(bool EnViaje, string MensajeDetalle)> VerificarCisternaEnViajeAsync(int idCisterna)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("sp_VerificarCisternaEnViaje", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@id_cisterna", idCisterna);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                bool enViaje = reader.GetBoolean("EnViaje");
+                                string detalleViaje = reader.IsDBNull("DetalleViaje") ?
+                                    string.Empty : reader.GetString("DetalleViaje");
+
+                                return (enViaje, detalleViaje);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al verificar cisterna en viaje: {ex.Message}");
+                return (false, string.Empty);
+            }
+
+            return (false, string.Empty);
+        }
+        public async Task<(bool EnViaje, string MensajeDetalle)> VerificarTractoEnViajeAsync(int idTracto)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("sp_VerificarTractoEnViaje", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@id_tracto", idTracto);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                bool enViaje = reader.GetBoolean("EnViaje");
+                                string detalleViaje = reader.IsDBNull("DetalleViaje") ?
+                                    string.Empty : reader.GetString("DetalleViaje");
+
+                                return (enViaje, detalleViaje);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al verificar tracto en viaje: {ex.Message}");
+                return (false, string.Empty);
+            }
+
+            return (false, string.Empty);
+        }
+        public async Task<Dictionary<string, (bool EnViaje, string MensajeDetalle)>> VerificarRecursosEnViajeAsync(
+            int? idTransportista = null,
+            int? idAyudante = null,
+            int? idCisterna = null,
+            int? idTracto = null)
+        {
+            var resultados = new Dictionary<string, (bool EnViaje, string MensajeDetalle)>();
+
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand("sp_VerificarMultiplesRecursosEnViaje", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@id_transportista", (object)idTransportista ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@id_ayudante", (object)idAyudante ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@id_cisterna", (object)idCisterna ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@id_tracto", (object)idTracto ?? DBNull.Value);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                string tipoRecurso = reader.GetString("TipoRecurso");
+                                bool enViaje = reader.GetBoolean("EnViaje");
+                                string detalleViaje = reader.IsDBNull("DetalleViaje") ?
+                                    string.Empty : reader.GetString("DetalleViaje");
+
+                                resultados[tipoRecurso] = (enViaje, detalleViaje);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al verificar múltiples recursos: {ex.Message}");
+            }
+
+            return resultados;
+        }
 
         // Método actualizado para obtener info del viaje (usando el PA corregido)
         public async Task<ViajeInfo> ObtenerInfoViajeAsync(int idViaje)
@@ -4365,6 +4514,7 @@ namespace AppTransporte.model
             }
         }
     }
+
 
 
 }
