@@ -21,6 +21,14 @@ public partial class VEDetalleSolicitud : ContentPage
         clienteSolicitud.Text = solicitud.Cliente;
         descripcionSolicitud.Text = solicitud.Descripcion;
         estadoSolicitud.Text = solicitud.EstadoSolicitud;
+        this.Disappearing += async (s, e) =>
+        {
+            if (_pedidosViewModel != null)
+            {
+                await Task.Delay(100); // Pequeña pausa para asegurar que la navegación termine
+                _pedidosViewModel.CargarPedidos();
+            }
+        };
     }
 
     private void Btn_atrasDetSolicitud(object sender, EventArgs e)
@@ -39,97 +47,26 @@ public partial class VEDetalleSolicitud : ContentPage
             await Navigation.PushAsync(new VECrearPedido(solicitud, idUsuario, idtipousuario));
         }
     }
+
     private async void Btn_rechazarPedido(object sender, EventArgs e)
     {
-        // Confirmar la acción
-        bool confirmar = await DisplayAlert("Confirmar",
-            "¿Está seguro que desea rechazar esta solicitud?",
-            "Sí", "No");
+        if (!await DisplayAlert("Confirmar", "¿Está seguro que desea rechazar esta solicitud?", "Sí", "No"))
+            return;
 
-        if (confirmar)
+        var solicitud = BindingContext as Solicitud;
+        if (solicitud == null) return;
+
+        var (exitoso, mensaje) = await App.Database.RechazarSolicitudAsync(solicitud.IdSolicitud, ComentarioEntry.Text);
+
+        if (exitoso)
         {
-            try
-            {
-                // Obtener la solicitud actual
-                var solicitud = BindingContext as Solicitud;
-
-                if (solicitud != null)
-                {
-                    // Obtener el comentario del usuario
-                    string comentario = ComentarioEntry.Text?.Trim();
-
-                    System.Diagnostics.Debug.WriteLine($"RECHAZANDO SOLICITUD");
-                    System.Diagnostics.Debug.WriteLine($"ID Solicitud: {solicitud.IdSolicitud}");
-                    System.Diagnostics.Debug.WriteLine($"Comentario: {comentario ?? "Sin comentario"}");
-
-                    // Llamar al método específico para rechazar
-                    var resultado = await App.Database.RechazarSolicitudAsync(
-                        solicitud.IdSolicitud,
-                        comentario);
-
-                    System.Diagnostics.Debug.WriteLine($"Resultado - Exitoso: {resultado.Exitoso}");
-                    System.Diagnostics.Debug.WriteLine($"Resultado - Mensaje: {resultado.Mensaje}");
-                    System.Diagnostics.Debug.WriteLine($"Resultado - Filas: {resultado.FilasAfectadas}");
-
-                    if (resultado.Exitoso && resultado.FilasAfectadas > 0)
-                    {
-                        // Actualizar los datos locales
-                        solicitud.EstadoSolicitud = "Cancelada";
-                        solicitud.IdEstadoSolicitud = 3;
-
-                        if (!string.IsNullOrEmpty(comentario))
-                        {
-                            solicitud.Comentario = comentario;
-                        }
-
-                        // Actualizar la interfaz
-                        estadoSolicitud.Text = "Cancelada";
-                        ComentarioEntry.Text = string.Empty;
-
-                        // Refrescar la lista en el ViewModel
-                        if (_pedidosViewModel != null)
-                        {
-                            try
-                            {
-                                _pedidosViewModel.CargarPedidos();
-                            }
-                            catch (Exception ex)
-                            {
-                                System.Diagnostics.Debug.WriteLine($"Error al refrescar ViewModel: {ex.Message}");
-                            }
-                        }
-
-                        // Mostrar mensaje de éxito
-                        await DisplayAlert("Éxito",
-                            "La solicitud ha sido cancelada correctamente.",
-                            "OK");
-
-                        // Regresar a la página anterior
-                        await Navigation.PopAsync();
-                    }
-                    else
-                    {
-                        // Mostrar el mensaje de error del procedimiento
-                        await DisplayAlert("Error",
-                            $"No se pudo cancelar la solicitud.\n\n{resultado.Mensaje}",
-                            "OK");
-                    }
-                }
-                else
-                {
-                    await DisplayAlert("Error",
-                        "No se pudieron obtener los datos de la solicitud.",
-                        "OK");
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error en Btn_rechazarPedido: {ex}");
-
-                await DisplayAlert("Error",
-                    $"Error inesperado: {ex.Message}",
-                    "OK");
-            }
+            solicitud.EstadoSolicitud = "Cancelada";
+            await DisplayAlert("Éxito", "Solicitud cancelada correctamente.", "OK");
+            await Navigation.PushAsync(new VESolicitudes(idUsuario, idtipousuario));
+        }
+        else
+        {
+            await DisplayAlert("Error", mensaje, "OK");
         }
     }
     private async void IrAPedido_Clicked(object sender, EventArgs e)

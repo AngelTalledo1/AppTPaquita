@@ -4258,54 +4258,35 @@ namespace AppTransporte.model
                 return 0;
             }
         }
-        public async Task<ResultadoRechazarSolicitud> RechazarSolicitudAsync(int idSolicitud, string comentario = null)
+        // Versión simplificada para SqlServerService (opcional)
+        public async Task<(bool Exitoso, string Mensaje)> RechazarSolicitudAsync(int idSolicitud, string comentario = null)
         {
             try
             {
-                using (var connection = new SqlConnection(_connectionString))
+                using var connection = new SqlConnection(_connectionString);
+                await connection.OpenAsync();
+
+                using var command = new SqlCommand("pa_RechazarSolicitud", connection)
                 {
-                    await connection.OpenAsync();
+                    CommandType = CommandType.StoredProcedure
+                };
 
-                    using (var command = new SqlCommand("pa_RechazarSolicitud", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@id_solicitud", idSolicitud);
+                command.Parameters.AddWithValue("@comentario", (object)comentario ?? DBNull.Value);
 
-                        // Parámetros del procedimiento
-                        command.Parameters.AddWithValue("@id_solicitud", idSolicitud);
-                        command.Parameters.AddWithValue("@comentario", (object)comentario ?? DBNull.Value);
+                using var reader = await command.ExecuteReaderAsync();
 
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                return new ResultadoRechazarSolicitud
-                                {
-                                    FilasAfectadas = reader.GetInt32("FilasAfectadas"),
-                                    Mensaje = reader.GetString("Mensaje"),
-                                    Exitoso = reader.GetInt32("Exitoso") == 1
-                                };
-                            }
-                        }
-                    }
+                if (await reader.ReadAsync())
+                {
+                    return (reader.GetInt32("Exitoso") == 1, reader.GetString("Mensaje"));
                 }
+
+                return (false, "Error desconocido");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error en RechazarSolicitudAsync: {ex.Message}");
-                return new ResultadoRechazarSolicitud
-                {
-                    FilasAfectadas = 0,
-                    Mensaje = $"Error: {ex.Message}",
-                    Exitoso = false
-                };
+                return (false, ex.Message);
             }
-
-            return new ResultadoRechazarSolicitud
-            {
-                FilasAfectadas = 0,
-                Mensaje = "Error desconocido",
-                Exitoso = false
-            };
         }
 
         // Método actualizado para obtener info del viaje (usando el PA corregido)
