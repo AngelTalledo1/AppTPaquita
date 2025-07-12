@@ -7,6 +7,7 @@
     <ContentPage.BindingContext>
         <VME:VMPedidos />
     </ContentPage.BindingContext>
+    
     <Grid RowDefinitions=".1*,.9*">
         <Grid ColumnDefinitions=".1*,.9*"
               BackgroundColor="#cb4335"
@@ -66,13 +67,13 @@
                                             SelectionMode="None">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <Frame BackgroundColor="#edf2f4"
+                                        <Frame BackgroundColor="#dddbe5"
                                                Opacity="0.8"
                                                Margin="5"
                                                Padding="10"
                                                CornerRadius="10"
                                                BorderColor="Transparent">
-                                            <Grid ColumnDefinitions=".15*,.35*,.35*,.15 *">
+                                            <Grid ColumnDefinitions=".15*,.35*,.35*,.15*">
                                                 <Label  Text="{Binding IdPedido}"
                                                         HorizontalOptions="Center"
                                                         VerticalOptions="Center"
@@ -94,12 +95,14 @@
                                                            VerticalOptions="Center" />
                                                 </Grid>
                                                 <Grid Grid.Column="2">
-                                                    <Label Text="{Binding EstadoPedido}"
-                                                           TextColor="#780000"
+                                                    <Label Text="{Binding ultEstado}"
+                                                           TextColor="Red"
                                                            FontFamily="Comf-Bold"
+                                                           FontSize="Subtitle"
                                                            Margin="15,0"
-                                                           HorizontalOptions="Start"
-                                                           VerticalOptions="Center" />
+                                                           x:Name="Estado"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center"/>
                                                 </Grid>
                                                 <Grid Grid.Column="3" Padding="0">
                                                     <Button BackgroundColor="Transparent"

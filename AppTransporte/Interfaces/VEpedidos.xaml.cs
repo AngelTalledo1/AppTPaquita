@@ -1,6 +1,7 @@
 namespace AppTransporte.Interfaces;
 using AppTransporte.model;
 using AppTransporte.viewModel;
+using iTextSharp.text.pdf.codec.wmf;
 
 
 public partial class VEpedidos : ContentPage
@@ -8,6 +9,7 @@ public partial class VEpedidos : ContentPage
     private readonly VMPedidos _viewModel;
     private int idUsuario;
     private int idtipousuario;
+    private Pedido _pedido;
     public VEpedidos(int idUsuario, int idTipoUsuario)
 	{
         this.idUsuario = idUsuario;
@@ -23,6 +25,7 @@ public partial class VEpedidos : ContentPage
         Navigation.PushAsync(new MenuPrincipal(idUsuario,idtipousuario));
     }
 
+    
     private async void Btn_DetallePedido(object sender, EventArgs e)
     {
         var button = (Button)sender;

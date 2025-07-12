@@ -114,7 +114,7 @@ namespace AppTransporte.Interfaces
             {
                 var trabajadores = await _sqlService.ObtenerTrabajadoresAsync("Transportista");
                 _transportistas.Clear();
-                _transportistas.Add(new PickerItem { Id = 0, Nombre = "Ninguno (Asignar después)" });
+                _transportistas.Add(new PickerItem { Id = 0, Nombre = "Transportista (Asignar después)" });
 
                 foreach (var trabajador in trabajadores)
                 {
@@ -140,7 +140,7 @@ namespace AppTransporte.Interfaces
             {
                 var trabajadores = await _sqlService.ObtenerTrabajadoresAsync("Ayudante");
                 _ayudantes.Clear();
-                _ayudantes.Add(new PickerItem { Id = 0, Nombre = "Ninguno (Asignar después)" });
+                _ayudantes.Add(new PickerItem { Id = 0, Nombre = "Ayudante (Asignar después)" });
 
                 foreach (var trabajador in trabajadores)
                 {
@@ -166,7 +166,7 @@ namespace AppTransporte.Interfaces
             {
                 var tractos = await _sqlService.ObtenerTractosDisponiblesAsync();
                 _tractos.Clear();
-                _tractos.Add(new PickerItem { Id = 0, Nombre = "Ninguno (Asignar después)" });
+                _tractos.Add(new PickerItem { Id = 0, Nombre = "Tracto (Asignar después)" });
 
                 foreach (var tracto in tractos)
                 {
@@ -192,7 +192,7 @@ namespace AppTransporte.Interfaces
             {
                 var cisternas = await _sqlService.ObtenerCisternasDisponiblesAsync();
                 _cisternas.Clear();
-                _cisternas.Add(new PickerItem { Id = 0, Nombre = "Ninguna (Asignar después)" });
+                _cisternas.Add(new PickerItem { Id = 0, Nombre = "Cisterna (Asignar después)" });
 
                 foreach (var cisterna in cisternas)
                 {

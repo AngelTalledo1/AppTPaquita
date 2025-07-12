@@ -9,7 +9,7 @@ public partial class VEProcesoPedido : ContentPage
     private int idtipousuario;
     private Pedido _pedido;
     private VMSeguimientoViaje _viaje;
-    private VMViajes _viewModelViajes; // Agregar referencia al ViewModel
+    private VMViajes _viewModelViajes;
 
     public VEProcesoPedido(Pedido pedido, int idUsuario, int idTipoUsuario, VMSeguimientoViaje? viaje)
     {
@@ -31,29 +31,100 @@ public partial class VEProcesoPedido : ContentPage
 
         this.BindingContext = _viewModelViajes;
 
-        // Configurar labels
-        TituloPedido.Text = $"Pedido {pedido.IdPedido}";
-        Origen.Text = $"{pedido.Origen}";
-        Estado.Text = $"{pedido.EstadoPedido}";
-        Destino.Text = $"{pedido.Destino}";
-        NombreCliente.Text = $"Cliente: {pedido.Cliente}";
-        ServiciosPedido.Text = $"Servicio: {pedido.Servicios}";
-        cantidadTotalPedido.Text = $"Cantidad Pedido: {pedido.Cantidad} Barriles";
-        creadorAdmin.Text = $"Creado por: {pedido.Usuario}";
-        creacionPedido.Text = $"Pedido Creado: {pedido.FechaSolicitud}";
-        cantidadViajes.Text = $"Numero de viajes: {pedido.Viajes}";
+        // Configurar labels iniciales
+        InicializarLabels();
     }
 
-    // AGREGAR ESTE MÉTODO para recargar cuando regrese de asignar
+    private void InicializarLabels()
+    {
+        TituloPedido.Text = $"Pedido {_pedido.IdPedido}";
+        Origen.Text = $"{_pedido.Origen}";
+        Destino.Text = $"{_pedido.Destino}";
+        NombreCliente.Text = $"Cliente: {_pedido.Cliente}";
+        ServiciosPedido.Text = $"Servicio: {_pedido.Servicios}";
+        cantidadTotalPedido.Text = $"Cantidad Pedido: {_pedido.Cantidad} Barriles";
+        creadorAdmin.Text = $"Creado por: {_pedido.Usuario}";
+        creacionPedido.Text = $"Pedido Creado: {_pedido.FechaSolicitud}";
+        cantidadViajes.Text = $"Numero de viajes: {_pedido.Viajes}";
+
+        // Estado inicial
+        Estado.Text = $"{_pedido.EstadoPedido}";
+    }
+
+    // Método para actualizar el estado del pedido
+    // Método mejorado para actualizar el estado del pedido
+    private async Task ActualizarEstadoPedidoAsync()
+    {
+        try
+        {
+            var estadoActualizado = await App.Database.ObtenerEstadoActualPedidoAsync(_pedido.IdPedido);
+
+            // Actualizar en el hilo principal
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                Estado.Text = estadoActualizado;
+
+                // Cambiar color según el estado con mejor mapeo
+                var colorEstado = estadoActualizado.ToLower() switch
+                {
+                    "completado" => Color.FromArgb("#498c96"),     // Verde
+                    "en progreso" => Color.FromArgb("#FF9800"),    // Naranja
+                    "asignado" => Color.FromArgb("#2196F3"),       // Azul
+                    "pendiente" => Color.FromArgb("#F44336"),      // Rojo
+                    "sin viajes" => Color.FromArgb("#9E9E9E"),     // Gris
+                    _ => Color.FromArgb("#F44336")                 // Rojo por defecto
+                };
+
+                Estado.TextColor = colorEstado;
+            });
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error al actualizar estado: {ex.Message}");
+
+            // Estado de error
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                Estado.Text = "Error al cargar";
+                Estado.TextColor = Color.FromArgb("#F44336");
+            });
+        }
+    }
+
+    // Actualizar el método OnAppearing
     protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        // Recargar datos de viajes al aparecer la página
+        // Mostrar indicador de carga
         if (_viewModelViajes != null)
         {
-            await Task.Delay(500); // Pequeña pausa para asegurar que la BD se actualizó
-            _viewModelViajes.InicializarViajes(); // Recargar viajes
+            _viewModelViajes.IsBusy = true;
+        }
+
+        try
+        {
+            // Recargar datos de viajes y estado del pedido
+            if (_viewModelViajes != null)
+            {
+                await Task.Delay(500); // Pequeña pausa para asegurar que la BD se actualizó
+                _viewModelViajes.InicializarViajes(); // Recargar viajes
+            }
+
+            // Actualizar el estado del pedido en la parte superior
+            await ActualizarEstadoPedidoAsync();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error en OnAppearing: {ex.Message}");
+        }
+        finally
+        {
+            // Ocultar indicador de carga
+            if (_viewModelViajes != null)
+            {
+                _viewModelViajes.IsBusy = false;
+            }
         }
     }
 
@@ -82,6 +153,7 @@ public partial class VEProcesoPedido : ContentPage
     {
         var button = (Button)sender;
         var viaje = button.CommandParameter as Viaje;
+
         if (viaje != null)
         {
             bool noAsignado =

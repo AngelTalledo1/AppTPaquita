@@ -87,9 +87,14 @@ namespace AppTransporte.viewModel
             {
                 "Todos",
                 "Pendiente",
-                "En el punto de Carga",
+                "En origen",
+                "En el punto de carga",
+                "Carga completa",
                 "En camino al destino",
-                "Finalizado"
+                "En el punto de descarga",
+                "Descarga completa",
+                "Finalizado",
+                "Asignado"
             };
 
             CargarPedidos(); // Cargar los pedidos al inicializar el ViewModel
@@ -102,9 +107,14 @@ namespace AppTransporte.viewModel
             {
                 "Todos",
                 "Pendiente",
-                "En el punto de Carga",
+                "En origen",
+                "En el punto de carga",
+                "Carga completa",
                 "En camino al destino",
-                "Finalizado"
+                "En el punto de descarga",
+                "Descarga completa",
+                "Finalizado",
+                "Asignado"
             };
 
             CargarPedidosPorUsuario(idUsuario); // Cargar solo los pedidos del usuario
@@ -163,7 +173,8 @@ namespace AppTransporte.viewModel
 
             if (!string.IsNullOrEmpty(EstadoSeleccionado) && EstadoSeleccionado != "Todos")
             {
-                pedidosFiltrados = pedidosFiltrados.Where(p => p.EstadoPedido == EstadoSeleccionado);
+                // Filtrar por el estado real de los viajes
+                pedidosFiltrados = pedidosFiltrados.Where(p => p.ultEstado == EstadoSeleccionado);
             }
 
             if (!string.IsNullOrEmpty(Numero))
@@ -185,4 +196,3 @@ namespace AppTransporte.viewModel
 
     }
 }
-
