@@ -65,49 +65,25 @@
                                    HorizontalOptions="FillAndExpand"/>
                         </HorizontalStackLayout>
 
-                        <!-- NUEVOS CAMPOS AGREGADOS -->
-
-                        <!-- Transportista -->
+                        <!-- Origen -->
                         <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="trabajador.png" VerticalOptions="Center" />
-                            <Picker x:Name="TransportistaPicker"
-                                    Title="Seleccionar Transportista (Opcional)"
-                                    FontFamily="Comf-Medium"
-                                    HorizontalOptions="FillAndExpand">
+                            <Image WidthRequest="30" HeightRequest="30" Source="direccion.png" VerticalOptions="Center"/>
+                            <Picker x:Name="OrigenPicker"
+                                   Title="Origen"
+                                   FontFamily="Comf-Medium"
+                                   HorizontalOptions="FillAndExpand">
                             </Picker>
                         </HorizontalStackLayout>
 
-                        <!-- Ayudante -->
+                        <!-- Destino -->
                         <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="trabajador.png" VerticalOptions="Center" />
-                            <Picker x:Name="AyudantePicker"
-                                    Title="Seleccionar Ayudante (Opcional)"
-                                    FontFamily="Comf-Medium"
-                                    HorizontalOptions="FillAndExpand">
+                            <Image WidthRequest="30" HeightRequest="30" Source="direccion.png" VerticalOptions="Center"/>
+                            <Picker x:Name="DestinoPicker"
+                                   Title="Destino"
+                                   FontFamily="Comf-Medium"
+                                   HorizontalOptions="FillAndExpand">
                             </Picker>
                         </HorizontalStackLayout>
-
-                        <!-- Tracto -->
-                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="camion.png" VerticalOptions="Center" />
-                            <Picker x:Name="TractosPicker"
-                                    Title="Seleccionar Tracto (Opcional)"
-                                    FontFamily="Comf-Medium"
-                                    HorizontalOptions="FillAndExpand">
-                            </Picker>
-                        </HorizontalStackLayout>
-
-                        <!-- Cisterna -->
-                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="cisterna.png" VerticalOptions="Center" />
-                            <Picker x:Name="CisternaPicker"
-                                    Title="Seleccionar Cisterna (Opcional)"
-                                    FontFamily="Comf-Medium"
-                                    HorizontalOptions="FillAndExpand">
-                            </Picker>
-                        </HorizontalStackLayout>
-
-                        <!-- FIN NUEVOS CAMPOS -->
 
                         <!-- Días personalizados -->
                         <StackLayout x:Name="DiasSeleccionadosLayout" Padding="10">

@@ -74,13 +74,13 @@ namespace AppTransporte.Interfaces
                 {
                     // Cargar servicios
                     await CargarServicios();
-
+                    /*
                     // Cargar transportistas, ayudantes, tractos y cisternas
                     await CargarTransportistas();
                     await CargarAyudantes();
                     await CargarTractos();
                     await CargarCisternas();
-
+                    */
                     // Si es edición, cargar los datos después de que se carguen las listas
                     if (_pedidoEditar != null)
                     {
@@ -101,6 +101,14 @@ namespace AppTransporte.Interfaces
             {
                 var servicios = await _sqlService.ObtenerServiciosAsync();
                 TipoServicioPicker.ItemsSource = servicios.Select(s => s.Descripcion).ToList();
+                // Cargar ubicaciones y asignar al picker de origen
+                var ubicaciones = await _sqlService.ObtenerUbicacionesAsync();
+                OrigenPicker.ItemsSource = ubicaciones.Select(u => u.Descripcion).ToList();
+
+                // Cargar ubicaciones y asignar al picker de destino
+                DestinoPicker.ItemsSource = ubicaciones.Select(u => u.Descripcion).ToList();
+
+
             }
             catch (Exception ex)
             {
@@ -108,6 +116,7 @@ namespace AppTransporte.Interfaces
             }
         }
 
+        /*
         private async Task CargarTransportistas()
         {
             try
@@ -133,7 +142,7 @@ namespace AppTransporte.Interfaces
                 System.Diagnostics.Debug.WriteLine($"Error al cargar transportistas: {ex.Message}");
             }
         }
-
+        
         private async Task CargarAyudantes()
         {
             try
@@ -211,6 +220,8 @@ namespace AppTransporte.Interfaces
                 System.Diagnostics.Debug.WriteLine($"Error al cargar cisternas: {ex.Message}");
             }
         }
+            */
+
 
         private void CargarDatosParaEdicion()
         {
@@ -224,7 +235,7 @@ namespace AppTransporte.Interfaces
                 // Cargar datos en los controles
                 TipoServicioPicker.SelectedItem = _pedidoEditar.TipoServicio;
                 descripcionEntry.Text = _pedidoEditar.Descripcion;
-
+                /*
                 // Cargar selecciones de los nuevos campos
                 if (_pedidoEditar.IdTransportista.HasValue && _pedidoEditar.IdTransportista > 0)
                 {
@@ -253,7 +264,7 @@ namespace AppTransporte.Interfaces
                     if (cisterna != null)
                         CisternaPicker.SelectedItem = cisterna;
                 }
-
+                */
                 // Cargar días seleccionados
                 var dias = _pedidoEditar.DiasSemana.Split(',').Select(d => d.Trim()).ToList();
                 LunesCheck.IsChecked = dias.Contains("Lunes");
@@ -310,6 +321,18 @@ namespace AppTransporte.Interfaces
                     return;
                 }
 
+                if(OrigenPicker.SelectedItem == null)
+                {
+                    await DisplayAlert("Error", "Debe seleccionar un origen.", "OK");
+                    return;
+                }
+                if(DestinoPicker.SelectedItem == null)
+                {
+                    await DisplayAlert("Error", "Debe seleccionar un destino.", "OK");
+                    return;
+                }
+
+
                 // Verificar que al menos un día esté seleccionado
                 string diasSeleccionados = "";
                 var dias = new[] {
@@ -350,6 +373,7 @@ namespace AppTransporte.Interfaces
                     return;
                 }
 
+                /*
                 // Obtener IDs de las selecciones (si están seleccionadas)
                 int? idTransportista = null;
                 int? idAyudante = null;
@@ -367,7 +391,7 @@ namespace AppTransporte.Interfaces
 
                 if (CisternaPicker.SelectedItem is PickerItem cisternaSeleccionada && cisternaSeleccionada.Id > 0)
                     idCisterna = cisternaSeleccionada.Id;
-
+                */
                 // Crear el objeto pedido automático
                 var pedidoAutomatico = new PedidoAutomatico
                 {
@@ -378,12 +402,28 @@ namespace AppTransporte.Interfaces
                     FechaInicio = FechaInicioPicker.Date,
                     FechaFin = FechaFinPicker.Date,
                     Descripcion = string.IsNullOrWhiteSpace(descripcionEntry.Text) ? null : descripcionEntry.Text,
+                    /*
                     // Nuevos campos
                     IdTransportista = idTransportista,
                     IdAyudante = idAyudante,
                     IdTracto = idTracto,
                     IdCisterna = idCisterna
+                    */
                 };
+                //se crea un nuevo objeto Pedido
+                var pedido = new Pedido
+                {
+                    /*
+                    IdUsuario = idUsuario,
+                    IdTipoServicio = idTipoServicio,
+                    Origen = OrigenPicker.SelectedItem.ToString(),
+                    Destino = DestinoPicker.SelectedItem.ToString(),
+                    FechaCreacion = DateTime.Now,
+                    Estado = "Pendiente"
+                    */
+                };
+
+
 
                 if (_sqlService == null)
                 {
