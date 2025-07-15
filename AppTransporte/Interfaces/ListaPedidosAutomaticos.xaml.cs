@@ -11,7 +11,6 @@ namespace AppTransporte.Interfaces
     {
         private int idUsuario;
         private int idtipousuario;
-        private SqlServerService _sqlService;
         private List<PedidoAutomatico> _pedidos;
         private string _tipoFiltroActual = "Todos"; // "Todos" o "Hoy"
 
@@ -21,19 +20,7 @@ namespace AppTransporte.Interfaces
             this.idUsuario = idUsuario;
             this.idtipousuario = idTipoUsuario;
 
-            // Usar el mismo connection string que ya tienes en tu proyecto
-            try
-            {
-                // Intenta usar el mismo connection string que en otras partes de tu app
-                var existingService = new SqlServerService("Data Source=SQL8011.site4now.net;Initial Catalog=db_aaecc9_paquitaappdb;User Id=db_aaecc9_paquitaappdb_admin;Password=paquita123;Connection Timeout=60"); // Esto usará el que ya tienes configurado
-                _sqlService = existingService;
-            }
-            catch
-            {
-                // Si no funciona, necesitarás poner tu connection string real aquí
-                _sqlService = null;
-            }
-
+        
             _pedidos = new List<PedidoAutomatico>();
             InicializarFiltros();
             ActualizarEstadoBotonesFiltro();
@@ -83,15 +70,10 @@ namespace AppTransporte.Interfaces
         {
             try
             {
-                if (_sqlService == null)
-                {
-                    await DisplayAlert("Error", "Error de conexión a la base de datos. Revisa tu configuración.", "OK");
-                    EmptyStateLayout.IsVisible = true;
-                    return;
-                }
+             
 
                 // Obtener todos los pedidos del usuario
-                var todosPedidos = await _sqlService.ObtenerPedidosAutomaticosAsync(idUsuario);
+                var todosPedidos = await App.Database.ObtenerPedidosAutomaticosAsync();
 
                 // Aplicar filtro según el tipo seleccionado
                 if (_tipoFiltroActual == "Hoy")
@@ -378,7 +360,7 @@ namespace AppTransporte.Interfaces
 
                 if (!confirmar) return;
 
-                var respuesta = await _sqlService.EliminarPedidoAutomaticoAsync(pedido.IdPedidoAutomatico);
+                var respuesta = await App.Database.EliminarPedidoAutomaticoAsync(pedido.IdPedidoAutomatico);
 
                 if (respuesta.EsExitoso)
                 {
@@ -410,7 +392,7 @@ namespace AppTransporte.Interfaces
 
                 if (!confirmar) return;
 
-                var respuesta = await _sqlService.CambiarEstadoPedidoAutomaticoAsync(
+                var respuesta = await App.Database.CambiarEstadoPedidoAutomaticoAsync(
                     pedido.IdPedidoAutomatico, nuevoEstado);
 
                 if (respuesta.EsExitoso)

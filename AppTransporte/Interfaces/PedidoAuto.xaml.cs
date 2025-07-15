@@ -11,7 +11,7 @@ namespace AppTransporte.Interfaces
     public class PickerItem
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
+        public string Nombre { get; set; } = string.Empty;
         public override string ToString() => Nombre;
     }
 
@@ -19,14 +19,13 @@ namespace AppTransporte.Interfaces
     {
         private int idUsuario;
         private int idtipousuario;
-        private SqlServerService _sqlService;
-        private PedidoAutomatico _pedidoEditar; // Para cuando se está editando
+        private SqlServerService? _sqlService;
+        private PedidoAutomatico? _pedidoEditar; // Para cuando se está editando
 
-        // Listas para los pickers nuevos
-        private List<PickerItem> _transportistas = new();
-        private List<PickerItem> _ayudantes = new();
-        private List<PickerItem> _tractos = new();
-        private List<PickerItem> _cisternas = new();
+        // Nuevas listas para Cliente, Origen y Destino
+        private List<PickerItem> _clientes = new();
+        private List<PickerItem> _origenes = new();
+        private List<PickerItem> _destinos = new();
 
         public PedidoAuto(int idUsuario, int idTipoUsuario)
         {
@@ -75,11 +74,9 @@ namespace AppTransporte.Interfaces
                     // Cargar servicios
                     await CargarServicios();
 
-                    // Cargar transportistas, ayudantes, tractos y cisternas
-                    await CargarTransportistas();
-                    await CargarAyudantes();
-                    await CargarTractos();
-                    await CargarCisternas();
+                    // Cargar nuevos campos
+                    await CargarClientes();
+                    await CargarUbicaciones();
 
                     // Si es edición, cargar los datos después de que se carguen las listas
                     if (_pedidoEditar != null)
@@ -95,120 +92,82 @@ namespace AppTransporte.Interfaces
             }
         }
 
+        private async Task CargarClientes()
+        {
+            try
+            {
+                var clientes = await _sqlService!.ObtenerClientesAsync();
+                _clientes.Clear();
+                _clientes.Add(new PickerItem { Id = 0, Nombre = "Seleccionar Cliente" });
+
+                foreach (var cliente in clientes)
+                {
+                    _clientes.Add(new PickerItem
+                    {
+                        Id = cliente.IdCliente,
+                        Nombre = cliente.NombreCompleto
+                    });
+                }
+
+                ClientePicker.ItemsSource = _clientes;
+                ClientePicker.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cargar clientes: {ex.Message}");
+            }
+        }
+
+        private async Task CargarUbicaciones()
+        {
+            try
+            {
+                var ubicaciones = await _sqlService!.ObtenerUbicacionesAsync();
+
+                // Cargar orígenes
+                _origenes.Clear();
+                _origenes.Add(new PickerItem { Id = 0, Nombre = "Seleccionar Origen" });
+                foreach (var ubicacion in ubicaciones)
+                {
+                    _origenes.Add(new PickerItem
+                    {
+                        Id = ubicacion.IdUbicacion,
+                        Nombre = ubicacion.Descripcion
+                    });
+                }
+                OrigenPicker.ItemsSource = _origenes;
+                OrigenPicker.SelectedIndex = 0;
+
+                // Cargar destinos
+                _destinos.Clear();
+                _destinos.Add(new PickerItem { Id = 0, Nombre = "Seleccionar Destino" });
+                foreach (var ubicacion in ubicaciones)
+                {
+                    _destinos.Add(new PickerItem
+                    {
+                        Id = ubicacion.IdUbicacion,
+                        Nombre = ubicacion.Descripcion
+                    });
+                }
+                DestinoPicker.ItemsSource = _destinos;
+                DestinoPicker.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cargar ubicaciones: {ex.Message}");
+            }
+        }
+
         private async Task CargarServicios()
         {
             try
             {
-                var servicios = await _sqlService.ObtenerServiciosAsync();
+                var servicios = await _sqlService!.ObtenerServiciosAsync();
                 TipoServicioPicker.ItemsSource = servicios.Select(s => s.Descripcion).ToList();
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error al cargar servicios: {ex.Message}");
-            }
-        }
-
-        private async Task CargarTransportistas()
-        {
-            try
-            {
-                var trabajadores = await _sqlService.ObtenerTrabajadoresAsync("Transportista");
-                _transportistas.Clear();
-                _transportistas.Add(new PickerItem { Id = 0, Nombre = "Transportista (Asignar después)" });
-
-                foreach (var trabajador in trabajadores)
-                {
-                    _transportistas.Add(new PickerItem
-                    {
-                        Id = trabajador.IdTrabajador,
-                        Nombre = $"{trabajador.Nombre} {trabajador.apePaterno} {trabajador.apeMaterno}".Trim()
-                    });
-                }
-
-                TransportistaPicker.ItemsSource = _transportistas;
-                TransportistaPicker.SelectedIndex = 0; // Seleccionar "Ninguno" por defecto
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al cargar transportistas: {ex.Message}");
-            }
-        }
-
-        private async Task CargarAyudantes()
-        {
-            try
-            {
-                var trabajadores = await _sqlService.ObtenerTrabajadoresAsync("Ayudante");
-                _ayudantes.Clear();
-                _ayudantes.Add(new PickerItem { Id = 0, Nombre = "Ayudante (Asignar después)" });
-
-                foreach (var trabajador in trabajadores)
-                {
-                    _ayudantes.Add(new PickerItem
-                    {
-                        Id = trabajador.IdTrabajador,
-                        Nombre = $"{trabajador.Nombre} {trabajador.apePaterno} {trabajador.apeMaterno}".Trim()
-                    });
-                }
-
-                AyudantePicker.ItemsSource = _ayudantes;
-                AyudantePicker.SelectedIndex = 0; // Seleccionar "Ninguno" por defecto
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al cargar ayudantes: {ex.Message}");
-            }
-        }
-
-        private async Task CargarTractos()
-        {
-            try
-            {
-                var tractos = await _sqlService.ObtenerTractosDisponiblesAsync();
-                _tractos.Clear();
-                _tractos.Add(new PickerItem { Id = 0, Nombre = "Tracto (Asignar después)" });
-
-                foreach (var tracto in tractos)
-                {
-                    _tractos.Add(new PickerItem
-                    {
-                        Id = tracto.IdVehiculo,
-                        Nombre = $"{tracto.Placa} - {tracto.Modelo}".Trim()
-                    });
-                }
-
-                TractosPicker.ItemsSource = _tractos;
-                TractosPicker.SelectedIndex = 0; // Seleccionar "Ninguno" por defecto
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al cargar tractos: {ex.Message}");
-            }
-        }
-
-        private async Task CargarCisternas()
-        {
-            try
-            {
-                var cisternas = await _sqlService.ObtenerCisternasDisponiblesAsync();
-                _cisternas.Clear();
-                _cisternas.Add(new PickerItem { Id = 0, Nombre = "Cisterna (Asignar después)" });
-
-                foreach (var cisterna in cisternas)
-                {
-                    _cisternas.Add(new PickerItem
-                    {
-                        Id = cisterna.IdVehiculo,
-                        Nombre = $"{cisterna.Placa} - {cisterna.AñoFabricacion}".Trim()
-                    });
-                }
-
-                CisternaPicker.ItemsSource = _cisternas;
-                CisternaPicker.SelectedIndex = 0; // Seleccionar "Ninguna" por defecto
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al cargar cisternas: {ex.Message}");
             }
         }
 
@@ -225,33 +184,26 @@ namespace AppTransporte.Interfaces
                 TipoServicioPicker.SelectedItem = _pedidoEditar.TipoServicio;
                 descripcionEntry.Text = _pedidoEditar.Descripcion;
 
-                // Cargar selecciones de los nuevos campos
-                if (_pedidoEditar.IdTransportista.HasValue && _pedidoEditar.IdTransportista > 0)
+                // Cargar selecciones de Cliente, Origen y Destino
+                if (_pedidoEditar.IdCliente.HasValue && _pedidoEditar.IdCliente > 0)
                 {
-                    var transportista = _transportistas.FirstOrDefault(t => t.Id == _pedidoEditar.IdTransportista);
-                    if (transportista != null)
-                        TransportistaPicker.SelectedItem = transportista;
+                    var cliente = _clientes.FirstOrDefault(c => c.Id == _pedidoEditar.IdCliente);
+                    if (cliente != null)
+                        ClientePicker.SelectedItem = cliente;
                 }
 
-                if (_pedidoEditar.IdAyudante.HasValue && _pedidoEditar.IdAyudante > 0)
+                if (_pedidoEditar.IdOrigen.HasValue && _pedidoEditar.IdOrigen > 0)
                 {
-                    var ayudante = _ayudantes.FirstOrDefault(a => a.Id == _pedidoEditar.IdAyudante);
-                    if (ayudante != null)
-                        AyudantePicker.SelectedItem = ayudante;
+                    var origen = _origenes.FirstOrDefault(o => o.Id == _pedidoEditar.IdOrigen);
+                    if (origen != null)
+                        OrigenPicker.SelectedItem = origen;
                 }
 
-                if (_pedidoEditar.IdTracto.HasValue && _pedidoEditar.IdTracto > 0)
+                if (_pedidoEditar.IdDestino.HasValue && _pedidoEditar.IdDestino > 0)
                 {
-                    var tracto = _tractos.FirstOrDefault(t => t.Id == _pedidoEditar.IdTracto);
-                    if (tracto != null)
-                        TractosPicker.SelectedItem = tracto;
-                }
-
-                if (_pedidoEditar.IdCisterna.HasValue && _pedidoEditar.IdCisterna > 0)
-                {
-                    var cisterna = _cisternas.FirstOrDefault(c => c.Id == _pedidoEditar.IdCisterna);
-                    if (cisterna != null)
-                        CisternaPicker.SelectedItem = cisterna;
+                    var destino = _destinos.FirstOrDefault(d => d.Id == _pedidoEditar.IdDestino);
+                    if (destino != null)
+                        DestinoPicker.SelectedItem = destino;
                 }
 
                 // Cargar días seleccionados
@@ -304,9 +256,27 @@ namespace AppTransporte.Interfaces
             try
             {
                 // Validaciones
+                if (ClientePicker.SelectedItem == null || ((PickerItem)ClientePicker.SelectedItem).Id == 0)
+                {
+                    await DisplayAlert("Error", "Debe seleccionar un cliente.", "OK");
+                    return;
+                }
+
                 if (TipoServicioPicker.SelectedItem == null)
                 {
                     await DisplayAlert("Error", "Debe seleccionar un tipo de servicio.", "OK");
+                    return;
+                }
+
+                if (OrigenPicker.SelectedItem == null || ((PickerItem)OrigenPicker.SelectedItem).Id == 0)
+                {
+                    await DisplayAlert("Error", "Debe seleccionar un origen.", "OK");
+                    return;
+                }
+
+                if (DestinoPicker.SelectedItem == null || ((PickerItem)DestinoPicker.SelectedItem).Id == 0)
+                {
+                    await DisplayAlert("Error", "Debe seleccionar un destino.", "OK");
                     return;
                 }
 
@@ -342,7 +312,7 @@ namespace AppTransporte.Interfaces
                 }
 
                 // Obtener el ID del servicio
-                int idTipoServicio = await ObtenerIdServicioPorDescripcion(TipoServicioPicker.SelectedItem.ToString());
+                int idTipoServicio = await ObtenerIdServicioPorDescripcion(TipoServicioPicker.SelectedItem?.ToString() ?? "");
 
                 if (idTipoServicio == 0)
                 {
@@ -350,23 +320,10 @@ namespace AppTransporte.Interfaces
                     return;
                 }
 
-                // Obtener IDs de las selecciones (si están seleccionadas)
-                int? idTransportista = null;
-                int? idAyudante = null;
-                int? idTracto = null;
-                int? idCisterna = null;
-
-                if (TransportistaPicker.SelectedItem is PickerItem transportistaSeleccionado && transportistaSeleccionado.Id > 0)
-                    idTransportista = transportistaSeleccionado.Id;
-
-                if (AyudantePicker.SelectedItem is PickerItem ayudanteSeleccionado && ayudanteSeleccionado.Id > 0)
-                    idAyudante = ayudanteSeleccionado.Id;
-
-                if (TractosPicker.SelectedItem is PickerItem tractoSeleccionado && tractoSeleccionado.Id > 0)
-                    idTracto = tractoSeleccionado.Id;
-
-                if (CisternaPicker.SelectedItem is PickerItem cisternaSeleccionada && cisternaSeleccionada.Id > 0)
-                    idCisterna = cisternaSeleccionada.Id;
+                // Obtener IDs de las selecciones principales
+                int idCliente = ((PickerItem)ClientePicker.SelectedItem).Id;
+                int idOrigen = ((PickerItem)OrigenPicker.SelectedItem).Id;
+                int idDestino = ((PickerItem)DestinoPicker.SelectedItem).Id;
 
                 // Crear el objeto pedido automático
                 var pedidoAutomatico = new PedidoAutomatico
@@ -377,12 +334,11 @@ namespace AppTransporte.Interfaces
                     HoraProgramada = HoraPicker.Time,
                     FechaInicio = FechaInicioPicker.Date,
                     FechaFin = FechaFinPicker.Date,
-                    Descripcion = string.IsNullOrWhiteSpace(descripcionEntry.Text) ? null : descripcionEntry.Text,
-                    // Nuevos campos
-                    IdTransportista = idTransportista,
-                    IdAyudante = idAyudante,
-                    IdTracto = idTracto,
-                    IdCisterna = idCisterna
+                    Descripcion = string.IsNullOrWhiteSpace(descripcionEntry.Text) ? null : descripcionEntry.Text ?? "",
+                    // Nuevos campos principales
+                    IdCliente = idCliente,
+                    IdOrigen = idOrigen,
+                    IdDestino = idDestino
                 };
 
                 if (_sqlService == null)
@@ -429,7 +385,7 @@ namespace AppTransporte.Interfaces
         {
             try
             {
-                var servicios = await _sqlService.ObtenerServiciosAsync();
+                var servicios = await _sqlService!.ObtenerServiciosAsync();
                 var servicio = servicios.FirstOrDefault(s => s.Descripcion == descripcion);
                 return servicio?.IdServicio ?? 0;
             }

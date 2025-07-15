@@ -3374,35 +3374,42 @@ namespace AppTransporte.model
             try
             {
                 using var connection = new SqlConnection(_connectionString);
-                using var command = new SqlCommand("SP_InsertarPedidoAutomatico", connection)
+                using var command = new SqlCommand("pa_CrearPedidoAutomatico", connection)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
 
+                // Parámetros requeridos por el nuevo PA
                 command.Parameters.AddWithValue("@id_usuario", pedido.IdUsuario);
-                command.Parameters.AddWithValue("@id_tipoServicio", pedido.IdTipoServicio);
+                command.Parameters.AddWithValue("@id_cliente", pedido.IdCliente.Value);
+                command.Parameters.AddWithValue("@id_tipoServicio", pedido.IdTipoServicio); 
                 command.Parameters.AddWithValue("@dias_semana", pedido.DiasSemana);
                 command.Parameters.AddWithValue("@hora_programada", pedido.HoraProgramada);
                 command.Parameters.AddWithValue("@fecha_inicio", pedido.FechaInicio.Date);
                 command.Parameters.AddWithValue("@fecha_fin", pedido.FechaFin.Date);
+                command.Parameters.AddWithValue("@id_origen", pedido.IdOrigen.Value);
+                command.Parameters.AddWithValue("@id_destino", pedido.IdDestino.Value);
                 command.Parameters.AddWithValue("@descripcion", (object)pedido.Descripcion ?? DBNull.Value);
-
-                // Nuevos parámetros agregados
-                command.Parameters.AddWithValue("@id_transportista", (object)pedido.IdTransportista ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_ayudante", (object)pedido.IdAyudante ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_tracto", (object)pedido.IdTracto ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_cisterna", (object)pedido.IdCisterna ?? DBNull.Value);
 
                 await connection.OpenAsync();
                 using var reader = await command.ExecuteReaderAsync();
 
                 if (await reader.ReadAsync())
                 {
+                    // El PA devuelve id_pedidoAutomatico y pedidos_generados
                     return new RespuestaPedidoAutomatico
                     {
                         IdPedidoAutomatico = reader.IsDBNull("id_pedidoAutomatico") ? null : reader.GetInt32("id_pedidoAutomatico"),
-                        Mensaje = reader.GetString("Mensaje"),
+                        Mensaje = $"Pedido automático creado exitosamente. Pedidos generados: {(reader.IsDBNull("pedidos_generados") ? 0 : reader.GetInt32("pedidos_generados"))}",
                         FilasAfectadas = reader.IsDBNull("id_pedidoAutomatico") ? 0 : 1
+                    };
+                }
+                else
+                {
+                    return new RespuestaPedidoAutomatico
+                    {
+                        FilasAfectadas = 1,
+                        Mensaje = "Pedido automático creado exitosamente"
                     };
                 }
             }
@@ -3423,8 +3430,6 @@ namespace AppTransporte.model
                     Mensaje = $"Error inesperado: {ex.Message}"
                 };
             }
-
-            return new RespuestaPedidoAutomatico { FilasAfectadas = 0, Mensaje = "Error desconocido" };
         }
         // En tu clase Database, REEMPLAZA o agrega este método:
 
@@ -3479,7 +3484,7 @@ namespace AppTransporte.model
             return pedidos;
         }
 
-        public async Task<List<PedidoAutomatico>> ObtenerPedidosAutomaticosAsync(int idUsuario, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
+        public async Task<List<PedidoAutomatico>> ObtenerPedidosAutomaticosAsync(DateTime? fechaDesde = null, DateTime? fechaHasta = null)
         {
             var pedidos = new List<PedidoAutomatico>();
 
@@ -3490,8 +3495,6 @@ namespace AppTransporte.model
                 {
                     CommandType = CommandType.StoredProcedure
                 };
-
-                command.Parameters.AddWithValue("@id_usuario", idUsuario);
                 command.Parameters.AddWithValue("@fecha_desde", (object)fechaDesde ?? DBNull.Value);
                 command.Parameters.AddWithValue("@fecha_hasta", (object)fechaHasta ?? DBNull.Value);
 
@@ -3515,21 +3518,7 @@ namespace AppTransporte.model
                         FechaModificacion = reader.GetDateTime("fecha_modificacion"),
                         UltimoProcesamiento = reader.IsDBNull("ultimo_procesamiento") ? null : reader.GetDateTime("ultimo_procesamiento"),
                         Descripcion = reader.IsDBNull("descripcion") ? null : reader.GetString("descripcion"),
-                        DiasDuracion = reader.GetInt32("dias_duracion"),
-                        EstadoDescripcion = reader.GetString("estado_descripcion"),
-
-                        // Nuevos campos agregados
-                        IdTransportista = reader.IsDBNull("id_transportista") ? null : reader.GetInt32("id_transportista"),
-                        IdAyudante = reader.IsDBNull("id_ayudante") ? null : reader.GetInt32("id_ayudante"),
-                        IdTracto = reader.IsDBNull("id_tracto") ? null : reader.GetInt32("id_tracto"),
-                        IdCisterna = reader.IsDBNull("id_cisterna") ? null : reader.GetInt32("id_cisterna"),
-
-                        // Nombres para mostrar en la interfaz
-                        NombreTransportista = reader.IsDBNull("nombre_transportista") ? null : reader.GetString("nombre_transportista"),
-                        NombreAyudante = reader.IsDBNull("nombre_ayudante") ? null : reader.GetString("nombre_ayudante"),
-                        PlacaTracto = reader.IsDBNull("placa_tracto") ? null : reader.GetString("placa_tracto"),
-                        PlacaCisterna = reader.IsDBNull("placa_cisterna") ? null : reader.GetString("placa_cisterna")
-                    });
+                             });
                 }
             }
             catch (Exception ex)
@@ -3557,12 +3546,6 @@ namespace AppTransporte.model
                 command.Parameters.AddWithValue("@fecha_inicio", pedido.FechaInicio.Date);
                 command.Parameters.AddWithValue("@fecha_fin", pedido.FechaFin.Date);
                 command.Parameters.AddWithValue("@descripcion", (object)pedido.Descripcion ?? DBNull.Value);
-
-                // Nuevos parámetros agregados
-                command.Parameters.AddWithValue("@id_transportista", (object)pedido.IdTransportista ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_ayudante", (object)pedido.IdAyudante ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_tracto", (object)pedido.IdTracto ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_cisterna", (object)pedido.IdCisterna ?? DBNull.Value);
 
                 await connection.OpenAsync();
                 using var reader = await command.ExecuteReaderAsync();

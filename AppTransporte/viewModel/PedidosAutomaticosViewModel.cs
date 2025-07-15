@@ -52,7 +52,7 @@ public class PedidosAutomaticosViewModel : INotifyPropertyChanged
         {
             IsRefreshing = true;
 
-            var pedidos = await _sqlService.ObtenerPedidosAutomaticosAsync(_idUsuario);
+            var pedidos = await _sqlService.ObtenerPedidosAutomaticosAsync();
 
             PedidosAutomaticos.Clear();
             foreach (var pedido in pedidos)
@@ -136,7 +136,7 @@ public class PedidosAutomaticosViewModel : INotifyPropertyChanged
             if (respuesta.EsExitoso)
             {
                 pedido.Estado = nuevoEstado;
-                pedido.EstadoDescripcion = nuevoEstado ? "Activo" : "Inactivo";
+
 
                 // Refrescar la lista para actualizar la interfaz
                 await CargarPedidosAsync();

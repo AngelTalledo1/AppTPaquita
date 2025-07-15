@@ -25,7 +25,7 @@ public partial class VCMisPedidos : ContentPage
     private async void Btn_DetalleMisPedido(object sender, EventArgs e)
     {
         var button = (Button)sender;
-        var pedido = button.CommandParameter as Pedido; // Asegúrate de que "Pedidos" es el tipo de tu modelo de datos
+        var pedido = button.CommandParameter as Pedido;
 
         if (pedido != null)
         {
