@@ -114,13 +114,13 @@ namespace AppTransporte.Interfaces
             try
             {
                 // Generar el documento PDF
-                byte[] pdfBytes = App.Database.GenerarReporteActividadDiariaPDF(_reporteActual);
+               // byte[] pdfBytes = App.Database.GenerarReporteActividadDiariaPDF(_reporteActual);
 
                 // Guardar y compartir el PDF
                 string fileName = $"Reporte_Diario_{_fechaSeleccionada:yyyy-MM-dd}.pdf";
                 string tempPath = Path.Combine(FileSystem.CacheDirectory, fileName);
 
-                File.WriteAllBytes(tempPath, pdfBytes);
+              //  File.WriteAllBytes(tempPath, pdfBytes);
 
                 await Share.RequestAsync(new ShareFileRequest
                 {

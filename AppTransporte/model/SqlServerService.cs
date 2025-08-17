@@ -1,8 +1,9 @@
 using Microsoft.Data.SqlClient;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using Syncfusion.Pdf.Grid;
+using SyncSizeF = Syncfusion.Drawing.SizeF;
 using System.Data;
-using System.Reflection.Metadata;
 #pragma warning disable CS8603, CS1998, CS8625, CS8601, CS8600, CS8612, CS0612
 
 namespace AppTransporte.model
@@ -10,7 +11,7 @@ namespace AppTransporte.model
     public static class DataReaderExtensions
     {
 
-       
+
         public static bool HasColumn(this SqlDataReader reader, string columnName)
         {
             for (int i = 0; i < reader.FieldCount; i++)
@@ -305,297 +306,7 @@ namespace AppTransporte.model
         }
 
 
-        // Método para obtener el reporte de actividades diarias de un trabajador
-
-        // Método combinado para obtener el reporte diario completo de un trabajador
-        // Método para generar un reporte PDF de tareas adicionales
-        // Método para generar reporte de tareas adicionales convertido a QuestPDF
-        public byte[] GenerarReporteTareasAdicionalesPDF(
-            List<TareaAdicionalTrabajador> tareas,
-            string nombreTrabajador,
-            DateTime fechaInicio,
-            DateTime fechaFin)
-        {
-           
-            var document = QuestPDF.Fluent.Document.Create(container =>
-            {
-                container.Page(page =>
-                {
-                    page.Margin(36);
-                    page.Size(PageSizes.A4);
-                    page.DefaultTextStyle(x => x.FontSize(12));
-
-                    // Contenido principal
-                    page.Content().Element(content =>
-                    {
-                        content.Column(col =>
-                        {
-                            // Título del reporte
-                            col.Item().PaddingBottom(20).AlignCenter().Text("Reporte de Tareas Adicionales")
-                                .FontSize(18).Bold();
-
-                            // Información del trabajador y período
-                            col.Item().PaddingBottom(5).Text($"Trabajador: {nombreTrabajador}")
-                                .FontSize(12);
-
-                            col.Item().PaddingBottom(20).Text($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}")
-                                .FontSize(12);
-
-                            // Tabla de tareas adicionales
-                            col.Item().Table(table =>
-                            {
-                                table.ColumnsDefinition(columns =>
-                                {
-                                    columns.RelativeColumn(20); // Fecha
-                                    columns.RelativeColumn(15); // Horario
-                                    columns.RelativeColumn(20); // Duración
-                                    columns.RelativeColumn(30); // Descripción
-                                    columns.RelativeColumn(15); // Estado
-                                });
-
-                                // Cabecera de la tabla
-                                table.Header(header =>
-                                {
-                                    header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                        .Padding(5).Text("Fecha").Bold();
-                                    header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                        .Padding(5).Text("Horario").Bold();
-                                    header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                        .Padding(5).Text("Duración").Bold();
-                                    header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                        .Padding(5).Text("Descripción").Bold();
-                                    header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                        .Padding(5).Text("Estado").Bold();
-                                });
-
-                                // Filas de datos
-                                bool colorAlternado = false;
-                                foreach (var tarea in tareas)
-                                {
-                                    var backgroundColor = colorAlternado
-                                        ? QuestPDF.Helpers.Colors.Grey.Lighten5
-                                        : QuestPDF.Helpers.Colors.White;
-                                    colorAlternado = !colorAlternado;
-
-                                    table.Cell().Background(backgroundColor).Border(1)
-                                        .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                        .Padding(5).Text(tarea.FechaTareaFormateada ?? "");
-
-                                    table.Cell().Background(backgroundColor).Border(1)
-                                        .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                        .Padding(5).Text(tarea.HorarioCompleto ?? "");
-
-                                    table.Cell().Background(backgroundColor).Border(1)
-                                        .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                        .Padding(5).Text(tarea.DuracionFormateada ?? "");
-
-                                    table.Cell().Background(backgroundColor).Border(1)
-                                        .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                        .Padding(5).Text(tarea.Descripcion ?? "");
-
-                                    table.Cell().Background(backgroundColor).Border(1)
-                                        .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                        .Padding(5).Text(tarea.EstadoTexto ?? "");
-                                }
-                            });
-                        });
-                    });
-
-                    // Pie de página
-                    page.Footer().AlignRight().Text($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}")
-                        .FontSize(10).FontColor(QuestPDF.Helpers.Colors.Grey.Medium);
-                });
-            });
-
-            return document.GeneratePdf();
-        }
-
-        // Método para generar reporte de actividad diaria convertido a QuestPDF
-        public byte[] GenerarReporteActividadDiariaPDF(ReporteDiarioCompleto reporte)
-        {
-            var document = QuestPDF.Fluent.Document.Create(container =>
-            {
-                container.Page(page =>
-                {
-                    page.Margin(36);
-                    page.Size(PageSizes.A4);
-                    page.DefaultTextStyle(x => x.FontSize(12));
-
-                    // Contenido principal
-                    page.Content().Element(content =>
-                    {
-                        content.Column(col =>
-                        {
-                            // Título del reporte
-                            col.Item().PaddingBottom(20).AlignCenter().Text("Reporte de Actividad Diaria")
-                                .FontSize(18).Bold();
-
-                            // Información del trabajador y fecha
-                            col.Item().PaddingBottom(5).Text($"Trabajador: {reporte.NombreTrabajador ?? ""}")
-                                .FontSize(12);
-
-                            col.Item().PaddingBottom(5).Text($"Categoría: {reporte.Categoria ?? ""}")
-                                .FontSize(12);
-
-                            col.Item().PaddingBottom(20).Text($"Fecha: {reporte.FechaFormateada ?? ""}")
-                                .FontSize(12);
-
-                            // Resumen de actividades
-                            col.Item().PaddingBottom(10).Text("Resumen de Actividades")
-                                .FontSize(14).Bold();
-
-                            col.Item().PaddingBottom(20).Table(table =>
-                            {
-                                table.ColumnsDefinition(columns =>
-                                {
-                                    columns.RelativeColumn();
-                                    columns.RelativeColumn();
-                                });
-
-                                // Datos del resumen
-                                table.Cell().Border(1).BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                    .Padding(5).Text("Total de Viajes:");
-                                table.Cell().Border(1).BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                    .Padding(5).Text(reporte.TotalViajes.ToString());
-
-                                table.Cell().Border(1).BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                    .Padding(5).Text("Total de Tareas Adicionales:");
-                                table.Cell().Border(1).BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                    .Padding(5).Text(reporte.TotalTareas.ToString());
-                            });
-
-                            // Tabla de actividades
-                            if (reporte.Actividades != null && reporte.Actividades.Count > 0)
-                            {
-                                col.Item().PaddingBottom(10).Text("Registro de Viajes y Seguimientos")
-                                    .FontSize(14).Bold();
-
-                                col.Item().PaddingBottom(20).Table(table =>
-                                {
-                                    table.ColumnsDefinition(columns =>
-                                    {
-                                        columns.RelativeColumn(1); // ID Viaje
-                                        columns.RelativeColumn(1); // Hora
-                                        columns.RelativeColumn(1); // Estado
-                                        columns.RelativeColumn(1); // Cantidad
-                                        columns.RelativeColumn(2); // Comentario
-                                    });
-
-                                    // Cabecera de la tabla
-                                    table.Header(header =>
-                                    {
-                                        header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text("ID Viaje").Bold();
-                                        header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text("Hora").Bold();
-                                        header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text("Estado").Bold();
-                                        header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text("Cantidad").Bold();
-                                        header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text("Comentario").Bold();
-                                    });
-
-                                    // Filas de datos
-                                    bool colorAlternado = false;
-                                    foreach (var actividad in reporte.Actividades)
-                                    {
-                                        var backgroundColor = colorAlternado
-                                            ? QuestPDF.Helpers.Colors.Grey.Lighten5
-                                            : QuestPDF.Helpers.Colors.White;
-                                        colorAlternado = !colorAlternado;
-
-                                        table.Cell().Background(backgroundColor).Border(1)
-                                            .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text(actividad.IdViaje.ToString());
-
-                                        table.Cell().Background(backgroundColor).Border(1)
-                                            .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text(actividad.HoraFormateada ?? "");
-
-                                        table.Cell().Background(backgroundColor).Border(1)
-                                            .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text(actividad.EstadoActual ?? "");
-
-                                        table.Cell().Background(backgroundColor).Border(1)
-                                            .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text(actividad.Cantidad?.ToString() ?? "N/A");
-
-                                        table.Cell().Background(backgroundColor).Border(1)
-                                            .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text(actividad.Comentario ?? "");
-                                    }
-                                });
-                            }
-
-                            // Tabla de tareas adicionales
-                            if (reporte.TareasAdicionales != null && reporte.TareasAdicionales.Count > 0)
-                            {
-                                col.Item().PaddingBottom(10).Text("Tareas Adicionales")
-                                    .FontSize(14).Bold();
-
-                                col.Item().Table(table =>
-                                {
-                                    table.ColumnsDefinition(columns =>
-                                    {
-                                        columns.RelativeColumn(1); // Horario
-                                        columns.RelativeColumn(1); // Duración
-                                        columns.RelativeColumn(2); // Descripción
-                                        columns.RelativeColumn(1); // Estado
-                                    });
-
-                                    // Cabecera de la tabla
-                                    table.Header(header =>
-                                    {
-                                        header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text("Horario").Bold();
-                                        header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text("Duración").Bold();
-                                        header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text("Descripción").Bold();
-                                        header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text("Estado").Bold();
-                                    });
-
-                                    // Filas de datos
-                                    bool colorAlternado = false;
-                                    foreach (var tarea in reporte.TareasAdicionales)
-                                    {
-                                        var backgroundColor = colorAlternado
-                                            ? QuestPDF.Helpers.Colors.Grey.Lighten5
-                                            : QuestPDF.Helpers.Colors.White;
-                                        colorAlternado = !colorAlternado;
-
-                                        table.Cell().Background(backgroundColor).Border(1)
-                                            .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text(tarea.HorarioCompleto ?? "");
-
-                                        table.Cell().Background(backgroundColor).Border(1)
-                                            .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text(tarea.DuracionFormateada ?? "");
-
-                                        table.Cell().Background(backgroundColor).Border(1)
-                                            .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text(tarea.Descripcion ?? "");
-
-                                        table.Cell().Background(backgroundColor).Border(1)
-                                            .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                            .Padding(5).Text(tarea.EstadoTexto ?? "");
-                                    }
-                                });
-                            }
-                        });
-                    });
-
-                    // Pie de página
-                    page.Footer().AlignRight().Text($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}")
-                        .FontSize(10).FontColor(QuestPDF.Helpers.Colors.Grey.Medium);
-                });
-            });
-
-            return document.GeneratePdf();
-        }
-        // Método para obtener un reporte de actividad de un trabajador por un rango de fechas
+        
         public async Task<List<ReporteDiarioCompleto>> ObtenerReportePeriodoTrabajadorAsync(
             int idTrabajador,
             DateTime fechaInicio,
@@ -647,206 +358,7 @@ namespace AppTransporte.model
             return reportes;
         }
 
-        // Método para generar un reporte PDF de un período completo
-        public byte[] GenerarReportePeriodoTrabajadorPDF(
-    List<ReporteDiarioCompleto> reportes,
-    DateTime fechaInicio,
-    DateTime fechaFin)
-        {
-            if (reportes == null || reportes.Count == 0)
-                return new byte[0];
-
-            var nombreTrabajador = reportes.First()?.NombreTrabajador ?? "";
-            var categoria = reportes.First()?.Categoria ?? "";
-
-            var document = QuestPDF.Fluent.Document.Create(container =>
-            {
-                container.Page(page =>
-                {
-                    page.Margin(36);
-                    page.Size(PageSizes.A4);
-                    page.DefaultTextStyle(x => x.FontSize(12));
-
-                    // Contenido principal
-                    page.Content().Element(content =>
-                    {
-                        content.Column(col =>
-                        {
-                            // Título del reporte
-                            col.Item().PaddingBottom(20).AlignCenter().Text("Reporte de Actividad por Período")
-                                .FontSize(18).Bold();
-
-                            // Información del trabajador y período
-                            col.Item().PaddingBottom(5).Text($"Trabajador: {nombreTrabajador}")
-                                .FontSize(12);
-
-                            col.Item().PaddingBottom(5).Text($"Categoría: {categoria}")
-                                .FontSize(12);
-
-                            col.Item().PaddingBottom(20).Text($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}")
-                                .FontSize(12);
-
-                            // Resumen general
-                            col.Item().PaddingBottom(10).Text("Resumen General")
-                                .FontSize(14).Bold();
-
-                            col.Item().PaddingBottom(20).Table(table =>
-                            {
-                                table.ColumnsDefinition(columns =>
-                                {
-                                    columns.RelativeColumn();
-                                    columns.RelativeColumn();
-                                });
-
-                                // Calcular totales para el resumen
-                                int totalDiasActividad = reportes.Count;
-                                int totalViajes = reportes.Sum(r => r.TotalViajes);
-                                int totalTareas = reportes.Sum(r => r.TotalTareas);
-
-                                // Datos del resumen
-                                table.Cell().Border(1).BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                    .Padding(5).Text("Días con Actividad:");
-                                table.Cell().Border(1).BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                    .Padding(5).Text(totalDiasActividad.ToString());
-
-                                table.Cell().Border(1).BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                    .Padding(5).Text("Total de Viajes:");
-                                table.Cell().Border(1).BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                    .Padding(5).Text(totalViajes.ToString());
-
-                                table.Cell().Border(1).BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                    .Padding(5).Text("Total de Tareas Adicionales:");
-                                table.Cell().Border(1).BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                    .Padding(5).Text(totalTareas.ToString());
-                            });
-
-                            // Por cada día con actividad, generar una sección
-                            foreach (var reporte in reportes.OrderBy(r => r.Fecha))
-                            {
-                                // Título del día
-                                col.Item().PaddingTop(15).PaddingBottom(10).Text($"Actividades del {reporte.FechaFormateada ?? ""}")
-                                    .FontSize(14).Bold();
-
-                                // Tabla de actividades del día
-                                if (reporte.Actividades != null && reporte.Actividades.Count > 0)
-                                {
-                                    col.Item().PaddingBottom(5).Text("Viajes y Seguimientos:")
-                                        .FontSize(12);
-
-                                    col.Item().PaddingBottom(10).Table(table =>
-                                    {
-                                        table.ColumnsDefinition(columns =>
-                                        {
-                                            columns.RelativeColumn(1); // ID Viaje
-                                            columns.RelativeColumn(1); // Hora
-                                            columns.RelativeColumn(1); // Estado
-                                            columns.RelativeColumn(2); // Comentario
-                                        });
-
-                                        // Cabecera
-                                        table.Header(header =>
-                                        {
-                                            header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text("ID Viaje").FontSize(11).Bold();
-                                            header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text("Hora").FontSize(11).Bold();
-                                            header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text("Estado").FontSize(11).Bold();
-                                            header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text("Comentario").FontSize(11).Bold();
-                                        });
-
-                                        // Filas de datos, ordenadas por hora
-                                        bool colorAlternado = false;
-                                        foreach (var actividad in reporte.Actividades.OrderBy(a => a.FechaHora))
-                                        {
-                                            var backgroundColor = colorAlternado
-                                                ? QuestPDF.Helpers.Colors.Grey.Lighten5
-                                                : QuestPDF.Helpers.Colors.White;
-                                            colorAlternado = !colorAlternado;
-
-                                            table.Cell().Background(backgroundColor).Border(1)
-                                                .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text(actividad.IdViaje.ToString()).FontSize(10);
-
-                                            table.Cell().Background(backgroundColor).Border(1)
-                                                .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text(actividad.HoraFormateada ?? "").FontSize(10);
-
-                                            table.Cell().Background(backgroundColor).Border(1)
-                                                .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text(actividad.EstadoActual ?? "").FontSize(10);
-
-                                            table.Cell().Background(backgroundColor).Border(1)
-                                                .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text(actividad.Comentario ?? "").FontSize(10);
-                                        }
-                                    });
-                                }
-
-                                // Tabla de tareas adicionales del día
-                                if (reporte.TareasAdicionales != null && reporte.TareasAdicionales.Count > 0)
-                                {
-                                    col.Item().PaddingTop(5).PaddingBottom(5).Text("Tareas Adicionales:")
-                                        .FontSize(12);
-
-                                    col.Item().PaddingBottom(10).Table(table =>
-                                    {
-                                        table.ColumnsDefinition(columns =>
-                                        {
-                                            columns.RelativeColumn(1); // Horario
-                                            columns.RelativeColumn(2); // Descripción
-                                            columns.RelativeColumn(1); // Estado
-                                        });
-
-                                        // Cabecera
-                                        table.Header(header =>
-                                        {
-                                            header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text("Horario").FontSize(11).Bold();
-                                            header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text("Descripción").FontSize(11).Bold();
-                                            header.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text("Estado").FontSize(11).Bold();
-                                        });
-
-                                        // Filas de datos, ordenadas por hora de inicio
-                                        bool colorAlternado = false;
-                                        foreach (var tarea in reporte.TareasAdicionales.OrderBy(t => t.HoraInicio))
-                                        {
-                                            var backgroundColor = colorAlternado
-                                                ? QuestPDF.Helpers.Colors.Grey.Lighten5
-                                                : QuestPDF.Helpers.Colors.White;
-                                            colorAlternado = !colorAlternado;
-
-                                            table.Cell().Background(backgroundColor).Border(1)
-                                                .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text(tarea.HorarioCompleto ?? "").FontSize(10);
-
-                                            table.Cell().Background(backgroundColor).Border(1)
-                                                .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text(tarea.Descripcion ?? "").FontSize(10);
-
-                                            table.Cell().Background(backgroundColor).Border(1)
-                                                .BorderColor(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                                .Padding(4).Text(tarea.EstadoTexto ?? "").FontSize(10);
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                    });
-
-                    // Pie de página
-                    page.Footer().AlignRight().Text($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}")
-                        .FontSize(10).FontColor(QuestPDF.Helpers.Colors.Grey.Medium);
-                });
-            });
-
-            return document.GeneratePdf();
-        }
-
-
+        
         public async Task<List<ActividadDiariaTrabajador>> ObtenerActividadesDiariasTrabajadorAsync(
     int idTrabajador,
     DateTime fecha)
@@ -1886,180 +1398,172 @@ namespace AppTransporte.model
 
             return (resumenTable, detalleTable);
         }
+        // REEMPLAZA COMPLETAMENTE tu método GenerarReporteTrabajadorPDF por este:
+        // MÉTODO CON LOS 3 ERRORES CORREGIDOS:
         public byte[] GenerarReporteTrabajadorPDF(List<ReporteTrabajador> reporteData, DateTime fechaInicio,
-     DateTime fechaFin, string tipoReporte)
+             DateTime fechaFin, string tipoReporte)
         {
-            var document = QuestPDF.Fluent.Document.Create(container =>
+            try
             {
-                container.Page(page =>
+                // Crear el documento PDF
+                using (PdfDocument document = new PdfDocument())
                 {
-                    page.Size(PageSizes.A4);
-                    page.Margin(36);
-                    page.DefaultTextStyle(x => x.FontSize(12).FontFamily("Helvetica"));
+                    // Crear página
+                    PdfPage page = document.Pages.Add();
+                    PdfGraphics graphics = page.Graphics;
 
-                    page.Content().Column(column =>
+                    // Configurar fuentes
+                    PdfStandardFont titleFont = new PdfStandardFont(PdfFontFamily.Helvetica, 18, PdfFontStyle.Bold);
+                    PdfStandardFont headerFont = new PdfStandardFont(PdfFontFamily.Helvetica, 14, PdfFontStyle.Bold);
+                    PdfStandardFont normalFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
+                    PdfStandardFont boldFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10, PdfFontStyle.Bold);
+
+                    // ✅ CORRECCIÓN 1: PdfColor.Black → new PdfColor(0, 0, 0)
+                    PdfSolidBrush headerBrush = new PdfSolidBrush(new PdfColor(203, 67, 53)); // #cb4335
+                    PdfSolidBrush blackBrush = new PdfSolidBrush(new PdfColor(0, 0, 0)); // Negro
+                    PdfSolidBrush grayBrush = new PdfSolidBrush(new PdfColor(85, 85, 85));
+
+                    float yPosition = 20;
+
+                    // 1. ENCABEZADO PRINCIPAL
+                    graphics.DrawString("REPORTE DE TRABAJADOR", titleFont, headerBrush, 20, yPosition);
+                    yPosition += 30;
+
+                    // 2. INFORMACIÓN DEL PERIODO
+                    graphics.DrawString($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}",
+                        headerFont, blackBrush, 20, yPosition);
+                    yPosition += 20;
+
+                    graphics.DrawString($"Tipo de Reporte: {tipoReporte}",
+                        normalFont, blackBrush, 20, yPosition);
+                    yPosition += 30;
+
+                    // 3. RESUMEN DEL REPORTE
+                    // Calcular totales
+                    int totalTrabajadores = reporteData.Select(r => r.IdTrabajador).Distinct().Count();
+                    int totalViajes = reporteData.Sum(r => r.TotalViajes);
+                    int totalVolumen = reporteData.Sum(r => r.VolumenTransportado);
+
+                    // Dibujar marco para resumen
+                    PdfPen grayPen = new PdfPen(new PdfColor(200, 200, 200));
+                    PdfSolidBrush lightGrayBrush = new PdfSolidBrush(new PdfColor(248, 249, 250));
+
+                    graphics.DrawRectangle(grayPen, lightGrayBrush, 20, yPosition, 555, 80);
+
+                    // Título del resumen
+                    graphics.DrawString("RESUMEN DEL REPORTE", boldFont, blackBrush, 30, yPosition + 10);
+
+                    // Línea separadora
+                    graphics.DrawLine(grayPen, 30, yPosition + 25, 565, yPosition + 25);
+
+                    // Datos del resumen en columnas
+                    float col1X = 30, col2X = 200, col3X = 380;
+                    float resumenY = yPosition + 35;
+
+                    graphics.DrawString("Total trabajadores:", normalFont, grayBrush, col1X, resumenY);
+                    graphics.DrawString(totalTrabajadores.ToString(), boldFont, blackBrush, col1X, resumenY + 15);
+
+                    graphics.DrawString("Total viajes:", normalFont, grayBrush, col2X, resumenY);
+                    graphics.DrawString(totalViajes.ToString(), boldFont, blackBrush, col2X, resumenY + 15);
+
+                    graphics.DrawString("Volumen total transportado:", normalFont, grayBrush, col3X, resumenY);
+                    graphics.DrawString($"{totalVolumen:N2} L", boldFont, blackBrush, col3X, resumenY + 15);
+
+                    yPosition += 100;
+
+                    // 4. TABLA DE DATOS
+                    if (reporteData.Any())
                     {
-                        // Título principal
-                        column.Item().Text("Reporte de Trabajador")
-                            .FontSize(18)
-                            .Bold()
-                            .AlignCenter();
+                        // Crear la tabla
+                        PdfGrid table = new PdfGrid();
 
-                        column.Item().PaddingTop(20);
+                        // Configurar columnas
+                        table.Columns.Add(6);
+                        table.Columns[0].Width = 120; // Trabajador
+                        table.Columns[1].Width = 80;  // Categoría
+                        table.Columns[2].Width = 50;  // Viajes
+                        table.Columns[3].Width = 40;  // Seg.
+                        table.Columns[4].Width = 80;  // Volumen
+                        table.Columns[5].Width = 80;  // Periodo
 
-                        // Información del período
-                        column.Item().Text($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}")
-                            .FontSize(12);
+                        // ✅ CORRECCIÓN 2: Crear estilo de fila en lugar de estilo de tabla
+                        PdfGridRowStyle headerRowStyle = new PdfGridRowStyle();
+                        headerRowStyle.BackgroundBrush = new PdfSolidBrush(new PdfColor(240, 240, 240));
+                        headerRowStyle.TextBrush = new PdfSolidBrush(new PdfColor(51, 51, 51));
+                        headerRowStyle.Font = boldFont;
 
-                        column.Item().PaddingTop(5);
+                        // Agregar fila de encabezado
+                        PdfGridRow headerRow = table.Headers.Add(1)[0];
+                        headerRow.Style = headerRowStyle;
+                        headerRow.Height = 25;
 
-                        // Tipo de reporte
-                        column.Item().Text($"Tipo de reporte: {tipoReporte}")
-                            .FontSize(12);
+                        headerRow.Cells[0].Value = "Trabajador";
+                        headerRow.Cells[1].Value = "Categoría";
+                        headerRow.Cells[2].Value = "Viajes";
+                        headerRow.Cells[3].Value = "Seg.";
+                        headerRow.Cells[4].Value = "Volumen";
+                        headerRow.Cells[5].Value = "Periodo";
 
-                        column.Item().PaddingTop(20);
-
-                        // Título de resumen
-                        column.Item().Text("Resumen")
-                            .FontSize(14)
-                            .Bold();
-
-                        column.Item().PaddingTop(10);
-
-                        // Calcular totales para el resumen
-                        int totalTrabajadores = reporteData.Select(r => r.IdTrabajador).Distinct().Count();
-                        int totalViajes = reporteData.Sum(r => r.TotalViajes);
-                        int volumenTotal = reporteData.Sum(r => r.VolumenTransportado);
-
-                        // Tabla de resumen
-                        column.Item().Table(table =>
+                        // Agregar datos
+                        for (int i = 0; i < reporteData.Count; i++)
                         {
-                            table.ColumnsDefinition(columns =>
+                            var item = reporteData[i];
+                            PdfGridRow row = table.Rows.Add();
+                            row.Height = 20;
+
+                            // Alternar color de filas
+                            if (i % 2 == 1)
                             {
-                                columns.RelativeColumn(3);
-                                columns.RelativeColumn(2);
-                            });
-
-                            // Encabezados de la tabla de resumen
-                            table.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                .Padding(5)
-                                .Text("Descripción")
-                                .Bold();
-
-                            table.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                .Padding(5)
-                                .Text("Valor")
-                                .Bold();
-
-                            // Filas de datos del resumen
-                            table.Cell().Padding(5).Text("Total de Trabajadores");
-                            table.Cell().Padding(5).Text(totalTrabajadores.ToString());
-
-                            table.Cell().Padding(5).Text("Total de Viajes");
-                            table.Cell().Padding(5).Text(totalViajes.ToString());
-
-                            table.Cell().Padding(5).Text("Volumen Total Transportado");
-                            table.Cell().Padding(5).Text($"{volumenTotal:N2} L");
-                        });
-
-                        column.Item().PaddingTop(20);
-
-                        // Título de detalle
-                        column.Item().Text("Detalle por Trabajador")
-                            .FontSize(14)
-                            .Bold();
-
-                        column.Item().PaddingTop(10);
-
-                        // Tabla de detalle
-                        column.Item().Table(table =>
-                        {
-                            table.ColumnsDefinition(columns =>
-                            {
-                                columns.RelativeColumn(3); // Trabajador
-                                columns.RelativeColumn(2); // Categoría
-                                columns.RelativeColumn(1); // Viajes
-                                columns.RelativeColumn(1.5f); // Seguimientos
-                                columns.RelativeColumn(1.5f); // Volumen
-                                columns.RelativeColumn(2); // Periodo
-                            });
-
-                            // Encabezados de la tabla de detalle
-                            table.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                .Padding(5)
-                                .Text("Trabajador")
-                                .Bold();
-
-                            table.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                .Padding(5)
-                                .Text("Categoría")
-                                .Bold();
-
-                            table.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                .Padding(5)
-                                .Text("Viajes")
-                                .Bold();
-
-                            table.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                .Padding(5)
-                                .Text("Seguimientos")
-                                .Bold();
-
-                            table.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                .Padding(5)
-                                .Text("Volumen")
-                                .Bold();
-
-                            table.Cell().Background(QuestPDF.Helpers.Colors.Grey.Lighten3)
-                                .Padding(5)
-                                .Text("Periodo")
-                                .Bold();
-
-                            // Filas de datos
-                            bool colorAlternado = false;
-                            foreach (var item in reporteData)
-                            {
-                                var backgroundColor = colorAlternado ? QuestPDF.Helpers.Colors.Grey.Lighten4 : QuestPDF.Helpers.Colors.White;
-                                colorAlternado = !colorAlternado;
-
-                                table.Cell().Background(backgroundColor)
-                                    .Padding(5)
-                                    .Text(item.NombreCompleto);
-
-                                table.Cell().Background(backgroundColor)
-                                    .Padding(5)
-                                    .Text(item.Categoria);
-
-                                table.Cell().Background(backgroundColor)
-                                    .Padding(5)
-                                    .AlignCenter()
-                                    .Text(item.TotalViajes.ToString());
-
-                                table.Cell().Background(backgroundColor)
-                                    .Padding(5)
-                                    .AlignCenter()
-                                    .Text(item.TotalSeguimientos.ToString());
-
-                                table.Cell().Background(backgroundColor)
-                                    .Padding(5)
-                                    .AlignRight()
-                                    .Text($"{item.VolumenTransportado:N2}");
-
-                                table.Cell().Background(backgroundColor)
-                                    .Padding(5)
-                                    .Text(item.Periodo);
+                                row.Style.BackgroundBrush = new PdfSolidBrush(new PdfColor(245, 245, 245));
                             }
-                        });
-                    });
 
-                    // Pie de página
-                    page.Footer().AlignRight().Text($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}")
-                        .FontSize(10)
-                        .FontColor(QuestPDF.Helpers.Colors.Grey.Medium);
-                });
-            });
+                            row.Cells[0].Value = item.NombreCompleto;
+                            row.Cells[1].Value = item.Categoria;
+                            row.Cells[2].Value = item.TotalViajes.ToString();
+                            row.Cells[3].Value = item.TotalSeguimientos.ToString();
+                            row.Cells[4].Value = $"{item.VolumenTransportado:N2}";
+                            row.Cells[5].Value = item.Periodo;
 
-            return document.GeneratePdf();
+                            // Aplicar fuente normal a todas las celdas
+                            for (int j = 0; j < row.Cells.Count; j++)
+                            {
+                                row.Cells[j].Style.Font = normalFont;
+                                row.Cells[j].Style.TextBrush = blackBrush;
+                            }
+
+                            // Alineación
+                            row.Cells[2].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                            row.Cells[3].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                            row.Cells[4].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Right);
+                        }
+
+                        // Dibujar la tabla
+                        PdfLayoutResult result = table.Draw(page, 20, yPosition);
+                        yPosition = result.Bounds.Bottom + 20;
+                    }
+
+                    // 5. PIE DE PÁGINA
+                    string fechaGeneracion = $"Generado el: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    graphics.DrawString(fechaGeneracion, normalFont, grayBrush, 20, page.Size.Height - 40);
+
+                    // ✅ CORRECCIÓN 3: PdfSize → SizeF
+                    string numeroPagina = $"Página 1 de 1";
+                    SyncSizeF textSize = normalFont.MeasureString(numeroPagina);
+                    graphics.DrawString(numeroPagina, normalFont, grayBrush,
+                        page.Size.Width - textSize.Width - 20, page.Size.Height - 40);
+
+                    // Convertir a bytes
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        document.Save(stream);
+                        return stream.ToArray();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al generar PDF: {ex.Message}", ex);
+            }
         }
         public async Task<List<ReporteTrabajador>> ObtenerReporteTrabajadorAsync(
         int? idTrabajador,
