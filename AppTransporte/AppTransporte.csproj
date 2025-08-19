@@ -43,14 +43,21 @@
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
 		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 		<DebugSymbols>True</DebugSymbols>
-		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidKeyStore>False</AndroidKeyStore>
+		<PublishTrimmed>False</PublishTrimmed>
+		<AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
+		<RunAOTCompilation>False</RunAOTCompilation>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
 	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 	  <DebugSymbols>False</DebugSymbols>
 	  <RunAOTCompilation>False</RunAOTCompilation>
-	  <AndroidKeyStore>True</AndroidKeyStore>
+	  <AndroidKeyStore>False</AndroidKeyStore>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
+	  <MtouchUseLlvm>False</MtouchUseLlvm>
 	</PropertyGroup>
 
 	<ItemGroup>

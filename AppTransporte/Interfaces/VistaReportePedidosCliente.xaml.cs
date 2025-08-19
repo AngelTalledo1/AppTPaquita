@@ -6,10 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using AppTransporte.model;
-// Importaciones para QuestPDF - COMENTADAS TEMPORALMENTE
-//using QuestPDF.Fluent;
-//using QuestPDF.Helpers;
-//using QuestPDF.Infrastructure;
+
 
 namespace AppTransporte.Interfaces
 {
