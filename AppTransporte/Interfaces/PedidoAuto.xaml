@@ -46,11 +46,41 @@
                     </Frame>
                     <VerticalStackLayout Spacing="30" Margin="30,20,20,0">
 
+                        <!-- Cliente -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Image WidthRequest="30" HeightRequest="30" Source="cliente.png" VerticalOptions="Center" />
+                            <Picker x:Name="ClientePicker"
+                                    Title="Seleccionar Cliente"
+                                    FontFamily="Comf-Medium"
+                                    HorizontalOptions="FillAndExpand">
+                            </Picker>
+                        </HorizontalStackLayout>
+
                         <!-- Tipo de Servicio -->
                         <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
                             <Image WidthRequest="30" HeightRequest="30" Source="tiposervicio.png" VerticalOptions="Center" />
                             <Picker x:Name="TipoServicioPicker"
                                     Title="Tipo de Servicio"
+                                    FontFamily="Comf-Medium"
+                                    HorizontalOptions="FillAndExpand">
+                            </Picker>
+                        </HorizontalStackLayout>
+
+                        <!-- Origen -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Image WidthRequest="30" HeightRequest="30" Source="ubicacion.png" VerticalOptions="Center" />
+                            <Picker x:Name="OrigenPicker"
+                                    Title="Seleccionar Origen"
+                                    FontFamily="Comf-Medium"
+                                    HorizontalOptions="FillAndExpand">
+                            </Picker>
+                        </HorizontalStackLayout>
+
+                        <!-- Destino -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Image WidthRequest="30" HeightRequest="30" Source="destino.png" VerticalOptions="Center" />
+                            <Picker x:Name="DestinoPicker"
+                                    Title="Seleccionar Destino"
                                     FontFamily="Comf-Medium"
                                     HorizontalOptions="FillAndExpand">
                             </Picker>

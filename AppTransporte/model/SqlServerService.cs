@@ -1,15 +1,17 @@
-
 using Microsoft.Data.SqlClient;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using Syncfusion.Pdf.Grid;
+using SyncSizeF = Syncfusion.Drawing.SizeF;
 using System.Data;
-using System.Reflection.Metadata;
-using iTextSharp.text.pdf;
-using iTextSharp.text;
 #pragma warning disable CS8603, CS1998, CS8625, CS8601, CS8600, CS8612, CS0612
 
 namespace AppTransporte.model
 {
     public static class DataReaderExtensions
     {
+
+
         public static bool HasColumn(this SqlDataReader reader, string columnName)
         {
             for (int i = 0; i < reader.FieldCount; i++)
@@ -27,6 +29,7 @@ namespace AppTransporte.model
         public SqlServerService(string connectionString)
         {
             _connectionString = connectionString;
+
         }
 
         public async Task<int> AgregarClienteAsync(
@@ -303,347 +306,7 @@ namespace AppTransporte.model
         }
 
 
-        // Método para obtener el reporte de actividades diarias de un trabajador
-
-        // Método combinado para obtener el reporte diario completo de un trabajador
-        // Método para generar un reporte PDF de tareas adicionales
-        public byte[] GenerarReporteTareasAdicionalesPDF(
-            List<TareaAdicionalTrabajador> tareas,
-            string nombreTrabajador,
-            DateTime fechaInicio,
-            DateTime fechaFin)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
-                PdfWriter writer = PdfWriter.GetInstance(document, ms);
-                document.Open();
-
-                // Título del reporte
-                iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 18, iTextSharp.text.Font.BOLD);
-                Paragraph titulo = new Paragraph("Reporte de Tareas Adicionales", titleFont);
-                titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
-                titulo.SpacingAfter = 20;
-                document.Add(titulo);
-
-                // Información del trabajador y período
-                iTextSharp.text.Font normalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12);
-                Paragraph infoTrabajador = new Paragraph($"Trabajador: {nombreTrabajador}", normalFont);
-                infoTrabajador.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                infoTrabajador.SpacingAfter = 5;
-                document.Add(infoTrabajador);
-
-                Paragraph infoPeriodo = new Paragraph($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}", normalFont);
-                infoPeriodo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                infoPeriodo.SpacingAfter = 20;
-                document.Add(infoPeriodo);
-
-                // Tabla de tareas adicionales
-                PdfPTable table = new PdfPTable(5); // 5 columnas
-                table.WidthPercentage = 100;
-                float[] widths = new float[] { 20f, 15f, 20f, 30f, 15f };
-                table.SetWidths(widths);
-
-                // Cabecera de la tabla
-                iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
-                BaseColor headerColor = new BaseColor(220, 220, 220); // Gris claro
-
-                PdfPCell headerFecha = new PdfPCell(new Phrase("Fecha", headerFont));
-                headerFecha.BackgroundColor = headerColor;
-                headerFecha.Padding = 5;
-
-                PdfPCell headerHorario = new PdfPCell(new Phrase("Horario", headerFont));
-                headerHorario.BackgroundColor = headerColor;
-                headerHorario.Padding = 5;
-
-                PdfPCell headerDuracion = new PdfPCell(new Phrase("Duración", headerFont));
-                headerDuracion.BackgroundColor = headerColor;
-                headerDuracion.Padding = 5;
-
-                PdfPCell headerDescripcion = new PdfPCell(new Phrase("Descripción", headerFont));
-                headerDescripcion.BackgroundColor = headerColor;
-                headerDescripcion.Padding = 5;
-
-                PdfPCell headerEstado = new PdfPCell(new Phrase("Estado", headerFont));
-                headerEstado.BackgroundColor = headerColor;
-                headerEstado.Padding = 5;
-
-                table.AddCell(headerFecha);
-                table.AddCell(headerHorario);
-                table.AddCell(headerDuracion);
-                table.AddCell(headerDescripcion);
-                table.AddCell(headerEstado);
-
-                // Filas de datos
-                bool colorAlternado = false;
-                foreach (var tarea in tareas)
-                {
-                    BaseColor bgColor = colorAlternado ? BaseColor.WHITE : new BaseColor(245, 245, 245);
-                    colorAlternado = !colorAlternado;
-
-                    PdfPCell cellFecha = new PdfPCell(new Phrase(tarea.FechaTareaFormateada, normalFont));
-                    cellFecha.BackgroundColor = bgColor;
-                    cellFecha.Padding = 5;
-
-                    PdfPCell cellHorario = new PdfPCell(new Phrase(tarea.HorarioCompleto, normalFont));
-                    cellHorario.BackgroundColor = bgColor;
-                    cellHorario.Padding = 5;
-
-                    PdfPCell cellDuracion = new PdfPCell(new Phrase(tarea.DuracionFormateada, normalFont));
-                    cellDuracion.BackgroundColor = bgColor;
-                    cellDuracion.Padding = 5;
-
-                    PdfPCell cellDescripcion = new PdfPCell(new Phrase(tarea.Descripcion, normalFont));
-                    cellDescripcion.BackgroundColor = bgColor;
-                    cellDescripcion.Padding = 5;
-
-                    PdfPCell cellEstado = new PdfPCell(new Phrase(tarea.EstadoTexto, normalFont));
-                    cellEstado.BackgroundColor = bgColor;
-                    cellEstado.Padding = 5;
-
-                    table.AddCell(cellFecha);
-                    table.AddCell(cellHorario);
-                    table.AddCell(cellDuracion);
-                    table.AddCell(cellDescripcion);
-                    table.AddCell(cellEstado);
-                }
-
-                document.Add(table);
-
-                // Pie de página
-                iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
-                footerFont.Color = BaseColor.GRAY;
-
-                Paragraph footer = new Paragraph($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}", footerFont);
-                footer.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
-                footer.SpacingBefore = 20;
-                document.Add(footer);
-
-                document.Close();
-                return ms.ToArray();
-            }
-        }
-
-        // Método para generar un reporte PDF de actividad diaria
-        public byte[] GenerarReporteActividadDiariaPDF(ReporteDiarioCompleto reporte)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
-                PdfWriter writer = PdfWriter.GetInstance(document, ms);
-                document.Open();
-
-                // Título del reporte
-                iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 18, iTextSharp.text.Font.BOLD);
-                Paragraph titulo = new Paragraph("Reporte de Actividad Diaria", titleFont);
-                titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
-                titulo.SpacingAfter = 20;
-                document.Add(titulo);
-
-                // Información del trabajador y fecha
-                iTextSharp.text.Font normalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12);
-                Paragraph infoTrabajador = new Paragraph($"Trabajador: {reporte.NombreTrabajador}", normalFont);
-                infoTrabajador.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                infoTrabajador.SpacingAfter = 5;
-                document.Add(infoTrabajador);
-
-                Paragraph infoCategoria = new Paragraph($"Categoría: {reporte.Categoria}", normalFont);
-                infoCategoria.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                infoCategoria.SpacingAfter = 5;
-                document.Add(infoCategoria);
-
-                Paragraph infoFecha = new Paragraph($"Fecha: {reporte.FechaFormateada}", normalFont);
-                infoFecha.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                infoFecha.SpacingAfter = 20;
-                document.Add(infoFecha);
-
-                // Resumen de actividades
-                iTextSharp.text.Font subtitleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
-                Paragraph resumenTitulo = new Paragraph("Resumen de Actividades", subtitleFont);
-                resumenTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                resumenTitulo.SpacingAfter = 10;
-                document.Add(resumenTitulo);
-
-                PdfPTable resumenTable = new PdfPTable(2);
-                resumenTable.WidthPercentage = 50;
-                resumenTable.HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
-                resumenTable.SpacingAfter = 20;
-
-                // Añadir datos del resumen
-                PdfPCell cellResumenLabel1 = new PdfPCell(new Phrase("Total de Viajes:", normalFont));
-                PdfPCell cellResumenValue1 = new PdfPCell(new Phrase(reporte.TotalViajes.ToString(), normalFont));
-
-                PdfPCell cellResumenLabel2 = new PdfPCell(new Phrase("Total de Tareas Adicionales:", normalFont));
-                PdfPCell cellResumenValue2 = new PdfPCell(new Phrase(reporte.TotalTareas.ToString(), normalFont));
-
-                resumenTable.AddCell(cellResumenLabel1);
-                resumenTable.AddCell(cellResumenValue1);
-                resumenTable.AddCell(cellResumenLabel2);
-                resumenTable.AddCell(cellResumenValue2);
-
-                document.Add(resumenTable);
-
-                // Tabla de actividades
-                if (reporte.Actividades.Count > 0)
-                {
-                    Paragraph actividadesTitulo = new Paragraph("Registro de Viajes y Seguimientos", subtitleFont);
-                    actividadesTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                    actividadesTitulo.SpacingAfter = 10;
-                    document.Add(actividadesTitulo);
-
-                    PdfPTable actividadesTable = new PdfPTable(5); // 5 columnas
-                    actividadesTable.WidthPercentage = 100;
-                    actividadesTable.SpacingAfter = 20;
-
-                    // Cabecera de la tabla
-                    iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
-                    BaseColor headerColor = new BaseColor(220, 220, 220); // Gris claro
-
-                    PdfPCell headerViaje = new PdfPCell(new Phrase("ID Viaje", headerFont));
-                    headerViaje.BackgroundColor = headerColor;
-                    headerViaje.Padding = 5;
-
-                    PdfPCell headerHora = new PdfPCell(new Phrase("Hora", headerFont));
-                    headerHora.BackgroundColor = headerColor;
-                    headerHora.Padding = 5;
-
-                    PdfPCell headerEstado = new PdfPCell(new Phrase("Estado", headerFont));
-                    headerEstado.BackgroundColor = headerColor;
-                    headerEstado.Padding = 5;
-
-                    PdfPCell headerCantidad = new PdfPCell(new Phrase("Cantidad", headerFont));
-                    headerCantidad.BackgroundColor = headerColor;
-                    headerCantidad.Padding = 5;
-
-                    PdfPCell headerComentario = new PdfPCell(new Phrase("Comentario", headerFont));
-                    headerComentario.BackgroundColor = headerColor;
-                    headerComentario.Padding = 5;
-
-                    actividadesTable.AddCell(headerViaje);
-                    actividadesTable.AddCell(headerHora);
-                    actividadesTable.AddCell(headerEstado);
-                    actividadesTable.AddCell(headerCantidad);
-                    actividadesTable.AddCell(headerComentario);
-
-                    // Filas de datos
-                    bool colorAlternado = false;
-                    foreach (var actividad in reporte.Actividades)
-                    {
-                        BaseColor bgColor = colorAlternado ? BaseColor.WHITE : new BaseColor(245, 245, 245);
-                        colorAlternado = !colorAlternado;
-
-                        PdfPCell cellViaje = new PdfPCell(new Phrase(actividad.IdViaje.ToString(), normalFont));
-                        cellViaje.BackgroundColor = bgColor;
-                        cellViaje.Padding = 5;
-
-                        PdfPCell cellHora = new PdfPCell(new Phrase(actividad.HoraFormateada, normalFont));
-                        cellHora.BackgroundColor = bgColor;
-                        cellHora.Padding = 5;
-
-                        PdfPCell cellEstado = new PdfPCell(new Phrase(actividad.EstadoActual, normalFont));
-                        cellEstado.BackgroundColor = bgColor;
-                        cellEstado.Padding = 5;
-
-                        PdfPCell cellCantidad = new PdfPCell(new Phrase(actividad.Cantidad?.ToString() ?? "N/A", normalFont));
-                        cellCantidad.BackgroundColor = bgColor;
-                        cellCantidad.Padding = 5;
-
-                        PdfPCell cellComentario = new PdfPCell(new Phrase(actividad.Comentario ?? "", normalFont));
-                        cellComentario.BackgroundColor = bgColor;
-                        cellComentario.Padding = 5;
-
-                        actividadesTable.AddCell(cellViaje);
-                        actividadesTable.AddCell(cellHora);
-                        actividadesTable.AddCell(cellEstado);
-                        actividadesTable.AddCell(cellCantidad);
-                        actividadesTable.AddCell(cellComentario);
-                    }
-
-                    document.Add(actividadesTable);
-                }
-
-                // Tabla de tareas adicionales
-                if (reporte.TareasAdicionales.Count > 0)
-                {
-                    Paragraph tareasTitulo = new Paragraph("Tareas Adicionales", subtitleFont);
-                    tareasTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                    tareasTitulo.SpacingAfter = 10;
-                    document.Add(tareasTitulo);
-
-                    PdfPTable tareasTable = new PdfPTable(4); // 4 columnas
-                    tareasTable.WidthPercentage = 100;
-
-                    // Cabecera de la tabla
-                    iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
-                    BaseColor headerColor = new BaseColor(220, 220, 220); // Gris claro
-
-                    PdfPCell headerHorario = new PdfPCell(new Phrase("Horario", headerFont));
-                    headerHorario.BackgroundColor = headerColor;
-                    headerHorario.Padding = 5;
-
-                    PdfPCell headerDuracion = new PdfPCell(new Phrase("Duración", headerFont));
-                    headerDuracion.BackgroundColor = headerColor;
-                    headerDuracion.Padding = 5;
-
-                    PdfPCell headerDescripcion = new PdfPCell(new Phrase("Descripción", headerFont));
-                    headerDescripcion.BackgroundColor = headerColor;
-                    headerDescripcion.Padding = 5;
-
-                    PdfPCell headerEstado = new PdfPCell(new Phrase("Estado", headerFont));
-                    headerEstado.BackgroundColor = headerColor;
-                    headerEstado.Padding = 5;
-
-                    tareasTable.AddCell(headerHorario);
-                    tareasTable.AddCell(headerDuracion);
-                    tareasTable.AddCell(headerDescripcion);
-                    tareasTable.AddCell(headerEstado);
-
-                    // Filas de datos
-                    bool colorAlternado = false;
-                    foreach (var tarea in reporte.TareasAdicionales)
-                    {
-                        BaseColor bgColor = colorAlternado ? BaseColor.WHITE : new BaseColor(245, 245, 245);
-                        colorAlternado = !colorAlternado;
-
-                        PdfPCell cellHorario = new PdfPCell(new Phrase(tarea.HorarioCompleto, normalFont));
-                        cellHorario.BackgroundColor = bgColor;
-                        cellHorario.Padding = 5;
-
-                        PdfPCell cellDuracion = new PdfPCell(new Phrase(tarea.DuracionFormateada, normalFont));
-                        cellDuracion.BackgroundColor = bgColor;
-                        cellDuracion.Padding = 5;
-
-                        PdfPCell cellDescripcion = new PdfPCell(new Phrase(tarea.Descripcion, normalFont));
-                        cellDescripcion.BackgroundColor = bgColor;
-                        cellDescripcion.Padding = 5;
-
-                        PdfPCell cellEstado = new PdfPCell(new Phrase(tarea.EstadoTexto, normalFont));
-                        cellEstado.BackgroundColor = bgColor;
-                        cellEstado.Padding = 5;
-
-                        tareasTable.AddCell(cellHorario);
-                        tareasTable.AddCell(cellDuracion);
-                        tareasTable.AddCell(cellDescripcion);
-                        tareasTable.AddCell(cellEstado);
-                    }
-
-                    document.Add(tareasTable);
-                }
-
-                // Pie de página
-                iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
-                footerFont.Color = BaseColor.GRAY;
-
-                Paragraph footer = new Paragraph($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}", footerFont);
-                footer.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
-                footer.SpacingBefore = 20;
-                document.Add(footer);
-
-                document.Close();
-                return ms.ToArray();
-            }
-        }
-        // Método para obtener un reporte de actividad de un trabajador por un rango de fechas
+        
         public async Task<List<ReporteDiarioCompleto>> ObtenerReportePeriodoTrabajadorAsync(
             int idTrabajador,
             DateTime fechaInicio,
@@ -695,241 +358,7 @@ namespace AppTransporte.model
             return reportes;
         }
 
-        // Método para generar un reporte PDF de un período completo
-        public byte[] GenerarReportePeriodoTrabajadorPDF(
-            List<ReporteDiarioCompleto> reportes,
-            DateTime fechaInicio,
-            DateTime fechaFin)
-        {
-            if (reportes == null || reportes.Count == 0)
-                return new byte[0];
-
-            var nombreTrabajador = reportes.First().NombreTrabajador;
-            var categoria = reportes.First().Categoria;
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
-                PdfWriter writer = PdfWriter.GetInstance(document, ms);
-                document.Open();
-
-                // Título del reporte
-                iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 18, iTextSharp.text.Font.BOLD);
-                Paragraph titulo = new Paragraph("Reporte de Actividad por Período", titleFont);
-                titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
-                titulo.SpacingAfter = 20;
-                document.Add(titulo);
-
-                // Información del trabajador y período
-                iTextSharp.text.Font normalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12);
-                Paragraph infoTrabajador = new Paragraph($"Trabajador: {nombreTrabajador}", normalFont);
-                infoTrabajador.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                infoTrabajador.SpacingAfter = 5;
-                document.Add(infoTrabajador);
-
-                Paragraph infoCategoria = new Paragraph($"Categoría: {categoria}", normalFont);
-                infoCategoria.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                infoCategoria.SpacingAfter = 5;
-                document.Add(infoCategoria);
-
-                Paragraph infoPeriodo = new Paragraph($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}", normalFont);
-                infoPeriodo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                infoPeriodo.SpacingAfter = 20;
-                document.Add(infoPeriodo);
-
-                // Resumen general
-                iTextSharp.text.Font subtitleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
-                Paragraph resumenTitulo = new Paragraph("Resumen General", subtitleFont);
-                resumenTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                resumenTitulo.SpacingAfter = 10;
-                document.Add(resumenTitulo);
-
-                PdfPTable resumenTable = new PdfPTable(2);
-                resumenTable.WidthPercentage = 60;
-                resumenTable.HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
-                resumenTable.SpacingAfter = 20;
-
-                // Calcular totales para el resumen
-                int totalDiasActividad = reportes.Count;
-                int totalViajes = reportes.Sum(r => r.TotalViajes);
-                int totalTareas = reportes.Sum(r => r.TotalTareas);
-
-                // Añadir datos del resumen
-                PdfPCell cellResumenLabel1 = new PdfPCell(new Phrase("Días con Actividad:", normalFont));
-                PdfPCell cellResumenValue1 = new PdfPCell(new Phrase(totalDiasActividad.ToString(), normalFont));
-
-                PdfPCell cellResumenLabel2 = new PdfPCell(new Phrase("Total de Viajes:", normalFont));
-                PdfPCell cellResumenValue2 = new PdfPCell(new Phrase(totalViajes.ToString(), normalFont));
-
-                PdfPCell cellResumenLabel3 = new PdfPCell(new Phrase("Total de Tareas Adicionales:", normalFont));
-                PdfPCell cellResumenValue3 = new PdfPCell(new Phrase(totalTareas.ToString(), normalFont));
-
-                resumenTable.AddCell(cellResumenLabel1);
-                resumenTable.AddCell(cellResumenValue1);
-                resumenTable.AddCell(cellResumenLabel2);
-                resumenTable.AddCell(cellResumenValue2);
-                resumenTable.AddCell(cellResumenLabel3);
-                resumenTable.AddCell(cellResumenValue3);
-
-                document.Add(resumenTable);
-
-                // Por cada día con actividad, generar una sección
-                foreach (var reporte in reportes.OrderBy(r => r.Fecha))
-                {
-                    // Título del día
-                    Paragraph diaTitulo = new Paragraph($"Actividades del {reporte.FechaFormateada}", subtitleFont);
-                    diaTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                    diaTitulo.SpacingBefore = 15;
-                    diaTitulo.SpacingAfter = 10;
-                    document.Add(diaTitulo);
-
-                    // Tabla de actividades del día
-                    if (reporte.Actividades.Count > 0)
-                    {
-                        Paragraph actividadesTitulo = new Paragraph("Viajes y Seguimientos:", normalFont);
-                        actividadesTitulo.SpacingAfter = 5;
-                        document.Add(actividadesTitulo);
-
-                        PdfPTable actividadesTable = new PdfPTable(4); // 4 columnas
-                        actividadesTable.WidthPercentage = 100;
-                        actividadesTable.SpacingAfter = 10;
-
-                        // Cabecera
-                        BaseColor headerColor = new BaseColor(220, 220, 220); // Gris claro
-                        iTextSharp.text.Font smallBoldFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 11, iTextSharp.text.Font.BOLD);
-
-                        PdfPCell headerViaje = new PdfPCell(new Phrase("ID Viaje", smallBoldFont));
-                        headerViaje.BackgroundColor = headerColor;
-                        headerViaje.Padding = 4;
-
-                        PdfPCell headerHora = new PdfPCell(new Phrase("Hora", smallBoldFont));
-                        headerHora.BackgroundColor = headerColor;
-                        headerHora.Padding = 4;
-
-                        PdfPCell headerEstado = new PdfPCell(new Phrase("Estado", smallBoldFont));
-                        headerEstado.BackgroundColor = headerColor;
-                        headerEstado.Padding = 4;
-
-                        PdfPCell headerComentario = new PdfPCell(new Phrase("Comentario", smallBoldFont));
-                        headerComentario.BackgroundColor = headerColor;
-                        headerComentario.Padding = 4;
-
-                        actividadesTable.AddCell(headerViaje);
-                        actividadesTable.AddCell(headerHora);
-                        actividadesTable.AddCell(headerEstado);
-                        actividadesTable.AddCell(headerComentario);
-
-                        // Filas de datos, ordenadas por hora
-                        iTextSharp.text.Font smallFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
-                        bool colorAlternado = false;
-
-                        foreach (var actividad in reporte.Actividades.OrderBy(a => a.FechaHora))
-                        {
-                            BaseColor bgColor = colorAlternado ? BaseColor.WHITE : new BaseColor(245, 245, 245);
-                            colorAlternado = !colorAlternado;
-
-                            PdfPCell cellViaje = new PdfPCell(new Phrase(actividad.IdViaje.ToString(), smallFont));
-                            cellViaje.BackgroundColor = bgColor;
-                            cellViaje.Padding = 4;
-
-                            PdfPCell cellHora = new PdfPCell(new Phrase(actividad.HoraFormateada, smallFont));
-                            cellHora.BackgroundColor = bgColor;
-                            cellHora.Padding = 4;
-
-                            PdfPCell cellEstado = new PdfPCell(new Phrase(actividad.EstadoActual, smallFont));
-                            cellEstado.BackgroundColor = bgColor;
-                            cellEstado.Padding = 4;
-
-                            PdfPCell cellComentario = new PdfPCell(new Phrase(actividad.Comentario ?? "", smallFont));
-                            cellComentario.BackgroundColor = bgColor;
-                            cellComentario.Padding = 4;
-
-                            actividadesTable.AddCell(cellViaje);
-                            actividadesTable.AddCell(cellHora);
-                            actividadesTable.AddCell(cellEstado);
-                            actividadesTable.AddCell(cellComentario);
-                        }
-
-                        document.Add(actividadesTable);
-                    }
-
-                    // Tabla de tareas adicionales del día
-                    if (reporte.TareasAdicionales.Count > 0)
-                    {
-                        Paragraph tareasTitulo = new Paragraph("Tareas Adicionales:", normalFont);
-                        tareasTitulo.SpacingAfter = 5;
-                        tareasTitulo.SpacingBefore = 5;
-                        document.Add(tareasTitulo);
-
-                        PdfPTable tareasTable = new PdfPTable(3); // 3 columnas
-                        tareasTable.WidthPercentage = 100;
-                        tareasTable.SpacingAfter = 10;
-
-                        // Cabecera
-                        BaseColor headerColor = new BaseColor(220, 220, 220); // Gris claro
-                        iTextSharp.text.Font smallBoldFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 11, iTextSharp.text.Font.BOLD);
-
-                        PdfPCell headerHorario = new PdfPCell(new Phrase("Horario", smallBoldFont));
-                        headerHorario.BackgroundColor = headerColor;
-                        headerHorario.Padding = 4;
-
-                        PdfPCell headerDescripcion = new PdfPCell(new Phrase("Descripción", smallBoldFont));
-                        headerDescripcion.BackgroundColor = headerColor;
-                        headerDescripcion.Padding = 4;
-
-                        PdfPCell headerEstado = new PdfPCell(new Phrase("Estado", smallBoldFont));
-                        headerEstado.BackgroundColor = headerColor;
-                        headerEstado.Padding = 4;
-
-                        tareasTable.AddCell(headerHorario);
-                        tareasTable.AddCell(headerDescripcion);
-                        tareasTable.AddCell(headerEstado);
-
-                        // Filas de datos, ordenadas por hora de inicio
-                        iTextSharp.text.Font smallFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
-                        bool colorAlternado = false;
-
-                        foreach (var tarea in reporte.TareasAdicionales.OrderBy(t => t.HoraInicio))
-                        {
-                            BaseColor bgColor = colorAlternado ? BaseColor.WHITE : new BaseColor(245, 245, 245);
-                            colorAlternado = !colorAlternado;
-
-                            PdfPCell cellHorario = new PdfPCell(new Phrase(tarea.HorarioCompleto, smallFont));
-                            cellHorario.BackgroundColor = bgColor;
-                            cellHorario.Padding = 4;
-
-                            PdfPCell cellDescripcion = new PdfPCell(new Phrase(tarea.Descripcion, smallFont));
-                            cellDescripcion.BackgroundColor = bgColor;
-                            cellDescripcion.Padding = 4;
-
-                            PdfPCell cellEstado = new PdfPCell(new Phrase(tarea.EstadoTexto, smallFont));
-                            cellEstado.BackgroundColor = bgColor;
-                            cellEstado.Padding = 4;
-
-                            tareasTable.AddCell(cellHorario);
-                            tareasTable.AddCell(cellDescripcion);
-                            tareasTable.AddCell(cellEstado);
-                        }
-
-                        document.Add(tareasTable);
-                    }
-                }
-
-                // Pie de página
-                iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
-                footerFont.Color = BaseColor.GRAY;
-
-                Paragraph footer = new Paragraph($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}", footerFont);
-                footer.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
-                footer.SpacingBefore = 20;
-                document.Add(footer);
-
-                document.Close();
-                return ms.ToArray();
-            }
-        }
-
-
+        
         public async Task<List<ActividadDiariaTrabajador>> ObtenerActividadesDiariasTrabajadorAsync(
     int idTrabajador,
     DateTime fecha)
@@ -1969,174 +1398,904 @@ namespace AppTransporte.model
 
             return (resumenTable, detalleTable);
         }
-        public byte[] GenerarReporteTrabajadorPDF(List<ReporteTrabajador> reporteData, DateTime fechaInicio,
-            DateTime fechaFin, string tipoReporte)
+        // REEMPLAZA COMPLETAMENTE tu método GenerarReporteTrabajadorPDF por este:
+        // MÉTODO CON LOS 3 ERRORES CORREGIDOS:
+        public async Task<byte[]> GenerarReporteTrabajadorPDF(List<ReporteTrabajador> reporteData, DateTime fechaInicio,
+     DateTime fechaFin, string tipoReporte)
         {
-            using (MemoryStream ms = new MemoryStream())
+            try
             {
-                iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
-                PdfWriter writer = PdfWriter.GetInstance(document, ms);
-                document.Open();
-                iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA,
-                                                                          18,
-                                                                          iTextSharp.text.Font.BOLD);
-                Paragraph titulo = new Paragraph("Reporte de Trabajador", titleFont);
-                titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
-                titulo.SpacingAfter = 20;
-                document.Add(titulo);
-                iTextSharp.text.Font normalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12);
-                Paragraph info = new Paragraph($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}", normalFont);
-                info.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                info.SpacingAfter = 5;
-                document.Add(info);
-                Paragraph infoTipo = new Paragraph($"Tipo de reporte: {tipoReporte}", normalFont);
-                infoTipo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                infoTipo.SpacingAfter = 20;
-                document.Add(infoTipo);
-                iTextSharp.text.Font subtitleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
-                Paragraph resumenTitulo = new Paragraph("Resumen", subtitleFont);
-                resumenTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                resumenTitulo.SpacingAfter = 10;
-                document.Add(resumenTitulo);
-                PdfPTable resumenTable = new PdfPTable(2);
-                resumenTable.WidthPercentage = 100;
-                resumenTable.SpacingAfter = 20;
-                PdfPCell headerCell1 = new PdfPCell(new Phrase("Descripción", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)));
-                headerCell1.BackgroundColor = new BaseColor(220, 220, 220); // Light gray
-                headerCell1.Padding = 5;
-                PdfPCell headerCell2 = new PdfPCell(new Phrase("Valor", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)));
-                headerCell2.BackgroundColor = new BaseColor(220, 220, 220); // Light gray
-                headerCell2.Padding = 5;
-                resumenTable.AddCell(headerCell1);
-                resumenTable.AddCell(headerCell2);
-                int totalTrabajadores = reporteData.Select(r => r.IdTrabajador).Distinct().Count();
-                int totalViajes = reporteData.Sum(r => r.TotalViajes);
-                int volumenTotal = reporteData.Sum(r => r.VolumenTransportado);
-                PdfPCell cellDesc1 = new PdfPCell(new Phrase("Total de Trabajadores", normalFont));
-                cellDesc1.Padding = 5;
-                PdfPCell cellVal1 = new PdfPCell(new Phrase(totalTrabajadores.ToString(), normalFont));
-                cellVal1.Padding = 5;
-                PdfPCell cellDesc2 = new PdfPCell(new Phrase("Total de Viajes", normalFont));
-                cellDesc2.Padding = 5;
-                PdfPCell cellVal2 = new PdfPCell(new Phrase(totalViajes.ToString(), normalFont));
-                cellVal2.Padding = 5;
-                PdfPCell cellDesc3 = new PdfPCell(new Phrase("Volumen Total Transportado", normalFont));
-                cellDesc3.Padding = 5;
-                PdfPCell cellVal3 = new PdfPCell(new Phrase($"{volumenTotal:N2} L", normalFont));
-                cellVal3.Padding = 5;
-
-                resumenTable.AddCell(cellDesc1);
-                resumenTable.AddCell(cellVal1);
-                resumenTable.AddCell(cellDesc2);
-                resumenTable.AddCell(cellVal2);
-                resumenTable.AddCell(cellDesc3);
-                resumenTable.AddCell(cellVal3);
-
-                document.Add(resumenTable);
-
-                // Tabla de detalle
-                Paragraph detalleTitulo = new Paragraph("Detalle por Trabajador", subtitleFont);
-                detalleTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                detalleTitulo.SpacingAfter = 10;
-                document.Add(detalleTitulo);
-
-                PdfPTable table = new PdfPTable(6);
-                table.WidthPercentage = 100;
-
-                // Cabecera de la tabla de detalle
-                iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
-                BaseColor headerColor = new BaseColor(220, 220, 220); // Light gray
-
-                PdfPCell headerTrabajador = new PdfPCell(new Phrase("Trabajador", headerFont));
-                headerTrabajador.BackgroundColor = headerColor;
-                headerTrabajador.Padding = 5;
-
-                PdfPCell headerCategoria = new PdfPCell(new Phrase("Categoría", headerFont));
-                headerCategoria.BackgroundColor = headerColor;
-                headerCategoria.Padding = 5;
-
-                PdfPCell headerViajes = new PdfPCell(new Phrase("Viajes", headerFont));
-                headerViajes.BackgroundColor = headerColor;
-                headerViajes.Padding = 5;
-
-                PdfPCell headerSeguimientos = new PdfPCell(new Phrase("Seguimientos", headerFont));
-                headerSeguimientos.BackgroundColor = headerColor;
-                headerSeguimientos.Padding = 5;
-
-                PdfPCell headerVolumen = new PdfPCell(new Phrase("Volumen", headerFont));
-                headerVolumen.BackgroundColor = headerColor;
-                headerVolumen.Padding = 5;
-
-                PdfPCell headerPeriodo = new PdfPCell(new Phrase("Periodo", headerFont));
-                headerPeriodo.BackgroundColor = headerColor;
-                headerPeriodo.Padding = 5;
-
-                table.AddCell(headerTrabajador);
-                table.AddCell(headerCategoria);
-                table.AddCell(headerViajes);
-                table.AddCell(headerSeguimientos);
-                table.AddCell(headerVolumen);
-                table.AddCell(headerPeriodo);
-
-                // Filas de datos
-                bool colorAlternado = false;
-                foreach (var item in reporteData)
+                // Crear el documento PDF
+                using (PdfDocument document = new PdfDocument())
                 {
-                    BaseColor bgColor = colorAlternado
-                        ? BaseColor.WHITE
-                        : new BaseColor(245, 245, 245); // Very light gray
+                    // Crear página
+                    PdfPage page = document.Pages.Add();
+                    PdfGraphics graphics = page.Graphics;
 
-                    colorAlternado = !colorAlternado;
+                    // Configurar fuentes
+                    PdfStandardFont titleFont = new PdfStandardFont(PdfFontFamily.Helvetica, 18, PdfFontStyle.Bold);
+                    PdfStandardFont companyFont = new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold);
+                    PdfStandardFont headerFont = new PdfStandardFont(PdfFontFamily.Helvetica, 14, PdfFontStyle.Bold);
+                    PdfStandardFont normalFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
+                    PdfStandardFont boldFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10, PdfFontStyle.Bold);
+                    PdfStandardFont infoFont = new PdfStandardFont(PdfFontFamily.Helvetica, 12);
 
-                    PdfPCell cellNombre = new PdfPCell(new Phrase(item.NombreCompleto, normalFont));
-                    cellNombre.BackgroundColor = bgColor;
-                    cellNombre.Padding = 5;
+                    // Colores
+                    PdfSolidBrush redBrush = new PdfSolidBrush(new PdfColor(203, 67, 53)); // #cb4335 - Rojo empresarial
+                    PdfSolidBrush blackBrush = new PdfSolidBrush(new PdfColor(0, 0, 0));
+                    PdfSolidBrush grayBrush = new PdfSolidBrush(new PdfColor(85, 85, 85));
 
-                    PdfPCell cellCategoria = new PdfPCell(new Phrase(item.Categoria, normalFont));
-                    cellCategoria.BackgroundColor = bgColor;
-                    cellCategoria.Padding = 5;
+                    float yPosition = 20;
 
-                    PdfPCell cellViajes = new PdfPCell(new Phrase(item.TotalViajes.ToString(), normalFont));
-                    cellViajes.BackgroundColor = bgColor;
-                    cellViajes.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
-                    cellViajes.Padding = 5;
+                    try
+                    {
+                        using var logoStream = await FileSystem.OpenAppPackageFileAsync("Resources/Raw/paquitaaa.png");
+                        PdfBitmap logo = new PdfBitmap(logoStream); // 
+                        graphics.DrawImage(logo, 20, yPosition, 80, 60);
+                    }
+                    catch
+                    {
+                        // Fallback
+                        graphics.DrawRectangle(new PdfPen(redBrush), 20, yPosition, 80, 60);
+                        graphics.DrawString("LOGO", normalFont, redBrush, 35, yPosition + 25);
+                    }
 
-                    PdfPCell cellSeguimientos = new PdfPCell(new Phrase(item.TotalSeguimientos.ToString(), normalFont));
-                    cellSeguimientos.BackgroundColor = bgColor;
-                    cellSeguimientos.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
-                    cellSeguimientos.Padding = 5;
+                    // 2. INFORMACIÓN DE LA EMPRESA (centro)
+                    float centerX = page.Size.Width / 2;
 
-                    PdfPCell cellVolumen = new PdfPCell(new Phrase($"{item.VolumenTransportado:N2}", normalFont));
-                    cellVolumen.BackgroundColor = bgColor;
-                    cellVolumen.HorizontalAlignment = iTextSharp.text.Element.ALIGN_RIGHT;
-                    cellVolumen.Padding = 5;
+                    // Nombre de la empresa
+                    Syncfusion.Drawing.SizeF companyNameSize = companyFont.MeasureString("TRANSPORTES PAQUITA S.R.L");
+                    graphics.DrawString("TRANSPORTES PAQUITA S.R.L", companyFont, redBrush,
+                        centerX - (companyNameSize.Width / 2), yPosition + 5);
 
-                    PdfPCell cellPeriodo = new PdfPCell(new Phrase(item.Periodo, normalFont));
-                    cellPeriodo.BackgroundColor = bgColor;
-                    cellPeriodo.Padding = 5;
+                    // RUC
+                    Syncfusion.Drawing.SizeF rucSize = infoFont.MeasureString("RUC: 20102423985");
+                    graphics.DrawString("RUC: 20102423985", infoFont, blackBrush,
+                        centerX - (rucSize.Width / 2), yPosition + 28);
 
-                    table.AddCell(cellNombre);
-                    table.AddCell(cellCategoria);
-                    table.AddCell(cellViajes);
-                    table.AddCell(cellSeguimientos);
-                    table.AddCell(cellVolumen);
-                    table.AddCell(cellPeriodo);
+                    // Teléfono
+                    Syncfusion.Drawing.SizeF phoneSize = infoFont.MeasureString("Teléfono: 981229253");
+                    graphics.DrawString("Teléfono: 981229253", infoFont, blackBrush,
+                        centerX - (phoneSize.Width / 2), yPosition + 48);
+
+                    yPosition += 80;
+
+                    // 3. LÍNEA SEPARADORA ROJA
+                    PdfPen redPen = new PdfPen(redBrush, 2);
+                    graphics.DrawLine(redPen, 20, yPosition, page.Size.Width - 20, yPosition);
+                    yPosition += 25;
+
+                    // ==============================================
+                    // TÍTULO DEL REPORTE
+                    // ==============================================
+                    Syncfusion.Drawing.SizeF titleSize = titleFont.MeasureString("REPORTE DE TRABAJADOR");
+                    graphics.DrawString("REPORTE DE TRABAJADOR", titleFont, redBrush,
+                        centerX - (titleSize.Width / 2), yPosition);
+                    yPosition += 35;
+
+                    // ==============================================
+                    // INFORMACIÓN DEL PERIODO
+                    // ==============================================
+                    graphics.DrawString($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}",
+                        headerFont, blackBrush, 20, yPosition);
+                    yPosition += 20;
+
+                    graphics.DrawString($"Tipo de Reporte: {tipoReporte}",
+                        normalFont, blackBrush, 20, yPosition);
+                    yPosition += 30;
+
+                    // ==============================================
+                    // RESUMEN DEL REPORTE
+                    // ==============================================
+
+                    // Calcular totales
+                    int totalTrabajadores = reporteData.Select(r => r.IdTrabajador).Distinct().Count();
+                    int totalViajes = reporteData.Sum(r => r.TotalViajes);
+                    int totalVolumen = reporteData.Sum(r => r.VolumenTransportado);
+
+                    // Dibujar marco para resumen
+                    PdfPen grayPen = new PdfPen(new PdfColor(200, 200, 200));
+                    PdfSolidBrush lightGrayBrush = new PdfSolidBrush(new PdfColor(248, 249, 250));
+
+                    graphics.DrawRectangle(grayPen, lightGrayBrush, 20, yPosition, 555, 80);
+
+                    // Título del resumen
+                    graphics.DrawString("RESUMEN DEL REPORTE", boldFont, blackBrush, 30, yPosition + 10);
+
+                    // Línea separadora
+                    graphics.DrawLine(grayPen, 30, yPosition + 25, 565, yPosition + 25);
+
+                    // Datos del resumen en columnas - MEJORADO EL ESPACIADO
+                    float col1X = 50, col2X = 220, col3X = 390; // Más separados
+                    float resumenY = yPosition + 35;
+
+                    // Columna 1: Total trabajadores
+                    graphics.DrawString("Total trabajadores:", normalFont, grayBrush, col1X, resumenY);
+                    graphics.DrawString(totalTrabajadores.ToString(), boldFont, blackBrush, col1X, resumenY + 15);
+
+                    // Columna 2: Total viajes  
+                    graphics.DrawString("Total viajes:", normalFont, grayBrush, col2X, resumenY);
+                    graphics.DrawString(totalViajes.ToString(), boldFont, blackBrush, col2X, resumenY + 15);
+
+                    // Columna 3: Volumen total - CENTRADO MEJOR
+                    string volumenText = "Volumen total transportado:";
+                    Syncfusion.Drawing.SizeF volumenTextSize = normalFont.MeasureString(volumenText);
+                    graphics.DrawString(volumenText, normalFont, grayBrush, col3X, resumenY);
+
+                    string volumenValue = $"{totalVolumen:N2} L";
+                    Syncfusion.Drawing.SizeF volumenValueSize = boldFont.MeasureString(volumenValue);
+                    graphics.DrawString(volumenValue, boldFont, blackBrush,
+                        col3X + (volumenTextSize.Width / 2) - (volumenValueSize.Width / 2), resumenY + 15);
+
+                    yPosition += 100;
+
+                    // ==============================================
+                    // TABLA DE DATOS
+                    // ==============================================
+                    if (reporteData.Any())
+                    {
+                        // Crear la tabla
+                        PdfGrid table = new PdfGrid();
+
+                        // Configurar columnas - ESPACIADO MEJORADO
+                        table.Columns.Add(6);
+                        table.Columns[0].Width = 130; // Trabajador (más ancho)
+                        table.Columns[1].Width = 85;  // Categoría
+                        table.Columns[2].Width = 50;  // Viajes
+                        table.Columns[3].Width = 50;  // Seg.
+                        table.Columns[4].Width = 85;  // Volumen (más ancho)
+                        table.Columns[5].Width = 95;  // Periodo (más ancho)
+
+                        // Estilo de encabezado
+                        PdfGridRowStyle headerRowStyle = new PdfGridRowStyle();
+                        headerRowStyle.BackgroundBrush = new PdfSolidBrush(new PdfColor(240, 240, 240));
+                        headerRowStyle.TextBrush = new PdfSolidBrush(new PdfColor(51, 51, 51));
+                        headerRowStyle.Font = boldFont;
+
+                        // Agregar fila de encabezado
+                        PdfGridRow headerRow = table.Headers.Add(1)[0];
+                        headerRow.Style = headerRowStyle;
+                        headerRow.Height = 25;
+
+                        headerRow.Cells[0].Value = "Trabajador";
+                        headerRow.Cells[1].Value = "Categoría";
+                        headerRow.Cells[2].Value = "Viajes";
+                        headerRow.Cells[3].Value = "Seg.";
+                        headerRow.Cells[4].Value = "Volumen";
+                        headerRow.Cells[5].Value = "Periodo";
+
+                        // Centrar encabezados de columnas numéricas
+                        headerRow.Cells[2].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        headerRow.Cells[3].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        headerRow.Cells[4].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        headerRow.Cells[5].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+
+                        // Agregar datos
+                        for (int i = 0; i < reporteData.Count; i++)
+                        {
+                            var item = reporteData[i];
+                            PdfGridRow row = table.Rows.Add();
+                            row.Height = 22; // Altura ligeramente mayor
+
+                            // Alternar color de filas
+                            if (i % 2 == 1)
+                            {
+                                row.Style.BackgroundBrush = new PdfSolidBrush(new PdfColor(245, 245, 245));
+                            }
+
+                            row.Cells[0].Value = item.NombreCompleto;
+                            row.Cells[1].Value = item.Categoria;
+                            row.Cells[2].Value = item.TotalViajes.ToString();
+                            row.Cells[3].Value = item.TotalSeguimientos.ToString();
+                            row.Cells[4].Value = $"{item.VolumenTransportado:N2}";
+                            row.Cells[5].Value = item.Periodo;
+
+                            // Aplicar fuente normal a todas las celdas
+                            for (int j = 0; j < row.Cells.Count; j++)
+                            {
+                                row.Cells[j].Style.Font = normalFont;
+                                row.Cells[j].Style.TextBrush = blackBrush;
+                            }
+
+                            // Alineación mejorada
+                            row.Cells[2].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                            row.Cells[3].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                            row.Cells[4].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                            row.Cells[5].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        }
+
+                        // Dibujar la tabla
+                        PdfLayoutResult result = table.Draw(page, 20, yPosition);
+                        yPosition = result.Bounds.Bottom + 20;
+                    }
+
+                   
+                    string fechaGeneracion = $"Generado el: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    graphics.DrawString(fechaGeneracion, normalFont, grayBrush, 20, page.Size.Height - 40);
+
+                    // Número de página
+                    string numeroPagina = $"Página 1 de 1";
+                    Syncfusion.Drawing.SizeF textSize = normalFont.MeasureString(numeroPagina);
+                    graphics.DrawString(numeroPagina, normalFont, grayBrush,
+                        page.Size.Width - textSize.Width - 20, page.Size.Height - 40);
+
+                    // Convertir a bytes
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        document.Save(stream);
+                        return stream.ToArray();
+                    }
                 }
-
-                document.Add(table);
-
-                // Añadir pie de página
-                iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
-                footerFont.Color = BaseColor.GRAY;
-
-                Paragraph footer = new Paragraph($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}", footerFont);
-                footer.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
-                footer.SpacingBefore = 20;
-                document.Add(footer);
-
-                document.Close();
-                return ms.ToArray();
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al generar PDF: {ex.Message}", ex);
+            }
+        }
+        public async Task<byte[]> GenerarReporteServiciosPDF(
+    List<ReporteServicio> datosReporte,
+    DateTime fechaInicio,
+    DateTime fechaFin)
+        {
+            try
+            {
+                using (PdfDocument document = new PdfDocument())
+                {
+                    // Crear página
+                    PdfPage page = document.Pages.Add();
+                    PdfGraphics graphics = page.Graphics;
+
+                    // Configurar fuentes
+                    PdfStandardFont titleFont = new PdfStandardFont(PdfFontFamily.Helvetica, 18, PdfFontStyle.Bold);
+                    PdfStandardFont companyFont = new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold);
+                    PdfStandardFont headerFont = new PdfStandardFont(PdfFontFamily.Helvetica, 14, PdfFontStyle.Bold);
+                    PdfStandardFont normalFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
+                    PdfStandardFont boldFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10, PdfFontStyle.Bold);
+                    PdfStandardFont infoFont = new PdfStandardFont(PdfFontFamily.Helvetica, 12);
+
+                    // Colores corporativos
+                    PdfSolidBrush redBrush = new PdfSolidBrush(new PdfColor((byte)203, (byte)67, (byte)53)); // #cb4335
+                    PdfSolidBrush blackBrush = new PdfSolidBrush(new PdfColor((byte)0, (byte)0, (byte)0));
+                    PdfSolidBrush grayBrush = new PdfSolidBrush(new PdfColor((byte)85, (byte)85, (byte)85));
+                    PdfSolidBrush whiteBrush = new PdfSolidBrush(new PdfColor((byte)255, (byte)255, (byte)255));
+
+                    float yPosition = 20;
+
+                    // ==============================================
+                    // ENCABEZADO CORPORATIVO
+                    // ==============================================
+
+                    // 1. LOGO (izquierda)
+                    try
+                    {
+                        using var logoStream = await FileSystem.OpenAppPackageFileAsync("Resources/Raw/paquitaaa.png");
+                        PdfBitmap logo = new PdfBitmap(logoStream);
+                        graphics.DrawImage(logo, 20, yPosition, 80, 60);
+                    }
+                    catch
+                    {
+                        // Fallback si no se encuentra el logo
+                        graphics.DrawRectangle(new PdfPen(redBrush), 20, yPosition, 80, 60);
+                        graphics.DrawString("LOGO", normalFont, redBrush, 35, yPosition + 25);
+                    }
+
+                    // 2. INFORMACIÓN DE LA EMPRESA (centro)
+                    float centerX = page.Size.Width / 2;
+
+                    // Nombre de la empresa
+                    SyncSizeF companyNameSize = companyFont.MeasureString("TRANSPORTES PAQUITA S.R.L");
+                    graphics.DrawString("TRANSPORTES PAQUITA S.R.L", companyFont, redBrush,
+                        centerX - (companyNameSize.Width / 2), yPosition + 5);
+
+                    // RUC
+                    SyncSizeF rucSize = infoFont.MeasureString("RUC: 20102423985");
+                    graphics.DrawString("RUC: 20102423985", infoFont, blackBrush,
+                        centerX - (rucSize.Width / 2), yPosition + 28);
+
+                    // Teléfono
+                    SyncSizeF phoneSize = infoFont.MeasureString("Teléfono: 981229253");
+                    graphics.DrawString("Teléfono: 981229253", infoFont, blackBrush,
+                        centerX - (phoneSize.Width / 2), yPosition + 48);
+
+                    yPosition += 80;
+
+                    // 3. LÍNEA SEPARADORA ROJA
+                    PdfPen redPen = new PdfPen(redBrush, 2);
+                    graphics.DrawLine(redPen, 20, yPosition, page.Size.Width - 20, yPosition);
+                    yPosition += 25;
+
+                    // ==============================================
+                    // TÍTULO DEL REPORTE
+                    // ==============================================
+                    SyncSizeF titleSize = titleFont.MeasureString("REPORTE DE SERVICIOS");
+                    graphics.DrawString("REPORTE DE SERVICIOS", titleFont, redBrush,
+                        centerX - (titleSize.Width / 2), yPosition);
+                    yPosition += 35;
+
+                    // ==============================================
+                    // INFORMACIÓN DEL PERIODO
+                    // ==============================================
+                    graphics.DrawString($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}",
+                        headerFont, blackBrush, 20, yPosition);
+                    yPosition += 20;
+
+                    graphics.DrawString($"Fecha de generación: {DateTime.Now:dd/MM/yyyy HH:mm:ss}",
+                        normalFont, grayBrush, 20, yPosition);
+                    yPosition += 30;
+
+                    // ==============================================
+                    // RESUMEN EJECUTIVO
+                    // ==============================================
+                    if (datosReporte != null && datosReporte.Any())
+                    {
+                        // Calcular totales
+                        int totalServicios = datosReporte.Count;
+                        int totalPedidos = datosReporte.Sum(r => r.CantidadPedidos);
+                        int volumenTotalSolicitado = datosReporte.Sum(r => r.VolumenSolicitado);
+                        int volumenTotalTransportado = datosReporte.Sum(r => r.VolumenTransportado);
+                        double promedioEficiencia = datosReporte.Average(r => r.PorcentajeCumplimiento);
+
+                        // Marco para resumen
+                        PdfPen grayPen = new PdfPen(new PdfColor((byte)200, (byte)200, (byte)200));
+                        PdfSolidBrush lightGrayBrush = new PdfSolidBrush(new PdfColor((byte)248, (byte)249, (byte)250));
+
+                        graphics.DrawRectangle(grayPen, lightGrayBrush, 20, yPosition, 555, 120);
+
+                        // Título del resumen
+                        graphics.DrawString("RESUMEN EJECUTIVO", boldFont, blackBrush, 30, yPosition + 12);
+
+                        // Línea separadora
+                        graphics.DrawLine(grayPen, 30, yPosition + 30, 565, yPosition + 30);
+
+                        // Distribución en 2x2 con mejor espaciado
+                        float margenIzq = 40;
+                        float anchoColumna = 260;
+                        float alturaFila = 35;
+
+                        // Columna 1 - Fila 1: Total servicios
+                        float col1X = margenIzq;
+                        float fila1Y = yPosition + 45;
+
+                        graphics.DrawString("Total servicios:", normalFont, grayBrush, col1X, fila1Y);
+                        graphics.DrawString(totalServicios.ToString(),
+                            new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold),
+                            redBrush, col1X, fila1Y + 15);
+
+                        // Columna 2 - Fila 1: Total pedidos
+                        float col2X = col1X + anchoColumna;
+
+                        graphics.DrawString("Total pedidos:", normalFont, grayBrush, col2X, fila1Y);
+                        graphics.DrawString(totalPedidos.ToString(),
+                            new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold),
+                            redBrush, col2X, fila1Y + 15);
+
+                        // Columna 1 - Fila 2: Volumen transportado
+                        float fila2Y = fila1Y + alturaFila;
+
+                        graphics.DrawString("Volumen transportado:", normalFont, grayBrush, col1X, fila2Y);
+                        graphics.DrawString($"{volumenTotalTransportado:N0} L",
+                            new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold),
+                            redBrush, col1X, fila2Y + 15);
+
+                        // Columna 2 - Fila 2: Eficiencia promedio
+                        graphics.DrawString("Eficiencia promedio:", normalFont, grayBrush, col2X, fila2Y);
+                        graphics.DrawString($"{promedioEficiencia:N1}%",
+                            new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold),
+                            redBrush, col2X, fila2Y + 15);
+
+                        yPosition += 140;
+                    }
+
+                    // ==============================================
+                    // TABLA DE DETALLE DE SERVICIOS
+                    // ==============================================
+                    if (datosReporte != null && datosReporte.Any())
+                    {
+                        graphics.DrawString("DETALLE POR TIPO DE SERVICIO", headerFont, blackBrush, 20, yPosition);
+                        yPosition += 25;
+
+                        // Crear tabla de detalle
+                        PdfGrid detalleTable = new PdfGrid();
+                        detalleTable.Columns.Add(5);
+
+                        // Anchos de columna optimizados
+                        detalleTable.Columns[0].Width = 160; // Tipo de Servicio
+                        detalleTable.Columns[1].Width = 80;  // Pedidos
+                        detalleTable.Columns[2].Width = 90;  // Vol. Solicitado
+                        detalleTable.Columns[3].Width = 90;  // Vol. Transportado
+                        detalleTable.Columns[4].Width = 95;  // % Cumplimiento
+
+                        // Estilo de encabezado
+                        PdfGridRowStyle headerRowStyle = new PdfGridRowStyle();
+                        headerRowStyle.BackgroundBrush = redBrush;
+                        headerRowStyle.TextBrush = whiteBrush;
+                        headerRowStyle.Font = new PdfStandardFont(PdfFontFamily.Helvetica, 10, PdfFontStyle.Bold);
+
+                        // Agregar fila de encabezado
+                        PdfGridRow headerRow = detalleTable.Headers.Add(1)[0];
+                        headerRow.Style = headerRowStyle;
+                        headerRow.Height = 28;
+
+                        headerRow.Cells[0].Value = "Tipo de Servicio";
+                        headerRow.Cells[1].Value = "Pedidos";
+                        headerRow.Cells[2].Value = "Vol. Solicitado";
+                        headerRow.Cells[3].Value = "Vol. Transportado";
+                        headerRow.Cells[4].Value = "% Cumplimiento";
+
+                        // Alineación de encabezados
+                        headerRow.Cells[0].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Left);
+                        headerRow.Cells[1].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        headerRow.Cells[2].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        headerRow.Cells[3].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        headerRow.Cells[4].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+
+                        // Agregar datos
+                        for (int i = 0; i < datosReporte.Count; i++)
+                        {
+                            var item = datosReporte[i];
+                            PdfGridRow row = detalleTable.Rows.Add();
+                            row.Height = 22;
+
+                            // Alternar color de filas
+                            if (i % 2 == 1)
+                            {
+                                row.Style.BackgroundBrush = new PdfSolidBrush(new PdfColor((byte)245, (byte)245, (byte)245));
+                            }
+
+                            row.Cells[0].Value = item.TipoServicio;
+                            row.Cells[1].Value = item.CantidadPedidos.ToString();
+                            row.Cells[2].Value = $"{item.VolumenSolicitado:N0} L";
+                            row.Cells[3].Value = $"{item.VolumenTransportado:N0} L";
+                            row.Cells[4].Value = $"{item.PorcentajeCumplimiento:N1}%";
+
+                            // Aplicar fuente y alineación
+                            for (int j = 0; j < row.Cells.Count; j++)
+                            {
+                                row.Cells[j].Style.Font = normalFont;
+                                row.Cells[j].Style.TextBrush = blackBrush;
+                            }
+
+                            // Alineación de celdas
+                            row.Cells[0].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Left);
+                            row.Cells[1].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                            row.Cells[2].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                            row.Cells[3].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                            row.Cells[4].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+
+                            // Color especial para % Cumplimiento según eficiencia
+                            if (item.PorcentajeCumplimiento >= 90)
+                            {
+                                row.Cells[4].Style.TextBrush = new PdfSolidBrush(new PdfColor((byte)34, (byte)139, (byte)34)); // Verde
+                            }
+                            else if (item.PorcentajeCumplimiento >= 70)
+                            {
+                                row.Cells[4].Style.TextBrush = new PdfSolidBrush(new PdfColor((byte)255, (byte)140, (byte)0)); // Naranja
+                            }
+                            else
+                            {
+                                row.Cells[4].Style.TextBrush = new PdfSolidBrush(new PdfColor((byte)220, (byte)20, (byte)60)); // Rojo
+                            }
+                        }
+
+                        // Dibujar la tabla
+                        PdfLayoutResult result = detalleTable.Draw(page, 20, yPosition);
+                        yPosition = result.Bounds.Bottom + 20;
+
+                        // Agregar leyenda de colores para % Cumplimiento
+                        graphics.DrawString("Leyenda:", boldFont, blackBrush, 20, yPosition);
+                        yPosition += 15;
+
+                        // Verde - Excelente (SINTAXIS SYNCFUSION CORRECTA)
+                        PdfSolidBrush verdeBrush = new PdfSolidBrush(new PdfColor((byte)34, (byte)139, (byte)34));
+                        graphics.DrawRectangle(verdeBrush, 20, yPosition, 12, 12);
+                        graphics.DrawString("≥ 90% - Excelente", normalFont, blackBrush, 40, yPosition + 2);
+
+                        // Naranja - Bueno (SINTAXIS SYNCFUSION CORRECTA)
+                        PdfSolidBrush naranjaBrush = new PdfSolidBrush(new PdfColor((byte)255, (byte)140, (byte)0));
+                        graphics.DrawRectangle(naranjaBrush, 150, yPosition, 12, 12);
+                        graphics.DrawString("70-89% - Bueno", normalFont, blackBrush, 170, yPosition + 2);
+
+                        // Rojo - Mejorable (SINTAXIS SYNCFUSION CORRECTA)
+                        PdfSolidBrush rojoBrush = new PdfSolidBrush(new PdfColor((byte)220, (byte)20, (byte)60));
+                        graphics.DrawRectangle(rojoBrush, 280, yPosition, 12, 12);
+                        graphics.DrawString("< 70% - Mejorable", normalFont, blackBrush, 300, yPosition + 2);
+                    }
+
+                    // ==============================================
+                    // PIE DE PÁGINA
+                    // ==============================================
+                    string fechaGeneracion = $"Generado el: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    graphics.DrawString(fechaGeneracion, normalFont, grayBrush, 20, page.Size.Height - 40);
+
+                    // Número de página
+                    string numeroPagina = $"Página 1 de 1";
+                    SyncSizeF textSize = normalFont.MeasureString(numeroPagina);
+                    graphics.DrawString(numeroPagina, normalFont, grayBrush,
+                        page.Size.Width - textSize.Width - 20, page.Size.Height - 40);
+
+                    // Convertir a bytes
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        document.Save(stream);
+                        return stream.ToArray();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al generar PDF de servicios: {ex.Message}", ex);
+            }
+        }
+        public async Task<byte[]> GenerarReportePedidosPDF(
+    List<ResumenPedido> datosResumen,
+    List<DetallePedido> datosDetalle,
+    DateTime fechaInicio,
+    DateTime fechaFin)
+        {
+            try
+            {
+                using (PdfDocument document = new PdfDocument())
+                {
+                    // Crear página
+                    PdfPage page = document.Pages.Add();
+                    PdfGraphics graphics = page.Graphics;
+
+                    // Configurar fuentes
+                    PdfStandardFont titleFont = new PdfStandardFont(PdfFontFamily.Helvetica, 18, PdfFontStyle.Bold);
+                    PdfStandardFont companyFont = new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold);
+                    PdfStandardFont headerFont = new PdfStandardFont(PdfFontFamily.Helvetica, 14, PdfFontStyle.Bold);
+                    PdfStandardFont normalFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
+                    PdfStandardFont boldFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10, PdfFontStyle.Bold);
+                    PdfStandardFont infoFont = new PdfStandardFont(PdfFontFamily.Helvetica, 12);
+
+                    // Colores - CORREGIDO: usar byte en lugar de int
+                    PdfSolidBrush redBrush = new PdfSolidBrush(new PdfColor((byte)203, (byte)67, (byte)53)); // #cb4335
+                    PdfSolidBrush blackBrush = new PdfSolidBrush(new PdfColor((byte)0, (byte)0, (byte)0));
+                    PdfSolidBrush grayBrush = new PdfSolidBrush(new PdfColor((byte)85, (byte)85, (byte)85));
+                    PdfSolidBrush whiteBrush = new PdfSolidBrush(new PdfColor((byte)255, (byte)255, (byte)255));
+
+                    float yPosition = 20;
+
+                    // ==============================================
+                    // ENCABEZADO DE LA EMPRESA
+                    // ==============================================
+
+                    // 1. LOGO (izquierda)
+                    try
+                    {
+                        using var logoStream = await FileSystem.OpenAppPackageFileAsync("Resources/Raw/paquitaaa.png");
+                        PdfBitmap logo = new PdfBitmap(logoStream);
+                        graphics.DrawImage(logo, 20, yPosition, 80, 60);
+                    }
+                    catch
+                    {
+                        // Fallback si no se encuentra el logo
+                        graphics.DrawRectangle(new PdfPen(redBrush), 20, yPosition, 80, 60);
+                        graphics.DrawString("LOGO", normalFont, redBrush, 35, yPosition + 25);
+                    }
+
+                    // 2. INFORMACIÓN DE LA EMPRESA (centro)
+                    float centerX = page.Size.Width / 2;
+
+                    // Nombre de la empresa
+                    SyncSizeF companyNameSize = companyFont.MeasureString("TRANSPORTES PAQUITA S.R.L");
+                    graphics.DrawString("TRANSPORTES PAQUITA S.R.L", companyFont, redBrush,
+                        centerX - (companyNameSize.Width / 2), yPosition + 5);
+
+                    // RUC
+                    SyncSizeF rucSize = infoFont.MeasureString("RUC: 20102423985");
+                    graphics.DrawString("RUC: 20102423985", infoFont, blackBrush,
+                        centerX - (rucSize.Width / 2), yPosition + 28);
+
+                    // Teléfono
+                    SyncSizeF phoneSize = infoFont.MeasureString("Teléfono: 981229253");
+                    graphics.DrawString("Teléfono: 981229253", infoFont, blackBrush,
+                        centerX - (phoneSize.Width / 2), yPosition + 48);
+
+                    yPosition += 80;
+
+                    // 3. LÍNEA SEPARADORA ROJA
+                    PdfPen redPen = new PdfPen(redBrush, 2);
+                    graphics.DrawLine(redPen, 20, yPosition, page.Size.Width - 20, yPosition);
+                    yPosition += 25;
+
+                    
+                    // TÍTULO DEL REPORTE
+
+                    SyncSizeF titleSize = titleFont.MeasureString("REPORTE DE PEDIDOS");
+                    graphics.DrawString("REPORTE DE PEDIDOS", titleFont, redBrush,
+                        centerX - (titleSize.Width / 2), yPosition);
+                    yPosition += 35;
+
+                    // INFORMACIÓN DEL PERIODO
+                    
+                    graphics.DrawString($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}",
+                        headerFont, blackBrush, 20, yPosition);
+                    yPosition += 20;
+
+                    graphics.DrawString($"Fecha de generación: {DateTime.Now:dd/MM/yyyy HH:mm:ss}",
+                        normalFont, grayBrush, 20, yPosition);
+                    yPosition += 30;
+
+                    // RESUMEN EJECUTIVO
+
+                    if (datosResumen != null && datosResumen.Any())
+                    {
+                        // Calcular totales
+                        int totalPedidos = datosResumen.Sum(r => r.CantidadPedidos);
+                        int volumenTotal = datosResumen.Sum(r => r.VolumenTotal);
+                        int pedidosEntregados = datosResumen.Sum(r => r.PedidosEntregados);
+                        double promedioAtencion = datosResumen.Average(r => r.PromedioDiasAtencion);
+
+                        // Marco para resumen - MÁS ALTO Y MEJOR DISTRIBUIDO
+                        PdfPen grayPen = new PdfPen(new PdfColor((byte)200, (byte)200, (byte)200));
+                        PdfSolidBrush lightGrayBrush = new PdfSolidBrush(new PdfColor((byte)248, (byte)249, (byte)250));
+
+                        // Altura aumentada de 90 a 120
+                        graphics.DrawRectangle(grayPen, lightGrayBrush, 20, yPosition, 555, 120);
+
+                        // Título del resumen
+                        graphics.DrawString("RESUMEN EJECUTIVO", boldFont, blackBrush, 30, yPosition + 12);
+
+                        // Línea separadora
+                        graphics.DrawLine(grayPen, 30, yPosition + 30, 565, yPosition + 30);
+
+                        // NUEVA DISTRIBUCIÓN: 2x2 con mejor espaciado
+                        float margenIzq = 40;
+                        float anchoColumna = 260; // Ancho de cada columna
+                        float alturaFila = 35;    // Altura de cada fila
+
+                        // Columna 1 - Fila 1: Total pedidos
+                        float col1X = margenIzq;
+                        float fila1Y = yPosition + 45;
+
+                        graphics.DrawString("Total pedidos:", normalFont, grayBrush, col1X, fila1Y);
+                        graphics.DrawString(totalPedidos.ToString(),
+                            new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold),
+                            redBrush, col1X, fila1Y + 15);
+
+                        // Columna 2 - Fila 1: Volumen total
+                        float col2X = col1X + anchoColumna;
+
+                        graphics.DrawString("Volumen total:", normalFont, grayBrush, col2X, fila1Y);
+                        graphics.DrawString($"{volumenTotal:N0} L",
+                            new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold),
+                            redBrush, col2X, fila1Y + 15);
+
+                        // Columna 1 - Fila 2: Pedidos entregados
+                        float fila2Y = fila1Y + alturaFila;
+
+                        graphics.DrawString("Pedidos entregados:", normalFont, grayBrush, col1X, fila2Y);
+                        graphics.DrawString($"{pedidosEntregados:N0}",
+                            new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold),
+                            redBrush, col1X, fila2Y + 15);
+
+                        // Columna 2 - Fila 2: Promedio días atención
+                        graphics.DrawString("Promedio días atención:", normalFont, grayBrush, col2X, fila2Y);
+                        graphics.DrawString($"{promedioAtencion:N1} días",
+                            new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold),
+                            redBrush, col2X, fila2Y + 15);
+
+                        yPosition += 140; // Aumentado el espacio total
+                    }
+
+                    // TABLA DE RESUMEN POR ESTADO
+
+                    if (datosResumen != null && datosResumen.Any())
+                    {
+                        graphics.DrawString("RESUMEN POR ESTADO DE PEDIDOS", headerFont, blackBrush, 20, yPosition);
+                        yPosition += 25;
+
+                        // Crear tabla de resumen
+                        PdfGrid resumenTable = new PdfGrid();
+                        resumenTable.Columns.Add(6);
+                        resumenTable.Columns[0].Width = 100; // Estado
+                        resumenTable.Columns[1].Width = 70;  // Cantidad
+                        resumenTable.Columns[2].Width = 80;  // Volumen
+                        resumenTable.Columns[3].Width = 70;  // Viajes
+                        resumenTable.Columns[4].Width = 80;  // Entregados
+                        resumenTable.Columns[5].Width = 95;  // Promedio días
+
+                        // Estilo de encabezado - CORREGIDO
+                        PdfGridRowStyle headerRowStyle = new PdfGridRowStyle();
+                        headerRowStyle.BackgroundBrush = redBrush;
+                        headerRowStyle.TextBrush = whiteBrush; // Usar whiteBrush en lugar de conversión
+                        headerRowStyle.Font = boldFont;
+
+                        // Agregar fila de encabezado
+                        PdfGridRow headerRow = resumenTable.Headers.Add(1)[0];
+                        headerRow.Style = headerRowStyle;
+                        headerRow.Height = 25;
+
+                        headerRow.Cells[0].Value = "Estado";
+                        headerRow.Cells[1].Value = "Pedidos";
+                        headerRow.Cells[2].Value = "Volumen (L)";
+                        headerRow.Cells[3].Value = "Viajes";
+                        headerRow.Cells[4].Value = "Entregados";
+                        headerRow.Cells[5].Value = "Prom. Días";
+
+                        // Centrar encabezados
+                        for (int i = 1; i < 6; i++)
+                        {
+                            headerRow.Cells[i].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        }
+
+                        // Agregar datos
+                        for (int i = 0; i < datosResumen.Count; i++)
+                        {
+                            var item = datosResumen[i];
+                            PdfGridRow row = resumenTable.Rows.Add();
+                            row.Height = 22;
+
+                            // Alternar color de filas - CORREGIDO
+                            if (i % 2 == 1)
+                            {
+                                row.Style.BackgroundBrush = new PdfSolidBrush(new PdfColor((byte)245, (byte)245, (byte)245));
+                            }
+
+                            row.Cells[0].Value = item.EstadoPedido;
+                            row.Cells[1].Value = item.CantidadPedidos.ToString();
+                            row.Cells[2].Value = $"{item.VolumenTotal:N0}";
+                            row.Cells[3].Value = item.ViajesSolicitados.ToString();
+                            row.Cells[4].Value = item.PedidosEntregados.ToString();
+                            row.Cells[5].Value = $"{item.PromedioDiasAtencion:N1}";
+
+                            // Aplicar fuente y alineación
+                            for (int j = 0; j < row.Cells.Count; j++)
+                            {
+                                row.Cells[j].Style.Font = normalFont;
+                                row.Cells[j].Style.TextBrush = blackBrush;
+                                if (j > 0) // Centrar columnas numéricas
+                                {
+                                    row.Cells[j].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                                }
+                            }
+                        }
+
+                        // Dibujar la tabla
+                        PdfLayoutResult result = resumenTable.Draw(page, 20, yPosition);
+                        yPosition = result.Bounds.Bottom + 30;
+                    }
+
+                    // ==============================================
+                    // VERIFICAR SI NECESITAMOS NUEVA PÁGINA
+                    // ==============================================
+                    if (yPosition > page.Size.Height - 200) // Si queda poco espacio
+                    {
+                        page = document.Pages.Add();
+                        graphics = page.Graphics;
+                        yPosition = 20;
+                    }
+
+                    // ==============================================
+                    // TABLA DE DETALLE DE PEDIDOS
+                    // ==============================================
+                    if (datosDetalle != null && datosDetalle.Any())
+                    {
+                        graphics.DrawString("DETALLE DE PEDIDOS", headerFont, blackBrush, 20, yPosition);
+                        yPosition += 25;
+
+                        // Crear tabla de detalle
+                        PdfGrid detalleTable = new PdfGrid();
+                        detalleTable.Columns.Add(7);
+                        detalleTable.Columns[0].Width = 40;  // ID
+                        detalleTable.Columns[1].Width = 90;  // Cliente
+                        detalleTable.Columns[2].Width = 85;  // Origen
+                        detalleTable.Columns[3].Width = 85;  // Destino
+                        detalleTable.Columns[4].Width = 70;  // Estado
+                        detalleTable.Columns[5].Width = 60;  // Volumen
+                        detalleTable.Columns[6].Width = 65;  // Viajes
+
+                        // Estilo de encabezado - CORREGIDO
+                        PdfGridRowStyle detalleHeaderStyle = new PdfGridRowStyle();
+                        detalleHeaderStyle.BackgroundBrush = new PdfSolidBrush(new PdfColor((byte)240, (byte)240, (byte)240));
+                        detalleHeaderStyle.TextBrush = blackBrush;
+                        detalleHeaderStyle.Font = boldFont;
+
+                        // Agregar fila de encabezado
+                        PdfGridRow detalleHeaderRow = detalleTable.Headers.Add(1)[0];
+                        detalleHeaderRow.Style = detalleHeaderStyle;
+                        detalleHeaderRow.Height = 25;
+
+                        detalleHeaderRow.Cells[0].Value = "ID";
+                        detalleHeaderRow.Cells[1].Value = "Cliente";
+                        detalleHeaderRow.Cells[2].Value = "Origen";
+                        detalleHeaderRow.Cells[3].Value = "Destino";
+                        detalleHeaderRow.Cells[4].Value = "Estado";
+                        detalleHeaderRow.Cells[5].Value = "Volumen";
+                        detalleHeaderRow.Cells[6].Value = "Viajes";
+
+                        // Centrar encabezados apropiados
+                        detalleHeaderRow.Cells[0].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        detalleHeaderRow.Cells[5].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        detalleHeaderRow.Cells[6].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+
+                        // Agregar datos (limitar a los primeros 20 para que quepa en la página)
+                        int maxItems = Math.Min(datosDetalle.Count, 20);
+                        for (int i = 0; i < maxItems; i++)
+                        {
+                            var item = datosDetalle[i];
+                            PdfGridRow row = detalleTable.Rows.Add();
+                            row.Height = 20;
+
+                            // Alternar color de filas - CORREGIDO
+                            if (i % 2 == 1)
+                            {
+                                row.Style.BackgroundBrush = new PdfSolidBrush(new PdfColor((byte)250, (byte)250, (byte)250));
+                            }
+
+                            row.Cells[0].Value = item.IdPedido.ToString();
+                            row.Cells[1].Value = TruncateText(item.Cliente, 15);
+                            row.Cells[2].Value = TruncateText(item.Origen, 12);
+                            row.Cells[3].Value = TruncateText(item.Destino, 12);
+                            row.Cells[4].Value = TruncateText(item.Estado, 10);
+                            row.Cells[5].Value = $"{item.Volumen:N0}";
+                            row.Cells[6].Value = $"{item.ViajesRealizados}/{item.ViajesSolicitados}";
+
+                            // Aplicar fuente y alineación
+                            for (int j = 0; j < row.Cells.Count; j++)
+                            {
+                                row.Cells[j].Style.Font = new PdfStandardFont(PdfFontFamily.Helvetica, 9);
+                                row.Cells[j].Style.TextBrush = blackBrush;
+                            }
+
+                            // Centrar columnas específicas
+                            row.Cells[0].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                            row.Cells[5].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                            row.Cells[6].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        }
+
+                        // Nota si hay más datos
+                        if (datosDetalle.Count > 20)
+                        {
+                            PdfGridRow noteRow = detalleTable.Rows.Add();
+                            noteRow.Cells[0].Value = "...";
+                            noteRow.Cells[1].Value = $"Se muestran los primeros 20 de {datosDetalle.Count} pedidos";
+                            noteRow.Cells[1].ColumnSpan = 6;
+                            noteRow.Cells[1].Style.Font = new PdfStandardFont(PdfFontFamily.Helvetica, 9, PdfFontStyle.Italic);
+                            noteRow.Cells[1].Style.TextBrush = grayBrush;
+                        }
+
+                        // Dibujar la tabla
+                        detalleTable.Draw(page, 20, yPosition);
+                    }
+
+                    // ==============================================
+                    // PIE DE PÁGINA
+                    // ==============================================
+                    string fechaGeneracion = $"Generado el: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    graphics.DrawString(fechaGeneracion, normalFont, grayBrush, 20, page.Size.Height - 40);
+
+                    // Número de página
+                    string numeroPagina = $"Página 1 de 1";
+                    SyncSizeF textSize = normalFont.MeasureString(numeroPagina);
+                    graphics.DrawString(numeroPagina, normalFont, grayBrush,
+                        page.Size.Width - textSize.Width - 20, page.Size.Height - 40);
+
+                    // Convertir a bytes
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        document.Save(stream);
+                        return stream.ToArray();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al generar PDF de pedidos: {ex.Message}", ex);
+            }
+        }
+
+        // 3. MÉTODO AUXILIAR PARA TRUNCAR TEXTO (agregar dentro de SqlServerService)
+        private static string TruncateText(string text, int maxLength)
+        {
+            if (string.IsNullOrEmpty(text))
+                return string.Empty;
+
+            if (text.Length <= maxLength)
+                return text;
+
+            return text.Substring(0, maxLength - 3) + "...";
         }
 
         public async Task<List<ReporteTrabajador>> ObtenerReporteTrabajadorAsync(
@@ -3452,35 +3611,42 @@ namespace AppTransporte.model
             try
             {
                 using var connection = new SqlConnection(_connectionString);
-                using var command = new SqlCommand("SP_InsertarPedidoAutomatico", connection)
+                using var command = new SqlCommand("pa_CrearPedidoAutomatico", connection)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
 
+                // Parámetros requeridos por el nuevo PA
                 command.Parameters.AddWithValue("@id_usuario", pedido.IdUsuario);
-                command.Parameters.AddWithValue("@id_tipoServicio", pedido.IdTipoServicio);
+                command.Parameters.AddWithValue("@id_cliente", pedido.IdCliente.Value);
+                command.Parameters.AddWithValue("@id_tipoServicio", pedido.IdTipoServicio); 
                 command.Parameters.AddWithValue("@dias_semana", pedido.DiasSemana);
                 command.Parameters.AddWithValue("@hora_programada", pedido.HoraProgramada);
                 command.Parameters.AddWithValue("@fecha_inicio", pedido.FechaInicio.Date);
                 command.Parameters.AddWithValue("@fecha_fin", pedido.FechaFin.Date);
+                command.Parameters.AddWithValue("@id_origen", pedido.IdOrigen.Value);
+                command.Parameters.AddWithValue("@id_destino", pedido.IdDestino.Value);
                 command.Parameters.AddWithValue("@descripcion", (object)pedido.Descripcion ?? DBNull.Value);
-
-                // Nuevos parámetros agregados
-                command.Parameters.AddWithValue("@id_transportista", (object)pedido.IdTransportista ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_ayudante", (object)pedido.IdAyudante ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_tracto", (object)pedido.IdTracto ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_cisterna", (object)pedido.IdCisterna ?? DBNull.Value);
 
                 await connection.OpenAsync();
                 using var reader = await command.ExecuteReaderAsync();
 
                 if (await reader.ReadAsync())
                 {
+                    // El PA devuelve id_pedidoAutomatico y pedidos_generados
                     return new RespuestaPedidoAutomatico
                     {
                         IdPedidoAutomatico = reader.IsDBNull("id_pedidoAutomatico") ? null : reader.GetInt32("id_pedidoAutomatico"),
-                        Mensaje = reader.GetString("Mensaje"),
+                        Mensaje = $"Pedido automático creado exitosamente. Pedidos generados: {(reader.IsDBNull("pedidos_generados") ? 0 : reader.GetInt32("pedidos_generados"))}",
                         FilasAfectadas = reader.IsDBNull("id_pedidoAutomatico") ? 0 : 1
+                    };
+                }
+                else
+                {
+                    return new RespuestaPedidoAutomatico
+                    {
+                        FilasAfectadas = 1,
+                        Mensaje = "Pedido automático creado exitosamente"
                     };
                 }
             }
@@ -3501,8 +3667,6 @@ namespace AppTransporte.model
                     Mensaje = $"Error inesperado: {ex.Message}"
                 };
             }
-
-            return new RespuestaPedidoAutomatico { FilasAfectadas = 0, Mensaje = "Error desconocido" };
         }
         // En tu clase Database, REEMPLAZA o agrega este método:
 
@@ -3557,7 +3721,7 @@ namespace AppTransporte.model
             return pedidos;
         }
 
-        public async Task<List<PedidoAutomatico>> ObtenerPedidosAutomaticosAsync(int idUsuario, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
+        public async Task<List<PedidoAutomatico>> ObtenerPedidosAutomaticosAsync(DateTime? fechaDesde = null, DateTime? fechaHasta = null)
         {
             var pedidos = new List<PedidoAutomatico>();
 
@@ -3568,8 +3732,6 @@ namespace AppTransporte.model
                 {
                     CommandType = CommandType.StoredProcedure
                 };
-
-                command.Parameters.AddWithValue("@id_usuario", idUsuario);
                 command.Parameters.AddWithValue("@fecha_desde", (object)fechaDesde ?? DBNull.Value);
                 command.Parameters.AddWithValue("@fecha_hasta", (object)fechaHasta ?? DBNull.Value);
 
@@ -3593,21 +3755,7 @@ namespace AppTransporte.model
                         FechaModificacion = reader.GetDateTime("fecha_modificacion"),
                         UltimoProcesamiento = reader.IsDBNull("ultimo_procesamiento") ? null : reader.GetDateTime("ultimo_procesamiento"),
                         Descripcion = reader.IsDBNull("descripcion") ? null : reader.GetString("descripcion"),
-                        DiasDuracion = reader.GetInt32("dias_duracion"),
-                        EstadoDescripcion = reader.GetString("estado_descripcion"),
-
-                        // Nuevos campos agregados
-                        IdTransportista = reader.IsDBNull("id_transportista") ? null : reader.GetInt32("id_transportista"),
-                        IdAyudante = reader.IsDBNull("id_ayudante") ? null : reader.GetInt32("id_ayudante"),
-                        IdTracto = reader.IsDBNull("id_tracto") ? null : reader.GetInt32("id_tracto"),
-                        IdCisterna = reader.IsDBNull("id_cisterna") ? null : reader.GetInt32("id_cisterna"),
-
-                        // Nombres para mostrar en la interfaz
-                        NombreTransportista = reader.IsDBNull("nombre_transportista") ? null : reader.GetString("nombre_transportista"),
-                        NombreAyudante = reader.IsDBNull("nombre_ayudante") ? null : reader.GetString("nombre_ayudante"),
-                        PlacaTracto = reader.IsDBNull("placa_tracto") ? null : reader.GetString("placa_tracto"),
-                        PlacaCisterna = reader.IsDBNull("placa_cisterna") ? null : reader.GetString("placa_cisterna")
-                    });
+                             });
                 }
             }
             catch (Exception ex)
@@ -3635,12 +3783,6 @@ namespace AppTransporte.model
                 command.Parameters.AddWithValue("@fecha_inicio", pedido.FechaInicio.Date);
                 command.Parameters.AddWithValue("@fecha_fin", pedido.FechaFin.Date);
                 command.Parameters.AddWithValue("@descripcion", (object)pedido.Descripcion ?? DBNull.Value);
-
-                // Nuevos parámetros agregados
-                command.Parameters.AddWithValue("@id_transportista", (object)pedido.IdTransportista ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_ayudante", (object)pedido.IdAyudante ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_tracto", (object)pedido.IdTracto ?? DBNull.Value);
-                command.Parameters.AddWithValue("@id_cisterna", (object)pedido.IdCisterna ?? DBNull.Value);
 
                 await connection.OpenAsync();
                 using var reader = await command.ExecuteReaderAsync();

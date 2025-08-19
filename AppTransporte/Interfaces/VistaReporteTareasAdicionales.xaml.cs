@@ -168,17 +168,17 @@ namespace AppTransporte.Interfaces
                 string nombreCompleto = $"{_trabajador.Nombre} {_trabajador.apePaterno} {_trabajador.apeMaterno}".Trim();
 
                 // Generar el documento PDF
-                byte[] pdfBytes = App.Database.GenerarReporteTareasAdicionalesPDF(
-                    _tareasReporte,
-                    nombreCompleto,
-                    _fechaInicio,
-                    _fechaFin);
+               // byte[] pdfBytes = App.Database.GenerarReporteTareasAdicionalesPDF(
+                 //   _tareasReporte,
+                   // nombreCompleto,
+                    //_fechaInicio,
+                    //_fechaFin);
 
                 // Guardar y compartir el PDF
                 string fileName = $"Reporte_Tareas_{_fechaInicio:yyyy-MM-dd}_a_{_fechaFin:yyyy-MM-dd}.pdf";
                 string tempPath = Path.Combine(FileSystem.CacheDirectory, fileName);
 
-                File.WriteAllBytes(tempPath, pdfBytes);
+               // File.WriteAllBytes(tempPath, pdfBytes);
 
                 await Share.RequestAsync(new ShareFileRequest
                 {

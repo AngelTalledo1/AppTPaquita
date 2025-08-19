@@ -7,10 +7,9 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 using Font = Microsoft.Maui.Graphics.Font;
 using AppTransporte.model;
+
 
 namespace AppTransporte.Interfaces
 {
@@ -86,7 +85,7 @@ namespace AppTransporte.Interfaces
             }
         }
 
-       private List<ReporteServicio> ObtenerDatosReporte(DateTime fechaInicio, DateTime fechaFin)
+        private List<ReporteServicio> ObtenerDatosReporte(DateTime fechaInicio, DateTime fechaFin)
         {
             List<ReporteServicio> resultado = new List<ReporteServicio>();
 
@@ -146,35 +145,68 @@ namespace AppTransporte.Interfaces
 
         private async void ExportarPDF_Clicked(object sender, EventArgs e)
         {
-            if (_datosReporte == null || !_datosReporte.Any())
-            {
-                await DisplayAlert("Sin datos", "No hay datos para exportar", "Ok");
-                return;
-            }
-
             LoadingOverlay.IsVisible = true;
 
             try
             {
-                byte[] pdfBytes = await Task.Run(() => GenerarReporteServiciosPDF(_datosReporte, FechaInicio.Date, FechaFin.Date));
-
-                // Guardar el PDF en el almacenamiento
-                string nombreArchivo = $"Reporte_Servicios_{DateTime.Now:yyyyMMddHHmmss}.pdf";
-                string rutaArchivo = Path.Combine(FileSystem.CacheDirectory, nombreArchivo);
-
-                File.WriteAllBytes(rutaArchivo, pdfBytes);
-
-                await DisplayAlert("Éxito", "PDF generado correctamente", "Ok");
-
-                // Abrir el PDF (implementación específica de la plataforma)
-                await Launcher.OpenAsync(new OpenFileRequest
+                // Verificar que tengamos datos para exportar
+                if (_datosReporte == null || !_datosReporte.Any())
                 {
-                    File = new ReadOnlyFile(rutaArchivo)
-                });
+                    await DisplayAlert("Sin datos",
+                        "No hay datos disponibles para exportar. Actualice el reporte primero.", "OK");
+                    return;
+                }
+
+                // Validar fechas
+                if (FechaInicio.Date > FechaFin.Date)
+                {
+                    await DisplayAlert("Error de fechas", "La fecha de inicio no puede ser posterior a la fecha fin", "OK");
+                    return;
+                }
+
+                // Mostrar opciones al usuario
+                string action = await DisplayActionSheet(
+                    "¿Qué desea hacer con el PDF?",
+                    "Cancelar",
+                    null,
+                    "Guardar y abrir",
+                    "Solo guardar",
+                    "Compartir");
+
+                if (action == "Cancelar")
+                    return;
+
+                // Generar el PDF
+                byte[] pdfBytes = await Task.Run(async () =>
+                    await App.Database.GenerarReporteServiciosPDF(
+                        _datosReporte,
+                        FechaInicio.Date,
+                        FechaFin.Date));
+
+                // Crear el nombre del archivo
+                string fileName = $"Reporte_Servicios_{FechaInicio.Date:yyyyMMdd}_{FechaFin.Date:yyyyMMdd}.pdf";
+
+                switch (action)
+                {
+                    case "Guardar y abrir":
+                        await GuardarYAbrirPDFAsync(pdfBytes, fileName);
+                        await DisplayAlert("Éxito", "El reporte PDF se ha generado y abierto correctamente.", "OK");
+                        break;
+
+                    case "Solo guardar":
+                        await GuardarEnCarpetaDescargas(pdfBytes, fileName);
+                        await DisplayAlert("Éxito", "El reporte PDF se ha guardado en la carpeta de descargas.", "OK");
+                        break;
+
+                    case "Compartir":
+                        await CompartirPDFAsync(pdfBytes, fileName);
+                        break;
+                }
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", $"Error al generar PDF: {ex.Message}", "Ok");
+                await DisplayAlert("Error", $"Error al procesar el PDF: {ex.Message}", "OK");
+                System.Diagnostics.Debug.WriteLine($"Error completo: {ex}");
             }
             finally
             {
@@ -184,34 +216,35 @@ namespace AppTransporte.Interfaces
 
         private async void Compartir_Clicked(object sender, EventArgs e)
         {
-            if (_datosReporte == null || !_datosReporte.Any())
-            {
-                await DisplayAlert("Sin datos", "No hay datos para compartir", "Ok");
-                return;
-            }
-
             LoadingOverlay.IsVisible = true;
 
             try
             {
-                byte[] pdfBytes = await Task.Run(() => GenerarReporteServiciosPDF(_datosReporte, FechaInicio.Date, FechaFin.Date));
+                // Verificar que tengamos datos para compartir
+                if (_datosReporte == null || !_datosReporte.Any())
+                {
+                    await DisplayAlert("Sin datos",
+                        "No hay datos disponibles para compartir. Actualice el reporte primero.", "OK");
+                    return;
+                }
 
-                // Guardar el PDF en el almacenamiento
-                string nombreArchivo = $"Reporte_Servicios_{DateTime.Now:yyyyMMddHHmmss}.pdf";
-                string rutaArchivo = Path.Combine(FileSystem.CacheDirectory, nombreArchivo);
+                // Generar el PDF
+                byte[] pdfBytes = await Task.Run(async () =>
+                    await App.Database.GenerarReporteServiciosPDF(
+                        _datosReporte,
+                        FechaInicio.Date,
+                        FechaFin.Date));
 
-                File.WriteAllBytes(rutaArchivo, pdfBytes);
+                // Crear el nombre del archivo
+                string fileName = $"Reporte_Servicios_{FechaInicio.Date:yyyyMMdd}_{FechaFin.Date:yyyyMMdd}.pdf";
 
                 // Compartir el archivo
-                await Share.RequestAsync(new ShareFileRequest
-                {
-                    Title = "Compartir Reporte de Servicios",
-                    File = new ShareFile(rutaArchivo)
-                });
+                await CompartirPDFAsync(pdfBytes, fileName);
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", $"Error al compartir: {ex.Message}", "Ok");
+                await DisplayAlert("Error", $"Error al compartir el PDF: {ex.Message}", "OK");
+                System.Diagnostics.Debug.WriteLine($"Error al compartir PDF: {ex.Message}");
             }
             finally
             {
@@ -219,285 +252,195 @@ namespace AppTransporte.Interfaces
             }
         }
 
-        public byte[] GenerarReporteServiciosPDF(List<ReporteServicio> reporteData, DateTime fechaInicio, DateTime fechaFin)
+        // AGREGAR estos métodos auxiliares si no los tienes ya en la clase:
+
+        private async Task GuardarYAbrirPDFAsync(byte[] pdfBytes, string fileName)
         {
-            using (MemoryStream ms = new MemoryStream())
+            try
             {
-                // Crear documento PDF con iTextSharp
-                iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
-                PdfWriter writer = PdfWriter.GetInstance(document, ms);
-                document.Open();
+                // Crear un archivo temporal
+                string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
 
-                // Título del documento
-                iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA,
-                                                                          18,
-                                                                          iTextSharp.text.Font.BOLD);
-                Paragraph titulo = new Paragraph("Reporte de Servicios", titleFont);
-                titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
-                titulo.SpacingAfter = 20;
-                document.Add(titulo);
+                // Escribir los bytes al archivo
+                await File.WriteAllBytesAsync(filePath, pdfBytes);
 
-                // Información del reporte
-                iTextSharp.text.Font normalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12);
-                Paragraph info = new Paragraph($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}", normalFont);
-                info.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                info.SpacingAfter = 20;
-                document.Add(info);
-
-                // Tabla de resumen
-                iTextSharp.text.Font subtitleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
-                Paragraph resumenTitulo = new Paragraph("Resumen", subtitleFont);
-                resumenTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                resumenTitulo.SpacingAfter = 10;
-                document.Add(resumenTitulo);
-
-                PdfPTable resumenTable = new PdfPTable(2);
-                resumenTable.WidthPercentage = 100;
-                resumenTable.SpacingAfter = 20;
-
-                // Cabecera de la tabla resumen
-                PdfPCell headerCell1 = new PdfPCell(new Phrase("Descripción", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)));
-                headerCell1.BackgroundColor = new BaseColor(220, 220, 220); // Light gray
-                headerCell1.Padding = 5;
-
-                PdfPCell headerCell2 = new PdfPCell(new Phrase("Valor", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)));
-                headerCell2.BackgroundColor = new BaseColor(220, 220, 220); // Light gray
-                headerCell2.Padding = 5;
-
-                resumenTable.AddCell(headerCell1);
-                resumenTable.AddCell(headerCell2);
-
-                // Datos del resumen
-                int totalServicios = reporteData.Count;
-                int totalPedidos = reporteData.Sum(r => r.CantidadPedidos);
-                int volumenTotal = reporteData.Sum(r => r.VolumenTransportado);
-
-                PdfPCell cellDesc1 = new PdfPCell(new Phrase("Total de Servicios", normalFont));
-                cellDesc1.Padding = 5;
-                PdfPCell cellVal1 = new PdfPCell(new Phrase(totalServicios.ToString(), normalFont));
-                cellVal1.Padding = 5;
-
-                PdfPCell cellDesc2 = new PdfPCell(new Phrase("Total de Pedidos", normalFont));
-                cellDesc2.Padding = 5;
-                PdfPCell cellVal2 = new PdfPCell(new Phrase(totalPedidos.ToString(), normalFont));
-                cellVal2.Padding = 5;
-
-                PdfPCell cellDesc3 = new PdfPCell(new Phrase("Volumen Total Transportado", normalFont));
-                cellDesc3.Padding = 5;
-                PdfPCell cellVal3 = new PdfPCell(new Phrase($"{volumenTotal:N0} L", normalFont));
-                cellVal3.Padding = 5;
-
-                resumenTable.AddCell(cellDesc1);
-                resumenTable.AddCell(cellVal1);
-                resumenTable.AddCell(cellDesc2);
-                resumenTable.AddCell(cellVal2);
-                resumenTable.AddCell(cellDesc3);
-                resumenTable.AddCell(cellVal3);
-
-                document.Add(resumenTable);
-
-                // Tabla de detalle
-                Paragraph detalleTitulo = new Paragraph("Detalle por Servicio", subtitleFont);
-                detalleTitulo.Alignment = iTextSharp.text.Element.ALIGN_LEFT;
-                detalleTitulo.SpacingAfter = 10;
-                document.Add(detalleTitulo);
-
-                PdfPTable table = new PdfPTable(5);
-                table.WidthPercentage = 100;
-
-                // Cabecera de la tabla de detalle
-                iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
-                BaseColor headerColor = new BaseColor(220, 220, 220); // Light gray
-
-                PdfPCell headerServicio = new PdfPCell(new Phrase("Tipo de Servicio", headerFont));
-                headerServicio.BackgroundColor = headerColor;
-                headerServicio.Padding = 5;
-
-                PdfPCell headerPedidos = new PdfPCell(new Phrase("Pedidos", headerFont));
-                headerPedidos.BackgroundColor = headerColor;
-                headerPedidos.Padding = 5;
-                headerPedidos.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
-
-                PdfPCell headerVolSol = new PdfPCell(new Phrase("Vol. Solicitado", headerFont));
-                headerVolSol.BackgroundColor = headerColor;
-                headerVolSol.Padding = 5;
-                headerVolSol.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
-
-                PdfPCell headerVolTrans = new PdfPCell(new Phrase("Vol. Transportado", headerFont));
-                headerVolTrans.BackgroundColor = headerColor;
-                headerVolTrans.Padding = 5;
-                headerVolTrans.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
-
-                PdfPCell headerPorcentaje = new PdfPCell(new Phrase("% Cumplimiento", headerFont));
-                headerPorcentaje.BackgroundColor = headerColor;
-                headerPorcentaje.Padding = 5;
-                headerPorcentaje.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
-
-                table.AddCell(headerServicio);
-                table.AddCell(headerPedidos);
-                table.AddCell(headerVolSol);
-                table.AddCell(headerVolTrans);
-                table.AddCell(headerPorcentaje);
-
-                // Filas de datos
-                bool colorAlternado = false;
-                foreach (var item in reporteData)
+                // Abrir el archivo con la aplicación predeterminada
+                await Launcher.OpenAsync(new OpenFileRequest
                 {
-                    BaseColor bgColor = colorAlternado
-                        ? BaseColor.WHITE
-                        : new BaseColor(245, 245, 245); // Very light gray
+                    File = new ReadOnlyFile(filePath),
+                    Title = "Abrir Reporte PDF"
+                });
+            }
+            catch (Exception ex)
+            {
+                // Si no se puede abrir, al menos guardarlo en Downloads
+                await GuardarEnCarpetaDescargas(pdfBytes, fileName);
+                throw new Exception($"PDF guardado pero no se pudo abrir automáticamente: {ex.Message}");
+            }
+        }
 
-                    colorAlternado = !colorAlternado;
+        private async Task GuardarEnCarpetaDescargas(byte[] pdfBytes, string fileName)
+        {
+            try
+            {
+#if ANDROID
+        // Android: Guardar en la carpeta Downloads
+        var downloadsPath = Android.OS.Environment.GetExternalStoragePublicDirectory(
+            Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
+        
+        if (!string.IsNullOrEmpty(downloadsPath))
+        {
+            string filePath = Path.Combine(downloadsPath, fileName);
+            await File.WriteAllBytesAsync(filePath, pdfBytes);
+            
+            // Notificar al sistema que se agregó un archivo
+            var mediaScanIntent = new Android.Content.Intent(Android.Content.Intent.ActionMediaScannerScanFile);
+            mediaScanIntent.SetData(Android.Net.Uri.FromFile(new Java.IO.File(filePath)));
+            Platform.CurrentActivity?.SendBroadcast(mediaScanIntent);
+        }
+#elif IOS
+        // iOS: Guardar en Documents
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string filePath = Path.Combine(documentsPath, fileName);
+        await File.WriteAllBytesAsync(filePath, pdfBytes);
+#else
+                // Otras plataformas: usar carpeta de documentos
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string filePath = Path.Combine(documentsPath, fileName);
+                await File.WriteAllBytesAsync(filePath, pdfBytes);
+#endif
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al guardar en carpeta de descargas: {ex.Message}");
+                throw;
+            }
+        }
 
-                    PdfPCell cellServicio = new PdfPCell(new Phrase(item.TipoServicio, normalFont));
-                    cellServicio.BackgroundColor = bgColor;
-                    cellServicio.Padding = 5;
+        private async Task CompartirPDFAsync(byte[] pdfBytes, string fileName)
+        {
+            try
+            {
+                // Crear un archivo temporal
+                string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
 
-                    PdfPCell cellPedidos = new PdfPCell(new Phrase(item.CantidadPedidos.ToString(), normalFont));
-                    cellPedidos.BackgroundColor = bgColor;
-                    cellPedidos.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
-                    cellPedidos.Padding = 5;
+                // Escribir los bytes al archivo
+                await File.WriteAllBytesAsync(filePath, pdfBytes);
 
-                    PdfPCell cellVolSol = new PdfPCell(new Phrase($"{item.VolumenSolicitado:N0}", normalFont));
-                    cellVolSol.BackgroundColor = bgColor;
-                    cellVolSol.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
-                    cellVolSol.Padding = 5;
+                // Compartir el archivo
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    Title = "Compartir Reporte de Servicios",
+                    File = new ShareFile(filePath)
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al compartir el archivo: {ex.Message}");
+            }
+        }
 
-                    PdfPCell cellVolTrans = new PdfPCell(new Phrase($"{item.VolumenTransportado:N0}", normalFont));
-                    cellVolTrans.BackgroundColor = bgColor;
-                    cellVolTrans.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
-                    cellVolTrans.Padding = 5;
+        public class GraficoBarras : IDrawable
+        {
+            private List<ReporteServicio> _datos;
 
-                    PdfPCell cellPorcentaje = new PdfPCell(new Phrase($"{item.PorcentajeCumplimiento:N2}%", normalFont));
-                    cellPorcentaje.BackgroundColor = bgColor;
-                    cellPorcentaje.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
-                    cellPorcentaje.Padding = 5;
+            public GraficoBarras(List<ReporteServicio> datos)
+            {
+                _datos = datos;
+            }
 
-                    table.AddCell(cellServicio);
-                    table.AddCell(cellPedidos);
-                    table.AddCell(cellVolSol);
-                    table.AddCell(cellVolTrans);
-                    table.AddCell(cellPorcentaje);
+            public void Draw(ICanvas canvas, RectF dirtyRect)
+            {
+                if (_datos == null || !_datos.Any())
+                    return;
+
+                // Configuración del gráfico
+                float width = dirtyRect.Width;
+                float height = dirtyRect.Height;
+                float margenIzquierdo = 40;
+                float margenDerecho = 20;
+                float margenSuperior = 20;
+                float margenInferior = 60;
+
+                float areaGraficoAncho = width - margenIzquierdo - margenDerecho;
+                float areaGraficoAlto = height - margenSuperior - margenInferior;
+
+                // Dibujar ejes
+                canvas.StrokeColor = Microsoft.Maui.Graphics.Colors.Gray;
+                canvas.StrokeSize = 1;
+
+                // Eje Y
+                canvas.DrawLine(margenIzquierdo, margenSuperior, margenIzquierdo, height - margenInferior);
+                // Eje X
+                canvas.DrawLine(margenIzquierdo, height - margenInferior, width - margenDerecho, height - margenInferior);
+
+                // Dibujar barras
+                int numServicios = _datos.Count;
+                float anchoBarras = Math.Min(30, areaGraficoAncho / numServicios * 0.6f);
+                float espacioEntreBarras = areaGraficoAncho / numServicios - anchoBarras;
+
+                for (int i = 0; i < numServicios; i++)
+                {
+                    var servicio = _datos[i];
+                    float x = margenIzquierdo + (i * (anchoBarras + espacioEntreBarras)) + espacioEntreBarras / 2;
+
+                    // Altura de la barra proporcional al porcentaje de cumplimiento (máximo 100%)
+                    float porcentaje = (float)Math.Min(servicio.PorcentajeCumplimiento, 100) / 100f;
+                    float altoBarra = areaGraficoAlto * porcentaje;
+                    float y = height - margenInferior - altoBarra;
+
+                    // Color de la barra según el porcentaje
+                    if (porcentaje >= 0.8f)
+                        canvas.FillColor = Microsoft.Maui.Graphics.Colors.Green;
+                    else if (porcentaje >= 0.5f)
+                        canvas.FillColor = Microsoft.Maui.Graphics.Colors.Orange;
+                    else
+                        canvas.FillColor = Microsoft.Maui.Graphics.Colors.Red;
+
+                    // Dibujar barra
+                    canvas.FillRectangle(x, y, anchoBarras, altoBarra);
+
+                    // Dibujar etiqueta del servicio
+                    canvas.FontColor = Microsoft.Maui.Graphics.Colors.Black;
+                    canvas.FontSize = 10;
+
+                    // Etiqueta de servicio abreviada
+                    string etiqueta = servicio.TipoServicio;
+                    if (etiqueta.Length > 10)
+                        etiqueta = etiqueta.Substring(0, 7) + "...";
+
+                    // Rotar texto para etiquetas en eje X
+                    canvas.SaveState();
+                    canvas.Rotate(-45, x + anchoBarras / 2, height - margenInferior + 5);
+                    canvas.DrawString(etiqueta, x, height - margenInferior + 5, Microsoft.Maui.Graphics.HorizontalAlignment.Left);
+                    canvas.RestoreState();
+
+                    // Porcentaje encima de la barra
+                    canvas.DrawString($"{servicio.PorcentajeCumplimiento:N0}%", x + anchoBarras / 2, y - 15, Microsoft.Maui.Graphics.HorizontalAlignment.Center);
                 }
 
-                document.Add(table);
-
-                // Añadir pie de página
-                iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
-                footerFont.Color = BaseColor.GRAY;
-
-                Paragraph footer = new Paragraph($"Reporte generado el {DateTime.Now:dd/MM/yyyy HH:mm:ss}", footerFont);
-                footer.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
-                footer.SpacingBefore = 20;
-                document.Add(footer);
-
-                document.Close();
-                return ms.ToArray();
-            }
-        }
-    }
-
-    // Clase para el gráfico de barras
-    public class GraficoBarras : IDrawable
-    {
-        private List<ReporteServicio> _datos;
-
-        public GraficoBarras(List<ReporteServicio> datos)
-        {
-            _datos = datos;
-        }
-
-        public void Draw(ICanvas canvas, RectF dirtyRect)
-        {
-            if (_datos == null || !_datos.Any())
-                return;
-
-            // Configuración del gráfico
-            float width = dirtyRect.Width;
-            float height = dirtyRect.Height;
-            float margenIzquierdo = 40;
-            float margenDerecho = 20;
-            float margenSuperior = 20;
-            float margenInferior = 60;
-
-            float areaGraficoAncho = width - margenIzquierdo - margenDerecho;
-            float areaGraficoAlto = height - margenSuperior - margenInferior;
-
-            // Dibujar ejes
-            canvas.StrokeColor = Colors.Gray;
-            canvas.StrokeSize = 1;
-
-            // Eje Y
-            canvas.DrawLine(margenIzquierdo, margenSuperior, margenIzquierdo, height - margenInferior);
-            // Eje X
-            canvas.DrawLine(margenIzquierdo, height - margenInferior, width - margenDerecho, height - margenInferior);
-
-            // Dibujar barras
-            int numServicios = _datos.Count;
-            float anchoBarras = Math.Min(30, areaGraficoAncho / numServicios * 0.6f);
-            float espacioEntreBarras = areaGraficoAncho / numServicios - anchoBarras;
-
-            for (int i = 0; i < numServicios; i++)
-            {
-                var servicio = _datos[i];
-                float x = margenIzquierdo + (i * (anchoBarras + espacioEntreBarras)) + espacioEntreBarras / 2;
-
-                // Altura de la barra proporcional al porcentaje de cumplimiento (máximo 100%)
-                float porcentaje = (float)Math.Min(servicio.PorcentajeCumplimiento, 100) / 100f;
-                float altoBarra = areaGraficoAlto * porcentaje;
-                float y = height - margenInferior - altoBarra;
-
-                // Color de la barra según el porcentaje
-                if (porcentaje >= 0.8f)
-                    canvas.FillColor = Colors.Green;
-                else if (porcentaje >= 0.5f)
-                    canvas.FillColor = Colors.Orange;
-                else
-                    canvas.FillColor = Colors.Red;
-
-                // Dibujar barra
-                canvas.FillRectangle(x, y, anchoBarras, altoBarra);
-
-                // Dibujar etiqueta del servicio
-                canvas.FontColor = Colors.Black;
-                canvas.FontSize = 10;
-
-                // Etiqueta de servicio abreviada
-                string etiqueta = servicio.TipoServicio;
-                if (etiqueta.Length > 10)
-                    etiqueta = etiqueta.Substring(0, 7) + "...";
-
-                // Rotar texto para etiquetas en eje X
+                // Dibujar título del eje Y
                 canvas.SaveState();
-                canvas.Rotate(-45, x + anchoBarras / 2, height - margenInferior + 5);
-                canvas.DrawString(etiqueta, x, height - margenInferior + 5, HorizontalAlignment.Left);
+                canvas.Rotate(-90, margenIzquierdo - 25, height / 2);
+                canvas.DrawString("% Cumplimiento", margenIzquierdo - 25, height / 2, Microsoft.Maui.Graphics.HorizontalAlignment.Center);
                 canvas.RestoreState();
 
-                // Porcentaje encima de la barra
-                canvas.DrawString($"{servicio.PorcentajeCumplimiento:N0}%", x + anchoBarras / 2, y - 15, HorizontalAlignment.Center);
-            }
+                // Escala en eje Y (0%, 25%, 50%, 75%, 100%)
+                for (int i = 0; i <= 4; i++)
+                {
+                    float porcentaje = i * 25;
+                    float y = height - margenInferior - (areaGraficoAlto * (porcentaje / 100f));
 
-            // Dibujar título del eje Y
-            canvas.SaveState();
-            canvas.Rotate(-90, margenIzquierdo - 25, height / 2);
-            canvas.DrawString("% Cumplimiento", margenIzquierdo - 25, height / 2, HorizontalAlignment.Center);
-            canvas.RestoreState();
+                    // Línea de guía
+                    canvas.StrokeColor = Microsoft.Maui.Graphics.Colors.LightGray;
+                    canvas.StrokeSize = 1;
+                    canvas.DrawLine(margenIzquierdo - 5, y, width - margenDerecho, y);
 
-            // Escala en eje Y (0%, 25%, 50%, 75%, 100%)
-            for (int i = 0; i <= 4; i++)
-            {
-                float porcentaje = i * 25;
-                float y = height - margenInferior - (areaGraficoAlto * (porcentaje / 100f));
-
-                // Línea de guía
-                canvas.StrokeColor = Colors.LightGray;
-                canvas.StrokeSize = 1;
-                canvas.DrawLine(margenIzquierdo - 5, y, width - margenDerecho, y);
-
-                // Texto del porcentaje
-                canvas.FontColor = Colors.Gray;
-                canvas.FontSize = 10;
-                canvas.DrawString($"{porcentaje}%", margenIzquierdo - 25, y, HorizontalAlignment.Center);
+                    // Texto del porcentaje
+                    canvas.FontColor = Microsoft.Maui.Graphics.Colors.Gray;
+                    canvas.FontSize = 10;
+                    canvas.DrawString($"{porcentaje}%", margenIzquierdo - 25, y, Microsoft.Maui.Graphics.HorizontalAlignment.Center);
+                }
             }
         }
     }
