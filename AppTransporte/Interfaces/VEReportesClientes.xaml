@@ -67,14 +67,7 @@
                                 FontFamily="Comf-Medium"
                                 Clicked="ReportePedidos_Clicked"/>
 
-                        <!-- Reporte de Desvíos -->
-                        <Button Text="Reporte de Desvíos" 
-                                HeightRequest="55"
-                                BackgroundColor="#cb4335"
-                                TextColor="White"
-                                CornerRadius="10"
-                                FontFamily="Comf-Medium"
-                                Clicked="ReporteDesvios_Clicked"/>
+                       
 
                         <!-- Reporte de Programación -->
                         <Button Text="Reporte de Programación" 
