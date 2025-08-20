@@ -74,11 +74,9 @@ namespace AppTransporte.Interfaces
                     // Cargar servicios
                     await CargarServicios();
 
-                    // Cargar transportistas, ayudantes, tractos y cisternas
-                    await CargarTransportistas();
-                    await CargarAyudantes();
-                    await CargarTractos();
-                    await CargarCisternas();
+                    // Cargar nuevos campos
+                    await CargarClientes();
+                    await CargarUbicaciones();
 
                     // Si es edición, cargar los datos después de que se carguen las listas
                     if (_pedidoEditar != null)
@@ -172,8 +170,6 @@ namespace AppTransporte.Interfaces
                 System.Diagnostics.Debug.WriteLine($"Error al cargar servicios: {ex.Message}");
             }
         }
-            */
-
 
         private void CargarDatosParaEdicion()
         {
@@ -209,7 +205,7 @@ namespace AppTransporte.Interfaces
                     if (destino != null)
                         DestinoPicker.SelectedItem = destino;
                 }
-                */
+
                 // Cargar días seleccionados
                 var dias = _pedidoEditar.DiasSemana.Split(',').Select(d => d.Trim()).ToList();
                 LunesCheck.IsChecked = dias.Contains("Lunes");
@@ -269,17 +265,6 @@ namespace AppTransporte.Interfaces
                 if (TipoServicioPicker.SelectedItem == null)
                 {
                     await DisplayAlert("Error", "Debe seleccionar un tipo de servicio.", "OK");
-                    return;
-                }
-
-                if(OrigenPicker.SelectedItem == null)
-                {
-                    await DisplayAlert("Error", "Debe seleccionar un origen.", "OK");
-                    return;
-                }
-                if(DestinoPicker.SelectedItem == null)
-                {
-                    await DisplayAlert("Error", "Debe seleccionar un destino.", "OK");
                     return;
                 }
 
@@ -349,27 +334,12 @@ namespace AppTransporte.Interfaces
                     HoraProgramada = HoraPicker.Time,
                     FechaInicio = FechaInicioPicker.Date,
                     FechaFin = FechaFinPicker.Date,
-                    Descripcion = string.IsNullOrWhiteSpace(descripcionEntry.Text) ? null : descripcionEntry.Text,
-                    // Nuevos campos
-                    IdTransportista = idTransportista,
-                    IdAyudante = idAyudante,
-                    IdTracto = idTracto,
-                    IdCisterna = idCisterna
+                    Descripcion = string.IsNullOrWhiteSpace(descripcionEntry.Text) ? null : descripcionEntry.Text ?? "",
+                    // Nuevos campos principales
+                    IdCliente = idCliente,
+                    IdOrigen = idOrigen,
+                    IdDestino = idDestino
                 };
-                //se crea un nuevo objeto Pedido
-                var pedido = new Pedido
-                {
-                    /*
-                    IdUsuario = idUsuario,
-                    IdTipoServicio = idTipoServicio,
-                    Origen = OrigenPicker.SelectedItem.ToString(),
-                    Destino = DestinoPicker.SelectedItem.ToString(),
-                    FechaCreacion = DateTime.Now,
-                    Estado = "Pendiente"
-                    */
-                };
-
-
 
                 if (_sqlService == null)
                 {
@@ -424,6 +394,6 @@ namespace AppTransporte.Interfaces
                 System.Diagnostics.Debug.WriteLine($"Error al obtener ID del servicio: {ex.Message}");
                 return 0;
             }
-        }
-    }
+        }
+    }
 }

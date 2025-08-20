@@ -54,7 +54,7 @@ namespace AppTransporte.Interfaces
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", $"No se pudo generar el reporte: {ex.Message}", "OK");
+                await DisplayAlert("Error", $"No se pudo generarwwqqwwqqwwq el reporte: {ex.Message}", "OK");
             }
             finally
             {
@@ -114,13 +114,13 @@ namespace AppTransporte.Interfaces
             try
             {
                 // Generar el documento PDF
-               // byte[] pdfBytes = App.Database.GenerarReporteActividadDiariaPDF(_reporteActual);
+               byte[] pdfBytes = await App.Database.GenerarReporteActividadDiariaPDF(_reporteActual);
 
                 // Guardar y compartir el PDF
                 string fileName = $"Reporte_Diario_{_fechaSeleccionada:yyyy-MM-dd}.pdf";
                 string tempPath = Path.Combine(FileSystem.CacheDirectory, fileName);
 
-              //  File.WriteAllBytes(tempPath, pdfBytes);
+                File.WriteAllBytes(tempPath, pdfBytes);
 
                 await Share.RequestAsync(new ShareFileRequest
                 {
