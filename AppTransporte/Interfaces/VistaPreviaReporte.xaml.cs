@@ -79,39 +79,158 @@ public partial class VistaPreviaReporte : ContentPage
         Navigation.PopAsync();
     }
 
+    // REEMPLAZA el método ExportarPDF_Clicked en VistaPreviaReporte por este:
+
     private async void ExportarPDF_Clicked(object sender, EventArgs e)
     {
+        LoadingOverlay.IsVisible = true;
+
         try
         {
-            // Mostrar indicador de carga
-            LoadingOverlay.IsVisible = true;
+            // Verificar que tengamos datos para exportar
+            if (reporteData == null || reporteData.Count == 0)
+            {
+                await DisplayAlert("Sin datos",
+                    "No hay datos disponibles para exportar. Actualice el reporte primero.", "OK");
+                return;
+            }
+
+            // Mostrar opciones al usuario
+            string action = await DisplayActionSheet(
+                "¿Qué desea hacer con el PDF?",
+                "Cancelar",
+                null,
+                "Guardar y abrir",
+                "Solo guardar",
+                "Compartir");
+
+            if (action == "Cancelar")
+                return;
 
             // Generar el PDF
             byte[] pdfBytes = await Task.Run(() => App.Database.GenerarReporteTrabajadorPDF(
                 reporteData, fechaInicio, fechaFin, tipoReporte));
 
-            // Nombre del archivo
-            string fileName = $"Reporte_Trabajador_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+            // Crear el nombre del archivo
+            string fileName = $"Reporte_Trabajador_{DateTime.Now:yyyyMMddHHmmss}.pdf";
 
-            // En .NET MAUI, guardamos primero a un archivo temporal
-            string tempPath = Path.Combine(FileSystem.CacheDirectory, fileName);
-            File.WriteAllBytes(tempPath, pdfBytes);
-
-            // Luego utilizamos el Share para que el usuario pueda guardarlo donde desee
-            await Share.RequestAsync(new ShareFileRequest
+            switch (action)
             {
-                Title = "Guardar reporte PDF",
-                File = new ShareFile(tempPath)
-            });
+                case "Guardar y abrir":
+                    await GuardarYAbrirPDFAsync(pdfBytes, fileName);
+                    await DisplayAlert("Éxito", "El reporte PDF se ha generado y abierto correctamente.", "OK");
+                    break;
 
-            LoadingOverlay.IsVisible = false;
+                case "Solo guardar":
+                    await GuardarEnCarpetaDescargas(pdfBytes, fileName);
+                    await DisplayAlert("Éxito", "El reporte PDF se ha guardado en la carpeta de descargas.", "OK");
+                    break;
+
+                case "Compartir":
+                    await CompartirPDFAsync(pdfBytes, fileName);
+                    break;
+            }
         }
         catch (Exception ex)
         {
+            await DisplayAlert("Error", $"Error al procesar el PDF: {ex.Message}", "OK");
+            System.Diagnostics.Debug.WriteLine($"Error completo: {ex}");
+        }
+        finally
+        {
             LoadingOverlay.IsVisible = false;
-            await DisplayAlert("Error", $"No se pudo exportar el PDF: {ex.Message}", "OK");
         }
     }
+
+    // AGREGAR estos métodos auxiliares a la clase VistaPreviaReporte:
+
+    private async Task GuardarYAbrirPDFAsync(byte[] pdfBytes, string fileName)
+    {
+        try
+        {
+            // Crear un archivo temporal
+            string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+
+            // Escribir los bytes al archivo
+            await File.WriteAllBytesAsync(filePath, pdfBytes);
+
+            // Abrir el archivo con la aplicación predeterminada
+            await Launcher.OpenAsync(new OpenFileRequest
+            {
+                File = new ReadOnlyFile(filePath),
+                Title = "Abrir Reporte PDF"
+            });
+        }
+        catch (Exception ex)
+        {
+            // Si no se puede abrir, al menos guardarlo en Downloads
+            await GuardarEnCarpetaDescargas(pdfBytes, fileName);
+            throw new Exception($"PDF guardado pero no se pudo abrir automáticamente: {ex.Message}");
+        }
+    }
+
+    private async Task GuardarEnCarpetaDescargas(byte[] pdfBytes, string fileName)
+    {
+        try
+        {
+#if ANDROID
+            // Android: Guardar en la carpeta Downloads
+            var downloadsPath = Android.OS.Environment.GetExternalStoragePublicDirectory(
+                Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
+
+            if (!string.IsNullOrEmpty(downloadsPath))
+            {
+                string filePath = Path.Combine(downloadsPath, fileName);
+                await File.WriteAllBytesAsync(filePath, pdfBytes);
+
+                // Notificar al sistema que se agregó un archivo
+                var mediaScanIntent = new Android.Content.Intent(Android.Content.Intent.ActionMediaScannerScanFile);
+                mediaScanIntent.SetData(Android.Net.Uri.FromFile(new Java.IO.File(filePath)));
+                Platform.CurrentActivity?.SendBroadcast(mediaScanIntent);
+            }
+#elif IOS
+        // iOS: Guardar en Documents
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string filePath = Path.Combine(documentsPath, fileName);
+        await File.WriteAllBytesAsync(filePath, pdfBytes);
+#else
+        // Otras plataformas: usar carpeta de documentos
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string filePath = Path.Combine(documentsPath, fileName);
+        await File.WriteAllBytesAsync(filePath, pdfBytes);
+#endif
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error al guardar en carpeta de descargas: {ex.Message}");
+            throw;
+        }
+    }
+
+    private async Task CompartirPDFAsync(byte[] pdfBytes, string fileName)
+    {
+        try
+        {
+            // Crear un archivo temporal
+            string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+
+            // Escribir los bytes al archivo
+            await File.WriteAllBytesAsync(filePath, pdfBytes);
+
+            // Compartir el archivo
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = "Compartir Reporte de Trabajador",
+                File = new ShareFile(filePath)
+            });
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error al compartir el archivo: {ex.Message}");
+        }
+    }
+
+    // TAMBIÉN REEMPLAZA el método Compartir_Clicked por este:
 
     private async void Compartir_Clicked(object sender, EventArgs e)
     {
@@ -119,32 +238,35 @@ public partial class VistaPreviaReporte : ContentPage
         {
             LoadingOverlay.IsVisible = true;
 
-            // Generar el PDF para compartir
+            // Verificar que tengamos datos para compartir
+            if (reporteData == null || reporteData.Count == 0)
+            {
+                await DisplayAlert("Sin datos",
+                    "No hay datos disponibles para compartir. Actualice el reporte primero.", "OK");
+                return;
+            }
+
+            // Generar el PDF
             byte[] pdfBytes = await Task.Run(() => App.Database.GenerarReporteTrabajadorPDF(
                 reporteData, fechaInicio, fechaFin, tipoReporte));
 
-            // Nombre del archivo
-            string fileName = $"Reporte_Trabajador_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
-
-            // Guardar en archivo temporal
-            string tempPath = Path.Combine(FileSystem.CacheDirectory, fileName);
-            File.WriteAllBytes(tempPath, pdfBytes);
+            // Crear el nombre del archivo
+            string fileName = $"Reporte_Trabajador_{DateTime.Now:yyyyMMddHHmmss}.pdf";
 
             // Compartir el archivo
-            await Share.RequestAsync(new ShareFileRequest
-            {
-                Title = "Compartir reporte PDF",
-                File = new ShareFile(tempPath)
-            });
-
-            LoadingOverlay.IsVisible = false;
+            await CompartirPDFAsync(pdfBytes, fileName);
         }
         catch (Exception ex)
         {
+            await DisplayAlert("Error", $"Error al compartir el PDF: {ex.Message}", "OK");
+            System.Diagnostics.Debug.WriteLine($"Error al compartir PDF: {ex.Message}");
+        }
+        finally
+        {
             LoadingOverlay.IsVisible = false;
-            await DisplayAlert("Error", $"No se pudo compartir el reporte: {ex.Message}", "OK");
         }
     }
+    
 }
 
 // Clase auxiliar para visualización

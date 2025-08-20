@@ -85,8 +85,7 @@
                                             </Grid>
                                         </toolkit:Expander.Header>
                                         <VerticalStackLayout>
-                                            <Label IsVisible="False" Text="{Binding Estado, Converter={StaticResource BooleanToTextConverter}}"
-                                       FontFamily="Comf-SemBold" />
+                                            <!-- ✅ CORREGIDO: Eliminado el converter problemático -->
                                         </VerticalStackLayout>
                                     </toolkit:Expander>
                                 </Frame>

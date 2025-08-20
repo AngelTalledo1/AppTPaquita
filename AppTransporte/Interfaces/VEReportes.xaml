@@ -139,30 +139,7 @@
                     </Grid>
                 </Frame>
 
-                <!-- Reporte de Desvíos -->
-                <Frame CornerRadius="15" Padding="15" BackgroundColor="White" HasShadow="False">
-                    <Grid ColumnDefinitions="*, Auto">
-                        <VerticalStackLayout>
-                            <Label Text="Reporte de Desvíos" 
-                                   FontSize="16" 
-                                   FontFamily="Comf-Bold" 
-                                   TextColor="#333333" />
-                            <Label Text="Análisis de desvíos y excepciones en rutas" 
-                                   FontSize="13" 
-                                   TextColor="Gray" />
-                        </VerticalStackLayout>
-                        <Button Grid.Column="1" 
-                                Text="Generar" 
-                                HeightRequest="40"
-                                WidthRequest="100"
-                                CornerRadius="20"
-                                BackgroundColor="#cb4335"
-                                TextColor="White"
-                                FontFamily="Comf-Medium"
-                                Clicked="ReporteDesvios_Clicked"/>
-                    </Grid>
-                </Frame>
-
+                
                 <!-- Reporte de Pedidos -->
                 <Frame CornerRadius="15" Padding="15" BackgroundColor="White" HasShadow="False">
                     <Grid ColumnDefinitions="*, Auto">
