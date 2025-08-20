@@ -3271,21 +3271,21 @@ namespace AppTransporte.model
         }
 
         public async Task<int> AgregarVehiculo(
-    string placa,
-    string modelo,
-    string añoFabricacion,
-    DateTime? emisionPoliza,
-    DateTime? vencimientoPoliza,
-    DateTime? emisionCITV,
-    DateTime? vencimientoCITV,
-    DateTime? emisionCubicacion,
-    DateTime? vencimientoCubicacion,
-    byte[] imagen,
-    byte[] poliza,
-    byte[] citv,
-    byte[] cubicacion,
-    byte[] tarjetaPropiedad,
-    string tipoVehiculo)
+            string placa,
+            string modelo,
+            string añoFabricacion,
+            DateTime? emisionPoliza,
+            DateTime? vencimientoPoliza,
+            DateTime? emisionCITV,
+            DateTime? vencimientoCITV,
+            DateTime? emisionCubicacion,
+            DateTime? vencimientoCubicacion,
+            byte[] imagen,
+            byte[] poliza,
+            byte[] citv,
+            byte[] cubicacion,
+            byte[] tarjetaPropiedad,
+            string tipoVehiculo)
         {
             try
             {

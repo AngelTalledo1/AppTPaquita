@@ -6,6 +6,9 @@
              x:Class="AppTransporte.Interfaces.Empresas"
              xmlns:VME="clr-namespace:AppTransporte.viewModel"
              Title="Empresas">
+    
+
+
     <ContentPage.BindingContext>
         <VME:VMEmpresas />
     </ContentPage.BindingContext>
@@ -85,8 +88,6 @@
                                             </Grid>
                                         </toolkit:Expander.Header>
                                         <VerticalStackLayout>
-                                            <Label IsVisible="False" Text="{Binding Estado, Converter={StaticResource BooleanToTextConverter}}"
-                                                   FontFamily="Comf-SemBold" />
                                         </VerticalStackLayout>
                                     </toolkit:Expander>
                                 </Frame>
