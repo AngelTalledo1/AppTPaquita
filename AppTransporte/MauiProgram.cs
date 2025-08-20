@@ -8,6 +8,8 @@ namespace AppTransporte
     {
         public static MauiApp CreateMauiApp()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JEaF1cWWhBYVF1WmFZfVtgfV9FZVZURWY/P1ZhSXxWdk1iX31fc3FQR2ZdWUJ9XEI=");
+
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
@@ -27,11 +29,10 @@ namespace AppTransporte
                     fonts.AddFont("Comfortaa-VariableFont_wght.ttf", "Comf-Variable");
                 });
 
-                #if DEBUG
-    		                builder.Logging.AddDebug();
-                #endif
-
-                            return builder.Build();
+#if DEBUG
+            builder.Logging.AddDebug();
+#endif
+            return builder.Build();
         }
     }
 }

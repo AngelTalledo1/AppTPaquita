@@ -6,11 +6,14 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using Syncfusion.Pdf.Grid;
+using SyncSizeF = Syncfusion.Drawing.SizeF;
+using Microsoft.Maui.Storage;
 using AppTransporte.model;
-// Importaciones para QuestPDF
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
+
+
 
 namespace AppTransporte.Interfaces
 {
@@ -21,8 +24,6 @@ namespace AppTransporte.Interfaces
 
         public VistaReportePedidos()
         {
-            // Registrar licencia QuestPDF (necesario para evitar watermarks)
-            QuestPDF.Settings.License = LicenseType.Community;
 
             InitializeComponent();
 
@@ -128,6 +129,7 @@ namespace AppTransporte.Interfaces
                     alternarFila = !alternarFila;
                 }
 
+
                 // Procesar datos de detalle
                 alternarFila = false;
                 foreach (DataRow fila in detalleTable.Rows)
@@ -186,129 +188,379 @@ namespace AppTransporte.Interfaces
 
         private void ActualizarGrafico()
         {
-            // Implementar el dibujo del gráfico utilizando Microsoft.Maui.Graphics
-            graficoView.Drawable = new GraficoPedidos(_datosResumen);
-        }
+            try
+            {
+                // Implementar el dibujo del gráfico utilizando Microsoft.Maui.Graphics
+                if (_datosResumen != null && _datosResumen.Any())
+                {
+                    graficoView.Drawable = new GraficoPedidos(_datosResumen);
+                    graficoView.IsVisible = true;
+                }
+                else
+                {
+                    // Si no hay datos, mostrar gráfico vacío con mensaje
+                    graficoView.Drawable = new GraficoPedidos(new List<ResumenPedido>());
+                    graficoView.IsVisible = true;
+                }
 
+                // Forzar redibujado
+                graficoView.Invalidate();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al actualizar gráfico: {ex.Message}");
+                // En caso de error, ocultar el gráfico
+                graficoView.IsVisible = false;
+            }
+        }
+        public class GraficoPedidos : IDrawable
+        {
+            private List<ResumenPedido> _datos;
+
+            public GraficoPedidos(List<ResumenPedido> datos)
+            {
+                _datos = datos ?? new List<ResumenPedido>();
+            }
+
+            public void Draw(ICanvas canvas, RectF dirtyRect)
+            {
+                if (_datos == null || !_datos.Any())
+                {
+                    // Dibujar mensaje cuando no hay datos
+                    canvas.FontColor = Colors.Gray;
+                    canvas.FontSize = 14;
+                    canvas.DrawString("No hay datos disponibles",
+                        dirtyRect.Width / 2, dirtyRect.Height / 2,
+                        HorizontalAlignment.Center);
+                    return;
+                }
+
+                // Configuración del gráfico
+                float width = dirtyRect.Width;
+                float height = dirtyRect.Height;
+                float margenIzquierdo = 20;
+                float margenDerecho = 20;
+                float margenSuperior = 30;
+                float margenInferior = 80; // Más espacio para la leyenda
+
+                float centroX = width / 2;
+                float centroY = (height - margenInferior) / 2 + margenSuperior / 2;
+                float radio = Math.Min(centroY - margenSuperior, (width - margenIzquierdo - margenDerecho) / 2) - 20;
+
+                // Colores atractivos para el gráfico
+                Microsoft.Maui.Graphics.Color[] colores = new Microsoft.Maui.Graphics.Color[]
+                {
+            Color.FromRgb(54, 162, 235),   // Azul
+            Color.FromRgb(255, 99, 132),   // Rosa/Rojo
+            Color.FromRgb(75, 192, 192),   // Verde agua
+            Color.FromRgb(255, 205, 86),   // Amarillo
+            Color.FromRgb(153, 102, 255),  // Morado
+            Color.FromRgb(255, 159, 64),   // Naranja
+            Color.FromRgb(199, 199, 199),  // Gris
+            Color.FromRgb(83, 102, 255)    // Azul oscuro
+                };
+
+                // Total de pedidos
+                int totalPedidos = _datos.Sum(d => d.CantidadPedidos);
+
+                if (totalPedidos == 0)
+                {
+                    canvas.FontColor = Colors.Gray;
+                    canvas.FontSize = 14;
+                    canvas.DrawString("No hay pedidos en el período seleccionado",
+                        dirtyRect.Width / 2, dirtyRect.Height / 2,
+                        HorizontalAlignment.Center);
+                    return;
+                }
+
+                // Dibujar título del gráfico
+                canvas.FontColor = Color.FromRgb(203, 67, 53); // Color corporativo
+                canvas.FontSize = 16;
+                canvas.DrawString("Distribución de Pedidos por Estado",
+                    width / 2, 15, HorizontalAlignment.Center);
+
+                // Dibujar gráfico de torta
+                float anguloInicial = -90; // Comenzar desde arriba
+
+                for (int i = 0; i < _datos.Count; i++)
+                {
+                    var estado = _datos[i];
+                    float porcentaje = (float)estado.CantidadPedidos / totalPedidos;
+                    float angulo = porcentaje * 360f;
+
+                    // Seleccionar color
+                    canvas.FillColor = colores[i % colores.Length];
+
+                    // Dibujar sector del gráfico de torta
+                    canvas.FillArc(centroX - radio, centroY - radio, radio * 2, radio * 2,
+                                  anguloInicial, angulo, true);
+
+                    // Dibujar borde del sector
+                    canvas.StrokeColor = Colors.White;
+                    canvas.StrokeSize = 2;
+                    canvas.DrawArc(centroX - radio, centroY - radio, radio * 2, radio * 2,
+                                  anguloInicial, angulo, true, false);
+
+                    // Actualizar ángulo inicial para el siguiente sector
+                    anguloInicial += angulo;
+                }
+
+                // Dibujar leyenda
+                float leyendaX = 20;
+                float leyendaY = height - margenInferior + 10;
+                float alturaLinea = 20;
+                float anchoColumna = (width - 40) / 2; // Dos columnas
+
+                canvas.FontSize = 11;
+
+                for (int i = 0; i < _datos.Count; i++)
+                {
+                    var estado = _datos[i];
+                    float porcentaje = (float)estado.CantidadPedidos / totalPedidos;
+
+                    // Posición de la leyenda (dos columnas)
+                    float posX = leyendaX + (i % 2) * anchoColumna;
+                    float posY = leyendaY + (i / 2) * alturaLinea;
+
+                    // Verificar que no se salga del área
+                    if (posY > height - 10) break;
+
+                    // Dibujar cuadrado de color
+                    canvas.FillColor = colores[i % colores.Length];
+                    canvas.FillRectangle(posX, posY, 12, 12);
+
+                    // Dibujar borde del cuadrado
+                    canvas.StrokeColor = Colors.Gray;
+                    canvas.StrokeSize = 1;
+                    canvas.DrawRectangle(posX, posY, 12, 12);
+
+                    // Preparar texto de la leyenda
+                    string etiqueta = estado.EstadoPedido;
+                    if (etiqueta.Length > 12)
+                        etiqueta = etiqueta.Substring(0, 9) + "...";
+
+                    string textoLeyenda = $"{etiqueta} ({estado.CantidadPedidos}, {porcentaje:P0})";
+
+                    // Dibujar texto de la leyenda
+                    canvas.FontColor = Colors.Black;
+                    canvas.DrawString(textoLeyenda, posX + 18, posY + 9, HorizontalAlignment.Left);
+                }
+
+                // Dibujar información adicional en el centro (opcional)
+                if (radio > 40) // Solo si hay espacio suficiente
+                {
+                    canvas.FontColor = Color.FromRgb(203, 67, 53);
+                    canvas.FontSize = 14;
+                    canvas.DrawString("Total", centroX, centroY - 8, HorizontalAlignment.Center);
+
+                    canvas.FontSize = 18;
+                    canvas.DrawString(totalPedidos.ToString(), centroX, centroY + 8, HorizontalAlignment.Center);
+                }
+            }
+        }
         private async void ExportarPDF_Clicked(object sender, EventArgs e)
         {
-            // Funcionalidad temporalmente suspendida
-            await DisplayAlert("Función en desarrollo", "La exportación a PDF se encuentra en desarrollo y estará disponible próximamente.", "OK");
-            return;
+            LoadingOverlay.IsVisible = true;
+
+            try
+            {
+                // Verificar que tengamos datos para exportar
+                if (_datosResumen == null || _datosDetalle == null)
+                {
+                    await DisplayAlert("Error", "No hay datos disponibles para exportar.", "OK");
+                    return;
+                }
+
+                // Generar el PDF
+                byte[] pdfBytes = await App.Database.GenerarReportePedidosPDF(
+                    _datosResumen,
+                    _datosDetalle,
+                    FechaInicio.Date,
+                    FechaFin.Date);
+
+                // Crear el nombre del archivo
+                string fileName = $"Reporte_Pedidos_{FechaInicio.Date:yyyyMMdd}_{FechaFin.Date:yyyyMMdd}.pdf";
+
+                // Guardar y abrir el archivo
+                await GuardarYAbrirPDFAsync(pdfBytes, fileName);
+
+                await DisplayAlert("Éxito", "El reporte PDF se ha generado correctamente.", "OK");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Error al generar el PDF: {ex.Message}", "OK");
+                System.Diagnostics.Debug.WriteLine($"Error al generar PDF: {ex.Message}");
+            }
+            finally
+            {
+                LoadingOverlay.IsVisible = false;
+            }
         }
 
         private async void Compartir_Clicked(object sender, EventArgs e)
         {
-            // Funcionalidad temporalmente suspendida
-            await DisplayAlert("Función en desarrollo", "La funcionalidad de compartir PDF se encuentra en desarrollo y estará disponible próximamente.", "OK");
-            return;
-        }
-    }
+            LoadingOverlay.IsVisible = true;
 
-    // Clase para el gráfico de pedidos por estado corregida para MAUI.Graphics
-    public class GraficoPedidos : IDrawable
-    {
-        private List<ResumenPedido> _datos;
-
-        public GraficoPedidos(List<ResumenPedido> datos)
-        {
-            _datos = datos;
-        }
-
-        public void Draw(ICanvas canvas, RectF dirtyRect)
-        {
-            if (_datos == null || !_datos.Any())
-                return;
-
-            // Configuración del gráfico
-            float width = dirtyRect.Width;
-            float height = dirtyRect.Height;
-            float margenIzquierdo = 20;
-            float margenDerecho = 20;
-            float margenSuperior = 20;
-            float margenInferior = 60;
-
-            float centroX = width / 2;
-            float centroY = (height - margenInferior) / 2;
-            float radio = Math.Min(centroY - margenSuperior, (width - margenIzquierdo - margenDerecho) / 2) - 10;
-
-            // Colores para el gráfico usando Microsoft.Maui.Graphics.Colors
-            Microsoft.Maui.Graphics.Color[] colores = new Microsoft.Maui.Graphics.Color[]
+            try
             {
-                Microsoft.Maui.Graphics.Colors.DodgerBlue,
-                Microsoft.Maui.Graphics.Colors.OrangeRed,
-                Microsoft.Maui.Graphics.Colors.Green,
-                Microsoft.Maui.Graphics.Colors.Purple,
-                Microsoft.Maui.Graphics.Colors.Orange,
-                Microsoft.Maui.Graphics.Colors.DeepPink,
-                Microsoft.Maui.Graphics.Colors.Teal
-            };
+                // Verificar que tengamos datos para compartir
+                if (_datosResumen == null || _datosDetalle == null)
+                {
+                    await DisplayAlert("Error", "No hay datos disponibles para compartir.", "OK");
+                    return;
+                }
 
-            // Total de pedidos
-            int totalPedidos = _datos.Sum(d => d.CantidadPedidos);
+                // Generar el PDF
+                byte[] pdfBytes = await App.Database.GenerarReportePedidosPDF(
+                    _datosResumen,
+                    _datosDetalle,
+                    FechaInicio.Date,
+                    FechaFin.Date);
 
-            if (totalPedidos == 0) return;
+                // Crear el nombre del archivo
+                string fileName = $"Reporte_Pedidos_{FechaInicio.Date:yyyyMMdd}_{FechaFin.Date:yyyyMMdd}.pdf";
 
-            // Dibujar gráfico de torta
-            float anguloInicial = 0;
-
-            for (int i = 0; i < _datos.Count; i++)
-            {
-                var estado = _datos[i];
-                float porcentaje = (float)estado.CantidadPedidos / totalPedidos;
-                float angulo = porcentaje * 360f;
-
-                // Seleccionar color
-                canvas.FillColor = colores[i % colores.Length];
-
-                // Dibujar sector usando Path para mejor compatibilidad
-                var path = new PathF();
-                path.MoveTo(centroX, centroY);
-
-                // Convertir ángulos a radianes
-                double anguloInicialRad = anguloInicial * Math.PI / 180;
-                double anguloFinalRad = (anguloInicial + angulo) * Math.PI / 180;
-
-                // Calcular puntos del arco
-                float x1 = centroX + radio * (float)Math.Cos(anguloInicialRad);
-                float y1 = centroY + radio * (float)Math.Sin(anguloInicialRad);
-                float x2 = centroX + radio * (float)Math.Cos(anguloFinalRad);
-                float y2 = centroY + radio * (float)Math.Sin(anguloFinalRad);
-
-                path.LineTo(x1, y1);
-                path.AddArc(centroX - radio, centroY - radio, centroX + radio, centroY + radio, anguloInicial, anguloInicial + angulo, false);
-                path.LineTo(centroX, centroY);
-                path.Close();
-
-                canvas.FillPath(path);
-
-                // Calcular la posición para la leyenda
-                float posX = margenIzquierdo + (i % 3) * ((width - margenIzquierdo - margenDerecho) / 3);
-                float posY = height - margenInferior + 15 + (i / 3) * 20;
-
-                // Dibujar cuadrado de color para la leyenda
-                canvas.FillColor = colores[i % colores.Length];
-                canvas.FillRectangle(posX, posY, 10, 10);
-
-                // Dibujar texto de la leyenda
-                canvas.FontColor = Microsoft.Maui.Graphics.Colors.Black;
-                canvas.FontSize = 10;
-
-                // Abreviar texto si es muy largo
-                string etiqueta = estado.EstadoPedido;
-                if (etiqueta.Length > 15)
-                    etiqueta = etiqueta.Substring(0, 12) + "...";
-
-                canvas.DrawString($"{etiqueta} ({estado.CantidadPedidos}, {porcentaje:P0})", posX + 15, posY + 7, Microsoft.Maui.Graphics.HorizontalAlignment.Left);
-
-                // Actualizar ángulo inicial para el siguiente sector
-                anguloInicial += angulo;
+                // Compartir el archivo
+                await CompartirPDFAsync(pdfBytes, fileName);
             }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Error al compartir el PDF: {ex.Message}", "OK");
+                System.Diagnostics.Debug.WriteLine($"Error al compartir PDF: {ex.Message}");
+            }
+            finally
+            {
+                LoadingOverlay.IsVisible = false;
+            }
+        }
 
-            // Dibujar título del gráfico
-            canvas.FontColor = Microsoft.Maui.Graphics.Colors.Black;
-            canvas.FontSize = 12;
-            canvas.DrawString("Distribución de Pedidos por Estado", width / 2, margenSuperior - 5, Microsoft.Maui.Graphics.HorizontalAlignment.Center);
+        private async Task GuardarYAbrirPDFAsync(byte[] pdfBytes, string fileName)
+        {
+            try
+            {
+                // Crear un archivo temporal
+                string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+
+                // Escribir los bytes al archivo
+                await File.WriteAllBytesAsync(filePath, pdfBytes);
+
+                // Abrir el archivo con la aplicación predeterminada
+                await Launcher.OpenAsync(new OpenFileRequest
+                {
+                    File = new ReadOnlyFile(filePath),
+                    Title = "Abrir Reporte PDF"
+                });
+            }
+            catch (Exception ex)
+            {
+                // Si no se puede abrir, al menos guardarlo en Downloads (Android) o Documents (iOS)
+                await GuardarEnCarpetaDescargas(pdfBytes, fileName);
+                throw new Exception($"PDF guardado pero no se pudo abrir automáticamente: {ex.Message}");
+            }
+        }
+
+        private async Task GuardarEnCarpetaDescargas(byte[] pdfBytes, string fileName)
+        {
+            try
+            {
+#if ANDROID
+        // Android: Guardar en la carpeta Downloads
+        var downloadsPath = Android.OS.Environment.GetExternalStoragePublicDirectory(
+            Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
+        
+        if (!string.IsNullOrEmpty(downloadsPath))
+        {
+            string filePath = Path.Combine(downloadsPath, fileName);
+            await File.WriteAllBytesAsync(filePath, pdfBytes);
+            
+            // Notificar al sistema que se agregó un archivo
+            var mediaScanIntent = new Android.Content.Intent(Android.Content.Intent.ActionMediaScannerScanFile);
+            mediaScanIntent.SetData(Android.Net.Uri.FromFile(new Java.IO.File(filePath)));
+            Platform.CurrentActivity?.SendBroadcast(mediaScanIntent);
+        }
+#elif IOS
+        // iOS: Guardar en Documents
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string filePath = Path.Combine(documentsPath, fileName);
+        await File.WriteAllBytesAsync(filePath, pdfBytes);
+#else
+                // Otras plataformas: usar carpeta de documentos
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string filePath = Path.Combine(documentsPath, fileName);
+                await File.WriteAllBytesAsync(filePath, pdfBytes);
+#endif
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al guardar en carpeta de descargas: {ex.Message}");
+                throw;
+            }
+        }
+
+        private async Task CompartirPDFAsync(byte[] pdfBytes, string fileName)
+        {
+            try
+            {
+                // Crear un archivo temporal
+                string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+
+                // Escribir los bytes al archivo
+                await File.WriteAllBytesAsync(filePath, pdfBytes);
+
+                // Compartir el archivo
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    Title = "Compartir Reporte de Pedidos",
+                    File = new ShareFile(filePath)
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al compartir el archivo: {ex.Message}");
+            }
+        }
+
+        // También puedes agregar este método para previsualizar el PDF antes de guardarlo
+        private async void PrevisualizarPDF_Clicked(object sender, EventArgs e)
+        {
+            LoadingOverlay.IsVisible = true;
+
+            try
+            {
+                if (_datosResumen == null || _datosDetalle == null)
+                {
+                    await DisplayAlert("Error", "No hay datos disponibles para previsualizar.", "OK");
+                    return;
+                }
+
+                // Generar el PDF
+                byte[] pdfBytes = await App.Database.GenerarReportePedidosPDF(
+                    _datosResumen,
+                    _datosDetalle,
+                    FechaInicio.Date,
+                    FechaFin.Date);
+
+                // Crear archivo temporal para previsualización
+                string fileName = $"Preview_Reporte_Pedidos_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+                string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+
+                await File.WriteAllBytesAsync(filePath, pdfBytes);
+
+                // Abrir para previsualización
+                await Launcher.OpenAsync(new OpenFileRequest
+                {
+                    File = new ReadOnlyFile(filePath),
+                    Title = "Previsualizar Reporte"
+                });
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Error al previsualizar el PDF: {ex.Message}", "OK");
+            }
+            finally
+            {
+                LoadingOverlay.IsVisible = false;
+            }
         }
     }
 }

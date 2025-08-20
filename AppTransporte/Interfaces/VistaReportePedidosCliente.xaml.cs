@@ -6,10 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using AppTransporte.model;
-// Importaciones para QuestPDF - COMENTADAS TEMPORALMENTE
-//using QuestPDF.Fluent;
-//using QuestPDF.Helpers;
-//using QuestPDF.Infrastructure;
+
 
 namespace AppTransporte.Interfaces
 {
@@ -324,16 +321,238 @@ namespace AppTransporte.Interfaces
 
         private async void ExportarPDF_Clicked(object sender, EventArgs e)
         {
-            // Funcionalidad temporalmente suspendida
-            await DisplayAlert("Función en desarrollo", "La exportación a PDF se encuentra en desarrollo y estará disponible próximamente.", "OK");
-            return;
+            LoadingOverlay.IsVisible = true;
+
+            try
+            {
+                // Verificar que tengamos datos para exportar
+                if (_resumenPedidos == null || _detallePedidos == null ||
+                    _resumenPedidos.Rows.Count == 0)
+                {
+                    await DisplayAlert("Sin datos",
+                        "No hay datos disponibles para exportar. Actualice el reporte primero.", "OK");
+                    return;
+                }
+
+                // Mostrar opciones al usuario
+                string action = await DisplayActionSheet(
+                    "¿Qué desea hacer con el PDF?",
+                    "Cancelar",
+                    null,
+                    "Guardar y abrir",
+                    "Solo guardar",
+                    "Compartir");
+
+                if (action == "Cancelar")
+                    return;
+
+                // Obtener información del cliente
+                string clienteNombre = await ObtenerNombreClienteAsync(_idCliente);
+
+                // Obtener filtros aplicados
+                string tipoPedidoSeleccionado = tipoPedidoPicker.SelectedItem?.ToString();
+                if (tipoPedidoSeleccionado == "Todos los tipos")
+                    tipoPedidoSeleccionado = null;
+
+                // Generar el PDF
+                byte[] pdfBytes = await Task.Run(async () =>
+                    await App.Database.GenerarReportePedidosClientePDF(
+                        _resumenPedidos,
+                        _detallePedidos,
+                        clienteNombre,
+                        tipoPedidoSeleccionado,
+                        _fechaDesde,
+                        _fechaHasta));
+
+                // Crear el nombre del archivo
+                string fileName = $"Reporte_Pedidos_Cliente_{_idCliente}_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+
+                switch (action)
+                {
+                    case "Guardar y abrir":
+                        await GuardarYAbrirPDFAsync(pdfBytes, fileName);
+                        await DisplayAlert("Éxito", "El reporte PDF se ha generado y abierto correctamente.", "OK");
+                        break;
+
+                    case "Solo guardar":
+                        await GuardarEnCarpetaDescargas(pdfBytes, fileName);
+                        await DisplayAlert("Éxito", "El reporte PDF se ha guardado en la carpeta de descargas.", "OK");
+                        break;
+
+                    case "Compartir":
+                        await CompartirPDFAsync(pdfBytes, fileName);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Error al procesar el PDF: {ex.Message}", "OK");
+                System.Diagnostics.Debug.WriteLine($"Error completo: {ex}");
+            }
+            finally
+            {
+                LoadingOverlay.IsVisible = false;
+            }
         }
 
         private async void Compartir_Clicked(object sender, EventArgs e)
         {
-            // Funcionalidad temporalmente suspendida
-            await DisplayAlert("Función en desarrollo", "La funcionalidad de compartir PDF se encuentra en desarrollo y estará disponible próximamente.", "OK");
-            return;
+            LoadingOverlay.IsVisible = true;
+
+            try
+            {
+                // Verificar que tengamos datos para compartir
+                if (_resumenPedidos == null || _detallePedidos == null ||
+                    _resumenPedidos.Rows.Count == 0)
+                {
+                    await DisplayAlert("Sin datos",
+                        "No hay datos disponibles para compartir. Actualice el reporte primero.", "OK");
+                    return;
+                }
+
+                // Obtener información del cliente
+                string clienteNombre = await ObtenerNombreClienteAsync(_idCliente);
+
+                // Obtener filtros aplicados
+                string tipoPedidoSeleccionado = tipoPedidoPicker.SelectedItem?.ToString();
+                if (tipoPedidoSeleccionado == "Todos los tipos")
+                    tipoPedidoSeleccionado = null;
+
+                // Generar el PDF
+                byte[] pdfBytes = await Task.Run(async () =>
+                    await App.Database.GenerarReportePedidosClientePDF(
+                        _resumenPedidos,
+                        _detallePedidos,
+                        clienteNombre,
+                        tipoPedidoSeleccionado,
+                        _fechaDesde,
+                        _fechaHasta));
+
+                // Crear el nombre del archivo
+                string fileName = $"Reporte_Pedidos_Cliente_{_idCliente}_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+
+                // Compartir el archivo
+                await CompartirPDFAsync(pdfBytes, fileName);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Error al compartir el PDF: {ex.Message}", "OK");
+                System.Diagnostics.Debug.WriteLine($"Error al compartir PDF: {ex.Message}");
+            }
+            finally
+            {
+                LoadingOverlay.IsVisible = false;
+            }
+        }
+
+        // AGREGAR estos métodos auxiliares a la clase VistaReportePedidosCliente:
+
+        private async Task<string> ObtenerNombreClienteAsync(int idCliente)
+        {
+            try
+            {
+                // Intentar obtener el nombre del cliente desde la base de datos
+                var clientes = await App.Database.ObtenerClientesAsync();
+                var cliente = clientes.FirstOrDefault(c => c.IdCliente == idCliente);
+
+                if (cliente != null)
+                {
+                    return $"{cliente.Nombre} {cliente.ApePaterno} {cliente.ApeMaterno}".Trim();
+                }
+
+                return $"Cliente ID: {idCliente}";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al obtener nombre del cliente: {ex.Message}");
+                return $"Cliente ID: {idCliente}";
+            }
+        }
+
+        private async Task GuardarYAbrirPDFAsync(byte[] pdfBytes, string fileName)
+        {
+            try
+            {
+                // Crear un archivo temporal
+                string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+
+                // Escribir los bytes al archivo
+                await File.WriteAllBytesAsync(filePath, pdfBytes);
+
+                // Abrir el archivo con la aplicación predeterminada
+                await Launcher.OpenAsync(new OpenFileRequest
+                {
+                    File = new ReadOnlyFile(filePath),
+                    Title = "Abrir Reporte PDF"
+                });
+            }
+            catch (Exception ex)
+            {
+                // Si no se puede abrir, al menos guardarlo en Downloads
+                await GuardarEnCarpetaDescargas(pdfBytes, fileName);
+                throw new Exception($"PDF guardado pero no se pudo abrir automáticamente: {ex.Message}");
+            }
+        }
+
+        private async Task GuardarEnCarpetaDescargas(byte[] pdfBytes, string fileName)
+        {
+            try
+            {
+#if ANDROID
+                // Android: Guardar en la carpeta Downloads
+                var downloadsPath = Android.OS.Environment.GetExternalStoragePublicDirectory(
+                    Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
+
+                if (!string.IsNullOrEmpty(downloadsPath))
+                {
+                    string filePath = Path.Combine(downloadsPath, fileName);
+                    await File.WriteAllBytesAsync(filePath, pdfBytes);
+
+                    // Notificar al sistema que se agregó un archivo
+                    var mediaScanIntent = new Android.Content.Intent(Android.Content.Intent.ActionMediaScannerScanFile);
+                    mediaScanIntent.SetData(Android.Net.Uri.FromFile(new Java.IO.File(filePath)));
+                    Platform.CurrentActivity?.SendBroadcast(mediaScanIntent);
+                }
+#elif IOS
+                // iOS: Guardar en Documents
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string filePath = Path.Combine(documentsPath, fileName);
+                await File.WriteAllBytesAsync(filePath, pdfBytes);
+#else
+        // Otras plataformas: usar carpeta de documentos
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string filePath = Path.Combine(documentsPath, fileName);
+        await File.WriteAllBytesAsync(filePath, pdfBytes);
+#endif
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al guardar en carpeta de descargas: {ex.Message}");
+                throw;
+            }
+        }
+
+        private async Task CompartirPDFAsync(byte[] pdfBytes, string fileName)
+        {
+            try
+            {
+                // Crear un archivo temporal
+                string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+
+                // Escribir los bytes al archivo
+                await File.WriteAllBytesAsync(filePath, pdfBytes);
+
+                // Compartir el archivo
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    Title = "Compartir Reporte de Pedidos por Cliente",
+                    File = new ShareFile(filePath)
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al compartir el archivo: {ex.Message}");
+            }
         }
     }
 }
