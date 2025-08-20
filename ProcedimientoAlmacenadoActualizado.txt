@@ -1,0 +1,57 @@
+/*
+PROCEDIMIENTO ALMACENADO ACTUALIZADO PARA LA NUEVA ESTRUCTURA
+Ejecuta este script en tu base de datos:
+
+CREATE OR ALTER PROCEDURE SP_ObtenerPedidosAutomaticos
+    @fecha_desde DATE = NULL,
+    @fecha_hasta DATE = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    SELECT 
+        pa.id_pedidoAutomatico,
+        pa.id_usuario,
+        pa.id_tipoServicio,
+        s.descripcion as tipoServicio,
+        pa.dias_semana,
+        pa.hora_programada,
+        pa.fecha_inicio,
+        pa.fecha_fin,
+        pa.estado,
+        pa.fecha_creacion,
+        pa.fecha_modificacion,
+        pa.ultimo_procesamiento,
+        pa.descripcion,
+        pa.id_cliente,
+        pa.id_origen,
+        pa.id_destino,
+        -- Información de cliente con nombres concatenados
+        CASE 
+            WHEN pa.id_cliente IS NOT NULL THEN 
+                LTRIM(RTRIM(
+                    CONCAT(p_cliente.Nombre, ' ', 
+                           ISNULL(p_cliente.apePaterno, ''), ' ', 
+                           ISNULL(p_cliente.apeMaterno, ''))
+                ))
+            ELSE NULL 
+        END as nombre_cliente,
+        -- Información de origen
+        o.descripcion as descripcion_origen,
+        -- Información de destino
+        d.descripcion as descripcion_destino
+    FROM PedidosAutomaticos pa
+    INNER JOIN Servicio s ON pa.id_tipoServicio = s.id_servicio
+    LEFT JOIN Cliente c ON pa.id_cliente = c.id_cliente
+    LEFT JOIN Persona p_cliente ON c.id_persona = p_cliente.id_persona
+    LEFT JOIN Origen o ON pa.id_origen = o.id_origen
+    LEFT JOIN Destino d ON pa.id_destino = d.id_destino
+    WHERE 1=1
+        AND (@fecha_desde IS NULL OR pa.fecha_inicio >= @fecha_desde)
+        AND (@fecha_hasta IS NULL OR pa.fecha_fin <= @fecha_hasta)
+    ORDER BY pa.fecha_creacion DESC;
+END
+*/
+
+// Si prefieres usar el procedimiento almacenado, también debes actualizar el método:
+// usando CommandType.StoredProcedure en lugar de query directo
