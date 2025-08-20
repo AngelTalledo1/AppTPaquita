@@ -371,12 +371,13 @@ namespace AppTransporte.Interfaces
                     return;
                 }
 
-                // Generar el PDF
-                byte[] pdfBytes = await App.Database.GenerarReportePedidosPDF(
-                    _datosResumen,
-                    _datosDetalle,
-                    FechaInicio.Date,
-                    FechaFin.Date);
+                // Generar el PDF usando el método de SqlServerService
+                byte[] pdfBytes = await Task.Run(async () => 
+                    await App.Database.GenerarReportePedidosPDF(
+                        _datosResumen,
+                        _datosDetalle,
+                        FechaInicio.Date,
+                        FechaFin.Date));
 
                 // Crear el nombre del archivo
                 string fileName = $"Reporte_Pedidos_{FechaInicio.Date:yyyyMMdd}_{FechaFin.Date:yyyyMMdd}.pdf";
@@ -410,12 +411,13 @@ namespace AppTransporte.Interfaces
                     return;
                 }
 
-                // Generar el PDF
-                byte[] pdfBytes = await App.Database.GenerarReportePedidosPDF(
-                    _datosResumen,
-                    _datosDetalle,
-                    FechaInicio.Date,
-                    FechaFin.Date);
+                // Generar el PDF usando el método de SqlServerService
+                byte[] pdfBytes = await Task.Run(async () => 
+                    await App.Database.GenerarReportePedidosPDF(
+                        _datosResumen,
+                        _datosDetalle,
+                        FechaInicio.Date,
+                        FechaFin.Date));
 
                 // Crear el nombre del archivo
                 string fileName = $"Reporte_Pedidos_{FechaInicio.Date:yyyyMMdd}_{FechaFin.Date:yyyyMMdd}.pdf";
