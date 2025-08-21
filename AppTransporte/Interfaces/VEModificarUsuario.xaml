@@ -52,65 +52,79 @@
                     <!-- Campos para actualizar usuario -->
                     <VerticalStackLayout Margin="0,10,20,0" Spacing="15">
                         <!-- Campo Username -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   HorizontalOptions="Center"
-                                   Source="usuario.png" />
-                            <Entry PlaceholderColor="#515a5a"
-                                   Grid.Column="1"
-                                   Margin="10"
-                                   x:Name="username_entry"
-                                   Placeholder="Nombre de usuario"
-                                   FontFamily="Comf-Bold"
-                                   TextColor="Black" />
-                        </Grid>
-
-                        <!-- Campo Contraseña -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   HorizontalOptions="Center"
-                                   Source="contrasena.png" />
-                            <Grid Grid.Column="1" ColumnDefinitions="*,Auto">
-                                <Entry PlaceholderColor="#515a5a"
-                                       Margin="10,10,0,10"
-                                       x:Name="password_entry"
-                                       Placeholder="Contraseña"
-                                       IsPassword="True"
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Nombre de usuario" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="90,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       HorizontalOptions="Center"
+                                       Source="usuario.png" />
+                                <Entry Grid.Column="1"
+                                       Margin="10"
+                                       x:Name="username_entry"
                                        FontFamily="Comf-Bold"
                                        TextColor="Black" />
-                                <Button Grid.Column="1"
-                                        x:Name="togglePassword"
-                                        WidthRequest="50"
-                                        HeightRequest="50"
-                                        ImageSource="oculto.png"
-                                        Margin="0,0,10,0"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="Center"
-                                        BackgroundColor="Transparent"
-                                        Clicked="TogglePasswordVisibility"/>
                             </Grid>
-                        </Grid>
+                        </VerticalStackLayout>
+
+                        <!-- Campo Contraseña -->
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Contraseña" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="90,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       HorizontalOptions="Center"
+                                       Source="contrasena.png" />
+                                <Grid Grid.Column="1" ColumnDefinitions="*,Auto">
+                                    <Entry Margin="10,10,0,10"
+                                           x:Name="password_entry"
+                                           IsPassword="True"
+                                           FontFamily="Comf-Bold"
+                                           TextColor="Black" />
+                                    <Button Grid.Column="1"
+                                            x:Name="togglePassword"
+                                            WidthRequest="50"
+                                            HeightRequest="50"
+                                            ImageSource="oculto.png"
+                                            Margin="0,0,10,0"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"
+                                            BackgroundColor="Transparent"
+                                            Clicked="TogglePasswordVisibility"/>
+                                </Grid>
+                            </Grid>
+                        </VerticalStackLayout>
 
                         <!-- Campo Tipo de Usuario -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   HorizontalOptions="Center"
-                                   Source="tuser.png" />
-                            <Picker Grid.Column="1"
-                                    Margin="10"
-                                    x:Name="tipoUsuario_picker"
-                                    Title="Seleccione tipo de usuario"
-                                    FontFamily="Comf-Bold"
-                                    TextColor="Black"
-                                    ItemsSource="{Binding TiposUsuario}"
-                                    ItemDisplayBinding="{Binding descripcion}">
-                            </Picker>
-                        </Grid>
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Tipo de Usuario" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="90,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       HorizontalOptions="Center"
+                                       Source="tuser.png" />
+                                <Picker Grid.Column="1"
+                                        Margin="10"
+                                        x:Name="tipoUsuario_picker"
+                                        Title="Seleccione tipo de usuario"
+                                        FontFamily="Comf-Bold"
+                                        TextColor="Black"
+                                        ItemsSource="{Binding TiposUsuario}"
+                                        ItemDisplayBinding="{Binding descripcion}">
+                                </Picker>
+                            </Grid>
+                        </VerticalStackLayout>
 
-                        <!-- Campo Estado -->
+                        <!-- Campo Estado (sin cambios) -->
                         <Grid ColumnDefinitions=".2*,.8*">
                             <Image WidthRequest="40"
                                    HeightRequest="40"
@@ -132,33 +146,46 @@
                         </Grid>
 
                         <!-- Campo Persona ID -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   HorizontalOptions="Center"
-                                   Source="iduser.png" />
-                            <Label Grid.Column="1"
-                                    Margin="10"
-                                    x:Name="persona_label"
-                                    FontFamily="Comf-Bold"
-                                    TextColor="Black">
-                            </Label>
-                        </Grid>
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Persona" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="90,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       HorizontalOptions="Center"
+                                       Source="iduser.png" />
+                                <Label Grid.Column="1"
+                                        Margin="10"
+                                        x:Name="persona_label"
+                                        FontFamily="Comf-Bold"
+                                        TextColor="Black">
+                                </Label>
+                            </Grid>
+                        </VerticalStackLayout>
 
-                        <!-- Campo Empresa -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   HorizontalOptions="Center"
-                                   Source="cliente2.png" />
-                            <Picker Grid.Column="1"
-                                    Margin="10"
-                                    x:Name="empresa_picker"
-                                    Title="Seleccione empresa (opcional)"
-                                    FontFamily="Comf-Bold"
-                                    TextColor="Black">
-                            </Picker>
-                        </Grid>
+
+        <!-- Campo Empresa -->
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Empresa (opcional)" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="90,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       HorizontalOptions="Center"
+                                       Source="cliente2.png" />
+                                <Picker Grid.Column="1"
+                                        Margin="10"
+                                        x:Name="empresa_picker"
+                                        Title="Seleccione empresa"
+                                        FontFamily="Comf-Bold"
+                                        TextColor="Black">
+                                </Picker>
+                            </Grid>
+                        </VerticalStackLayout>
                     </VerticalStackLayout>
 
                     <HorizontalStackLayout Margin="30"

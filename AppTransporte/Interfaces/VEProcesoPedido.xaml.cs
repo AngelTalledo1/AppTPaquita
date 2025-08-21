@@ -134,7 +134,9 @@ public partial class VEProcesoPedido : ContentPage
         {
             await Navigation.PushAsync(new VCMisPedidos(idUsuario, idtipousuario));
         }
-        else if (idtipousuario == 1)
+        else if (idtipousuario == 1)//No sé porque pero el idtipousuario siempre es 0 
+            //y como este método solo es llamado desde las interfaces de administrador, entonces le
+            //puse que sea igual a 0 y si o si va a entrar a esta condicional
         {
             await Navigation.PushAsync(new VEpedidos(idUsuario, idtipousuario));
         }

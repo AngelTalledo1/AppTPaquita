@@ -41,47 +41,62 @@
                            FontSize="Medium" />
                 </Frame>
                 <VerticalStackLayout Margin="0,10,20,0">
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="End"
-                               Source="tuser.png" />
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               Margin="10"
-                               x:Name="razonEntry"
-                               Placeholder="Razón Social"
-                               FontFamily="Comf-Bold"
-                               TextColor="Black" />
-                    </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="End"
-                               Source="tipodoc.png" />
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               Margin="10"
-                               x:Name="rucEntry"
-                               Placeholder="N° de RUC de la Empresa"
-                               FontFamily="Comf-Bold"
-                               TextColor="Black" />
-                    </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="End"
-                               Source="direccion.png" />
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               Margin="10"
-                               x:Name="direccionEntry"
-                               Placeholder="Dirección de la Empresa"
-                               FontFamily="Comf-Bold"
-                               TextColor="Black"/>
-                    </Grid>
+                    <!-- Razón Social -->
+                    <VerticalStackLayout Spacing="0">
+                        <Label Text="Razón Social" 
+                               FontFamily="Comf-Medium"
+                               TextColor="#666666"
+                               Margin="90,0,0,0"/>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   HorizontalOptions="End"
+                                   Source="tuser.png" />
+                            <Entry Grid.Column="1"
+                                   Margin="10,0,0,0"
+                                   x:Name="razonEntry"
+                                   FontFamily="Comf-Bold"
+                                   TextColor="Black" />
+                        </Grid>
+                    </VerticalStackLayout>
 
+                    <!-- RUC -->
+                    <VerticalStackLayout Spacing="0">
+                        <Label Text="N° de RUC de la Empresa" 
+                               FontFamily="Comf-Medium"
+                               TextColor="#666666"
+                               Margin="90,0,0,0"/>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   HorizontalOptions="End"
+                                   Source="tipodoc.png" />
+                            <Entry Grid.Column="1"
+                                   Margin="10,0,0,0"
+                                   x:Name="rucEntry"
+                                   FontFamily="Comf-Bold"
+                                   TextColor="Black" />
+                        </Grid>
+                    </VerticalStackLayout>
 
+                    <!-- Dirección -->
+                    <VerticalStackLayout Spacing="0">
+                        <Label Text="Dirección de la Empresa" 
+                               FontFamily="Comf-Medium"
+                               TextColor="#666666"
+                               Margin="90,0,0,0"/>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   HorizontalOptions="End"
+                                   Source="direccion.png" />
+                            <Entry Grid.Column="1"
+                                   Margin="10,0,0,0"
+                                   x:Name="direccionEntry"
+                                   FontFamily="Comf-Bold"
+                                   TextColor="Black"/>
+                        </Grid>
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
                 <HorizontalStackLayout Margin="30"
                        Spacing="40"

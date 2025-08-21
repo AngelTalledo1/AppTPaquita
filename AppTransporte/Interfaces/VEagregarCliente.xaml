@@ -40,130 +40,167 @@
                        FontFamily="Comf-Bold"
                        FontSize="Medium"/>
                     </Frame>
-                    <VerticalStackLayout Spacing="30"
-                                     Margin="0,20,20,0">
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                               HeightRequest="40"
-                               Source="usuario.png"
-                               HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                               BackgroundColor="Transparent"
-                               Grid.Column="1"
-                               x:Name="NombreEntry"
-                               Placeholder="Nombre"
-                               FontFamily="Comf-Medium"
-                               VerticalOptions="Center" />
-                        </Grid>
-                        <!-- Apellido -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                               HeightRequest="40"
-                               Source="usuario.png"
-                               HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               x:Name="ApellidoEntry"
-                               Placeholder="Apellido"
-                               FontFamily="Comf-Medium"
-                               VerticalOptions="Center" />
-                        </Grid>
-                        <!-- Tipo de Documento -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                               HeightRequest="40"
-                               Source="tipodoc.png"
-                               HorizontalOptions="Center"></Image>
-                            <Grid Grid.Column="1">
-                                <Picker x:Name="TipoDocumentoPicker"
-                                    Title="Tipo de documento"
-                                    FontFamily="Comf-Bold"
-                                    TextColor="Black">
-                                    <Picker.Items>
-                                        <x:String>DNI</x:String>
-                                        <x:String>RUC</x:String>
-                                    </Picker.Items>
-                                </Picker>
+                    <VerticalStackLayout Spacing="30" Margin="0,20,20,0">
+                        <!-- Nombre -->
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Nombre" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="usuario.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry BackgroundColor="Transparent"
+                                       Grid.Column="1"
+                                       x:Name="NombreEntry"
+                                       FontFamily="Comf-Medium"
+                                       VerticalOptions="Center"/>
                             </Grid>
-                        </Grid>
+                        </VerticalStackLayout>
+
+                        <!-- Apellido -->
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Apellido" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="usuario.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry Grid.Column="1"
+                                       x:Name="ApellidoEntry"
+                                       FontFamily="Comf-Medium"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <!-- Tipo de Documento -->
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Tipo de documento" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="tipodoc.png"
+                                       HorizontalOptions="Center"/>
+                                <Grid Grid.Column="1">
+                                    <Picker x:Name="TipoDocumentoPicker"
+                                            Title="Seleccione tipo"
+                                            FontFamily="Comf-Bold"
+                                            TextColor="Black">
+                                        <Picker.Items>
+                                            <x:String>DNI</x:String>
+                                            <x:String>RUC</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Grid>
+                            </Grid>
+                        </VerticalStackLayout>
+
                         <!-- Número de Documento -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                               HeightRequest="40"
-                               Source="tipodoc.png"
-                               HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               x:Name="NumeroDocEntry"
-                               Placeholder="Numero Documento"
-                               Keyboard="Numeric"
-                               FontFamily="Comf-Medium"
-                               VerticalOptions="Center"
-                               MaxLength="11"/>
-                        </Grid>
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Número de documento" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="tipodoc.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry Grid.Column="1"
+                                       x:Name="NumeroDocEntry"
+                                       Keyboard="Numeric"
+                                       FontFamily="Comf-Medium"
+                                       VerticalOptions="Center"
+                                       MaxLength="11"/>
+                            </Grid>
+                        </VerticalStackLayout>
+
                         <!-- Teléfono -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                               HeightRequest="40"
-                               Source="telefono.png"
-                               HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               x:Name="TelefonoEntry"
-                               Placeholder="Telefono"
-                               FontFamily="Comf-Medium"
-                               Keyboard="Numeric"
-                               MaxLength="9"
-                               VerticalOptions="Center" />
-                        </Grid>
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Teléfono" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="telefono.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry Grid.Column="1"
+                                       x:Name="TelefonoEntry"
+                                       FontFamily="Comf-Medium"
+                                       Keyboard="Numeric"
+                                       MaxLength="9"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </VerticalStackLayout>
+
                         <!-- Dirección -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                               HeightRequest="40"
-                               Source="direccion.png"
-                               HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               x:Name="DireccionEntry"
-                               Placeholder="Direccion"
-                               FontFamily="Comf-Medium"
-                               VerticalOptions="Center" />
-                        </Grid>
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Dirección" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="direccion.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry Grid.Column="1"
+                                       x:Name="DireccionEntry"
+                                       FontFamily="Comf-Medium"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </VerticalStackLayout>
+
                         <!-- Email -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                               HeightRequest="40"
-                               Source="email.png"
-                               HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               x:Name="EmailEntry"
-                               Placeholder="E-mail"
-                               FontFamily="Comf-Medium"
-                               VerticalOptions="Center" />
-                        </Grid>
-                        <!-- Botón de Guardar y actualizar-->
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="E-mail" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="email.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry Grid.Column="1"
+                                       x:Name="EmailEntry"
+                                       FontFamily="Comf-Medium"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <!-- Botones -->
                         <HorizontalStackLayout HorizontalOptions="Center">
                             <Button Text="Guardar Cliente"
-                            HeightRequest="50"
-                                x:Name="GuardarCliente"
-                                WidthRequest="300"
-                                IsVisible="False"
-                                FontFamily="Comf-Bold"
-                            Clicked="OnGuardarClienteClicked"
-                            BackgroundColor="#007AFF"
-                            TextColor="White"
-                            CornerRadius="40"/>
+                                    HeightRequest="50"
+                                    x:Name="GuardarCliente"
+                                    WidthRequest="300"
+                                    IsVisible="False"
+                                    FontFamily="Comf-Bold"
+                                    Clicked="OnGuardarClienteClicked"
+                                    BackgroundColor="#007AFF"
+                                    TextColor="White"
+                                    CornerRadius="40"/>
                             <Button Text="Actualizar Cliente"
-                                x:Name="ActualizarCliente"
-                                HeightRequest="50"
-                                WidthRequest="300"
-                                IsVisible="False"
-                                FontFamily="Comf-Bold"
-                                Clicked="Btn_ActualizarCliente"
-                                BackgroundColor="#007AFF"
-                                TextColor="White"
-                                CornerRadius="40" />
+                                    x:Name="ActualizarCliente"
+                                    HeightRequest="50"
+                                    WidthRequest="300"
+                                    IsVisible="False"
+                                    FontFamily="Comf-Bold"
+                                    Clicked="Btn_ActualizarCliente"
+                                    BackgroundColor="#007AFF"
+                                    TextColor="White"
+                                    CornerRadius="40"/>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </VerticalStackLayout>

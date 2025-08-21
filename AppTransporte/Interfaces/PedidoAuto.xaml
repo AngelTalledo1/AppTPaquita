@@ -48,7 +48,7 @@
 
                         <!-- Cliente -->
                         <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="cliente.png" VerticalOptions="Center" />
+                            <Image WidthRequest="30" HeightRequest="30" Source="intclientes.png" VerticalOptions="Center" />
                             <Picker x:Name="ClientePicker"
                                     Title="Seleccionar Cliente"
                                     FontFamily="Comf-Medium"
@@ -68,7 +68,7 @@
 
                         <!-- Origen -->
                         <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="ubicacion.png" VerticalOptions="Center" />
+                            <Image WidthRequest="30" HeightRequest="30" Source="direccion.png" VerticalOptions="Center" />
                             <Picker x:Name="OrigenPicker"
                                     Title="Seleccionar Origen"
                                     FontFamily="Comf-Medium"
@@ -78,7 +78,7 @@
 
                         <!-- Destino -->
                         <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="destino.png" VerticalOptions="Center" />
+                            <Image WidthRequest="30" HeightRequest="30" Source="direccion.png" VerticalOptions="Center" />
                             <Picker x:Name="DestinoPicker"
                                     Title="Seleccionar Destino"
                                     FontFamily="Comf-Medium"
@@ -99,7 +99,7 @@
 
                         <!-- Transportista -->
                         <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="trabajador.png" VerticalOptions="Center" />
+                            <Image WidthRequest="30" HeightRequest="30" Source="transporte.png" VerticalOptions="Center" />
                             <Picker x:Name="TransportistaPicker"
                                     Title="Seleccionar Transportista (Opcional)"
                                     FontFamily="Comf-Medium"
@@ -109,7 +109,7 @@
 
                         <!-- Ayudante -->
                         <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="trabajador.png" VerticalOptions="Center" />
+                            <Image WidthRequest="30" HeightRequest="30" Source="transporte.png" VerticalOptions="Center" />
                             <Picker x:Name="AyudantePicker"
                                     Title="Seleccionar Ayudante (Opcional)"
                                     FontFamily="Comf-Medium"
@@ -119,7 +119,7 @@
 
                         <!-- Tracto -->
                         <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                            <Image WidthRequest="30" HeightRequest="30" Source="camion.png" VerticalOptions="Center" />
+                            <Image WidthRequest="30" HeightRequest="30" Source="transporte.png" VerticalOptions="Center" />
                             <Picker x:Name="TractosPicker"
                                     Title="Seleccionar Tracto (Opcional)"
                                     FontFamily="Comf-Medium"

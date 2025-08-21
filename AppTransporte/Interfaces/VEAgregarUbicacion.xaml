@@ -40,59 +40,83 @@
                            FontSize="Medium" />
                 </Frame>
                 <VerticalStackLayout Margin="0,10,20,0">
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="End"
-                               Source="direcciones.png" />
-                        <Editor PlaceholderColor="#515a5a"
-                                Grid.Column="1"
-                                Margin="10"
-                                x:Name="descripcionEntry"
-                                AutoSize="TextChanges"
-                                Placeholder="Descripcion"
-                                FontFamily="Comf-Bold"
-                                TextColor="Black" />
-                    </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="End"
-                               Source="direccion.png" />
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               Margin="10"
-                               x:Name="sectorEntry"
-                               Placeholder="Sector"
-                               FontFamily="Comf-Bold"
-                               TextColor="Black" />
-                    </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="Center"
-                               Source=".png" />
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               Margin="10"
-                               x:Name="referenciasEntry"
-                               Placeholder="Referencias"
-                               FontFamily="Comf-Bold"
-                               TextColor="Black" />
-                    </Grid>
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <Image WidthRequest="40"
-                               HeightRequest="40"
-                               HorizontalOptions="Center"
-                               Source="localizacion.png" />
-                        <Entry PlaceholderColor="#515a5a"
-                               Grid.Column="1"
-                               Margin="10"
-                               x:Name="coordenadasEntry"
-                               Placeholder="Coordenadas"
-                               FontFamily="Comf-Bold"
-                               TextColor="Black" />
-                    </Grid>
+                    <!-- Descripción -->
+                    <VerticalStackLayout Spacing="0">
+                        <Label Text="Descripción" 
+                               FontFamily="Comf-Medium"
+                               TextColor="#666666"
+                               Margin="90,0,0,0"/>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   HorizontalOptions="End"
+                                   Source="direcciones.png" />
+                            <Editor Grid.Column="1"
+                                    Margin="10"
+                                    x:Name="descripcionEntry"
+                                    AutoSize="TextChanges"
+                                    FontFamily="Comf-Bold"
+                                    TextColor="Black" />
+                        </Grid>
+                    </VerticalStackLayout>
+                    
+                    <!-- Sector -->
+                    <VerticalStackLayout Spacing="0">
+                        <Label Text="Sector" 
+                               FontFamily="Comf-Medium"
+                               TextColor="#666666"
+                               Margin="90,0,0,0"/>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   HorizontalOptions="End"
+                                   Source="direccion.png" />
+                            <Entry Grid.Column="1"
+                                   Margin="10"
+                                   x:Name="sectorEntry"
+                                   FontFamily="Comf-Bold"
+                                   TextColor="Black" />
+                        </Grid>
+                    </VerticalStackLayout>
+                    
+                    <!-- Referencias -->
+                    <VerticalStackLayout Spacing="0">
+                        <Label Text="Referencias" 
+                               FontFamily="Comf-Medium"
+                               TextColor="#666666"
+                               Margin="90,0,0,0"/>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   HorizontalOptions="Center"
+                                   Source="referenci.png" />
+                            <Entry Grid.Column="1"
+                                   Margin="10"
+                                   x:Name="referenciasEntry"
+                                   FontFamily="Comf-Bold"
+                                   TextColor="Black" />
+                        </Grid>
+                    </VerticalStackLayout>
+                    
+                    <!-- Coordenadas -->
+                    <VerticalStackLayout Spacing="0">
+                        <Label Text="Coordenadas" 
+                               FontFamily="Comf-Medium"
+                               TextColor="#666666"
+                               Margin="90,0,0,0"/>
+                        <Grid ColumnDefinitions=".2*,.8*">
+                            <Image WidthRequest="40"
+                                   HeightRequest="40"
+                                   Margin="40,0,0,0"
+                                   HorizontalOptions="Center"
+                                   Source="localizacion.png" />
+                            <Entry Grid.Column="1"
+                                   Margin="10"
+                                   x:Name="coordenadasEntry"
+                                   FontFamily="Comf-Bold"
+                                   TextColor="Black" />
+                        </Grid>
+                    </VerticalStackLayout>
                     
                     <HorizontalStackLayout Margin="30"
                                            Spacing="40"

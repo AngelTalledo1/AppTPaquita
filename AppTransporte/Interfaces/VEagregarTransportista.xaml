@@ -39,149 +39,180 @@
                                FontFamily="Comf-Bold"
                                FontSize="Medium" />
                     </Frame>
-                    <VerticalStackLayout Spacing="30"
-                                         Margin="0,20,20,0">
+                    <VerticalStackLayout Spacing="30" Margin="0,20,20,0">
                         <!-- Tipo de trabajador -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="rol.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Grid Grid.Column="1">
-                                <Picker x:Name="trabajadorPicker"
-                                        Title="Seleccione tipo de trabajador"
-                                        FontFamily="Comf-Bold"  
-                                        SelectedIndexChanged="categoriaPicker_SelectedIndexChanged"
-                                        TextColor="Black">
-                                    <Picker.Items>
-                                        <x:String>Administrador</x:String>
-                                        <x:String>Ayudante</x:String>
-                                        <x:String>Transportista</x:String>
-                                    </Picker.Items>
-                                </Picker>
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Tipo de trabajador" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="rol.png"
+                                       HorizontalOptions="Center"/>
+                                <Grid Grid.Column="1">
+                                    <Picker x:Name="trabajadorPicker"
+                                            Title="Seleccione tipo de trabajador"
+                                            FontFamily="Comf-Bold"  
+                                            SelectedIndexChanged="categoriaPicker_SelectedIndexChanged"
+                                            TextColor="Black">
+                                        <Picker.Items>
+                                            <x:String>Administrador</x:String>
+                                            <x:String>Ayudante</x:String>
+                                            <x:String>Transportista</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </VerticalStackLayout>
 
                         <!-- Nombre -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="usuario.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                                   BackgroundColor="Transparent"
-                                   Grid.Column="1"
-                                   x:Name="NombreTrabEntry"
-                                   Placeholder="Nombre"
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Nombre" 
                                    FontFamily="Comf-Medium"
-                                   VerticalOptions="Center" />
-                        </Grid>
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="usuario.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry BackgroundColor="Transparent"
+                                       Grid.Column="1"
+                                       x:Name="NombreTrabEntry"
+                                       FontFamily="Comf-Medium"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </VerticalStackLayout>
 
                         <!-- Apellido -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="usuario.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                                   Grid.Column="1"
-                                   x:Name="ApellidoTrabEntry"
-                                   Placeholder="Apellido"
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Apellido" 
                                    FontFamily="Comf-Medium"
-                                   VerticalOptions="Center" />
-                        </Grid>
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="usuario.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry Grid.Column="1"
+                                       x:Name="ApellidoTrabEntry"
+                                       FontFamily="Comf-Medium"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </VerticalStackLayout>
 
                         <!-- Tipo de Documento -->
-                        <Grid ColumnDefinitions=".2*,.2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="tipodoc.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Grid Grid.Column="1">
-                                <Picker x:Name="TipoDocumentoTrabPicker"
-                                        Title="Tipo"
-                                        HorizontalOptions="Center"
-                                        FontFamily="Comf-Bold"
-                                        TextColor="Black">
-                                    <Picker.Items FontFamily="Comf-Bold">
-                                        <x:String>DNI</x:String>
-                                    </Picker.Items>
-                                </Picker>
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Tipo Documento" 
+                                   FontFamily="Comf-Medium"
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="tipodoc.png"
+                                       HorizontalOptions="Center"/>
+                                <Grid Grid.Column="1">
+                                    <Picker x:Name="TipoDocumentoTrabPicker"
+                                            Title="Tipo"
+                                            HorizontalOptions="Center"
+                                            FontFamily="Comf-Bold"
+                                            TextColor="Black">
+                                        <Picker.Items FontFamily="Comf-Bold">
+                                            <x:String>DNI</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <Entry x:Name="NumeroDocEntry"
+                                           Placeholder="Número"
+                                           Keyboard="Numeric"
+                                           FontFamily="Comf-Medium"
+                                           VerticalOptions="Center"
+                                           MaxLength="11" />
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Column="2">
-                                <Entry PlaceholderColor="#515a5a"
-                                       Grid.Column="1"
-                                       x:Name="NumeroDocEntry"
-                                       Placeholder="Numero de documento"
-                                       Keyboard="Numeric"
-                                       FontFamily="Comf-Medium"
-                                       VerticalOptions="Center"
-                                       MaxLength="11" />
-                            </Grid>
-                        </Grid>
+                        </VerticalStackLayout>
 
                         <!-- Teléfono -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="telefono.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                                   Grid.Column="1"
-                                   x:Name="TelefonoTrabEntry"
-                                   Placeholder="Telefono"
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Teléfono" 
                                    FontFamily="Comf-Medium"
-                                   Keyboard="Numeric"
-                                   MaxLength="9"
-                                   VerticalOptions="Center" />
-                        </Grid>
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="telefono.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry Grid.Column="1"
+                                       x:Name="TelefonoTrabEntry"
+                                       FontFamily="Comf-Medium"
+                                       Keyboard="Numeric"
+                                       MaxLength="9"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </VerticalStackLayout>
 
                         <!-- Licencia (solo para transportista) -->
-                        <Grid ColumnDefinitions=".2*,.8*"
-                              x:Name="licenciaField"
-                              IsVisible="False">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="licencia.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                                   Grid.Column="1"
-                                   x:Name="LicenciaTrabEntry"
-                                   Placeholder="Licencia"
+                        <VerticalStackLayout Spacing="0" x:Name="licenciaField" IsVisible="False">
+                            <Label Text="Licencia" 
                                    FontFamily="Comf-Medium"
-                                   MaxLength="9"
-                                   VerticalOptions="Center" />
-                        </Grid>
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="licencia.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry Grid.Column="1"
+                                       x:Name="LicenciaTrabEntry"
+                                       FontFamily="Comf-Medium"
+                                       MaxLength="9"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </VerticalStackLayout>
 
                         <!-- Dirección -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="direccion.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                                   Grid.Column="1"
-                                   x:Name="DireccionTrabEntry"
-                                   Placeholder="Direccion"
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="Dirección" 
                                    FontFamily="Comf-Medium"
-                                   VerticalOptions="Center" />
-                        </Grid>
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="direccion.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry Grid.Column="1"
+                                       x:Name="DireccionTrabEntry"
+                                       FontFamily="Comf-Medium"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </VerticalStackLayout>
 
                         <!-- Email -->
-                        <Grid ColumnDefinitions=".2*,.8*">
-                            <Image WidthRequest="40"
-                                   HeightRequest="40"
-                                   Source="email.png"
-                                   HorizontalOptions="Center"></Image>
-                            <Entry PlaceholderColor="#515a5a"
-                                   Grid.Column="1"
-                                   x:Name="EmailTrabEntry"
-                                   Placeholder="E-mail"
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="E-mail" 
                                    FontFamily="Comf-Medium"
-                                   VerticalOptions="Center" />
-                        </Grid>
+                                   TextColor="#666666"
+                                   Margin="80,0,0,0"/>
+                            <Grid ColumnDefinitions=".2*,.8*">
+                                <Image WidthRequest="40"
+                                       HeightRequest="40"
+                                       Source="email.png"
+                                       HorizontalOptions="Center"/>
+                                <Entry Grid.Column="1"
+                                       x:Name="EmailTrabEntry"
+                                       FontFamily="Comf-Medium"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </VerticalStackLayout>
 
-                        <!-- NUEVO: Campo Estado -->
+                        <!-- NUEVO: Campo Estado (sin cambios) -->
                         <Grid ColumnDefinitions=".2*,.8*">
                             <Image WidthRequest="40"
                                    HeightRequest="40"

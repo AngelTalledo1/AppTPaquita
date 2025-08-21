@@ -48,10 +48,11 @@
                                    BorderColor="Transparent"
                                    BackgroundColor="#edede9">
                                 <Picker TextColor="Black"
-                                        Margin="0"
+                                        Margin="20,0,0,0"
                                         FontFamily="Comf-Bold"
                                         x:Name="TipovehiculoPicker"
-                                        Title="Vehiculo"
+                                        Title="Seleccionar Vehiculo"
+                                        HorizontalTextAlignment="Center"
                                         HorizontalOptions="Center"
                                         SelectedIndexChanged="PickerIndexChanged">
                                     <Picker.ItemsSource>
@@ -64,21 +65,25 @@
                             </Frame>
 
                             <!-- Placa -->
-                            <Grid ColumnDefinitions=".2*,.8*">
-                                <Image WidthRequest="40"
-                                       HeightRequest="40"
-                                       HorizontalOptions="Center"
-                                       Source="licencia.png" />
-                                <Entry PlaceholderColor="#515a5a"
-                                       Grid.Column="1"
-                                       Margin="10"
-                                       x:Name="placaEntry"
-                                       Placeholder="Placa"
+                            <VerticalStackLayout Spacing="0">
+                                <Label Text="Placa" 
                                        FontFamily="Comf-Medium"
-                                       TextColor="Black" />
-                            </Grid>
+                                       TextColor="#666666"
+                                       Margin="90,0,0,0"/>
+                                <Grid ColumnDefinitions=".2*,.8*">
+                                    <Image WidthRequest="40"
+                                           HeightRequest="40"
+                                           HorizontalOptions="Center"
+                                           Source="licencia.png" />
+                                    <Entry Grid.Column="1"
+                                           Margin="10"
+                                           x:Name="placaEntry"
+                                           FontFamily="Comf-Medium"
+                                           TextColor="Black" />
+                                </Grid>
+                            </VerticalStackLayout>
 
-                            <!-- Modelo (solo Tracto) -->
+                            <!-- Modelo (solo Tracto) - Sin cambios -->
                             <Grid ColumnDefinitions=".2*,.8*"
                                   x:Name="tractoFields"
                                   IsVisible="False">
@@ -96,19 +101,23 @@
                             </Grid>
 
                             <!-- Año de fabricación -->
-                            <Grid ColumnDefinitions=".2*,.8*">
-                                <Image WidthRequest="20"
-                                       HeightRequest="20"
-                                       Source="fabricar.png"
-                                       HorizontalOptions="Center" />
-                                <Entry PlaceholderColor="#515a5a"
-                                       Grid.Column="1"
-                                       Margin="10"
-                                       x:Name="añofabricacionEntry"
-                                       Placeholder="Año de fabricacion"
+                            <VerticalStackLayout Spacing="0">
+                                <Label Text="Año de fabricación" 
                                        FontFamily="Comf-Medium"
-                                       TextColor="Black" />
-                            </Grid>
+                                       TextColor="#666666"
+                                       Margin="90,0,0,0"/>
+                                <Grid ColumnDefinitions=".2*,.8*">
+                                    <Image WidthRequest="20"
+                                           HeightRequest="20"
+                                           Source="fabricar.png"
+                                           HorizontalOptions="Center" />
+                                    <Entry Grid.Column="1"
+                                           Margin="10"
+                                           x:Name="añofabricacionEntry"
+                                           FontFamily="Comf-Medium"
+                                           TextColor="Black" />
+                                </Grid>
+                            </VerticalStackLayout>
 
                             <!-- Fecha emisión póliza -->
                             <Grid ColumnDefinitions=".2*,.8*">
