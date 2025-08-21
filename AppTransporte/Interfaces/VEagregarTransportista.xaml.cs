@@ -87,7 +87,9 @@ public partial class VEagregarTransportista : ContentPage, INotifyPropertyChange
             string.IsNullOrWhiteSpace(NumeroDocEntry.Text) ||
             string.IsNullOrWhiteSpace(TelefonoTrabEntry.Text) ||
             string.IsNullOrWhiteSpace(DireccionTrabEntry.Text) ||
-            string.IsNullOrWhiteSpace(TipoDocumentoTrabPicker.SelectedItem?.ToString()))
+            string.IsNullOrWhiteSpace(TipoDocumentoTrabPicker.SelectedItem?.ToString())||
+            string.IsNullOrWhiteSpace(trabajadorPicker.SelectedItem?.ToString())
+            )
         {
             await DisplayAlert("Error", "Todos los campos obligatorios deben llenarse.", "OK");
             return;
