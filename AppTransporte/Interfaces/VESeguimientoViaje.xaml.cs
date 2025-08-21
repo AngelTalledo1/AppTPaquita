@@ -30,7 +30,7 @@ public partial class VESeguimientoViaje : ContentPage
         cantidad.Text = $"{viaje.Cantidad}";
         UltEstado.Text = viaje.ultEstado;
         Btn_Actualizar.IsVisible = mostrarActualizar(idTipoUsuario);
-        btn_pedido.IsVisible = mostrarActualizar(idTipoUsuario);
+        btn_pedido.IsVisible = mostrarVerPedido(idTipoUsuario);
         
     }
 
@@ -74,6 +74,15 @@ public partial class VESeguimientoViaje : ContentPage
         {
             return true;
         } 
+        return false;
+    }
+    private bool mostrarVerPedido(int _idTipoUsuario)
+    {
+
+        if (_idTipoUsuario == 1)
+        {
+            return true;
+        }
         return false;
     }
 
