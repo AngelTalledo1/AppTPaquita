@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AppTransporte.Interfaces"
              x:Class="AppTransporte.Interfaces.VistaReporteTareasAdicionales"
              NavigationPage.HasNavigationBar="False"
              Title="Reporte de Tareas Adicionales"
              BackgroundColor="#edf2f4">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="CompletedColor">#107C10</Color>
+            <Color x:Key="PendingColor">#F25022</Color>
+            
+            <local:BoolToColorConverter x:Key="BoolToColorConverter"/>
+            <local:StringNotNullOrEmptyConverter x:Key="StringNotNullOrEmptyConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid RowDefinitions=".1*,.9*">
         <!-- Cabecera -->
