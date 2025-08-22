@@ -40,6 +40,16 @@ public partial class VistaPreviaReporte : ContentPage
 
     private void CargarDatosReporte()
     {
+        // Validar que tenemos datos
+        if (reporteData == null || !reporteData.Any())
+        {
+            TotalTrabajadoresLabel.Text = "0";
+            TotalViajesLabel.Text = "0";
+            VolumenTotalLabel.Text = "0 L";
+            reporteCollectionView.ItemsSource = new List<ReporteTrabajadorView>();
+            return;
+        }
+
         // Preparar datos para la vista
         var reporteViewData = new ObservableCollection<ReporteTrabajadorView>();
         bool alternarColor = false;
@@ -53,6 +63,7 @@ public partial class VistaPreviaReporte : ContentPage
                 Categoria = item.Categoria,
                 TotalViajes = item.TotalViajes,
                 TotalSeguimientos = item.TotalSeguimientos,
+                // CORREGIDO: NO dividir por 1000 - usar valor directo
                 VolumenTransportado = item.VolumenTransportado,
                 Periodo = item.Periodo,
                 Row = alternarColor
@@ -64,173 +75,78 @@ public partial class VistaPreviaReporte : ContentPage
         // Asignar datos al CollectionView
         reporteCollectionView.ItemsSource = reporteViewData;
 
-        // Actualizar resumen
-        int totalTrabajadores = reporteData.Select(r => r.IdTrabajador).Distinct().Count();
-        int totalViajes = reporteData.Sum(r => r.TotalViajes);
-        decimal totalVolumen = reporteData.Sum(r => r.VolumenTransportado);
+        // CALCULAR TOTALES CORRECTAMENTE - SIN DIVISIONES
+        // 1. Total trabajadores únicos
+        int totalTrabajadores = reporteData
+            .Select(r => r.IdTrabajador)
+            .Distinct()
+            .Count();
 
+        // 2. Total viajes - SOLO CONTAR TRANSPORTISTAS (no ayudantes)
+        int totalViajes = reporteData
+            .Where(r => r.Categoria?.ToLower().Contains("transportista") == true)
+            .Sum(r => r.TotalViajes);
+
+        // 3. CORREGIDO: Volumen total transportado - SIN DIVISIÓN
+        decimal totalVolumen = reporteData
+            .Sum(r => (decimal)r.VolumenTransportado);
+
+        // Actualizar labels con formato correcto
         TotalTrabajadoresLabel.Text = totalTrabajadores.ToString();
-        TotalViajesLabel.Text = totalViajes.ToString();
-        VolumenTotalLabel.Text = $"{totalVolumen:N2} L";
+        TotalViajesLabel.Text = totalViajes.ToString("N0");
+        VolumenTotalLabel.Text = $"{totalVolumen:N0} L";
+
+        // Debug para verificar los cálculos
+        System.Diagnostics.Debug.WriteLine($"=== RESUMEN CORREGIDO (SIN DIVISIÓN) ===");
+        System.Diagnostics.Debug.WriteLine($"Total trabajadores únicos: {totalTrabajadores}");
+        System.Diagnostics.Debug.WriteLine($"Total viajes (solo transportistas): {totalViajes:N0}");
+        System.Diagnostics.Debug.WriteLine($"Volumen total transportado: {totalVolumen:N0} L (SIN división)");
+        System.Diagnostics.Debug.WriteLine($"Registros totales: {reporteData.Count}");
+
+        // Debug detallado por trabajador
+        foreach (var trabajador in reporteData)
+        {
+            System.Diagnostics.Debug.WriteLine($"- {trabajador.NombreCompleto} ({trabajador.Categoria}): {trabajador.TotalViajes} viajes, {trabajador.VolumenTransportado:N0} L (valor directo)");
+        }
     }
 
-    private void Btn_atras(object sender, EventArgs e)
+    private async void Btn_atras(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        await Navigation.PopAsync();
     }
-
-    // REEMPLAZA el método ExportarPDF_Clicked en VistaPreviaReporte por este:
 
     private async void ExportarPDF_Clicked(object sender, EventArgs e)
     {
-        LoadingOverlay.IsVisible = true;
-
         try
         {
-            // Verificar que tengamos datos para exportar
-            if (reporteData == null || reporteData.Count == 0)
-            {
-                await DisplayAlert("Sin datos",
-                    "No hay datos disponibles para exportar. Actualice el reporte primero.", "OK");
-                return;
-            }
-
-            // Mostrar opciones al usuario
-            string action = await DisplayActionSheet(
-                "¿Qué desea hacer con el PDF?",
-                "Cancelar",
-                null,
-                "Guardar y abrir",
-                "Solo guardar",
-                "Compartir");
-
-            if (action == "Cancelar")
-                return;
+            LoadingOverlay.IsVisible = true;
 
             // Generar el PDF
-            byte[] pdfBytes = await Task.Run(() => App.Database.GenerarReporteTrabajadorPDF(
-                reporteData, fechaInicio, fechaFin, tipoReporte));
+            byte[] pdfBytes = await App.Database.GenerarReporteTrabajadorPDF(
+                reporteData, fechaInicio, fechaFin, tipoReporte);
 
-            // Crear el nombre del archivo
-            string fileName = $"Reporte_Trabajador_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+            // Guardar en cache para poder abrirlo
+            string fileName = $"Reporte_Trabajador_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+            string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
 
-            switch (action)
+            File.WriteAllBytes(filePath, pdfBytes);
+
+            // Abrir el PDF usando el sistema de archivos del dispositivo
+            await Launcher.OpenAsync(new OpenFileRequest
             {
-                case "Guardar y abrir":
-                    await GuardarYAbrirPDFAsync(pdfBytes, fileName);
-                    await DisplayAlert("Éxito", "El reporte PDF se ha generado y abierto correctamente.", "OK");
-                    break;
-
-                case "Solo guardar":
-                    await GuardarEnCarpetaDescargas(pdfBytes, fileName);
-                    await DisplayAlert("Éxito", "El reporte PDF se ha guardado en la carpeta de descargas.", "OK");
-                    break;
-
-                case "Compartir":
-                    await CompartirPDFAsync(pdfBytes, fileName);
-                    break;
-            }
+                File = new ReadOnlyFile(filePath),
+                Title = "Abrir reporte de trabajador"
+            });
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Error al procesar el PDF: {ex.Message}", "OK");
-            System.Diagnostics.Debug.WriteLine($"Error completo: {ex}");
+            await DisplayAlert("Error", $"No se pudo exportar el PDF: {ex.Message}", "OK");
         }
         finally
         {
             LoadingOverlay.IsVisible = false;
         }
     }
-
-    // AGREGAR estos métodos auxiliares a la clase VistaPreviaReporte:
-
-    private async Task GuardarYAbrirPDFAsync(byte[] pdfBytes, string fileName)
-    {
-        try
-        {
-            // Crear un archivo temporal
-            string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
-
-            // Escribir los bytes al archivo
-            await File.WriteAllBytesAsync(filePath, pdfBytes);
-
-            // Abrir el archivo con la aplicación predeterminada
-            await Launcher.OpenAsync(new OpenFileRequest
-            {
-                File = new ReadOnlyFile(filePath),
-                Title = "Abrir Reporte PDF"
-            });
-        }
-        catch (Exception ex)
-        {
-            // Si no se puede abrir, al menos guardarlo en Downloads
-            await GuardarEnCarpetaDescargas(pdfBytes, fileName);
-            throw new Exception($"PDF guardado pero no se pudo abrir automáticamente: {ex.Message}");
-        }
-    }
-
-    private async Task GuardarEnCarpetaDescargas(byte[] pdfBytes, string fileName)
-    {
-        try
-        {
-#if ANDROID
-            // Android: Guardar en la carpeta Downloads
-            var downloadsPath = Android.OS.Environment.GetExternalStoragePublicDirectory(
-                Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
-
-            if (!string.IsNullOrEmpty(downloadsPath))
-            {
-                string filePath = Path.Combine(downloadsPath, fileName);
-                await File.WriteAllBytesAsync(filePath, pdfBytes);
-
-                // Notificar al sistema que se agregó un archivo
-                var mediaScanIntent = new Android.Content.Intent(Android.Content.Intent.ActionMediaScannerScanFile);
-                mediaScanIntent.SetData(Android.Net.Uri.FromFile(new Java.IO.File(filePath)));
-                Platform.CurrentActivity?.SendBroadcast(mediaScanIntent);
-            }
-#elif IOS
-        // iOS: Guardar en Documents
-        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        string filePath = Path.Combine(documentsPath, fileName);
-        await File.WriteAllBytesAsync(filePath, pdfBytes);
-#else
-        // Otras plataformas: usar carpeta de documentos
-        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        string filePath = Path.Combine(documentsPath, fileName);
-        await File.WriteAllBytesAsync(filePath, pdfBytes);
-#endif
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error al guardar en carpeta de descargas: {ex.Message}");
-            throw;
-        }
-    }
-
-    private async Task CompartirPDFAsync(byte[] pdfBytes, string fileName)
-    {
-        try
-        {
-            // Crear un archivo temporal
-            string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
-
-            // Escribir los bytes al archivo
-            await File.WriteAllBytesAsync(filePath, pdfBytes);
-
-            // Compartir el archivo
-            await Share.RequestAsync(new ShareFileRequest
-            {
-                Title = "Compartir Reporte de Trabajador",
-                File = new ShareFile(filePath)
-            });
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Error al compartir el archivo: {ex.Message}");
-        }
-    }
-
-    // TAMBIÉN REEMPLAZA el método Compartir_Clicked por este:
 
     private async void Compartir_Clicked(object sender, EventArgs e)
     {
@@ -238,39 +154,43 @@ public partial class VistaPreviaReporte : ContentPage
         {
             LoadingOverlay.IsVisible = true;
 
-            // Verificar que tengamos datos para compartir
-            if (reporteData == null || reporteData.Count == 0)
-            {
-                await DisplayAlert("Sin datos",
-                    "No hay datos disponibles para compartir. Actualice el reporte primero.", "OK");
-                return;
-            }
+            // Generar el PDF para compartir
+            byte[] pdfBytes = await App.Database.GenerarReporteTrabajadorPDF(
+                reporteData, fechaInicio, fechaFin, tipoReporte);
 
-            // Generar el PDF
-            byte[] pdfBytes = await Task.Run(() => App.Database.GenerarReporteTrabajadorPDF(
-                reporteData, fechaInicio, fechaFin, tipoReporte));
+            // Nombre del archivo
+            string fileName = $"Reporte_Trabajador_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
 
-            // Crear el nombre del archivo
-            string fileName = $"Reporte_Trabajador_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+            // Guardar en archivo temporal
+            string tempPath = Path.Combine(FileSystem.CacheDirectory, fileName);
+            File.WriteAllBytes(tempPath, pdfBytes);
 
             // Compartir el archivo
-            await CompartirPDFAsync(pdfBytes, fileName);
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = "Compartir reporte de trabajador",
+                File = new ShareFile(tempPath)
+            });
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Error al compartir el PDF: {ex.Message}", "OK");
-            System.Diagnostics.Debug.WriteLine($"Error al compartir PDF: {ex.Message}");
+            await DisplayAlert("Error", $"No se pudo compartir el reporte: {ex.Message}", "OK");
         }
         finally
         {
             LoadingOverlay.IsVisible = false;
         }
     }
-    
 }
-
-// Clase auxiliar para visualización
 public class ReporteTrabajadorView : ReporteTrabajador
 {
     public bool Row { get; set; } // Para alternar colores de filas
+
+    // Propiedad adicional para mostrar el volumen formateado correctamente
+    public string VolumenFormateado => $"{VolumenTransportado:N0} L";
+
+    // Propiedad para debug - ver el valor exacto
+    public string DebugVolumen => $"Valor exacto: {VolumenTransportado}";
 }
+
+// Clase auxiliar para visualización
