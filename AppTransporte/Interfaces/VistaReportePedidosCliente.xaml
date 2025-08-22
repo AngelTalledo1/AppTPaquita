@@ -41,15 +41,7 @@
                                    FontSize="14"
                                    Margin="0,0,0,10"/>
 
-                            <Button Grid.Column="1" 
-                                    Text="Actualizar" 
-                                    BackgroundColor="#cb4335" 
-                                    TextColor="White"
-                                    CornerRadius="20"
-                                    HeightRequest="40"
-                                    WidthRequest="100"
-                                    Margin="10,0,0,0"
-                                    Clicked="ActualizarReporte_Clicked"/>
+                            
                         </Grid>
 
                         <Grid Grid.Row="1" ColumnDefinitions="*,Auto,*,Auto">
@@ -152,10 +144,8 @@
             <!-- Contenido de reportes -->
             <ScrollView Grid.Row="1">
                 <VerticalStackLayout Padding="10" Spacing="15">
-                    <!-- Resumen por estado -->
                     
 
-                    <!-- Detalle de pedidos -->
                     <Frame BorderColor="#e0e0e0" BackgroundColor="White" Padding="0" CornerRadius="10">
                         <Grid RowDefinitions="Auto,*">
                             <Label Text="Detalle de Pedidos" 
@@ -188,7 +178,7 @@
                                            FontFamily="Comf-Bold" 
                                            TextColor="#333333"
                                            HorizontalTextAlignment="Center"/>
-                                   
+                                    
                                 </Grid>
 
                                 <!-- Datos de detalle -->

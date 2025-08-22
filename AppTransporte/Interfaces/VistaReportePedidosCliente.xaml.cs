@@ -122,7 +122,6 @@ namespace AppTransporte.Interfaces
                 // Configurar las colecciones de datos en el hilo principal
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    resumenCollectionView.ItemsSource = resumenItems;
                     detalleCollectionView.ItemsSource = detalleItems;
 
                     // Actualizar resumen
