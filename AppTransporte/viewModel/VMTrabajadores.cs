@@ -77,7 +77,9 @@ namespace AppTransporte.viewModel
                 {
                     _mostrarSoloActivos = value;
                     OnPropertyChanged(nameof(MostrarSoloActivos));
-                    FiltrarTrabajadores();
+
+                    // ✅ CAMBIO PRINCIPAL: Recargar desde BD igual que VMUsuario
+                    CargarTodosLosTrabajadoresAsync();
                 }
             }
         }
@@ -104,8 +106,13 @@ namespace AppTransporte.viewModel
             {
                 IsBusy = true;
 
-                // Cargar todos los trabajadores sin filtro
-                var todosTrabajadores = await App.Database.ObtenerTrabajadoresAsync();
+                // ✅ NUEVO: Pasar el filtro de estado igual que VMUsuario
+                // Si MostrarSoloActivos = true, solo traer activos
+                // Si MostrarSoloActivos = false, traer todos
+                var todosTrabajadores = await App.Database.ObtenerTrabajadoresAsync(
+                    categoria: null,
+                    incluirInactivos: !MostrarSoloActivos  // Si MostrarSoloActivos = false, incluir inactivos
+                );
 
                 _todosTrabajadores.Clear();
                 foreach (var trabajador in todosTrabajadores)
@@ -113,24 +120,11 @@ namespace AppTransporte.viewModel
                     _todosTrabajadores.Add(trabajador);
                 }
 
-                // Cargar categorías dinámicamente desde los datos
                 CargarCategoriasDesdeBaseDatos();
+                FiltrarTrabajadores(); // Solo para buscar por texto y categoría
 
-                FiltrarTrabajadores();
-
-                // DEBUG: Mostrar qué categorías encontramos
-                System.Diagnostics.Debug.WriteLine("=== CATEGORÍAS ENCONTRADAS ===");
-                foreach (var cat in Categorias)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Categoría: {cat}");
-                }
-
-                // DEBUG: Mostrar algunos trabajadores y sus categorías
-                System.Diagnostics.Debug.WriteLine("=== TRABAJADORES Y SUS CATEGORÍAS ===");
-                foreach (var trabajador in _todosTrabajadores.Take(5))
-                {
-                    System.Diagnostics.Debug.WriteLine($"Trabajador: {trabajador.NombreTrabajador} - Categoría: '{trabajador.categoria}' - Estado: {trabajador.estado}");
-                }
+                System.Diagnostics.Debug.WriteLine($"✅ Trabajadores cargados: {todosTrabajadores.Count}");
+                System.Diagnostics.Debug.WriteLine($"✅ MostrarSoloActivos: {MostrarSoloActivos}");
             }
             catch (Exception ex)
             {
@@ -184,33 +178,16 @@ namespace AppTransporte.viewModel
             {
                 var trabajadoresFiltrados = _todosTrabajadores.AsEnumerable();
 
-                // DEBUG: Mostrar qué estamos filtrando
-                System.Diagnostics.Debug.WriteLine($"=== FILTRANDO ===");
-                System.Diagnostics.Debug.WriteLine($"Categoría seleccionada: '{CategoriaSeleccionada}'");
-                System.Diagnostics.Debug.WriteLine($"Solo activos: {MostrarSoloActivos}");
-                System.Diagnostics.Debug.WriteLine($"Total trabajadores antes del filtro: {_todosTrabajadores.Count}");
+                System.Diagnostics.Debug.WriteLine($"🟢 === FILTRANDO ===");
+                System.Diagnostics.Debug.WriteLine($"🟢 Total trabajadores: {_todosTrabajadores.Count}");
 
-                // NUEVO FILTRO: Solo activos
-                if (MostrarSoloActivos)
-                {
-                    trabajadoresFiltrados = trabajadoresFiltrados.Where(t => t.estado);
-                }
-
+               
                 // Filtrar por categoría
                 if (!string.IsNullOrEmpty(CategoriaSeleccionada) && CategoriaSeleccionada != "Todos")
                 {
                     trabajadoresFiltrados = trabajadoresFiltrados.Where(t =>
-                    {
-                        bool coincide = string.Equals(t.categoria?.Trim(), CategoriaSeleccionada.Trim(), StringComparison.OrdinalIgnoreCase);
-
-                        // DEBUG: Mostrar cada comparación
-                        if (!coincide)
-                        {
-                            System.Diagnostics.Debug.WriteLine($"No coincide - Trabajador: {t.NombreTrabajador}, Su categoría: '{t.categoria}' vs Filtro: '{CategoriaSeleccionada}'");
-                        }
-
-                        return coincide;
-                    });
+                        string.Equals(t.categoria?.Trim(), CategoriaSeleccionada.Trim(), StringComparison.OrdinalIgnoreCase)
+                    );
                 }
 
                 // Filtrar por texto de búsqueda
@@ -220,22 +197,14 @@ namespace AppTransporte.viewModel
                         (!string.IsNullOrEmpty(t.NombreTrabajador) && t.NombreTrabajador.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
                         (!string.IsNullOrEmpty(t.numDoc) && t.numDoc.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
                         (!string.IsNullOrEmpty(t.Telefono) && t.Telefono.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                        (!string.IsNullOrEmpty(t.categoria) && t.categoria.Contains(SearchText, StringComparison.OrdinalIgnoreCase)));
+                        (!string.IsNullOrEmpty(t.categoria) && t.categoria.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    );
                 }
 
-                // Ordenar alfabéticamente
-                trabajadoresFiltrados = trabajadoresFiltrados.OrderBy(t => t.NombreTrabajador);
+                var resultados = trabajadoresFiltrados.OrderBy(t => t.NombreTrabajador).ToList();
 
-                var resultados = trabajadoresFiltrados.ToList();
+                System.Diagnostics.Debug.WriteLine($"Resultados finales: {resultados.Count}");
 
-                // DEBUG: Mostrar resultados
-                System.Diagnostics.Debug.WriteLine($"Trabajadores después del filtro: {resultados.Count}");
-                foreach (var trabajador in resultados.Take(3))
-                {
-                    System.Diagnostics.Debug.WriteLine($"- {trabajador.NombreTrabajador} ({trabajador.categoria}) - Estado: {trabajador.estado}");
-                }
-
-                // Actualizar la colección
                 Trabajadores.Clear();
                 foreach (var trabajador in resultados)
                 {
@@ -247,7 +216,6 @@ namespace AppTransporte.viewModel
                 System.Diagnostics.Debug.WriteLine($"Error al filtrar trabajadores: {ex.Message}");
             }
         }
-
         public async Task ActualizarDatos()
         {
             await CargarTodosLosTrabajadoresAsync();

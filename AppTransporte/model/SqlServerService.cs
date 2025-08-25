@@ -3257,16 +3257,16 @@ string tipoReporte)
             }
         }
 
-        public async Task<List<Trabajador>> ObtenerTrabajadoresAsync(string categoria = null)
+        public async Task<List<Trabajador>> ObtenerTrabajadoresAsync(string categoria = null, bool incluirInactivos = false)
         {
             var trabajadores = new List<Trabajador>();
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-
                 using (var command = new SqlCommand("pa_MostrarTrabajadores", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
+
                     if (!string.IsNullOrEmpty(categoria))
                     {
                         command.Parameters.Add(new SqlParameter("@categoria", SqlDbType.VarChar, 20)
@@ -3274,6 +3274,12 @@ string tipoReporte)
                             Value = categoria
                         });
                     }
+
+                    // NUEVO: Parámetro para incluir inactivos
+                    command.Parameters.Add(new SqlParameter("@incluir_inactivos", SqlDbType.Bit)
+                    {
+                        Value = incluirInactivos
+                    });
 
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -3285,7 +3291,6 @@ string tipoReporte)
                                 Nombre = reader.IsDBNull(reader.GetOrdinal("Nombre")) ? null : reader.GetString(reader.GetOrdinal("Nombre")),
                                 apePaterno = reader.IsDBNull(reader.GetOrdinal("apePaterno")) ? null : reader.GetString(reader.GetOrdinal("apePaterno")),
                                 apeMaterno = reader.IsDBNull(reader.GetOrdinal("apeMaterno")) ? null : reader.GetString(reader.GetOrdinal("apeMaterno")),
-                                // Aseguramos que numDoc sea tratado como un string en caso de que contenga texto
                                 idtipoDoc = reader.GetInt32(reader.GetOrdinal("id_tipoDoc")),
                                 idcategoria = reader.GetInt32(reader.GetOrdinal("id_categoria")),
                                 numDoc = reader.IsDBNull(reader.GetOrdinal("numDoc")) ? null : reader.GetString(reader.GetOrdinal("numDoc")),
@@ -3295,18 +3300,16 @@ string tipoReporte)
                                 categoria = reader.IsDBNull(reader.GetOrdinal("categoria")) ? null : reader.GetString(reader.GetOrdinal("categoria")),
                                 licencia = reader.IsDBNull(reader.GetOrdinal("licencia")) ? null : reader.GetString(reader.GetOrdinal("licencia")),
                                 usuario = reader.IsDBNull(reader.GetOrdinal("Usuario")) ? null : reader.GetString(reader.GetOrdinal("Usuario")),
-                                password = reader.IsDBNull(reader.GetOrdinal("Contraseña")) ? null : reader.GetString(reader.GetOrdinal("Contraseña"))
+                                password = reader.IsDBNull(reader.GetOrdinal("Contraseña")) ? null : reader.GetString(reader.GetOrdinal("Contraseña")),
 
-
+                                estado = reader.IsDBNull(reader.GetOrdinal("estado")) ? true : reader.GetBoolean(reader.GetOrdinal("estado"))
                             });
                         }
                     }
                 }
             }
-
             return trabajadores;
         }
-        // Agregar este método a la clase SqlServerService
         public async Task<string> ObtenerEstadoRealPedidoAsync(int idPedido)
         {
             try
