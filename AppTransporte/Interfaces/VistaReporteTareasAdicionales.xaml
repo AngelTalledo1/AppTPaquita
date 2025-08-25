@@ -15,7 +15,7 @@
             <local:BoolToColorConverter x:Key="BoolToColorConverter"/>
             <local:StringNotNullOrEmptyConverter x:Key="StringNotNullOrEmptyConverter"/>
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </ContentPage.Resources>    
 
     <Grid RowDefinitions=".1*,.9*">
         <!-- Cabecera -->

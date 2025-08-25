@@ -8,7 +8,7 @@ namespace AppTransporte
     {
         public static MauiApp CreateMauiApp()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JEaF1cWWhBYVF1WmFZfVtgfV9FZVZURWY/P1ZhSXxWdk1iX31fc3FQR2ZdWUJ9XEI=");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JEaF5cXmRCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXdccHVWR2ddUExyWUFWYEk=");
 
             var builder = MauiApp.CreateBuilder();
             builder

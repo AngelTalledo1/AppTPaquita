@@ -85,6 +85,7 @@
                                             </Grid>
                                         </toolkit:Expander.Header>
                                         <VerticalStackLayout>
+                                            <!-- ✅ CORREGIDO: Eliminado el converter problemático -->
                                         </VerticalStackLayout>
                                     </toolkit:Expander>
                                 </Frame>

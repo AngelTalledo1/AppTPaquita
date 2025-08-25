@@ -1414,13 +1414,11 @@ namespace AppTransporte.model
         }
 
 
-        // REEMPLAZA COMPLETAMENTE tu método GenerarReporteTrabajadorPDF por este:
-        // MÉTODO CON LOS 3 ERRORES CORREGIDOS:
         public async Task<byte[]> GenerarReporteTrabajadorPDF(
-            List<ReporteTrabajador> reporteData,
-            DateTime fechaInicio,
-            DateTime fechaFin,
-            string tipoReporte)
+List<ReporteTrabajador> reporteData,
+DateTime fechaInicio,
+DateTime fechaFin,
+string tipoReporte)
         {
             try
             {
@@ -1446,10 +1444,11 @@ namespace AppTransporte.model
 
                     float yPosition = 20;
 
+                    // Logo de la empresa
                     try
                     {
                         using var logoStream = await FileSystem.OpenAppPackageFileAsync("Resources/Raw/paquitaaa.png");
-                        PdfBitmap logo = new PdfBitmap(logoStream); // 
+                        PdfBitmap logo = new PdfBitmap(logoStream);
                         graphics.DrawImage(logo, 20, yPosition, 80, 60);
                     }
                     catch
@@ -1459,42 +1458,38 @@ namespace AppTransporte.model
                         graphics.DrawString("LOGO", normalFont, redBrush, 35, yPosition + 25);
                     }
 
-                    // 2. INFORMACIÓN DE LA EMPRESA (centro)
+                    // Información de la empresa (centro)
                     float centerX = page.Size.Width / 2;
 
                     // Nombre de la empresa
-                    Syncfusion.Drawing.SizeF companyNameSize = companyFont.MeasureString("TRANSPORTES PAQUITA S.R.L");
+                    SyncSizeF companyNameSize = companyFont.MeasureString("TRANSPORTES PAQUITA S.R.L");
                     graphics.DrawString("TRANSPORTES PAQUITA S.R.L", companyFont, redBrush,
                         centerX - (companyNameSize.Width / 2), yPosition + 5);
 
                     // RUC
-                    Syncfusion.Drawing.SizeF rucSize = infoFont.MeasureString("RUC: 20102423985");
+                    SyncSizeF rucSize = infoFont.MeasureString("RUC: 20102423985");
                     graphics.DrawString("RUC: 20102423985", infoFont, blackBrush,
                         centerX - (rucSize.Width / 2), yPosition + 28);
 
                     // Teléfono
-                    Syncfusion.Drawing.SizeF phoneSize = infoFont.MeasureString("Teléfono: 981229253");
+                    SyncSizeF phoneSize = infoFont.MeasureString("Teléfono: 981229253");
                     graphics.DrawString("Teléfono: 981229253", infoFont, blackBrush,
                         centerX - (phoneSize.Width / 2), yPosition + 48);
 
                     yPosition += 80;
 
-                    // 3. LÍNEA SEPARADORA ROJA
+                    // Línea separadora roja
                     PdfPen redPen = new PdfPen(redBrush, 2);
                     graphics.DrawLine(redPen, 20, yPosition, page.Size.Width - 20, yPosition);
                     yPosition += 25;
 
-                    // ==============================================
                     // TÍTULO DEL REPORTE
-                    // ==============================================
-                    Syncfusion.Drawing.SizeF titleSize = titleFont.MeasureString("REPORTE DE TRABAJADOR");
+                    SyncSizeF titleSize = titleFont.MeasureString("REPORTE DE TRABAJADOR");
                     graphics.DrawString("REPORTE DE TRABAJADOR", titleFont, redBrush,
                         centerX - (titleSize.Width / 2), yPosition);
                     yPosition += 35;
 
-                    // ==============================================
                     // INFORMACIÓN DEL PERIODO
-                    // ==============================================
                     graphics.DrawString($"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}",
                         headerFont, blackBrush, 20, yPosition);
                     yPosition += 20;
@@ -1503,67 +1498,96 @@ namespace AppTransporte.model
                         normalFont, blackBrush, 20, yPosition);
                     yPosition += 30;
 
-                    // ==============================================
-                    // RESUMEN DEL REPORTE
-                    // ==============================================
+                    // RESUMEN DEL REPORTE CON CÁLCULOS CORREGIDOS
+                    if (reporteData == null || !reporteData.Any())
+                    {
+                        graphics.DrawString("No hay datos disponibles para el período seleccionado",
+                            normalFont, grayBrush, 20, yPosition);
+                        yPosition += 30;
+                    }
+                    else
+                    {
+                        // CALCULAR TOTALES CORREGIDOS - SIN DIVISIÓN
+                        // 1. Total trabajadores únicos
+                        int totalTrabajadores = reporteData
+                            .Select(r => r.IdTrabajador)
+                            .Distinct()
+                            .Count();
 
-                    // Calcular totales
-                    int totalTrabajadores = reporteData.Select(r => r.IdTrabajador).Distinct().Count();
-                    int totalViajes = reporteData.Sum(r => r.TotalViajes);
-                    int totalVolumen = reporteData.Sum(r => r.VolumenTransportado);
+                        // 2. Total viajes - SOLO CONTAR TRANSPORTISTAS (no ayudantes)
+                        int totalViajes = reporteData
+                            .Where(r => r.Categoria?.ToLower().Contains("transportista") == true)
+                            .Sum(r => r.TotalViajes);
 
-                    // Dibujar marco para resumen
-                    PdfPen grayPen = new PdfPen(new PdfColor(200, 200, 200));
-                    PdfSolidBrush lightGrayBrush = new PdfSolidBrush(new PdfColor(248, 249, 250));
+                        // 3. CORREGIDO: Volumen total transportado - SIN DIVISIÓN
+                        decimal totalVolumen = reporteData
+                            .Sum(r => (decimal)r.VolumenTransportado);
 
-                    graphics.DrawRectangle(grayPen, lightGrayBrush, 20, yPosition, 555, 80);
+                        // Marco para resumen
+                        PdfPen grayPen = new PdfPen(new PdfColor(200, 200, 200));
+                        PdfSolidBrush lightGrayBrush = new PdfSolidBrush(new PdfColor(248, 249, 250));
 
-                    // Título del resumen
-                    graphics.DrawString("RESUMEN DEL REPORTE", boldFont, blackBrush, 30, yPosition + 10);
+                        graphics.DrawRectangle(grayPen, lightGrayBrush, 20, yPosition, 515, 80);
 
-                    // Línea separadora
-                    graphics.DrawLine(grayPen, 30, yPosition + 25, 565, yPosition + 25);
+                        // Título del resumen
+                        graphics.DrawString("RESUMEN DEL REPORTE", boldFont, blackBrush, 30, yPosition + 10);
 
-                    // Datos del resumen en columnas - MEJORADO EL ESPACIADO
-                    float col1X = 50, col2X = 220, col3X = 390; // Más separados
-                    float resumenY = yPosition + 35;
+                        // Línea separadora
+                        graphics.DrawLine(grayPen, 30, yPosition + 25, 525, yPosition + 25);
 
-                    // Columna 1: Total trabajadores
-                    graphics.DrawString("Total trabajadores:", normalFont, grayBrush, col1X, resumenY);
-                    graphics.DrawString(totalTrabajadores.ToString(), boldFont, blackBrush, col1X, resumenY + 15);
+                        // Datos del resumen en 3 columnas con valores corregidos
+                        float col1X = 50, col2X = 220, col3X = 390;
+                        float resumenY = yPosition + 35;
 
-                    // Columna 2: Total viajes  
-                    graphics.DrawString("Total viajes:", normalFont, grayBrush, col2X, resumenY);
-                    graphics.DrawString(totalViajes.ToString(), boldFont, blackBrush, col2X, resumenY + 15);
+                        // Columna 1: Total trabajadores únicos
+                        graphics.DrawString("Total trabajadores:", normalFont, grayBrush, col1X, resumenY);
+                        graphics.DrawString(totalTrabajadores.ToString(), boldFont, blackBrush, col1X, resumenY + 15);
 
-                    // Columna 3: Volumen total - CENTRADO MEJOR
-                    string volumenText = "Volumen total transportado:";
-                    Syncfusion.Drawing.SizeF volumenTextSize = normalFont.MeasureString(volumenText);
-                    graphics.DrawString(volumenText, normalFont, grayBrush, col3X, resumenY);
+                        // Columna 2: Total viajes (solo transportistas)
+                        graphics.DrawString("Total viajes:", normalFont, grayBrush, col2X, resumenY);
+                        graphics.DrawString(totalViajes.ToString("N0"), boldFont, blackBrush, col2X, resumenY + 15);
 
-                    string volumenValue = $"{totalVolumen:N2} L";
-                    Syncfusion.Drawing.SizeF volumenValueSize = boldFont.MeasureString(volumenValue);
-                    graphics.DrawString(volumenValue, boldFont, blackBrush,
-                        col3X + (volumenTextSize.Width / 2) - (volumenValueSize.Width / 2), resumenY + 15);
+                        // Columna 3: CORREGIDO - Volumen total transportado SIN división
+                        string volumenText = "Volumen total transportado:";
+                        SyncSizeF volumenTextSize = normalFont.MeasureString(volumenText);
+                        graphics.DrawString(volumenText, normalFont, grayBrush, col3X, resumenY);
 
-                    yPosition += 100;
+                        string volumenValue = $"{totalVolumen:N0} L";
+                        SyncSizeF volumenValueSize = boldFont.MeasureString(volumenValue);
+                        graphics.DrawString(volumenValue, boldFont, blackBrush,
+                            col3X + (volumenTextSize.Width / 2) - (volumenValueSize.Width / 2), resumenY + 15);
 
-                    // ==============================================
-                    // TABLA DE DATOS
-                    // ==============================================
-                    if (reporteData.Any())
+                        yPosition += 100;
+
+                        // Debug para verificar cálculos en PDF
+                        System.Diagnostics.Debug.WriteLine($"=== PDF TRABAJADOR - VALORES CORREGIDOS ===");
+                        System.Diagnostics.Debug.WriteLine($"Trabajadores únicos: {totalTrabajadores}");
+                        System.Diagnostics.Debug.WriteLine($"Total viajes (solo transportistas): {totalViajes:N0}");
+                        System.Diagnostics.Debug.WriteLine($"Volumen total transportado: {totalVolumen:N0} L (SIN división)");
+                        System.Diagnostics.Debug.WriteLine($"Registros totales: {reporteData.Count}");
+
+                        // Debug detallado para PDF
+                        var transportistas = reporteData.Where(r => r.Categoria?.ToLower().Contains("transportista") == true);
+                        System.Diagnostics.Debug.WriteLine($"Transportistas encontrados: {transportistas.Count()}");
+                        foreach (var t in transportistas)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"- {t.NombreCompleto}: {t.TotalViajes} viajes, {t.VolumenTransportado:N0} L (valor directo)");
+                        }
+                    }
+
+                    // TABLA DE DATOS (SIN COLUMNA "SEG")
+                    if (reporteData != null && reporteData.Any())
                     {
                         // Crear la tabla
                         PdfGrid table = new PdfGrid();
 
-                        // Configurar columnas - ESPACIADO MEJORADO
-                        table.Columns.Add(6);
-                        table.Columns[0].Width = 130; // Trabajador (más ancho)
-                        table.Columns[1].Width = 85;  // Categoría
-                        table.Columns[2].Width = 50;  // Viajes
-                        table.Columns[3].Width = 50;  // Seg.
-                        table.Columns[4].Width = 85;  // Volumen (más ancho)
-                        table.Columns[5].Width = 95;  // Periodo (más ancho)
+                        // Configurar 5 columnas (eliminamos "Seg")
+                        table.Columns.Add(5);
+                        table.Columns[0].Width = 140; // Trabajador
+                        table.Columns[1].Width = 90;  // Categoría  
+                        table.Columns[2].Width = 60;  // Viajes
+                        table.Columns[3].Width = 90;  // Volumen
+                        table.Columns[4].Width = 100; // Periodo
 
                         // Estilo de encabezado
                         PdfGridRowStyle headerRowStyle = new PdfGridRowStyle();
@@ -1579,22 +1603,20 @@ namespace AppTransporte.model
                         headerRow.Cells[0].Value = "Trabajador";
                         headerRow.Cells[1].Value = "Categoría";
                         headerRow.Cells[2].Value = "Viajes";
-                        headerRow.Cells[3].Value = "Seg.";
-                        headerRow.Cells[4].Value = "Volumen";
-                        headerRow.Cells[5].Value = "Periodo";
+                        headerRow.Cells[3].Value = "Volumen (L)";
+                        headerRow.Cells[4].Value = "Periodo";
 
                         // Centrar encabezados de columnas numéricas
                         headerRow.Cells[2].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
                         headerRow.Cells[3].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
                         headerRow.Cells[4].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
-                        headerRow.Cells[5].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
 
-                        // Agregar datos
+                        // Agregar datos con validación
                         for (int i = 0; i < reporteData.Count; i++)
                         {
                             var item = reporteData[i];
                             PdfGridRow row = table.Rows.Add();
-                            row.Height = 22; // Altura ligeramente mayor
+                            row.Height = 22;
 
                             // Alternar color de filas
                             if (i % 2 == 1)
@@ -1602,12 +1624,15 @@ namespace AppTransporte.model
                                 row.Style.BackgroundBrush = new PdfSolidBrush(new PdfColor(245, 245, 245));
                             }
 
-                            row.Cells[0].Value = item.NombreCompleto;
-                            row.Cells[1].Value = item.Categoria;
-                            row.Cells[2].Value = item.TotalViajes.ToString();
-                            row.Cells[3].Value = item.TotalSeguimientos.ToString();
-                            row.Cells[4].Value = $"{item.VolumenTransportado:N2}";
-                            row.Cells[5].Value = item.Periodo;
+                            // Asignar valores con validaciones
+                            row.Cells[0].Value = !string.IsNullOrEmpty(item.NombreCompleto) ? item.NombreCompleto : "Sin nombre";
+                            row.Cells[1].Value = !string.IsNullOrEmpty(item.Categoria) ? item.Categoria : "Sin categoría";
+                            row.Cells[2].Value = item.TotalViajes.ToString("N0");
+
+                            // CORREGIDO: NO dividir por 1000 - usar valor directo
+                            row.Cells[3].Value = item.VolumenTransportado.ToString("N0");
+
+                            row.Cells[4].Value = !string.IsNullOrEmpty(item.Periodo) ? item.Periodo : "Sin periodo";
 
                             // Aplicar fuente normal a todas las celdas
                             for (int j = 0; j < row.Cells.Count; j++)
@@ -1616,25 +1641,35 @@ namespace AppTransporte.model
                                 row.Cells[j].Style.TextBrush = blackBrush;
                             }
 
-                            // Alineación mejorada
+                            // Alineación de columnas numéricas
                             row.Cells[2].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
                             row.Cells[3].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
                             row.Cells[4].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
-                            row.Cells[5].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
                         }
 
                         // Dibujar la tabla
                         PdfLayoutResult result = table.Draw(page, 20, yPosition);
                         yPosition = result.Bounds.Bottom + 20;
+
+                        // Información adicional
+                        graphics.DrawString($"Total de registros mostrados: {reporteData.Count}",
+                            normalFont, grayBrush, 20, yPosition);
+                        yPosition += 15;
+                    }
+                    else
+                    {
+                        graphics.DrawString("No hay datos de trabajadores para mostrar en el período seleccionado",
+                            normalFont, grayBrush, 20, yPosition);
+                        yPosition += 30;
                     }
 
-
+                    // PIE DE PÁGINA
                     string fechaGeneracion = $"Generado el: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
                     graphics.DrawString(fechaGeneracion, normalFont, grayBrush, 20, page.Size.Height - 40);
 
                     // Número de página
                     string numeroPagina = $"Página 1 de 1";
-                    Syncfusion.Drawing.SizeF textSize = normalFont.MeasureString(numeroPagina);
+                    SyncSizeF textSize = normalFont.MeasureString(numeroPagina);
                     graphics.DrawString(numeroPagina, normalFont, grayBrush,
                         page.Size.Width - textSize.Width - 20, page.Size.Height - 40);
 
@@ -2301,13 +2336,13 @@ namespace AppTransporte.model
                 throw new Exception($"Error al generar PDF de servicios: {ex.Message}", ex);
             }
         }
+
         public async Task<byte[]> GenerarReportePedidosClientePDF(
-               DataTable resumenPedidos,
-               DataTable detallePedidos,
-               string clienteNombre,
-               string tipoPedido,
-               DateTime? fechaDesde,
-               DateTime? fechaHasta)
+    DataTable resumenPedidos,
+    DataTable detallePedidos,
+    string clienteNombre,
+    DateTime? fechaDesde,
+    DateTime? fechaHasta)
         {
             try
             {
@@ -2333,7 +2368,9 @@ namespace AppTransporte.model
 
                     float yPosition = 20;
 
+                    // ==============================================
                     // ENCABEZADO CORPORATIVO
+                    // ==============================================
 
                     // 1. LOGO (izquierda)
                     try
@@ -2390,10 +2427,6 @@ namespace AppTransporte.model
 
                     // Filtros aplicados
                     string filtrosTexto = "Filtros aplicados: ";
-                    if (!string.IsNullOrEmpty(tipoPedido) && tipoPedido != "Todos los tipos")
-                    {
-                        filtrosTexto += $"Tipo: {tipoPedido} | ";
-                    }
 
                     if (fechaDesde.HasValue && fechaHasta.HasValue)
                     {
@@ -2430,21 +2463,21 @@ namespace AppTransporte.model
                             resumenPedidos.Columns.Contains("PromedioViajes") ? Convert.ToDouble(r["PromedioViajes"]) : 1.0);
                         int tiposEstado = resumenPedidos.Rows.Count;
 
-                        // Marco para resumen
+                        // Marco para resumen con ancho corregido
                         PdfPen grayPen = new PdfPen(new PdfColor((byte)200, (byte)200, (byte)200));
                         PdfSolidBrush lightGrayBrush = new PdfSolidBrush(new PdfColor((byte)248, (byte)249, (byte)250));
 
-                        graphics.DrawRectangle(grayPen, lightGrayBrush, 20, yPosition, 555, 120);
+                        graphics.DrawRectangle(grayPen, lightGrayBrush, 20, yPosition, 515, 120); // Ancho reducido de 555 a 515
 
                         // Título del resumen
                         graphics.DrawString("RESUMEN EJECUTIVO", boldFont, blackBrush, 30, yPosition + 12);
 
                         // Línea separadora
-                        graphics.DrawLine(grayPen, 30, yPosition + 30, 565, yPosition + 30);
+                        graphics.DrawLine(grayPen, 30, yPosition + 30, 525, yPosition + 30); // Ajustado al nuevo ancho
 
-                        // Distribución en 2x2
+                        // Distribución en 2x2 con espaciado corregido
                         float margenIzq = 40;
-                        float anchoColumna = 260;
+                        float anchoColumna = 240; // Reducido de 260 a 240
                         float alturaFila = 35;
 
                         // Columna 1 - Fila 1: Total pedidos
@@ -2478,25 +2511,26 @@ namespace AppTransporte.model
                             new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold),
                             redBrush, col2X, fila2Y + 15);
 
-                        yPosition += 140;
+                        yPosition += 140; // Espacio después del resumen ejecutivo
                     }
 
-                    // TABLA DE RESUMEN POR ESTADO
-
+                    // ==============================================
+                    // TABLA DE RESUMEN POR ESTADO DE VIAJE
+                    // ==============================================
                     if (resumenPedidos != null && resumenPedidos.Rows.Count > 0)
                     {
-                        graphics.DrawString("RESUMEN POR ESTADO", headerFont, blackBrush, 20, yPosition);
+                        graphics.DrawString("RESUMEN POR ESTADO DE VIAJE", headerFont, blackBrush, 20, yPosition);
                         yPosition += 25;
 
-                        // Crear tabla de resumen
+                        // Crear tabla de resumen con anchos corregidos
                         PdfGrid resumenTable = new PdfGrid();
                         resumenTable.Columns.Add(4);
 
-                        // Anchos de columna
-                        resumenTable.Columns[0].Width = 180; // Estado
-                        resumenTable.Columns[1].Width = 100; // Cantidad
-                        resumenTable.Columns[2].Width = 120; // Volumen
-                        resumenTable.Columns[3].Width = 115; // Promedio Viajes
+                        // Anchos de columna corregidos (total: 515px en lugar de 515px)
+                        resumenTable.Columns[0].Width = 160; // Estado (antes 180)
+                        resumenTable.Columns[1].Width = 85;  // Cantidad (antes 100)
+                        resumenTable.Columns[2].Width = 100; // Volumen (antes 120)
+                        resumenTable.Columns[3].Width = 95;  // Promedio Viajes (antes 115)
 
                         // Estilo de encabezado
                         PdfGridRowStyle headerRowStyle = new PdfGridRowStyle();
@@ -2509,7 +2543,7 @@ namespace AppTransporte.model
                         headerRow.Style = headerRowStyle;
                         headerRow.Height = 28;
 
-                        headerRow.Cells[0].Value = "Estado del Pedido";
+                        headerRow.Cells[0].Value = "Estado del Viaje";
                         headerRow.Cells[1].Value = "Cantidad";
                         headerRow.Cells[2].Value = "Volumen (L)";
                         headerRow.Cells[3].Value = "Prom. Viajes";
@@ -2520,20 +2554,27 @@ namespace AppTransporte.model
                         headerRow.Cells[2].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
                         headerRow.Cells[3].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
 
-                        // Agregar datos
-                        for (int i = 0; i < resumenPedidos.Rows.Count; i++)
+                        // Agregar datos ordenados por el ID del estado (si está disponible)
+                        var filasOrdenadas = resumenPedidos.AsEnumerable();
+                        if (resumenPedidos.Columns.Contains("IdEstadoViaje"))
                         {
-                            var row = resumenPedidos.Rows[i];
+                            filasOrdenadas = filasOrdenadas.OrderBy(r => Convert.ToInt32(r["IdEstadoViaje"]));
+                        }
+
+                        int rowIndex = 0;
+                        foreach (var row in filasOrdenadas)
+                        {
                             PdfGridRow gridRow = resumenTable.Rows.Add();
                             gridRow.Height = 22;
 
                             // Alternar color de filas
-                            if (i % 2 == 1)
+                            if (rowIndex % 2 == 1)
                             {
                                 gridRow.Style.BackgroundBrush = new PdfSolidBrush(new PdfColor((byte)245, (byte)245, (byte)245));
                             }
 
-                            gridRow.Cells[0].Value = row["EstadoPedido"]?.ToString() ?? "";
+                            // Truncar texto del estado si es muy largo
+                            gridRow.Cells[0].Value = TruncateText(row["EstadoPedido"]?.ToString() ?? "", 20);
                             gridRow.Cells[1].Value = Convert.ToInt32(row["CantidadPedidos"]).ToString();
                             gridRow.Cells[2].Value = $"{Convert.ToInt32(row["VolumenTotal"]):N0}";
 
@@ -2553,6 +2594,8 @@ namespace AppTransporte.model
                             gridRow.Cells[1].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
                             gridRow.Cells[2].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
                             gridRow.Cells[3].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+
+                            rowIndex++;
                         }
 
                         // Dibujar la tabla
@@ -2578,17 +2621,16 @@ namespace AppTransporte.model
                         graphics.DrawString("DETALLE DE PEDIDOS", headerFont, blackBrush, 20, yPosition);
                         yPosition += 25;
 
-                        // Crear tabla de detalle
+                        // Crear tabla de detalle con anchos corregidos
                         PdfGrid detalleTable = new PdfGrid();
-                        detalleTable.Columns.Add(6);
+                        detalleTable.Columns.Add(5);
 
-                        // Anchos de columna optimizados
+                        // Anchos de columna corregidos (total: 440px para que quepa bien)
                         detalleTable.Columns[0].Width = 50;  // ID
-                        detalleTable.Columns[1].Width = 110; // Origen
-                        detalleTable.Columns[2].Width = 110; // Destino
-                        detalleTable.Columns[3].Width = 85;  // Estado
-                        detalleTable.Columns[4].Width = 70;  // Cantidad
-                        detalleTable.Columns[5].Width = 90;  // Completado
+                        detalleTable.Columns[1].Width = 120; // Origen (antes 130)
+                        detalleTable.Columns[2].Width = 120; // Destino (antes 130)
+                        detalleTable.Columns[3].Width = 100; // Estado (antes 120)
+                        detalleTable.Columns[4].Width = 50;  // Cantidad (antes 75)
 
                         // Estilo de encabezado
                         PdfGridRowStyle detalleHeaderStyle = new PdfGridRowStyle();
@@ -2604,17 +2646,18 @@ namespace AppTransporte.model
                         detalleHeaderRow.Cells[0].Value = "ID";
                         detalleHeaderRow.Cells[1].Value = "Origen";
                         detalleHeaderRow.Cells[2].Value = "Destino";
-                        detalleHeaderRow.Cells[3].Value = "Estado";
+                        detalleHeaderRow.Cells[3].Value = "Estado Viaje";
                         detalleHeaderRow.Cells[4].Value = "Cantidad";
-                        detalleHeaderRow.Cells[5].Value = "Completado";
 
                         // Alineación de encabezados
                         detalleHeaderRow.Cells[0].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                        detalleHeaderRow.Cells[1].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Left);
+                        detalleHeaderRow.Cells[2].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Left);
+                        detalleHeaderRow.Cells[3].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Left);
                         detalleHeaderRow.Cells[4].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
-                        detalleHeaderRow.Cells[5].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
 
-                        // Agregar datos (limitar a los primeros 25 para que quepa)
-                        int maxItems = Math.Min(detallePedidos.Rows.Count, 25);
+                        // Agregar datos (limitar a los primeros 30 para aprovechar mejor el espacio)
+                        int maxItems = Math.Min(detallePedidos.Rows.Count, 30);
                         for (int i = 0; i < maxItems; i++)
                         {
                             var row = detallePedidos.Rows[i];
@@ -2628,11 +2671,10 @@ namespace AppTransporte.model
                             }
 
                             gridRow.Cells[0].Value = row["id_pedido"]?.ToString() ?? "";
-                            gridRow.Cells[1].Value = TruncateText(row["origen"]?.ToString() ?? "", 15);
-                            gridRow.Cells[2].Value = TruncateText(row["destino"]?.ToString() ?? "", 15);
-                            gridRow.Cells[3].Value = TruncateText(row["estado"]?.ToString() ?? "", 12);
+                            gridRow.Cells[1].Value = TruncateText(row["origen"]?.ToString() ?? "", 16);
+                            gridRow.Cells[2].Value = TruncateText(row["destino"]?.ToString() ?? "", 16);
+                            gridRow.Cells[3].Value = TruncateText(row["estado"]?.ToString() ?? "", 13);
                             gridRow.Cells[4].Value = row["cantidad"] == DBNull.Value ? "0" : Convert.ToInt32(row["cantidad"]).ToString();
-                            gridRow.Cells[5].Value = row["completado"]?.ToString() ?? "No";
 
                             // Aplicar fuente y alineación
                             for (int j = 0; j < gridRow.Cells.Count; j++)
@@ -2643,27 +2685,19 @@ namespace AppTransporte.model
 
                             // Alineación de celdas específicas
                             gridRow.Cells[0].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
+                            gridRow.Cells[1].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Left);
+                            gridRow.Cells[2].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Left);
+                            gridRow.Cells[3].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Left);
                             gridRow.Cells[4].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
-                            gridRow.Cells[5].Style.StringFormat = new PdfStringFormat(PdfTextAlignment.Center);
-
-                            // Color especial para completado
-                            if (row["completado"]?.ToString()?.ToLower() == "si" || row["completado"]?.ToString()?.ToLower() == "sí")
-                            {
-                                gridRow.Cells[5].Style.TextBrush = new PdfSolidBrush(new PdfColor((byte)34, (byte)139, (byte)34)); // Verde
-                            }
-                            else
-                            {
-                                gridRow.Cells[5].Style.TextBrush = new PdfSolidBrush(new PdfColor((byte)220, (byte)20, (byte)60)); // Rojo
-                            }
                         }
 
                         // Nota si hay más datos
-                        if (detallePedidos.Rows.Count > 25)
+                        if (detallePedidos.Rows.Count > 30)
                         {
                             PdfGridRow noteRow = detalleTable.Rows.Add();
                             noteRow.Cells[0].Value = "...";
-                            noteRow.Cells[1].Value = $"Se muestran los primeros 25 de {detallePedidos.Rows.Count} pedidos";
-                            noteRow.Cells[1].ColumnSpan = 5;
+                            noteRow.Cells[1].Value = $"Se muestran los primeros 30 de {detallePedidos.Rows.Count} pedidos";
+                            noteRow.Cells[1].ColumnSpan = 4;
                             noteRow.Cells[1].Style.Font = new PdfStandardFont(PdfFontFamily.Helvetica, 9, PdfFontStyle.Italic);
                             noteRow.Cells[1].Style.TextBrush = grayBrush;
                         }
@@ -2697,6 +2731,8 @@ namespace AppTransporte.model
                 throw new Exception($"Error al generar PDF de pedidos por cliente: {ex.Message}", ex);
             }
         }
+
+
 
         public async Task<byte[]> GenerarReportePedidosPDF(
             List<ResumenPedido> datosResumen,
@@ -4855,11 +4891,12 @@ namespace AppTransporte.model
                 }
             }
         }
+        // Método actualizado en SqlServerService para eliminar el parámetro tipoPedido
         public async Task<(DataTable ResumenPedidos, DataTable DetallePedidos)> ObtenerReportePedidosPorClienteAsync(
-     int idCliente,
-     string tipoPedido = null,
-     DateTime? fechaDesde = null,
-     DateTime? fechaHasta = null)
+            int idCliente,
+            string tipoPedido = null, // Mantener para compatibilidad pero ignorar
+            DateTime? fechaDesde = null,
+            DateTime? fechaHasta = null)
         {
             DataTable resumenPedidos = new DataTable();
             DataTable detallePedidos = new DataTable();
@@ -4877,16 +4914,6 @@ namespace AppTransporte.model
 
                         // Parámetros obligatorios
                         command.Parameters.AddWithValue("@IdCliente", idCliente);
-
-                        // Parámetros opcionales
-                        if (!string.IsNullOrEmpty(tipoPedido) && tipoPedido != "Todos los tipos")
-                        {
-                            command.Parameters.AddWithValue("@TipoPedido", tipoPedido);
-                        }
-                        else
-                        {
-                            command.Parameters.AddWithValue("@TipoPedido", DBNull.Value);
-                        }
 
                         // Parámetros de fecha
                         if (fechaDesde.HasValue)
@@ -4906,6 +4933,8 @@ namespace AppTransporte.model
                         {
                             command.Parameters.AddWithValue("@FechaHasta", DBNull.Value);
                         }
+
+                        // YA NO USAMOS EL PARÁMETRO @TipoPedido
 
                         using (var adapter = new SqlDataAdapter(command))
                         {
