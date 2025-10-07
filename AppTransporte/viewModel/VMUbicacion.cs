@@ -1,94 +1,105 @@
-﻿using AppTransporte.model;
+using AppTransporte.model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AppTransporte.viewModel
 {
-    public class VMUbicacion : INotifyPropertyChanged
+    /// <summary>
+    /// ViewModel for managing and displaying a list of locations (Ubicaciones).
+    /// This class handles loading location data from the database, provides search functionality,
+    /// and exposes the filtered list for data binding in the UI.
+    /// </summary>
+    public class VMUbicacion : BaseViewModel
     {
         private string _textoBusqueda;
+        private bool _isBusy;
+        private readonly ObservableCollection<Ubicacion> _allUbicaciones = new();
+        private ObservableCollection<Ubicacion> _ubicacionesFiltradas = new();
+
+        /// <summary>
+        /// Gets or sets the text used to filter the locations list.
+        /// When set, it triggers the filtering logic.
+        /// </summary>
         public string TextoBusqueda
         {
             get => _textoBusqueda;
             set
             {
-                if (_textoBusqueda != value)
+                if (SetProperty(ref _textoBusqueda, value))
                 {
-                    _textoBusqueda = value;
-                    OnPropertyChanged(nameof(TextoBusqueda));
-                    FiltrarUbicaciones(); // Llama al método para filtrar las ubicaciones
+                    FiltrarUbicaciones();
                 }
             }
         }
-        private bool _isBusy;
-        public ObservableCollection<Ubicacion> Ubicaciones { get; set; } = new();
-        public ObservableCollection<Ubicacion> UbicacionesFiltradas { get; set; } = new();
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the ViewModel is busy loading data.
+        /// </summary>
         public bool IsBusy
         {
             get => _isBusy;
-            set
-            {
-                _isBusy = value;
-                OnPropertyChanged(nameof(IsBusy));
-            }
+            set => SetProperty(ref _isBusy, value);
         }
 
+        /// <summary>
+        /// Gets or sets the filtered collection of locations to be displayed in the view.
+        /// </summary>
+        public ObservableCollection<Ubicacion> UbicacionesFiltradas
+        {
+            get => _ubicacionesFiltradas;
+            set => SetProperty(ref _ubicacionesFiltradas, value);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VMUbicacion"/> class.
+        /// It triggers the initial loading of locations.
+        /// </summary>
         public VMUbicacion()
         {
             CargarUbicaciones();
         }
+
+        /// <summary>
+        /// Asynchronously loads all locations from the database into memory.
+        /// </summary>
         private async void CargarUbicaciones()
         {
+            if (IsBusy) return;
+
             IsBusy = true;
-
-            var ubicaciones = await App.Database.ObtenerUbicacionesAsync();
-
-            Ubicaciones.Clear();
-            foreach (var ubicacion in ubicaciones)
+            try
             {
-                Ubicaciones.Add(ubicacion);
+                var ubicaciones = await App.Database.ObtenerUbicacionesAsync();
+                _allUbicaciones.Clear();
+                foreach (var ubicacion in ubicaciones)
+                {
+                    _allUbicaciones.Add(ubicacion);
+                }
+                FiltrarUbicaciones();
             }
-
-            // Inicializa las ubicaciones filtradas con todas las ubicaciones
-            FiltrarUbicaciones();
-
-            IsBusy = false;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading locations: {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
+        /// <summary>
+        /// Filters the displayed list of locations based on the <see cref="TextoBusqueda"/>.
+        /// The filter is case-insensitive and checks the location's description.
+        /// </summary>
         private void FiltrarUbicaciones()
         {
-            if (string.IsNullOrWhiteSpace(TextoBusqueda))
-            {
-                // Si no hay texto en el buscador, muestra todas las ubicaciones
-                UbicacionesFiltradas.Clear();
-                foreach (var ubicacion in Ubicaciones)
-                {
-                    UbicacionesFiltradas.Add(ubicacion);
-                }
-            }
-            else
-            {
-                // Aplica el filtro basado en el texto ingresado
-                var resultado = Ubicaciones.Where(u =>
-                    u.Descripcion.Contains(TextoBusqueda, StringComparison.OrdinalIgnoreCase));
+            var tempFiltered = string.IsNullOrWhiteSpace(TextoBusqueda)
+                ? _allUbicaciones
+                : _allUbicaciones.Where(u => u.Descripcion.Contains(TextoBusqueda, StringComparison.OrdinalIgnoreCase));
 
-                UbicacionesFiltradas.Clear();
-                foreach (var ubicacion in resultado)
-                {
-                    UbicacionesFiltradas.Add(ubicacion);
-                }
-            }
-        }
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            UbicacionesFiltradas = new ObservableCollection<Ubicacion>(tempFiltered);
         }
     }
 }

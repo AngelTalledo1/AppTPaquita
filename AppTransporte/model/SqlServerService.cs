@@ -1,4 +1,3 @@
-﻿
 using Microsoft.Data.SqlClient;
 using Microsoft.Maui.Controls;
 using System;
@@ -11,15 +10,37 @@ using System.Threading.Tasks;
 
 namespace AppTransporte.model
 {
+    /// <summary>
+    /// Provides services for interacting with the SQL Server database.
+    /// This class encapsulates all database operations, executing stored procedures
+    /// to retrieve, add, modify, and delete data.
+    /// </summary>
     public class SqlServerService
     {
         private readonly string _connectionString;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SqlServerService"/> class.
+        /// </summary>
+        /// <param name="connectionString">The database connection string.</param>
         public SqlServerService(string connectionString)
         {
             _connectionString = connectionString;
         }
 
+        /// <summary>
+        /// Asynchronously adds a new client to the database by executing the 'pa_AgregarCliente' stored procedure.
+        /// </summary>
+        /// <param name="nombre">The client's first name.</param>
+        /// <param name="apePaterno">The client's paternal last name. Can be null or empty.</param>
+        /// <param name="apeMaterno">The client's maternal last name. Can be null or empty.</param>
+        /// <param name="idTipoDoc">The ID for the client's document type.</param>
+        /// <param name="numDoc">The client's document number.</param>
+        /// <param name="telefono">The client's phone number.</param>
+        /// <param name="direccion">The client's address.</param>
+        /// <param name="email">The client's email address. Can be null or empty.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected.</returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<int> AgregarClienteAsync(
             string nombre,
             string apePaterno,
@@ -53,6 +74,15 @@ namespace AppTransporte.model
             }
         }
        
+        /// <summary>
+        /// Retrieves a client's details from the database based on their user ID.
+        /// Executes the 'pa_ObtenerClientePorUsuario' stored procedure.
+        /// </summary>
+        /// <param name="idUsuario">The user ID associated with the client.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a <see cref="Cliente"/> object if found; otherwise, null.
+        /// </returns>
         public async Task<Cliente?> ObtenerClientePorUsuarioAsync(int idUsuario)
         {
             try
@@ -93,6 +123,7 @@ namespace AppTransporte.model
             }
             catch (Exception ex)
             {
+                // In a real application, consider a more robust logging mechanism.
                 Console.WriteLine($"Error al obtener cliente: {ex.Message}");
             }
 
@@ -100,6 +131,13 @@ namespace AppTransporte.model
             return null; // Devuelve null si no se encuentra el cliente
         }
 
+        /// <summary>
+        /// Adds a new service request to the database.
+        /// Executes the 'pa_AgregarSolicitud' stored procedure.
+        /// </summary>
+        /// <param name="solicitud">The <see cref="Solicitud"/> object containing the request details.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task AgregarSolicitudAsync(Solicitud solicitud)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -120,6 +158,22 @@ namespace AppTransporte.model
                 }
             }
         }
+
+        /// <summary>
+        /// Modifies an existing client's information in the database.
+        /// Executes the 'pa_ModificarCliente' stored procedure.
+        /// </summary>
+        /// <param name="idCliente">The ID of the client to modify.</param>
+        /// <param name="nombre">The client's updated first name.</param>
+        /// <param name="apePaterno">The client's updated paternal last name.</param>
+        /// <param name="apeMaterno">The client's updated maternal last name.</param>
+        /// <param name="idTipoDoc">The client's updated document type ID.</param>
+        /// <param name="numDoc">The client's updated document number.</param>
+        /// <param name="telefono">The client's updated phone number.</param>
+        /// <param name="direccion">The client's updated address.</param>
+        /// <param name="email">The client's updated email address.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected.</returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<int> ModificarClienteAsync(
             int idCliente,
             string nombre,
@@ -132,8 +186,6 @@ namespace AppTransporte.model
             string email
             )
         {
-
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -157,8 +209,24 @@ namespace AppTransporte.model
                     return await command.ExecuteNonQueryAsync();
                 }
             }
-
         }
+
+        /// <summary>
+        /// Asynchronously adds a new worker to the database.
+        /// Executes the 'pa_AgregarTrabajador' stored procedure.
+        /// </summary>
+        /// <param name="nombre">The worker's first name.</param>
+        /// <param name="apePaterno">The worker's paternal last name.</param>
+        /// <param name="apeMaterno">The worker's maternal last name.</param>
+        /// <param name="idTipoDoc">The ID of the worker's document type.</param>
+        /// <param name="numDoc">The worker's document number.</param>
+        /// <param name="telefono">The worker's phone number.</param>
+        /// <param name="direccion">The worker's address.</param>
+        /// <param name="email">The worker's email address.</param>
+        /// <param name="idCat">The ID of the worker's category.</param>
+        /// <param name="licencia">The worker's driver's license number. Can be null.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected.</returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<int> AgregarTrabajadorAsync(
             string nombre,
             string apePaterno,
@@ -199,6 +267,17 @@ namespace AppTransporte.model
                 }
             }
         }
+
+        /// <summary>
+        /// Verifies user credentials against the database.
+        /// Executes the 'pa_verificarCredenciales' stored procedure.
+        /// </summary>
+        /// <param name="username">The username to verify.</param>
+        /// <param name="contraseña">The password to verify.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a <see cref="UsuarioResponse"/> object with user ID and type if credentials are valid; otherwise, null.
+        /// </returns>
         public async Task<UsuarioResponse> VerificarCredencialesAsync(string username, string contraseña)
         {
             try
@@ -206,7 +285,6 @@ namespace AppTransporte.model
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-                    Console.WriteLine("que");
                     using (var command = new SqlCommand("pa_verificarCredenciales", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -229,13 +307,30 @@ namespace AppTransporte.model
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine($"Error al verificar credenciales: {ex.Message}");
             }
 
             // Devuelve null si no se encontraron coincidencias
             return null;
         }
+
+        /// <summary>
+        /// Modifies an existing worker's information in the database.
+        /// Executes the 'pa_ModificarTrabajador' stored procedure.
+        /// </summary>
+        /// <param name="id_trabajador">The ID of the worker to modify.</param>
+        /// <param name="nombre">The worker's updated first name.</param>
+        /// <param name="apePaterno">The worker's updated paternal last name.</param>
+        /// <param name="apeMaterno">The worker's updated maternal last name.</param>
+        /// <param name="idTipoDoc">The worker's updated document type ID.</param>
+        /// <param name="numDoc">The worker's updated document number.</param>
+        /// <param name="telefono">The worker's updated phone number.</param>
+        /// <param name="direccion">The worker's updated address.</param>
+        /// <param name="email">The worker's updated email address.</param>
+        /// <param name="idCategoria">The worker's updated category ID.</param>
+        /// <param name="licencia">The worker's updated driver's license number.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected.</returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<int> ModificarTrabajadorAsync(
             int id_trabajador,
             string nombre,
@@ -250,8 +345,6 @@ namespace AppTransporte.model
             string? licencia
             )
         {
-
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -280,9 +373,19 @@ namespace AppTransporte.model
                     return await command.ExecuteNonQueryAsync();
                 }
             }
-
         }
 
+        /// <summary>
+        /// Retrieves a list of trips, optionally filtered by order ID or user ID.
+        /// Executes the 'pa_ListViajes' stored procedure.
+        /// </summary>
+        /// <param name="idPedido">Optional. The ID of the order to filter trips by.</param>
+        /// <param name="idUsuario">Optional. The ID of the user to filter trips by.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of <see cref="Viaje"/> objects.
+        /// </returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<List<Viaje>> ObtenerViajesModAsync(int? idPedido, int? idUsuario)
         {
             var viajes = new List<Viaje>();
@@ -322,10 +425,18 @@ namespace AppTransporte.model
                     }
                 }
             }
-
             return viajes;
         }
 
+        /// <summary>
+        /// Retrieves the description of a user type based on its ID.
+        /// Executes the 'obtenerTipoUser' stored procedure.
+        /// </summary>
+        /// <param name="idTipoUsuario">The ID of the user type.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains the user type description as a string if found; otherwise, null.
+        /// </returns>
         public async Task<string> obtenerTipoUser(int idTipoUsuario)
         {
             try
@@ -356,9 +467,18 @@ namespace AppTransporte.model
                 Console.WriteLine($"Error al obtener tipo de usuario: {ex.Message}");
             }
 
-            // Devuelve null si no se encontraron coincidencias
             return null;
         }
+
+        /// <summary>
+        /// Retrieves a detailed list of all orders for an admin view.
+        /// Executes the 'pa_ListPedidosDet' stored procedure.
+        /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of <see cref="Pedido"/> objects.
+        /// </returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<List<Pedido>> ListarPedidosAdminAsync()
         {
             var pedidos = new List<Pedido>();
@@ -403,6 +523,17 @@ namespace AppTransporte.model
 
             return pedidos;
         }
+
+        /// <summary>
+        /// Retrieves a list of orders for a specific user.
+        /// Executes the 'pa_ListPedidosUsuario' stored procedure.
+        /// </summary>
+        /// <param name="idUsuario">The ID of the user whose orders are to be retrieved.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of <see cref="Pedido"/> objects.
+        /// </returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<List<Pedido>> ListarPedidosPorUsuario(int idUsuario)
         {
             var pedidos = new List<Pedido>();
@@ -413,7 +544,6 @@ namespace AppTransporte.model
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
-                    // Agregar el parámetro idUsuario al comando
                     command.Parameters.AddWithValue("@idUsuarioCliente", idUsuario);
 
                     await connection.OpenAsync();
@@ -448,6 +578,16 @@ namespace AppTransporte.model
 
             return pedidos;
         }
+
+        /// <summary>
+        /// Retrieves a list of all clients from the database.
+        /// Executes the 'pa_MostrarClientes' stored procedure.
+        /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of <see cref="Cliente"/> objects.
+        /// </returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<List<Cliente>> ObtenerClientesAsync()
         {
             var clientes = new List<Cliente>();
@@ -486,6 +626,15 @@ namespace AppTransporte.model
             return clientes;
         }
       
+        /// <summary>
+        /// Retrieves a list of all trips with their associated data.
+        /// Executes the 'pa_ListViajesDatos' stored procedure.
+        /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of <see cref="Viaje"/> objects.
+        /// </returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<List<Viaje>> ObtenerViajesAsync()
         {
             var viajes = new List<Viaje>();
@@ -510,9 +659,7 @@ namespace AppTransporte.model
                                 CisternaAsig = reader.IsDBNull(reader.GetOrdinal("placa_cisterna")) ? null : reader.GetString(reader.GetOrdinal("placa_cisterna")),
                                 Cantidad = reader.IsDBNull(reader.GetOrdinal("cantidad_viaje")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("cantidad_viaje")),
                                 TrabajadoresAsig = reader.IsDBNull(reader.GetOrdinal("trabajadores")) ? null : reader.GetString(reader.GetOrdinal("trabajadores")),
-
                                 ultEstado = reader.IsDBNull(reader.GetOrdinal("estado_ultimo_registro")) ? null : reader.GetString(reader.GetOrdinal("estado_ultimo_registro")),
-
                             });
                         }
                     }
@@ -521,6 +668,17 @@ namespace AppTransporte.model
 
             return viajes;
         }
+
+        /// <summary>
+        /// Retrieves a list of workers, optionally filtered by category.
+        /// Executes the 'pa_MostrarTrabajadores' stored procedure.
+        /// </summary>
+        /// <param name="categoria">Optional. The category to filter workers by (e.g., "Driver").</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of <see cref="Trabajador"/> objects.
+        /// </returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<List<Trabajador>> ObtenerTrabajadoresAsync(string categoria = null)
         {
             var trabajadores = new List<Trabajador>();
@@ -549,7 +707,6 @@ namespace AppTransporte.model
                                 Nombre = reader.IsDBNull(reader.GetOrdinal("Nombre")) ? null : reader.GetString(reader.GetOrdinal("Nombre")),
                                 apePaterno = reader.IsDBNull(reader.GetOrdinal("apePaterno")) ? null : reader.GetString(reader.GetOrdinal("apePaterno")),
                                 apeMaterno = reader.IsDBNull(reader.GetOrdinal("apeMaterno")) ? null : reader.GetString(reader.GetOrdinal("apeMaterno")),
-                                // Aseguramos que numDoc sea tratado como un string en caso de que contenga texto
                                 idtipoDoc = reader.GetInt32(reader.GetOrdinal("id_tipoDoc")),
                                 idcategoria = reader.GetInt32(reader.GetOrdinal("id_categoria")),
                                 numDoc = reader.IsDBNull(reader.GetOrdinal("numDoc")) ? null : reader.GetString(reader.GetOrdinal("numDoc")),
@@ -560,8 +717,6 @@ namespace AppTransporte.model
                                 licencia = reader.IsDBNull(reader.GetOrdinal("licencia")) ? null : reader.GetString(reader.GetOrdinal("licencia")),
                                 usuario = reader.IsDBNull(reader.GetOrdinal("Usuario")) ? null : reader.GetString(reader.GetOrdinal("Usuario")),
                                 password = reader.IsDBNull(reader.GetOrdinal("Contraseña")) ? null : reader.GetString(reader.GetOrdinal("Contraseña"))
-
-
                             });
                         }
                     }
@@ -570,6 +725,16 @@ namespace AppTransporte.model
 
             return trabajadores;
         }
+
+        /// <summary>
+        /// Retrieves the status history for all trips.
+        /// Executes the 'pa_ListarSeguimientoViaje' stored procedure.
+        /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of <see cref="Seguimiento"/> objects.
+        /// </returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<List<Seguimiento>> ObtenerEstadosViaje()
         {
             var seguimiento = new List<Seguimiento>();
@@ -595,8 +760,6 @@ namespace AppTransporte.model
                                 EstadoViaje = reader.GetString(reader.GetOrdinal("estadoViajeDescripcion")),
                                 Comentario = reader.IsDBNull(reader.GetOrdinal("Comentario")) ? null : reader.GetString(reader.GetOrdinal("Comentario")),
                                 Evidencia = reader.IsDBNull(reader.GetOrdinal("evidencia")) ? null : reader.GetSqlBinary(reader.GetOrdinal("evidencia")).Value,
-
-
                             });
                         }
                     }
@@ -604,17 +767,25 @@ namespace AppTransporte.model
             }
             return seguimiento;
         }
+
+        /// <summary>
+        /// Retrieves a list of all origin and destination locations.
+        /// Executes the 'pa_MostrarOrigenDestino' stored procedure.
+        /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of <see cref="Ubicacion"/> objects.
+        /// </returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<List<Ubicacion>> ObtenerUbicacionesAsync()
         {
             var ubicaciones = new List<Ubicacion>();
-
 
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
 
                 using (var command = new SqlCommand("pa_MostrarOrigenDestino", connection))
-
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -629,7 +800,6 @@ namespace AppTransporte.model
                                 Sector = reader.GetString(reader.GetOrdinal("sector")),
                                 Referencias = reader.IsDBNull(reader.GetOrdinal("referencias")) ? null : reader.GetString(reader.GetOrdinal("referencias")),
                                 CoordenadasMaps = reader.IsDBNull(reader.GetOrdinal("coordenadas_maps")) ? null : reader.GetString(reader.GetOrdinal("coordenadas_maps"))
-
                             });
                         }
                     }
@@ -637,9 +807,16 @@ namespace AppTransporte.model
             }
             return ubicaciones;
         }
+
+        /// <summary>
+        /// Deletes a worker from the database.
+        /// Executes the 'pa_EliminarTrabajador' stored procedure.
+        /// </summary>
+        /// <param name="idTrabajador">The ID of the worker to delete.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected.</returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<int> eliminarTrabajadorAsync(int idTrabajador)
         {
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -648,17 +825,22 @@ namespace AppTransporte.model
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    // Agregar parámetros
                     command.Parameters.AddWithValue("@id_trabajador", idTrabajador);
-                    // Ejecutar el procedimiento almacenado
+
                     return await command.ExecuteNonQueryAsync();
                 }
             }
-
         }
+
+        /// <summary>
+        /// Deletes a client from the database.
+        /// Executes the 'pa_EliminarCliente' stored procedure.
+        /// </summary>
+        /// <param name="idCliente">The ID of the client to delete.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected.</returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<int> eliminarClienteAsync(int idCliente)
         {
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -667,29 +849,35 @@ namespace AppTransporte.model
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    // Agregar parámetros
                     command.Parameters.AddWithValue("@id_cliente", idCliente);
-                    // Ejecutar el procedimiento almacenado
+
                     return await command.ExecuteNonQueryAsync();
                 }
             }
-
         }
+
+        /// <summary>
+        /// Retrieves a list of service requests, optionally filtered by client ID.
+        /// Executes the 'pa_ListSolicitudes' stored procedure.
+        /// </summary>
+        /// <param name="id_Cliente">Optional. The ID of the client to filter requests by.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of <see cref="Solicitud"/> objects.
+        /// </returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<List<Solicitud>> ObtenerSolicitudesAsync(int? id_Cliente = null)
         {
             var solicitud = new List<Solicitud>();
-
 
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
 
                 using (var command = new SqlCommand("pa_ListSolicitudes", connection))
-
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
-                    // Agregamos el parámetro solo si se proporciona un ID de usuario
                     if (id_Cliente.HasValue)
                     {
                         command.Parameters.Add(new SqlParameter("@id_cliente", SqlDbType.Int)
@@ -720,17 +908,27 @@ namespace AppTransporte.model
             }
             return solicitud;
         }
+
+        /// <summary>
+        /// Retrieves a list of tractor vehicles, optionally filtered by license plate and sorted.
+        /// Executes the 'pa_MostrarTractos' stored procedure.
+        /// </summary>
+        /// <param name="placa">Optional. The license plate to filter by.</param>
+        /// <param name="ordenarPor">Optional. The column to sort the results by.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of <see cref="Vehiculo"/> objects representing tractors.
+        /// </returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<List<Vehiculo>> ObtenerTractoAsync(string placa = null, string ordenarPor = null)
         {
             var tracto = new List<Vehiculo>();
-
 
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
 
                 using (var command = new SqlCommand("pa_MostrarTractos", connection))
-
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@placa", (object)placa ?? DBNull.Value);
@@ -756,7 +954,6 @@ namespace AppTransporte.model
                                 CITV = reader.IsDBNull(reader.GetOrdinal("citv")) ? null : reader.GetSqlBinary(reader.GetOrdinal("citv")).Value,
                                 Cubicacion = reader.IsDBNull(reader.GetOrdinal("cubicacion")) ? null : reader.GetSqlBinary(reader.GetOrdinal("cubicacion")).Value,
                                 TarjetaPropiedad = reader.IsDBNull(reader.GetOrdinal("tarjetaPropiedad")) ? null : reader.GetSqlBinary(reader.GetOrdinal("tarjetaPropiedad")).Value,
-
                             });
                         }
                     }
@@ -764,9 +961,16 @@ namespace AppTransporte.model
             }
             return tracto;
         }
+
+        /// <summary>
+        /// Deletes a location (origin/destination) from the database.
+        /// Executes the 'sp_EliminarOrigenYDestino' stored procedure.
+        /// </summary>
+        /// <param name="idUbicacion">The ID of the location to delete.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected.</returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<int> eliminarUbicacionAsync(int idUbicacion)
         {
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -779,8 +983,19 @@ namespace AppTransporte.model
                     return await command.ExecuteNonQueryAsync();
                 }
             }
-
         }
+
+        /// <summary>
+        /// Modifies an existing location's information in the database.
+        /// Executes the 'pa_ModificarOrigenYDestino' stored procedure.
+        /// </summary>
+        /// <param name="idUbicacion">The ID of the location to modify.</param>
+        /// <param name="descripcion">The updated description.</param>
+        /// <param name="sector">The updated sector.</param>
+        /// <param name="referencias">The updated references.</param>
+        /// <param name="coordenadas">The updated map coordinates.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected.</returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<int> ModificarUbicacionAsync(
              int idUbicacion,
               string descripcion,
@@ -807,6 +1022,17 @@ namespace AppTransporte.model
                 }
             }
         }
+
+    /// <summary>
+    /// Adds a new location (origin/destination) to the database.
+    /// Executes the 'pa_InsertarOrigenYDestino' stored procedure.
+    /// </summary>
+    /// <param name="descripcion">The location's description.</param>
+    /// <param name="sector">The location's sector.</param>
+    /// <param name="referencias">References for the location.</param>
+    /// <param name="coordenadas">Map coordinates for the location.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected.</returns>
+    /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
     public async Task<int> AgregarUbicacionAsync(
     string descripcion,
     string sector,
@@ -821,27 +1047,36 @@ namespace AppTransporte.model
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    // Agregar parámetros
                     command.Parameters.AddWithValue("@descripcion", descripcion);
                     command.Parameters.AddWithValue("@sector", sector);
                     command.Parameters.AddWithValue("@referencias", referencias);
                     command.Parameters.AddWithValue("@coordenadas_maps", coordenadas);
-                    // Ejecutar el procedimiento almacenado
+
                     return await command.ExecuteNonQueryAsync();
                 }
             }
         }
+
+    /// <summary>
+    /// Retrieves a list of tanker vehicles, optionally filtered by license plate and sorted.
+    /// Executes the 'pa_MostrarCisterna' stored procedure.
+    /// </summary>
+    /// <param name="placa">Optional. The license plate to filter by.</param>
+    /// <param name="ordenarPor">Optional. The column to sort the results by.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains a list of <see cref="Vehiculo"/> objects representing tankers.
+    /// </returns>
+    /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
     public async Task<List<Vehiculo>> ObtenerCisternaAsync(string placa = null, string ordenarPor = null)
         {
             var cisterna = new List<Vehiculo>();
-
 
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
 
                 using (var command = new SqlCommand("pa_MostrarCisterna", connection))
-
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@placa", (object)placa ?? DBNull.Value);
@@ -868,7 +1103,6 @@ namespace AppTransporte.model
                                 CITV = reader.IsDBNull(reader.GetOrdinal("citv")) ? null : reader.GetSqlBinary(reader.GetOrdinal("citv")).Value,
                                 Cubicacion = reader.IsDBNull(reader.GetOrdinal("cubicacion")) ? null : reader.GetSqlBinary(reader.GetOrdinal("cubicacion")).Value,
                                 TarjetaPropiedad = reader.IsDBNull(reader.GetOrdinal("tarjetaPropiedad")) ? null : reader.GetSqlBinary(reader.GetOrdinal("tarjetaPropiedad")).Value,
-
                             });
                         }
                     }
@@ -876,6 +1110,20 @@ namespace AppTransporte.model
             }
             return cisterna;
         }
+
+    /// <summary>
+    /// Creates a new order in the database from a service request.
+    /// Executes the 'pa_CrearPedido' stored procedure.
+    /// </summary>
+    /// <param name="idSolicitud">The ID of the parent service request.</param>
+    /// <param name="cantidad">The quantity for the order.</param>
+    /// <param name="viajes">The number of trips for the order.</param>
+    /// <param name="idOrigen">The ID of the origin location.</param>
+    /// <param name="idDestino">The ID of the destination location.</param>
+    /// <param name="idEstadoPedido">The initial status ID for the order.</param>
+    /// <param name="listaServicios">A comma-separated string of service IDs associated with the order.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
     public async Task CrearPedidoAsync(
     int idSolicitud,
     int cantidad,
@@ -893,7 +1141,6 @@ namespace AppTransporte.model
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
-                    // Parámetros del procedimiento
                     command.Parameters.AddWithValue("@id_solicitud", idSolicitud);
                     command.Parameters.AddWithValue("@cantidad", cantidad);
                     command.Parameters.AddWithValue("@viajes", viajes);
@@ -902,13 +1149,21 @@ namespace AppTransporte.model
                     command.Parameters.AddWithValue("@id_estadoPedido", idEstadoPedido);
                     command.Parameters.AddWithValue("@lista_servicios", (object)listaServicios ?? DBNull.Value);
 
-                    // Ejecutar el procedimiento
                     await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-
+        /// <summary>
+        /// Retrieves a list of available services, optionally filtered by a search term.
+        /// Executes the 'pa_MostrarServicios' stored procedure.
+        /// </summary>
+        /// <param name="filtro">Optional. A search term to filter services by description.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of <see cref="Servicio"/> objects.
+        /// </returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<List<Servicio>> ObtenerServiciosAsync(string filtro = null)
         {
             var servicios = new List<Servicio>();
@@ -940,6 +1195,27 @@ namespace AppTransporte.model
             return servicios;
         }
 
+        /// <summary>
+        /// Adds a new vehicle (tractor or tanker) to the database.
+        /// Executes the 'pa_AgregarVehiculo' stored procedure.
+        /// </summary>
+        /// <param name="placa">The vehicle's license plate.</param>
+        /// <param name="modelo">The vehicle's model.</param>
+        /// <param name="añoFabricacion">The vehicle's year of manufacture.</param>
+        /// <param name="emisionPoliza">The policy issue date.</param>
+        /// <param name="vencimientoPoliza">The policy expiration date.</param>
+        /// <param name="emisionCITV">The CITV issue date.</param>
+        /// <param name="vencimientoCITV">The CITV expiration date.</param>
+        /// <param name="emisionCubicacion">The cubication certificate issue date.</param>
+        /// <param name="vencimientoCubicacion">The cubication certificate expiration date.</param>
+        /// <param name="imagen">A byte array representing the vehicle's image.</param>
+        /// <param name="poliza">A byte array representing the policy document.</param>
+        /// <param name="citv">A byte array representing the CITV document.</param>
+        /// <param name="cubicacion">A byte array representing the cubication document.</param>
+        /// <param name="tarjetaPropiedad">A byte array representing the vehicle's property card.</param>
+        /// <param name="tipoVehiculo">The type of vehicle ("Tracto" or "Cisterna").</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected.</returns>
+        /// <exception cref="SqlException">Thrown when a database error occurs.</exception>
         public async Task<int> AgregarVehiculo(
             string placa,
             string modelo,
@@ -966,7 +1242,6 @@ namespace AppTransporte.model
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    // Agregar parámetros
                     command.Parameters.AddWithValue("@placa", placa);
                     command.Parameters.AddWithValue("@modelo", string.IsNullOrWhiteSpace(modelo) ? (object)DBNull.Value : modelo);
                     command.Parameters.AddWithValue("@añoFabricacion", string.IsNullOrWhiteSpace(añoFabricacion) ? (object)DBNull.Value : añoFabricacion);
@@ -983,11 +1258,15 @@ namespace AppTransporte.model
                     command.Parameters.AddWithValue("@tarjetaPropiedad", tarjetaPropiedad);
                     command.Parameters.AddWithValue("@tipoVehiculo", tipoVehiculo);
 
-                    // Ejecutar el procedimiento almacenado
                     return await command.ExecuteNonQueryAsync();
                 }
             }
         }
+
+        /// <summary>
+        /// This method is not implemented and returns null.
+        /// </summary>
+        /// <returns>A null task.</returns>
         public async Task<List<Viaje>> listarViajes()
         {
             return null;

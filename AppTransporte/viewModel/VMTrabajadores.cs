@@ -1,120 +1,150 @@
-﻿using AppTransporte.model;
+using AppTransporte.model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AppTransporte.viewModel
 {
-    public class VMTrabajadores : INotifyPropertyChanged
+    /// <summary>
+    /// ViewModel for managing and displaying lists of workers (Trabajadores).
+    /// This class handles loading workers from the database and provides separate collections
+    /// for all workers, assistants (Ayudantes), and drivers (Transportistas).
+    /// It also includes search functionality.
+    /// </summary>
+    public class VMTrabajadores : BaseViewModel
     {
-        public ObservableCollection<Trabajador> Trabajadores { get; set; } = new();
-        private ObservableCollection<Trabajador> _allTrabajadores = new();
-        public ObservableCollection<Trabajador> Ayudantes { get; set; } = new();
-        public ObservableCollection<Trabajador> Transportistas { get; set; } = new();
-
+        private ObservableCollection<Trabajador> _trabajadores = new();
+        private readonly ObservableCollection<Trabajador> _allTrabajadores = new();
+        private ObservableCollection<Trabajador> _ayudantes = new();
+        private ObservableCollection<Trabajador> _transportistas = new();
         private bool _isBusy;
+        private string _searchText;
+
+        /// <summary>
+        /// Gets or sets the main collection of workers displayed in the UI.
+        /// This list is filtered by the <see cref="SearchText"/>.
+        /// </summary>
+        public ObservableCollection<Trabajador> Trabajadores
+        {
+            get => _trabajadores;
+            set => SetProperty(ref _trabajadores, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a collection containing only workers categorized as 'Ayudante'.
+        /// </summary>
+        public ObservableCollection<Trabajador> Ayudantes
+        {
+            get => _ayudantes;
+            set => SetProperty(ref _ayudantes, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a collection containing only workers categorized as 'Transportista' (Driver).
+        /// </summary>
+        public ObservableCollection<Trabajador> Transportistas
+        {
+            get => _transportistas;
+            set => SetProperty(ref _transportistas, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the ViewModel is busy loading data.
+        /// </summary>
         public bool IsBusy
         {
             get => _isBusy;
-            set
-            {
-                _isBusy = value;
-                OnPropertyChanged(nameof(IsBusy));
-            }
+            set => SetProperty(ref _isBusy, value);
         }
 
-        private string _searchText;
+        /// <summary>
+        /// Gets or sets the text used to filter the main <see cref="Trabajadores"/> list.
+        /// The filter is case-insensitive and checks the worker's full name.
+        /// </summary>
         public string SearchText
         {
             get => _searchText;
             set
             {
-                if (_searchText != value)
+                if (SetProperty(ref _searchText, value))
                 {
-                    _searchText = value;
-                    OnPropertyChanged(nameof(SearchText));
                     FiltrarTrabajadores();
                 }
             }
         }
 
-        // Nueva propiedad para filtrar por categoría
-        private string _categoriaFiltro;
-        public string CategoriaFiltro
-        {
-            get => _categoriaFiltro;
-            set
-            {
-                if (_categoriaFiltro != value)
-                {
-                    _categoriaFiltro = value?.Length > 20 ? value.Substring(0, 20) : value; // Validación de longitud
-                    OnPropertyChanged(nameof(CategoriaFiltro));
-                    CargarTrabajadores(_categoriaFiltro); // Recargar con filtro
-                }
-            }
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VMTrabajadores"/> class.
+        /// </summary>
         public VMTrabajadores()
         {
-            CargarTrabajadores("Ayudante");
-            CargarTrabajadores("Transportista");
+            InitializeAsync();
         }
 
+        /// <summary>
+        /// Asynchronously refreshes all worker data from the database.
+        /// </summary>
         public async Task ActualizarDatos()
         {
-            _allTrabajadores.Clear();
-            Trabajadores.Clear();
-            await CargarTrabajadores(CategoriaFiltro);
+            await InitializeAsync();
         }
 
-        private async Task CargarTrabajadores(string categoria = null)
+        /// <summary>
+        /// Asynchronously loads and categorizes all workers from the database.
+        /// This method populates the main worker list as well as the specialized
+        /// 'Ayudantes' and 'Transportistas' collections.
+        /// </summary>
+        private async Task InitializeAsync()
         {
-            IsBusy = true;
+            if (IsBusy) return;
 
-            var trabajadores = await App.Database.ObtenerTrabajadoresAsync(categoria);
-            if (categoria == "Ayudante")
+            IsBusy = true;
+            try
             {
+                var allWorkers = await App.Database.ObtenerTrabajadoresAsync();
+
+                _allTrabajadores.Clear();
                 Ayudantes.Clear();
-                foreach (var t in trabajadores) Ayudantes.Add(t);
-            }
-            else if (categoria == "Transportista")
-            {
                 Transportistas.Clear();
-                foreach (var t in trabajadores) Transportistas.Add(t);
+
+                foreach (var worker in allWorkers)
+                {
+                    _allTrabajadores.Add(worker);
+                    if (worker.categoria.Equals("Ayudante", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Ayudantes.Add(worker);
+                    }
+                    else if (worker.categoria.Equals("Transportista", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Transportistas.Add(worker);
+                    }
+                }
+
+                FiltrarTrabajadores();
             }
-            _allTrabajadores.Clear();
-            foreach (var trabajador in trabajadores)
+            catch (Exception ex)
             {
-                _allTrabajadores.Add(trabajador);
+                // In a real application, consider a more robust logging mechanism.
+                Console.WriteLine($"Error loading workers: {ex.Message}");
             }
-            OnPropertyChanged(nameof(Ayudantes));
-            OnPropertyChanged(nameof(Transportistas));
-            FiltrarTrabajadores();
-            IsBusy = false;
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
+        /// <summary>
+        /// Filters the <see cref="Trabajadores"/> collection based on the <see cref="SearchText"/>.
+        /// If the search text is empty, all workers are displayed.
+        /// </summary>
         private void FiltrarTrabajadores()
         {
-            var filtered = _allTrabajadores.AsEnumerable();
+            var tempFiltered = string.IsNullOrWhiteSpace(SearchText)
+                ? _allTrabajadores
+                : _allTrabajadores.Where(t => t.NombreCompleto.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0);
 
-            if (!string.IsNullOrWhiteSpace(SearchText))
-            {
-                filtered = filtered.Where(t =>
-                    t.NombreCompleto.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0);
-            }
-
-            Trabajadores = new ObservableCollection<Trabajador>(filtered);
-            OnPropertyChanged(nameof(Trabajadores));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Trabajadores = new ObservableCollection<Trabajador>(tempFiltered);
         }
     }
 }

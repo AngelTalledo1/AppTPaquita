@@ -1,139 +1,160 @@
-﻿using System;
+using AppTransporte.model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using AppTransporte.model;
 
 namespace AppTransporte.viewModel
 {
-    public class VMViajes : INotifyPropertyChanged
+    /// <summary>
+    /// ViewModel for managing and displaying a list of trips (Viajes).
+    /// This class handles loading trips from the database, filtered by order ID or user ID,
+    /// and provides further client-side filtering by trip status.
+    /// It also calculates and exposes summary data, like barrel counts.
+    /// </summary>
+    public class VMViajes : BaseViewModel
     {
         private bool _isBusy;
-        public ObservableCollection<Viaje> viajes { get; set; } = new();
-        public ObservableCollection<Viaje> viajesFiltrados { get; set; } = new();
+        private readonly ObservableCollection<Viaje> _allViajes = new();
+        private ObservableCollection<Viaje> _viajesFiltrados = new();
         private int? _idPedidoSeleccionado;
-        private int? _idUsuario; // Nuevo campo para el idUsuario
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public List<string> Estados { get; set; }
+        private int? _idUsuario;
         private string _estadoSeleccionado;
-        public string EstadoSeleccionado
-        {
-            get => _estadoSeleccionado;
-            set
-            {
-                if (_estadoSeleccionado != value)
-                {
-                    _estadoSeleccionado = value;
-                    FiltrarViajes();
-                    OnPropertyChanged(nameof(EstadoSeleccionado));
-                }
-            }
-        }
 
+        /// <summary>
+        /// Gets the list of available trip statuses for filtering.
+        /// </summary>
+        public List<string> Estados { get; private set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the ViewModel is busy loading data.
+        /// </summary>
         public bool IsBusy
         {
             get => _isBusy;
-            set
-            {
-                _isBusy = value;
-                OnPropertyChanged(nameof(IsBusy));
-            }
+            set => SetProperty(ref _isBusy, value);
         }
+
+        /// <summary>
+        /// Gets the collection of filtered trips to be displayed in the view.
+        /// </summary>
+        public ObservableCollection<Viaje> ViajesFiltrados
+        {
+            get => _viajesFiltrados;
+            private set => SetProperty(ref _viajesFiltrados, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the ID of the order to filter by.
+        /// Setting this property triggers a reload of trip data from the database.
+        /// </summary>
         public int? IdPedidoSeleccionado
         {
             get => _idPedidoSeleccionado;
             set
             {
-                if (_idPedidoSeleccionado != value)
+                if (SetProperty(ref _idPedidoSeleccionado, value))
                 {
-                    _idPedidoSeleccionado = value;
-                    OnPropertyChanged(nameof(IdPedidoSeleccionado));
-                    InicializarViajes(); // Ahora recarga desde la base de datos
+                    CargarViajesAsync();
                 }
             }
         }
 
-        // Nuevo propiedad para el idUsuario
+        /// <summary>
+        /// Gets or sets the ID of the user to filter by.
+        /// Setting this property triggers a reload of trip data from the database.
+        /// </summary>
         public int? IdUsuario
         {
             get => _idUsuario;
             set
             {
-                if (_idUsuario != value)
+                if (SetProperty(ref _idUsuario, value))
                 {
-                    _idUsuario = value;
-                    OnPropertyChanged(nameof(IdUsuario));
-                    InicializarViajes(); // Recarga datos al cambiar
+                    CargarViajesAsync();
                 }
             }
         }
 
-        public int TotalBarrilesFinalizados
+        /// <summary>
+        /// Gets or sets the selected status to filter the trip list on the client side.
+        /// </summary>
+        public string EstadoSeleccionado
         {
-            get => viajesFiltrados
-                .Where(v => v.ultEstado == "Finalizado")
-                .Sum(v => v.Cantidad ?? 0);
-        }
-
-        public string BarrilesMostrados
-        {
-            get
+            get => _estadoSeleccionado;
+            set
             {
-                var totalBarrilesFinalizados = TotalBarrilesFinalizados;
-                var totalBarrilesPedido = viajesFiltrados.Sum(v => v.Cantidad ?? 0);
-                return $"{totalBarrilesFinalizados} / {totalBarrilesPedido}";
+                if (SetProperty(ref _estadoSeleccionado, value))
+                {
+                    FiltrarViajes();
+                }
             }
         }
 
+        /// <summary>
+        /// Calculates the total quantity (e.g., barrels) for all completed trips in the filtered list.
+        /// </summary>
+        public int TotalBarrilesFinalizados => ViajesFiltrados.Where(v => v.ultEstado == "Finalizado").Sum(v => v.Cantidad ?? 0);
+
+        /// <summary>
+        /// Gets a display string showing the ratio of completed barrels to the total barrels in the filtered list.
+        /// </summary>
+        public string BarrilesMostrados => $"{TotalBarrilesFinalizados} / {ViajesFiltrados.Sum(v => v.Cantidad ?? 0)}";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VMViajes"/> class.
+        /// </summary>
         public VMViajes()
         {
-            InicializarPropiedades();
+            Initialize();
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VMViajes"/> class for a specific order.
+        /// </summary>
+        /// <param name="idPedido">The ID of the order to show trips for.</param>
         public VMViajes(int idPedido)
         {
-            this.IdPedidoSeleccionado = idPedido;
-            InicializarPropiedades();
+            _idPedidoSeleccionado = idPedido;
+            Initialize();
         }
 
-        // Nuevo constructor para recibir idUsuario
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VMViajes"/> class for a specific user.
+        /// </summary>
+        /// <param name="idUsuario">The ID of the user to show trips for.</param>
         public VMViajes(int? idUsuario)
         {
-            this.IdUsuario = idUsuario;
-            InicializarPropiedades();
+            _idUsuario = idUsuario;
+            Initialize();
         }
-        private void InicializarPropiedades()
-        {
-            Estados = new List<string>
-            {
-                "Todos",
-                "Pendiente",
-                "En el punto de Carga",
-                "En camino al destino",
-                "Finalizado"
-            };
-            InicializarViajes();
-        }
-        private async void InicializarViajes()
-        {
-            IsBusy = true;
 
+        /// <summary>
+        /// Initializes common properties and triggers the initial data load.
+        /// </summary>
+        private void Initialize()
+        {
+            Estados = new List<string> { "Todos", "Pendiente", "En el punto de Carga", "En camino al destino", "Finalizado" };
+            CargarViajesAsync();
+        }
+
+        /// <summary>
+        /// Asynchronously loads trip data from the database based on the current
+        /// <see cref="IdPedidoSeleccionado"/> and <see cref="IdUsuario"/>.
+        /// </summary>
+        private async void CargarViajesAsync()
+        {
+            if (IsBusy) return;
+            IsBusy = true;
             try
             {
-                // Pasa ambos parámetros al método de la base de datos
                 var viajesDesdeBD = await App.Database.ObtenerViajesModAsync(IdPedidoSeleccionado, IdUsuario);
-
-                this.viajes.Clear();
-
+                _allViajes.Clear();
                 foreach (var viaje in viajesDesdeBD)
                 {
-                    this.viajes.Add(viaje);
+                    _allViajes.Add(viaje);
                 }
-
                 FiltrarViajes();
             }
             catch (Exception ex)
@@ -146,41 +167,22 @@ namespace AppTransporte.viewModel
             }
         }
 
+        /// <summary>
+        /// Filters the displayed list of trips based on the <see cref="EstadoSeleccionado"/>.
+        /// </summary>
         private void FiltrarViajes()
         {
-            if (viajes == null || !viajes.Any())
-            {
-                viajesFiltrados.Clear();
-                ActualizarPropiedades();
-                return;
-            }
+            var tempFiltered = _allViajes.AsEnumerable();
 
-            var viajesFiltradosTemp = viajes.AsEnumerable();
-
-            // Solo filtra por estado (el filtro de pedido y usuario se aplica en la base de datos)
             if (!string.IsNullOrEmpty(EstadoSeleccionado) && EstadoSeleccionado != "Todos")
             {
-                viajesFiltradosTemp = viajesFiltradosTemp.Where(p => p.ultEstado == EstadoSeleccionado);
+                tempFiltered = tempFiltered.Where(p => p.ultEstado == EstadoSeleccionado);
             }
 
-            viajesFiltrados.Clear();
-
-            foreach (var viaje in viajesFiltradosTemp)
-            {
-                viajesFiltrados.Add(viaje);
-            }
-
-            ActualizarPropiedades();
-        }
-
-        private void ActualizarPropiedades()
-        {
+            ViajesFiltrados = new ObservableCollection<Viaje>(tempFiltered);
+            // Notify that calculated properties may have changed.
             OnPropertyChanged(nameof(TotalBarrilesFinalizados));
             OnPropertyChanged(nameof(BarrilesMostrados));
-        }
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

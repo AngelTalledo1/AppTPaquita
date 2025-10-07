@@ -1,163 +1,164 @@
-﻿    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Text;
-    using AppTransporte.model;
-    using System.Threading.Tasks;
-    using AppTransporte.Interfaces;
-    using System.Windows.Input;
+using AppTransporte.model;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
-    namespace AppTransporte.viewModel
+namespace AppTransporte.viewModel
+{
+    /// <summary>
+    /// ViewModel for managing and displaying lists of vehicles (Vehiculos).
+    /// This class handles loading Tractos and Cisternas, providing UI collections,
+    /// and filtering them based on type, search text, and sorting criteria.
+    /// </summary>
+    public class VMVehiculo : BaseViewModel
     {
-        public class VMVehiculo : INotifyPropertyChanged
-        {
-        public ObservableCollection<Vehiculo> Tractos { get; set; } = new ObservableCollection<Vehiculo>();
-        public ObservableCollection<Vehiculo> Cisternas { get; set; } = new ObservableCollection<Vehiculo>();
-
-        // Propiedades de filtrado
-        public List<string> TipoVehiculo { get; set; }
-        private string _filtroSeleccionado;
-        public List<string> Vencimiento { get; set; }
+        private bool _isBusy;
+        private string _filtroSeleccionado = "Tracto"; // Default filter
         private string _ordenSeleccionado;
+        private string _searchText;
 
-        public bool IsBusy { get; set; }
+        /// <summary>
+        /// Gets a collection of all loaded Tracto vehicles from the database.
+        /// </summary>
+        public ObservableCollection<Vehiculo> Tractos { get; } = new();
 
-        private ObservableCollection<Vehiculo> _vehiculosFiltrados = new ObservableCollection<Vehiculo>();
-        public ObservableCollection<Vehiculo> VehiculosFiltrados
+        /// <summary>
+        /// Gets a collection of all loaded Cisterna vehicles from the database.
+        /// </summary>
+        public ObservableCollection<Vehiculo> Cisternas { get; } = new();
+
+        /// <summary>
+        /// Gets the collection of vehicles currently displayed in the UI,
+        /// based on the selected filters.
+        /// </summary>
+        public ObservableCollection<Vehiculo> VehiculosFiltrados { get; private set; } = new();
+
+        /// <summary>
+        /// Gets the list of vehicle types available for filtering.
+        /// </summary>
+        public List<string> TiposVehiculo { get; }
+
+        /// <summary>
+        /// Gets the list of properties available for sorting vehicles.
+        /// </summary>
+        public List<string> CriteriosOrden { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the ViewModel is busy loading data.
+        /// </summary>
+        public bool IsBusy
         {
-            get => _vehiculosFiltrados;
-            set
-            {
-                _vehiculosFiltrados = value;
-                OnPropertyChanged(nameof(VehiculosFiltrados));
-            }
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
         }
 
-        // Propiedad que va a manejar la opción seleccionada del Picker (Cisterna o Tracto)
+        /// <summary>
+        /// Gets or sets the selected vehicle type filter ("Cisterna" or "Tracto").
+        /// Changing this value updates the displayed vehicle list.
+        /// </summary>
         public string FiltroSeleccionado
         {
             get => _filtroSeleccionado;
             set
             {
-                if (_filtroSeleccionado != value)
+                if (SetProperty(ref _filtroSeleccionado, value))
                 {
-                    _filtroSeleccionado = value;
-                    FiltrarVehiculos();
-                    OnPropertyChanged(nameof(FiltroSeleccionado));
+                    UpdateVehiculosFiltrados();
                 }
             }
         }
+
+        /// <summary>
+        /// Gets or sets the selected sorting criteria (e.g., "Poliza", "CITV").
+        /// Changing this value triggers a reload of data from the database.
+        /// </summary>
         public string OrdenSeleccionado
         {
             get => _ordenSeleccionado;
             set
             {
-                if (_ordenSeleccionado != value)
+                if (SetProperty(ref _ordenSeleccionado, value))
                 {
-                    _ordenSeleccionado = value;
-                    FiltrarVehiculos();
-                    OnPropertyChanged(nameof(OrdenSeleccionado));
+                    CargarVehiculosAsync();
                 }
             }
         }
 
-        // Propiedad para el filtro de búsqueda con el SearchBar
-        private string _searchText;
+        /// <summary>
+        /// Gets or sets the search text for filtering vehicles by license plate.
+        /// Changing this value triggers a reload of data from the database.
+        /// </summary>
         public string SearchText
         {
             get => _searchText;
             set
             {
-                if (_searchText != value)
+                if (SetProperty(ref _searchText, value))
                 {
-                    _searchText = value;
-                    FiltrarVehiculos(); // Se vuelve a filtrar cuando cambia el texto de búsqueda
-                    OnPropertyChanged(nameof(SearchText));
+                    CargarVehiculosAsync();
                 }
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VMVehiculo"/> class.
+        /// </summary>
         public VMVehiculo()
         {
-            TipoVehiculo = new List<string>
-            {
-                "Cisterna",
-                "Tracto"
-            };
-
-            Vencimiento = new List<string>
-            {
-                "Poliza",
-                "CITV",
-                "Cubicacion"
-            };
-            CargarVehiculos();
+            TiposVehiculo = new List<string> { "Tracto", "Cisterna" };
+            CriteriosOrden = new List<string> { "Poliza", "CITV", "Cubicacion" };
+            CargarVehiculosAsync();
         }
 
-        // Método para cargar los vehículos (tractos y cisternas)
-        private async void CargarVehiculos()
+        /// <summary>
+        /// Asynchronously loads vehicle data from the database based on current filter and sort settings.
+        /// </summary>
+        private async void CargarVehiculosAsync()
         {
+            if (IsBusy) return;
+
             IsBusy = true;
-
-            // Llamada para obtener vehículos según placa y orden
-            var tractos = await App.Database.ObtenerTractoAsync(placa: SearchText, ordenarPor: OrdenSeleccionado);
-            var cisternas = await App.Database.ObtenerCisternaAsync(placa: SearchText, ordenarPor: OrdenSeleccionado);
-
-            // Limpiar las listas y agregar los nuevos
-            Tractos.Clear();
-            Cisternas.Clear();
-
-            foreach (var tracto in tractos)
+            try
             {
-                Tractos.Add(tracto);
-            }
+                // Fetch both lists in parallel for efficiency
+                var tractosTask = App.Database.ObtenerTractoAsync(SearchText, OrdenSeleccionado);
+                var cisternasTask = App.Database.ObtenerCisternaAsync(SearchText, OrdenSeleccionado);
+                await Task.WhenAll(tractosTask, cisternasTask);
 
-            foreach (var cisterna in cisternas)
+                Tractos.Clear();
+                foreach (var tracto in await tractosTask)
+                {
+                    Tractos.Add(tracto);
+                }
+
+                Cisternas.Clear();
+                foreach (var cisterna in await cisternasTask)
+                {
+                    Cisternas.Add(cisterna);
+                }
+
+                UpdateVehiculosFiltrados();
+            }
+            catch (Exception ex)
             {
-                Cisternas.Add(cisterna);
+                Console.WriteLine($"Error loading vehicles: {ex.Message}");
             }
-
-            IsBusy = false;
-            FiltrarVehiculos(); // Filtrar después de cargar
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        // Método para filtrar los vehículos en base al filtro seleccionado y el texto de búsqueda
-        private void FiltrarVehiculos()
+        /// <summary>
+        /// Updates the <see cref="VehiculosFiltrados"/> collection based on the selected vehicle type.
+        /// </summary>
+        private void UpdateVehiculosFiltrados()
         {
-            var vehiculosFiltrados = new List<Vehiculo>();
-
-            // Filtrar según el tipo de vehículo seleccionado (tracto o cisterna)
-            if (FiltroSeleccionado == "Tracto")
-            {
-                vehiculosFiltrados.AddRange(Tractos);
-            }
-            else if (FiltroSeleccionado == "Cisterna")
-            {
-                vehiculosFiltrados.AddRange(Cisternas);
-            }
-
-            // Filtrar por texto de búsqueda si es necesario
-            if (!string.IsNullOrEmpty(SearchText))
-            {
-                vehiculosFiltrados = vehiculosFiltrados
-                    .Where(v => v.Placa.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-            }
-
-            // Asignar los vehículos filtrados a la propiedad ObservableCollection
-            VehiculosFiltrados = new ObservableCollection<Vehiculo>(vehiculosFiltrados);
+            ObservableCollection<Vehiculo> source = FiltroSeleccionado == "Tracto" ? Tractos : Cisternas;
+            VehiculosFiltrados = new ObservableCollection<Vehiculo>(source);
+            OnPropertyChanged(nameof(VehiculosFiltrados));
         }
-
-        // Evento para notificar cambios en las propiedades
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
     }
-    }
+}
